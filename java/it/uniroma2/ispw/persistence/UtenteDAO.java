@@ -35,20 +35,23 @@ private static SessionFactory sessionFactory = buildSessionFactory();
 		return sessionFactory;
 	}
 	
-	public void addUtente(UtenteRegistrato utente){
+	public UtenteRegistrato addUtente(UtenteRegistrato utente){
         Session session = sessionFactory.openSession();
         Transaction tx = null;
             try{
                 tx = session.beginTransaction();
                 session.save(utente);
                 tx.commit();
+                System.out.println("Utente aggiunto");
             }catch (HibernateException e) {
                 if (tx!=null) tx.rollback();
-                e.printStackTrace(); 
+                e.printStackTrace();
+                System.out.println("Utente NON aggiunto");
+                utente = null;
             }finally {
              session.close(); 
             }
-            System.out.println("Utente aggiunto");
+            return utente;
     }
 	
 	public boolean checkUtente(String email, String password){

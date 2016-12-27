@@ -1,13 +1,28 @@
 package it.uniroma2.ispw.controller;
 
 
+import it.uniroma2.ispw.bean.RegistrazioneBean;
 import it.uniroma2.ispw.model.Consumatore;
+import it.uniroma2.ispw.model.UtenteRegistrato;
 import it.uniroma2.ispw.model.Venditore;
 import it.uniroma2.ispw.persistence.UtenteDAO;
 
 public class GestisciUtente {
 
 	UtenteDAO u = new UtenteDAO();
+	
+	private static GestisciUtente instance;
+	 
+    public static GestisciUtente getInstance() {
+        if (instance == null)
+            instance = new GestisciUtente();
+        return instance;
+    }
+     
+    private GestisciUtente(){
+         
+    }
+	
 	
 	public boolean effettuaLogin(String email, String password){
 		
@@ -18,19 +33,21 @@ public class GestisciUtente {
 	}
 	
 	
-	public boolean effettuaRegistrazione(String nome, String cognome, String email, String password, 
-			String telefono, String residenza, String type){
-		if(u.checkUtente(email, password) == true){
-			return false;
+	public UtenteRegistrato effettuaRegistrazione(RegistrazioneBean regBean){
+		
+		UtenteRegistrato newUtente = null;
+		
+		if(u.checkUtente(regBean.getEmail(), regBean.getPassword()) == true){
+			return newUtente;
 		}
-		if(type.equals("Venditore")){
-			Venditore newUtente = new Venditore(nome, cognome, email, password, telefono, residenza);
+		if(regBean.getType().equals("Venditore")){
+			newUtente = new Venditore(regBean.getName(), regBean.getSurname(), regBean.getEmail(), regBean.getPassword(), regBean.getPassword(), regBean.getStreet());
 			u.addUtente(newUtente);
-		}else if(type.equals("Consumatore")){
-			Consumatore newUtente = new Consumatore(nome, cognome, email, password, telefono, residenza);
+		}else if(regBean.getType().equals("Consumatore")){
+			newUtente = new Consumatore(regBean.getName(), regBean.getSurname(), regBean.getEmail(), regBean.getPassword(), regBean.getPassword(), regBean.getStreet());
 			u.addUtente(newUtente);
 		}
-		return true;
+		return newUtente;
 	}
 
 }

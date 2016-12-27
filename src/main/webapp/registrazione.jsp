@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Agency - Start Bootstrap Theme</title>
+    <title>Shopping-Express</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -66,6 +66,63 @@
     </nav>
 
 
+<!--popup login-->
+	<div id="modalLogin" class="modal fade forget-modal-login" tabindex="-1" role="dialog" aria-labelledby="myLoginModalLabel" aria-hidden="true" data-backdrop="static">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">
+							<span aria-hidden="true">x</span>
+							<span class="sr-only">Close</span>
+						</button>
+						<h4 class="modal-title">Login</h4>
+					</div>	
+					<div class="modal-body">
+						<div class="form-wrap">
+							<div class="form-group">
+								<label for="usernameLogin" class="sr-only">Username</label>
+								<input type="text" id="usernameLogin" name="username" class="form-control" placeholder="Username">
+							</div>
+							<div class="form-group">
+								<label for="usernameLogin" class="sr-only">Password</label>
+								<input type="password" id="password" name="password" class="form-control" placeholder="Password">
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<input class="btn btn-custom" type="submit" id="btn-login" name="accedi" value="accedi">
+					</div>
+				</div>
+			</div>
+	</div>	
+
+
+
+
+<!--popup login non riuscito-->
+	<div id="modalErrlogin" class="modal fade forget-modal-errlogin" tabindex="-1" role="dialog" aria-labelledby="myLoginModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">
+							<span aria-hidden="true">x</span>
+							<span class="sr-only">Close</span>
+						</button>
+						<h4 class="modal-title">Errore</h4>
+					</div>	
+					<div class="modal-body">
+						<p>Errore nell'inserimento dei dati per il login, riprovare!</p>					
+					</div>
+					<div class="modal-footer">			
+						<input class="btn btn-custom" type="submit" id="btn-logout" name="ok" value="ok">
+					</div>
+				</div>
+			</div>
+	</div>	
+
+
+
+
     <!-- Contact Section -->
     <section id="registrazione">
         <div class="container">
@@ -77,52 +134,54 @@
             </div>
             <div class="row text-center">
                 <div class="col-lg-12">
-                    <form name="registrazione" id="registrazioneForm">
+                    <form name="registrazione" id="registrazioneForm" action="RegistrationServlet" method="post">
                         <div class="row">
 							<div class="col-md-6">
                                 <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="Nome" id="nome">
+                                    <input type="text" id="nomeRegistrazione" name="nome" class="form-control" >
                                     <p class="help-block text-danger"></p>
                                 </div>
 							</div>
 							<div class="col-md-6">
                                 <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="Cognome" id="cognome">
+                                    <input type="text" id="cognomeRegistazione" name="cognome" class="form-control">
                                     <p class="help-block text-danger"></p>
                                 </div>
                             </div>
 							<div class="form-group">
-								<input type="text" class="form-control" placeholder="Email" id="email">
+								<input type="text" id="emailRegistrazione" name="email" class="form-control">
                                 <p class="help-block text-danger"></p>
                             </div>
 							<div class="form-group">
-								<input type="text" class="form-control" placeholder="Password" id="password">
+								<input type="password" id="passwordRegistrazione" name="password" class="form-control">
                                 <p class="help-block text-danger"></p>
                             </div>
 							<div class="form-group">
-								<input type="text" class="form-control" placeholder="Ripeti password" id="rippass">
+								<input type="password" id="rippasswordRegistrazione" name="rippassword" class="form-control">
                                 <p class="help-block text-danger"></p>
                             </div>
 							<div class="col-md-6">
                                 <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="Telefono" id="telefono">
+                                    <input type="text" id="telefonoRegistrazione" name="telefono" class="form-control">
                                     <p class="help-block text-danger"></p>
                                 </div>
                             </div>
 							<div class="form-group">
-								<input type="text" class="form-control" placeholder="Indirizzo" id="indirizzo">
+								<input type="text" id="indirizzoRegistrazione" name="indirizzo" class="form-control">
                                 <p class="help-block text-danger"></p>
                             </div>
 							<div class="checkbox">
 								<label>
-									<input type="checkbox" class="text-primary"> Ho letto e accettato il regolamento
+									<input type="checkbox" name="regCheck" id="check_value" class="text-primary">Ho letto e accettato regolamento<br>
+									<input type="radio" value="Venditore" name="typeReg" id="check_value" class="text-primary">Venditore<br>
+									<input type="radio" value="Consumatore" name="typeReg" id="check_value" class="text-primary">Consumatore<br>
 								</label>
 							</div>
             
 							<div class="clearfix"></div>
                             <div class="col-lg-12 text-center">
                                 <div id="success"></div>
-                                <button type="submit" class="btn btn-xl">Invia</button>
+                                <button type="button" class="btn btn-xl" data-toggle="modal" data-target="#modalErroreReg">Invia</button>
                             </div>
 							
                         </div>
@@ -132,6 +191,29 @@
         </div>
     </section>
 	
+
+<!--popup errore registrazione-->
+    <div id="modalErroreReg" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLoginModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">
+					<span aria-hidden="true">x</span>
+					<span class="sr-only">Close</span>
+				</button>
+				<h4 class="modal-title">Errore</h4>
+			</div>	
+			<div class="modal-body">
+				<p>Registrazione fallita, riprovare!</p>
+			</div>
+			<div class="modal-footer">
+				<input class="btn btn-custom" type="submit" id="btn-ok" name="ok" value="ok">
+			</div>
+		</div>
+	</div>
+    </div>	
+
+
 
     <footer>
         <div class="container">

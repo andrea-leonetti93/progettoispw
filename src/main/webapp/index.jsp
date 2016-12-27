@@ -71,8 +71,7 @@
         <!-- /.container-fluid -->
     </nav>
 
-
-
+<!-- popup login -->
 	<div id="modalLogin" class="modal fade forget-modal-login" tabindex="-1" role="dialog" aria-labelledby="myLoginModalLabel" aria-hidden="true">
 			<div class="modal-dialog">
 				<div class="modal-content">
@@ -85,22 +84,50 @@
 					</div>	
 					<div class="modal-body">
 						<div class="form-wrap">
-							<div class="form-group">
-								<label for="usernameLogin" class="sr-only">Username</label>
-								<input type="text" id="usernameLogin" name="username" class="form-control" placeholder="Username">
-							</div>
-							<div class="form-group">
-								<label for="usernameLogin" class="sr-only">Password</label>
-								<input type="password" id="password" name="password" class="form-control" placeholder="Password">
-							</div>
+							<form action="LoginServlet" method="post">
+								<div class="form-group">
+									<label for="usernameLogin" class="sr-only">Username</label>
+									<input type="text" id="usernameLogin" name="username" class="form-control" placeholder="Username">
+								</div>
+								<div class="form-group">
+									<label for="usernameLogin" class="sr-only">Password</label>
+									<input type="password" id="password" name="password" class="form-control" placeholder="Password">
+								</div>
+								<div class="modal-footer">
+									<input class="btn btn-custom" type="submit" id="btn-login" name="accedi" value="accedi">
+								</div>
+							</form>
+							
 						</div>
+						
 					</div>
-					<div class="modal-footer">
-						<input class="btn btn-custom" type="submit" id="btn-login" name="accedi" value="accedi">
+				</div>
+				</div>
+			</div>
+
+
+<!--popup login non riuscito-->
+	<div id="modalErrlogin" class="modal fade forget-modal-errlogin" tabindex="-1" role="dialog" aria-labelledby="myLoginModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">
+							<span aria-hidden="true">x</span>
+							<span class="sr-only">Close</span>
+						</button>
+						<h4 class="modal-title">Errore</h4>
+					</div>	
+					<div class="modal-body">
+						<p>Errore nell'inserimento dei dati per il login, riprovare!</p>					
+					</div>
+					<div class="modal-footer">			
+						<input class="btn btn-custom" type="submit" id="btn-logout" name="ok" value="ok">
 					</div>
 				</div>
 			</div>
 	</div>	
+
+
 
     <!-- Header -->
     <header>
