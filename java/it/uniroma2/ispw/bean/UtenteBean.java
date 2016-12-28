@@ -3,8 +3,12 @@ package it.uniroma2.ispw.bean;
 import it.uniroma2.ispw.controller.GestisciUtente;
 import it.uniroma2.ispw.model.UtenteRegistrato;
 
+
 public class UtenteBean {
 	
+
+
+
 	private String name;
     private String surname;
     private String email;
