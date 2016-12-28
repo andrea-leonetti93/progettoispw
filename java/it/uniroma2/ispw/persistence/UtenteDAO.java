@@ -54,7 +54,21 @@ private static SessionFactory sessionFactory = buildSessionFactory();
             return utente;
     }
 	
-	public boolean checkUtente(String email, String password){
-		return true;
+	public UtenteRegistrato checkUtente(String username, String password){
+		Session session = sessionFactory.openSession();
+	    Transaction tx = null;
+	    try{
+	    	tx = session.beginTransaction();
+	    	UtenteRegistrato u = (UtenteRegistrato) session.get(UtenteRegistrato.class, username);
+	    	if(u.getPassword().equals(password)){
+	    		return u;
+	    	}
+	    }catch (HibernateException e) {
+    		if (tx!=null) tx.rollback();
+    		e.printStackTrace(); 
+    	}finally {
+         session.close(); 
+    	}
+		return null;
 	}
 }

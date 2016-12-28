@@ -3,8 +3,8 @@ package it.uniroma2.ispw.bean;
 import it.uniroma2.ispw.controller.GestisciUtente;
 import it.uniroma2.ispw.model.UtenteRegistrato;
 
-public class RegistrazioneBean {
-
+public class UtenteBean {
+	
 	private String name;
     private String surname;
     private String email;
@@ -12,7 +12,18 @@ public class RegistrazioneBean {
     private String telephone;
     private String street;
     private String type;
-     
+
+    
+    public UtenteBean(){
+		this.name="";
+		this.surname="";
+		this.email="";
+		this.password="";
+		this.telephone="";
+		this.street="";
+		this.type="";
+	}
+    
     public String getName() {
         return name;
     }
@@ -71,5 +82,4 @@ public class RegistrazioneBean {
          
         return true;
     }
-	
 }

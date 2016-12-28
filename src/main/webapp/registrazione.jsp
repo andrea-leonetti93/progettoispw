@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 
+
+<jsp:useBean id="utente" scope="session" class="it.uniroma2.ispw.bean.UtenteBean"/>
+
+
+
+<jsp:setProperty name="utente" property="*"/>
+
+
 <head>
 
     <meta charset="utf-8">
@@ -79,14 +87,16 @@
 					</div>	
 					<div class="modal-body">
 						<div class="form-wrap">
-							<div class="form-group">
-								<label for="usernameLogin" class="sr-only">Username</label>
-								<input type="text" id="usernameLogin" name="username" class="form-control" placeholder="Username">
-							</div>
-							<div class="form-group">
-								<label for="usernameLogin" class="sr-only">Password</label>
-								<input type="password" id="password" name="password" class="form-control" placeholder="Password">
-							</div>
+							<form action="upload.jsp" method="post">
+								<div class="form-group">
+									<label for="usernameLogin" class="sr-only">Username</label>
+									<input type="text" id="email" name="email" class="form-control" placeholder="Username">
+								</div>
+								<div class="form-group">
+									<label for="usernameLogin" class="sr-only">Password</label>
+									<input type="password" id="password" name="password" class="form-control" placeholder="Password">
+								</div>
+							</form>
 						</div>
 					</div>
 					<div class="modal-footer">
@@ -134,17 +144,17 @@
             </div>
             <div class="row text-center">
                 <div class="col-lg-12">
-                    <form name="registrazione" id="registrazioneForm" action="RegistrationServlet" method="post">
+                    <form name="registrazione" id="registrazioneForm" action="upload.jsp" method="post">
                         <div class="row">
 							<div class="col-md-6">
                                 <div class="form-group">
-                                    <input type="text" id="nomeRegistrazione" name="nome" class="form-control" >
+                                    <input type="text" id="nomeRegistrazione" name="name" class="form-control" >
                                     <p class="help-block text-danger"></p>
                                 </div>
 							</div>
 							<div class="col-md-6">
                                 <div class="form-group">
-                                    <input type="text" id="cognomeRegistazione" name="cognome" class="form-control">
+                                    <input type="text" id="cognomeRegistazione" name="surname" class="form-control">
                                     <p class="help-block text-danger"></p>
                                 </div>
                             </div>
@@ -162,19 +172,19 @@
                             </div>
 							<div class="col-md-6">
                                 <div class="form-group">
-                                    <input type="text" id="telefonoRegistrazione" name="telefono" class="form-control">
+                                    <input type="text" id="telefonoRegistrazione" name="telephone" class="form-control">
                                     <p class="help-block text-danger"></p>
                                 </div>
                             </div>
 							<div class="form-group">
-								<input type="text" id="indirizzoRegistrazione" name="indirizzo" class="form-control">
+								<input type="text" id="indirizzoRegistrazione" name="street" class="form-control">
                                 <p class="help-block text-danger"></p>
                             </div>
 							<div class="checkbox">
 								<label>
 									<input type="checkbox" name="regCheck" id="check_value" class="text-primary">Ho letto e accettato regolamento<br>
-									<input type="radio" value="Venditore" name="typeReg" id="check_value" class="text-primary">Venditore<br>
-									<input type="radio" value="Consumatore" name="typeReg" id="check_value" class="text-primary">Consumatore<br>
+									<input type="radio" value="Venditore" name="type" id="check_value" class="text-primary">Venditore<br>
+									<input type="radio" value="Consumatore" name="type" id="check_value" class="text-primary">Consumatore<br>
 								</label>
 							</div>
             

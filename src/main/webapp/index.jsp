@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 
+
+<jsp:useBean id="utente" scope="session" class="it.uniroma2.ispw.bean.UtenteBean"/>
+
+
+
+<jsp:setProperty name="utente" property="*"/>
+
+
 <head>
 
     <meta charset="utf-8">
@@ -84,10 +92,10 @@
 					</div>	
 					<div class="modal-body">
 						<div class="form-wrap">
-							<form action="LoginServlet" method="post">
+							<form action="upload.jsp" method="post">
 								<div class="form-group">
 									<label for="usernameLogin" class="sr-only">Username</label>
-									<input type="text" id="usernameLogin" name="username" class="form-control" placeholder="Username">
+									<input type="text" id="email" name="email" class="form-control" placeholder="Username">
 								</div>
 								<div class="form-group">
 									<label for="usernameLogin" class="sr-only">Password</label>
