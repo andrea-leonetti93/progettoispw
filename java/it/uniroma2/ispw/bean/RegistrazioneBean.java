@@ -2,7 +2,7 @@ package it.uniroma2.ispw.bean;
 
 import it.uniroma2.ispw.controller.GestisciUtente;
 import it.uniroma2.ispw.model.UtenteRegistrato;
-//prova
+
 public class RegistrazioneBean {
 
 	private String name;
