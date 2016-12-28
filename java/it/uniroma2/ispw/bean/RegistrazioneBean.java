@@ -5,8 +5,7 @@ import it.uniroma2.ispw.model.UtenteRegistrato;
 
 public class RegistrazioneBean {
 
-	private String prova;
-	private String name;
+    private String name;
     private String surname;
     private String email;
     private String password;
