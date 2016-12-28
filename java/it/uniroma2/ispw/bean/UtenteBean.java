@@ -9,7 +9,7 @@ public class UtenteBean {
 
 
 
-	private String name;
+    private String name;
     private String surname;
     private String email;
     private String password;
