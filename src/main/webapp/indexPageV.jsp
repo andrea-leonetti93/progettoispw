@@ -5,10 +5,21 @@
 
 
 <jsp:useBean id="utente" scope="session" class="it.uniroma2.ispw.bean.UtenteBean"/>
-
-
-
 <jsp:setProperty name="utente" property="*"/>
+
+<%
+
+UtenteBean v = (UtenteBean) session.getAttribute("utente");
+String saluto = (String) session.getAttribute("ciao");
+out.println("o");
+out.println(v.getName());
+out.println("o");
+out.println(saluto);
+
+
+
+
+%>
 
 
 <!DOCTYPE html>
@@ -72,7 +83,7 @@
                         <a class="forget" data-toggle="modal" data-target=".forget-modal-logout" href="#modalLogout">Logout</a>
                     </li>
                     <li>
-                        <a class="page-scroll" href="profilo.jsp">Profilo</a>
+                        <a class="page-scroll" href="profilo.jsp">Venditore</a>
                     </li>
                     <li>
                         <a class="page-scroll" href="#team">Regolamento</a>

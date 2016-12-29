@@ -34,6 +34,7 @@ public class GestisciUtente {
 				uBean.setType("Consumatore");
 			}
 			//uBean.setType(ur.instanceof(Venditore));//insanceof()
+			uBean.setName(ur.getNome());
 			return true;
 		}
 		return false;
@@ -54,6 +55,7 @@ public class GestisciUtente {
 			newUtente = new Consumatore(uBean.getName(), uBean.getSurname(), uBean.getEmail(), uBean.getPassword(), uBean.getPassword(), uBean.getStreet());
 			u.addUtente(newUtente);
 		}
+		
 		return newUtente;
 	}
 

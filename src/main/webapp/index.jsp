@@ -5,9 +5,6 @@
 
 
 <jsp:useBean id="utente" scope="session" class="it.uniroma2.ispw.bean.UtenteBean"/>
-
-
-
 <jsp:setProperty name="utente" property="*"/>
 
 <%
@@ -16,6 +13,8 @@
 		if(utente.validate()){
 			if(utente.getType().equals("Venditore")){
 				//vai a pagina venditore
+				session.setAttribute("utente",utente);
+				session.setAttribute("ciao", "ciao");
 				response.sendRedirect("indexPageV.jsp");
 			}else{
 				//vai a pagina consumatore
@@ -119,7 +118,7 @@
 					</div>	
 					<div class="modal-body">
 						<div class="form-wrap">
-							<form method="post">
+						<form action="index.jsp" method="post">
 								<div class="form-group">
 									<label for="usernameLogin" class="sr-only">Username</label>
 									<input type="text" id="email" name="email" class="form-control" placeholder="Username">
