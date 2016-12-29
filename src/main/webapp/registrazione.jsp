@@ -1,5 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ page import="it.uniroma2.ispw.bean.*" %>
+<%@ page import="it.uniroma2.ispw.controller.*" %>
+<%@ page import="it.uniroma2.ispw.model.*" %>
 
 
 <jsp:useBean id="utente" scope="session" class="it.uniroma2.ispw.bean.UtenteBean"/>
@@ -8,7 +10,41 @@
 
 <jsp:setProperty name="utente" property="*"/>
 
+<%
+	if(request.getParameter("accedi") != null){
+		
+		if(utente.validate()){
+			if(utente.getType().equals("Venditore")){
+				//vai a pagina venditore
+				response.sendRedirect("indexPageV.jsp");
+			}else{
+				//vai a pagina consumatore
+				response.sendRedirect("indexPageC.jsp");
+			}
+			
+		}else{
+			%>
+		<script type="text/javascript">
+			$('#modalErrLogin').openModal();
+		</script>
+		
+		<%	
+		}
+	}
+%>
 
+<%
+	if(request.getParameter("invia") != null){
+		if(utente.effettuaRegistrazione() == true){
+			response.sendRedirect("index.jsp");
+		}else{
+			response.sendRedirect("registrazione.jsp");
+		}
+	}
+%>
+
+<!DOCTYPE html>
+<html lang="en">
 <head>
 
     <meta charset="utf-8">
@@ -191,7 +227,7 @@
 							<div class="clearfix"></div>
                             <div class="col-lg-12 text-center">
                                 <div id="success"></div>
-                                <button type="button" class="btn btn-xl" data-toggle="modal" data-target="#modalErroreReg">Invia</button>
+                                <button type="submit" class="btn btn-xl" name="invia" value="invia">Invia</button>
                             </div>
 							
                         </div>

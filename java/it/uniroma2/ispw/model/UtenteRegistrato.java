@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.IdClass;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Table;
@@ -17,6 +18,7 @@ import javax.persistence.Table;
 
 
 @Entity
+//@IdClass(UtenteRegistratoPK.class)
 @Table(name = "UtenteRegistrato")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "type", discriminatorType = DiscriminatorType.STRING)
@@ -41,16 +43,20 @@ public class UtenteRegistrato implements Serializable{
 	@Column(name = "password")
 	String password;
 	
-	@Id
+	/*@Id
 	@Column(name = "userID")
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int userID;
+	private int userID;*/
 	
 	@Column(name = "telefono")
 	String telefono;
 	
 	@Column(name = "residenza")
 	String residenza;
+	
+		
+	public UtenteRegistrato(){}
+	
 	
 	public UtenteRegistrato(String nome, String cognome, String email, String password, String telefono,
 			String residenza) {
@@ -76,9 +82,7 @@ public class UtenteRegistrato implements Serializable{
 	public String getPassword() {
 		return password;
 	}
-	public int getUserID() {
-		return userID;
-	}
+	
 	public String getTelefono() {
 		return telefono;
 	}
@@ -97,14 +101,11 @@ public class UtenteRegistrato implements Serializable{
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public void setUserid(int userID) {
-		this.userID = userID;
-	}
 	public void setTelefono(String telefono) {
 		this.telefono = telefono;
 	}
 	public void setResidenza(String residenza) {
 		this.residenza = residenza;
 	}
-
+	
 }

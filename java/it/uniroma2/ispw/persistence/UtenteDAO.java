@@ -7,9 +7,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 
-import it.uniroma2.ispw.model.Consumatore;
 import it.uniroma2.ispw.model.UtenteRegistrato;
-import it.uniroma2.ispw.model.Venditore;
 
 
 public class UtenteDAO {
@@ -54,12 +52,13 @@ private static SessionFactory sessionFactory = buildSessionFactory();
             return utente;
     }
 	
-	public UtenteRegistrato checkUtente(String username, String password){
+	public UtenteRegistrato checkUtente(String email, String password){
 		Session session = sessionFactory.openSession();
 	    Transaction tx = null;
 	    try{
 	    	tx = session.beginTransaction();
-	    	UtenteRegistrato u = (UtenteRegistrato) session.get(UtenteRegistrato.class, username);
+	    	UtenteRegistrato u = (UtenteRegistrato) session.get(UtenteRegistrato.class, email);
+	    	System.out.println("Utente trovato");
 	    	if(u.getPassword().equals(password)){
 	    		return u;
 	    	}

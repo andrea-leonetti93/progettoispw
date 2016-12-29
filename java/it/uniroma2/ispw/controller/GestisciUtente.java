@@ -24,9 +24,16 @@ public class GestisciUtente {
     }
 	
 	
-	public boolean effettuaLogin(String email, String password){
-		
-		if(u.checkUtente(email, password) != null){
+	public boolean effettuaLogin(UtenteBean uBean){
+		UtenteRegistrato ur = null;
+		System.out.println("Entrato in effettualogin");
+		if((ur = u.checkUtente(uBean.getEmail(), uBean.getPassword())) != null){
+			if(ur instanceof Venditore){
+				uBean.setType("Venditore");
+			}else if(ur instanceof Consumatore){
+				uBean.setType("Consumatore");
+			}
+			//uBean.setType(ur.instanceof(Venditore));//insanceof()
 			return true;
 		}
 		return false;

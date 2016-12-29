@@ -9,6 +9,9 @@ import javax.persistence.Entity;
 @DiscriminatorValue(value = "consumatore")
 public class Consumatore extends UtenteRegistrato{
 
+	public Consumatore(){
+		super();
+	}
 	
 	public Consumatore(String nome, String cognome, String email, String password,
 			String telefono, String residenza){

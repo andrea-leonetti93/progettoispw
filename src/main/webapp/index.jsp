@@ -1,5 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ page import="it.uniroma2.ispw.bean.*" %>
+<%@ page import="it.uniroma2.ispw.controller.*" %>
+<%@ page import="it.uniroma2.ispw.model.*" %>
 
 
 <jsp:useBean id="utente" scope="session" class="it.uniroma2.ispw.bean.UtenteBean"/>
@@ -8,7 +10,32 @@
 
 <jsp:setProperty name="utente" property="*"/>
 
+<%
+	if(request.getParameter("accedi") != null){
+		
+		if(utente.validate()){
+			if(utente.getType().equals("Venditore")){
+				//vai a pagina venditore
+				response.sendRedirect("indexPageV.jsp");
+			}else{
+				//vai a pagina consumatore
+				response.sendRedirect("indexPageC.jsp");
+			}
+			
+		}else{
+			%>
+		<script type="text/javascript">
+			$('#modalErrLogin').openModal();
+		</script>
+		
+		<%	
+		}
+	}
+%>
 
+
+<!DOCTYPE html>
+<html lang="en">
 <head>
 
     <meta charset="utf-8">
@@ -92,7 +119,7 @@
 					</div>	
 					<div class="modal-body">
 						<div class="form-wrap">
-							<form action="upload.jsp" method="post">
+							<form method="post">
 								<div class="form-group">
 									<label for="usernameLogin" class="sr-only">Username</label>
 									<input type="text" id="email" name="email" class="form-control" placeholder="Username">

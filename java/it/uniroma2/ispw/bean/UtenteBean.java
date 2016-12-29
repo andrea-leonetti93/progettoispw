@@ -7,8 +7,6 @@ import it.uniroma2.ispw.model.UtenteRegistrato;
 public class UtenteBean {
 	
 
-
-
     private String name;
     private String surname;
     private String email;
@@ -77,13 +75,20 @@ public class UtenteBean {
          
         GestisciUtente gu = GestisciUtente.getInstance();
          
-        UtenteRegistrato ur = null;
-         
-        ur = gu.effettuaRegistrazione(this);
-        if (ur == null){
-            return false;
-        }
-         
-        return true;
+        return gu.effettuaLogin(this);
+    }
+    
+    
+    public boolean effettuaRegistrazione(){
+    	
+    	GestisciUtente gu = GestisciUtente.getInstance();
+    	
+    	UtenteRegistrato ur = null;
+    	
+    	ur = gu.effettuaRegistrazione(this);
+    	if(ur == null){
+    		return false;
+    	}
+    	return true;
     }
 }
