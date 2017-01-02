@@ -181,6 +181,7 @@
             <div class="row text-center">
                 <div class="col-lg-12">
                     <form name="registrazione" id="registrazioneForm" action="index.jsp" method="post">
+
                         <div class="row">
 							<div class="col-md-6">
                                 <div class="form-group">

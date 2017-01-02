@@ -59,8 +59,10 @@ private static SessionFactory sessionFactory = buildSessionFactory();
 	    	tx = session.beginTransaction();
 	    	UtenteRegistrato u = (UtenteRegistrato) session.get(UtenteRegistrato.class, email);
 	    	System.out.println("Utente trovato");
-	    	if(u.getPassword().equals(password)){
-	    		return u;
+	    	if(u != null){
+	    		if(u.getPassword().equals(password)){
+	    			return u;
+	    		}
 	    	}
 	    }catch (HibernateException e) {
     		if (tx!=null) tx.rollback();
