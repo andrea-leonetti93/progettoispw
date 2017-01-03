@@ -5,7 +5,7 @@ import it.uniroma2.ispw.model.Prodotto;
 
 public class InsProdottoBean {
 
-	private String nome;
+	private String name;
 	private String category;
 	private String typology;
 	private int amount;
@@ -16,7 +16,7 @@ public class InsProdottoBean {
 	private UtenteBean utente;
 	
 	public InsProdottoBean(){
-		this.nome = "";
+		this.name = "";
 		this.category = "";
 		this.typology = "";
 		this.amount = 0;
@@ -28,12 +28,12 @@ public class InsProdottoBean {
 	}
 
 	
-	public String getNome() {
-		return nome;
+	public String getName() {
+		return name;
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public String getCategory() {
