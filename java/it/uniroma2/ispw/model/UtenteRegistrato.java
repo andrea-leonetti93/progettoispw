@@ -2,6 +2,7 @@ package it.uniroma2.ispw.model;
 
 
 import java.io.Serializable;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
@@ -13,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 
@@ -54,6 +56,9 @@ public class UtenteRegistrato implements Serializable{
 	@Column(name = "residenza")
 	String residenza;
 	
+
+	@OneToMany(mappedBy = "utenteRegistrato")
+	protected Set<Prodotto> prodotti;
 		
 	public UtenteRegistrato(){}
 	
@@ -106,6 +111,14 @@ public class UtenteRegistrato implements Serializable{
 	}
 	public void setResidenza(String residenza) {
 		this.residenza = residenza;
+	}
+	
+	public Set<Prodotto> getProdotti() {
+		return prodotti;
+	}
+
+	public void setProdotti(Set<Prodotto> prodotti) {
+		this.prodotti = prodotti;
 	}
 	
 }
