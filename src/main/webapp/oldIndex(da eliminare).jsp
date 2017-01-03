@@ -10,34 +10,35 @@
 <jsp:useBean id="loginb" scope="session" class="it.uniroma2.ispw.bean.LoginBean"/>
 <jsp:setProperty name="loginb" property="*"/>
 
-<jsp:useBean id="regb" scope="session" class="it.uniroma2.ispw.bean.RegistrazioneBean"/>
-<jsp:setProperty name="regb" property="*"/>
-
 <%
-
-UtenteSessione us = (UtenteSessione) session.getAttribute("utente");
-
+	
 if(request.getParameter("accedi") != null){
-	System.out.println("login cliccato");
-	us = loginb.validate();
-	if(us != null){
-			session.setAttribute("utente",us);
-			response.sendRedirect("index.jsp");
-	}else{
-		//pagina di errore o javascript?
+		
+		UtenteSessione us = loginb.validate();
+		if(us != null){
+				
+				session.setAttribute("utente",us);
+				response.sendRedirect("indexPageR.jsp");
+		}else{
+			
+			//pagina di errore o javascript?
+		}
 	}
-}
 
-if(request.getParameter("inviaReg") != null){
-	if(regb.effettuaRegistrazione() == true){
-		//ti sei registrato, ti porto alla home
-		response.sendRedirect("index.jsp");
-	}else{
-		//registrazione fallita, mettiamo un popup o cosa?
-		response.sendRedirect("registrazione.jsp");
+	if(request.getParameter("invia") != null){
+		
+		out.println("we");
+	
 	}
-}
+	
+	if (request.getParameter("logout") != null){
+
+		
+		session.invalidate();
+		
+	}
 %>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -95,24 +96,23 @@ if(request.getParameter("inviaReg") != null){
                     <li>
                         <a class="page-scroll" href="#ricerca">Cerca prodotto</a>
                     </li>
-                  	 <li>
+                    <li>
                         <a class="forget" data-toggle="modal" data-target=".forget-modal-login" href="#modalLogin">Login</a>
                     </li>
                     <li>
                         <a class="page-scroll" href="registrazione.jsp">Registrazione</a>
                     </li>
-                    <li>
-                        <a class="page-scroll" href="#team"></a>
-                    </li>
-                
+                   
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
         </div>
         <!-- /.container-fluid -->
     </nav>
+    
 
-	<!-- popup login -->
+
+<!-- popup login -->
 	<div id="modalLogin" class="modal fade forget-modal-login" tabindex="-1" role="dialog" aria-labelledby="myLoginModalLabel" aria-hidden="true">
 			<div class="modal-dialog">
 				<div class="modal-content">
@@ -145,8 +145,9 @@ if(request.getParameter("inviaReg") != null){
 				</div>
 				</div>
 			</div>
-			
-			<!--popup login non riuscito-->
+
+
+<!--popup login non riuscito-->
 	<div id="modalErrlogin" class="modal fade forget-modal-errlogin" tabindex="-1" role="dialog" aria-labelledby="myLoginModalLabel" aria-hidden="true">
 			<div class="modal-dialog">
 				<div class="modal-content">
@@ -166,108 +167,68 @@ if(request.getParameter("inviaReg") != null){
 				</div>
 			</div>
 	</div>	
-			
 
 
 
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="intro-text">
+                <div class="intro-lead-in">Benvenuto nel nostro sito di e-commerce!</div>
+                <div class="intro-heading">It's Nice To Meet You</div>
+            </div>
+        </div>
+    </header>
 
-    <!-- Contact Section -->
-    <section id="registrazione">
+    <!-- Services Section -->
+    <section id="ricerca">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <h2 class="section-heading">Registrazione</h2>
-					<p class="help-block text-danger"> </p>
-				</div>
+                    <h2 class="section-heading">Ricerca Prodotto</h2>
+                </div>
             </div>
             <div class="row text-center">
                 <div class="col-lg-12">
-                    <form name="registrazione" id="registrazioneForm" action="registrazione.jsp" method="post">
-                    <div class="row">
-                    		<div class="form-group">
-								<input type="text" id="useridRegistrazione" placeholder="Userid" name="userid" class="form-control">
-                                <p class="help-block text-danger"></p>
-                            </div>
-							<div class="col-md-6">
-                                <div class="form-group">
-                                    <input type="text" id="nomeRegistrazione" placeholder="Nome" name="name" class="form-control" >
-                                    <p class="help-block text-danger"></p>
-                                </div>
+					<form name="cerca" id="ricercaForm">
+						<div class="row">
+							<div class="form-group">
+								<input type="text" class="form-control" placeholder="Categoria"  id="categoria" >
+								<p class="help-block text-danger" ></p>
+							</div>
+							<div class="form-group">
+								<input type="text" class="form-control" placeholder="Tipologia"  id="tipologia" >
+								<p class="help-block text-danger" ></p>
+							</div>
+							<div class="form-group">
+								<input type="text" class="form-control" placeholder="Nome prodotto"  id="nomeprodotto" >
+								<p class="help-block text-danger" ></p>
 							</div>
 							<div class="col-md-6">
-                                <div class="form-group">
-                                <input type="text" id="cognomeRegistazione" placeholder="Cognome" name="surname" class="form-control">
-                                    <p class="help-block text-danger"></p>
-                                </div>
-                            </div>
-							<div class="form-group">
-								<input type="text" id="emailRegistrazione" placeholder="Email" name="email" class="form-control">
-                                <p class="help-block text-danger"></p>
-                            </div>
-							<div class="form-group">
-								<input type="password" id="passwordRegistrazione" placeholder="Password" name="password" class="form-control">
-                                <p class="help-block text-danger"></p>
-                            </div>
-							<div class="form-group">
-								<input type="password" id="rippasswordRegistrazione" placeholder="Ripeti Password" name="rippassword" class="form-control">
-                                <p class="help-block text-danger"></p>
-                            </div>
-							<div class="col-md-6">
-                                <div class="form-group">
-                                    <input type="text" id="telefonoRegistrazione" placeholder="Telefono" name="telephone" class="form-control">
-                                    <p class="help-block text-danger"></p>
-                                </div>
-                            </div>
-							<div class="form-group">
-								<input type="text" id="indirizzoRegistrazione" placeholder="Indirizzo" name="street" class="form-control">
-                                <p class="help-block text-danger"></p>
-                            </div>
-							<div class="checkbox">
-								<label>
-									<input type="checkbox" name="regCheck" id="check_value" class="text-primary"><font color="white">Ho letto e accettato il regolamento</font> <br>
-									<input type="radio" value="Venditore" name="type" id="check_value" class="text-primary"> <font color="white">Venditore</font> <br>
-									<input type="radio" value="Consumatore" name="type" id="check_value" class="text-primary"><font color="white">Consumatore</font> <br>
-								</label>
+								<div class="form-group">
+									<input type="text" class="form-control" placeholder="Prezzo min"  id="prezzomin" >
+									<p class="help-block text-danger" ></p>									
+								</div>
 							</div>
-            
-							<div class="clearfix"></div>
-                            <div class="col-lg-12 text-center">
-                                <div id="success"></div>
-                                <button type="submit" class="btn btn-xl" name="inviaReg" value="inviaReg">Invia</button>
-                            </div>
-							
-                        </div>
-                    </form>
+							<div class="col-md-6">
+								<div class="form-group">
+									<input type="text" class="form-control" placeholder="Prezzo max"  id="prezzomax" >
+									<p class="help-block text-danger" ></p>									
+								</div>
+							</div>
+							<div class="form-group">
+								<input type="button" class="btn-xl" id="btncerca" value="cerca">
+								<p class="help-block text-danger"></p>							
+							</div>
+						</div>	
+					</form>
                 </div>
             </div>
         </div>
     </section>
-	
+   
 
-<!--popup errore registrazione-->
-    <div id="modalErroreReg" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLoginModalLabel" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal">
-					<span aria-hidden="true">x</span>
-					<span class="sr-only">Close</span>
-				</button>
-				<h4 class="modal-title">Errore</h4>
-			</div>	
-			<div class="modal-body">
-				<p>Registrazione fallita, riprovare!</p>
-			</div>
-			<div class="modal-footer">
-				<input class="btn btn-custom" type="submit" id="btn-ok" name="ok" value="ok">
-			</div>
-		</div>
-	</div>
-    </div>	
-
-
-
-    <footer>
+	<footer>
         <div class="container">
             <div class="row">
                 <div class="col-md-4">
@@ -275,17 +236,16 @@ if(request.getParameter("inviaReg") != null){
                 </div>
                 <div class="col-md-4">
                     <ul class="list-inline quicklinks">
-                        <li><a href="#">Regolamento</a>
+                         <li><a href="#" style="float:right">Regolamento</a>
                         </li>
-                        <li><a href="#">Contattaci</a>
+                        <li><a href="#" style="float:right">Contattaci</a>
                         </li>
                     </ul>
                 </div>
             </div>
         </div>
     </footer>
-
- 
+   
 
     <!-- jQuery -->
     <script src="vendor/jquery/jquery.min.js"></script>

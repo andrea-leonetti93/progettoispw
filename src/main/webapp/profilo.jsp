@@ -12,24 +12,33 @@
 
 UtenteSessione us = (UtenteSessione) session.getAttribute("utente");
 
-if(request.getParameter("invia") != null){
-	
+if(request.getParameter("salvaInfo") != null){
 	if (updatebean.updateUtente(us.getUserid(),us.getEmail())){
 		System.out.println("info aggiornate");
-		response.sendRedirect("profilo.jsp");
+		response.sendRedirect("index.jsp");
 	}
-	
 	else {
-		System.out.println("info NON aggiornate");
+		out.println("Impossibile aggiornare il profilo!");
 		response.sendRedirect("profilo.jsp");
-		
 	}
-	
 }
 
 if (!(updatebean.getUtente(us.getEmail()))){
-	//errore
+	//errore, impossibile reperire le informazioni dell'utente!
 }
+
+if (request.getParameter("indietro") != null){
+	response.sendRedirect("index.jsp");
+}
+
+if (request.getParameter("logout") != null){
+
+	us = null;
+	session.invalidate();
+	response.sendRedirect("index.jsp");
+}
+
+
 %>
 
 
@@ -70,7 +79,7 @@ if (!(updatebean.getUtente(us.getEmail()))){
 
 <body id="page-top" class="index">
 
-    <!-- Navigation -->
+  <!-- Navigation -->
     <nav id="mainNav" class="navbar navbar-default navbar-custom navbar-fixed-top">
         <div class="container">
             <!-- Brand and toggle get grouped for better mobile display -->
@@ -88,15 +97,37 @@ if (!(updatebean.getUtente(us.getEmail()))){
                         <a href="#page-top"></a>
                     </li>
                     <li>
-                        <a class="page-scroll" href="#ricerca">Cerca prodotto</a>
+                        <a class="page-scroll" href="index.jsp">Cerca prodotto</a>
                     </li>
                     <li>
-                        <a class="forget" data-toggle="modal" data-target=".forget-modal-login" href="#modalLogin">Login</a>
+                        <a class="forget" data-toggle="modal" data-target=".forget-modal-logout" href="#modalLogout" >Logout</a>
                     </li>
-                    <li>
-                        <a class="page-scroll" href="registrazione.jsp">Registrazione</a>
+                     <li>
+                        <a class="page-scroll" href="profilo.jsp">Profilo</a>
+                    </li>
+                  
+                    <%if (us.getType()==2){ %>
+                     <li>
+                        <a class="page-scroll" href="prova.jsp">Tuoi acquisti</a>
+                    </li>
+                     <li>
+                        <a class="page-scroll" href="prova.jsp">Carrello</a>
                     </li>
                    
+                    <%}else if (us.getType()==1) { %>
+                     <li>
+                        <a class="page-scroll" href="prova.jsp">Tuoi annunci</a>
+                    </li>
+                     <li>
+                        <a class="page-scroll" href="prova.jsp">Tue Vendite</a>
+                    </li>
+                    
+                    
+                    <%}%>
+                    <li>
+                        <a class="page-scroll" href="#team"></a>
+                    </li>
+                
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
@@ -162,7 +193,7 @@ if (!(updatebean.getUtente(us.getEmail()))){
           <div class="form-group">
             <label class="col-md-3 control-label"></label>
             <div class="col-md-8">
-              <button type="submit" class="btn btn-xl" name="invia" value="invia">Invia</button>
+              <button type="submit" class="btn btn-xl" name="salvaInfo" value="salvaInfo">Invia</button>
               <span></span>
               <button type="submit" class="btn btn-xl" name="indietro" value="indietro">Indietro</button>
             </div>
@@ -170,6 +201,29 @@ if (!(updatebean.getUtente(us.getEmail()))){
         </form>
 		<hr>
 		</div>
+		
+		<div id="modalLogout" class="modal fade forget-modal-logout" tabindex="-1" role="dialog" aria-labelledby="myLoginModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">
+							<span aria-hidden="true">x</span>
+							<span class="sr-only">Close</span>
+						</button>
+						<h4 class="modal-title">Logout</h4>
+					</div>	
+					<div class="modal-body">
+						<p>Sicuro di abbandonare la sessione?</p>					
+					</div>
+					<div class="modal-footer">	
+					
+					<form action="index.jsp" method="post">		
+						<input class="btn btn-custom" type="submit" id="btn-logout" name="logout" value="Abbandona">
+					</form>
+					</div>
+				</div>
+			</div>
+		</div>	
 		
 
    
@@ -191,6 +245,7 @@ if (!(updatebean.getUtente(us.getEmail()))){
             </div>
         </div>
     </footer>
+    
    
 
     <!-- jQuery -->

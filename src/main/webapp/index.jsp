@@ -4,44 +4,41 @@
 <%@ page import="it.uniroma2.ispw.model.*" %>
 <%@ page import="it.uniroma2.ispw.session.*" %>
 
-
-
-
 <jsp:useBean id="loginb" scope="session" class="it.uniroma2.ispw.bean.LoginBean"/>
 <jsp:setProperty name="loginb" property="*"/>
 
-<%
-	if(request.getParameter("accedi") != null){
-		
-		UtenteSessione us = loginb.validate();
-		if(us != null){
-				
-			
-				//vai alla homepage registrata
-				
-				session.setAttribute("utente",us);
-				response.sendRedirect("indexPageR.jsp");
-		}else{
-			%>
-		
-		<script type="text/javascript">
-			$('#modalErrLogin').modal('show')
-		</script>
-		
-		<%	
-		}
-	}
 
-	if(request.getParameter("invia") != null){
-		
-		out.println("we");
-	
+<%
+
+UtenteSessione us = (UtenteSessione) session.getAttribute("utente");
+
+if(request.getParameter("accedi") != null){
+	us = loginb.validate();
+	if(us != null){
+			session.setAttribute("utente",us);
+			// non necessario---> response.sendRedirect("index.jsp");
+	}else{
+		//pagina di errore o javascript?
 	}
+}
+
+if(request.getParameter("invia") != null){
+	
+	out.println("we");
+}
+
+if (request.getParameter("logout") != null){
+
+	us = null;
+	session.invalidate();
+}
+
 %>
 
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
     <meta charset="utf-8">
@@ -96,13 +93,51 @@
                     <li>
                         <a class="page-scroll" href="#ricerca">Cerca prodotto</a>
                     </li>
+                  
+                    
+                    <%if (us==null){ %>
+                    
                     <li>
                         <a class="forget" data-toggle="modal" data-target=".forget-modal-login" href="#modalLogin">Login</a>
                     </li>
                     <li>
                         <a class="page-scroll" href="registrazione.jsp">Registrazione</a>
                     </li>
+                    
+                    <%}else if (us.getType()==2){ %>
+                     <li>
+                        <a class="forget" data-toggle="modal" data-target=".forget-modal-logout" href="#modalLogout" >Logout</a>
+                    </li>
+                     <li>
+                        <a class="page-scroll" href="profilo.jsp">Profilo</a>
+                    </li>
+                      <li>
+                        <a class="page-scroll" href="prova.jsp">Tuoi acquisti</a>
+                    </li>
+                     <li>
+                        <a class="page-scroll" href="prova.jsp">Carrello</a>
+                    </li>
                    
+                    <%}else if (us.getType()==1) { %>
+                    <li>
+                        <a class="forget" data-toggle="modal" data-target=".forget-modal-logout" href="#modalLogout" >Logout</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="profilo.jsp">Profilo</a>
+                    </li>
+                     <li>
+                        <a class="page-scroll" href="prova.jsp">Tuoi annunci</a>
+                    </li>
+                     <li>
+                        <a class="page-scroll" href="prova.jsp">Tue Vendite</a>
+                    </li>
+                    
+                    
+                    <%}%>
+                    <li>
+                        <a class="page-scroll" href="#team"></a>
+                    </li>
+                
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
@@ -110,7 +145,7 @@
         <!-- /.container-fluid -->
     </nav>
 
-<!-- popup login -->
+	<!-- popup login -->
 	<div id="modalLogin" class="modal fade forget-modal-login" tabindex="-1" role="dialog" aria-labelledby="myLoginModalLabel" aria-hidden="true">
 			<div class="modal-dialog">
 				<div class="modal-content">
@@ -143,9 +178,8 @@
 				</div>
 				</div>
 			</div>
-
-
-<!--popup login non riuscito-->
+			
+			<!--popup login non riuscito-->
 	<div id="modalErrlogin" class="modal fade forget-modal-errlogin" tabindex="-1" role="dialog" aria-labelledby="myLoginModalLabel" aria-hidden="true">
 			<div class="modal-dialog">
 				<div class="modal-content">
@@ -165,15 +199,47 @@
 				</div>
 			</div>
 	</div>	
+			
 
 
+	<div id="modalLogout" class="modal fade forget-modal-logout" tabindex="-1" role="dialog" aria-labelledby="myLoginModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">
+							<span aria-hidden="true">x</span>
+							<span class="sr-only">Close</span>
+						</button>
+						<h4 class="modal-title">Logout</h4>
+					</div>	
+					<div class="modal-body">
+						<p>Sicuro di abbandonare la sessione?</p>					
+					</div>
+					<div class="modal-footer">	
+					
+					<form action="index.jsp" method="post">		
+						<input class="btn btn-custom" type="submit" id="btn-logout" name="logout" value="Abbandona">
+					</form>
+					</div>
+				</div>
+			</div>
+	</div>	
 
     <!-- Header -->
     <header>
         <div class="container">
             <div class="intro-text">
-                <div class="intro-lead-in">Benvenuto nel nostro sito di e-commerce!</div>
-                <div class="intro-heading">It's Nice To Meet You</div>
+                
+                <%if (us==null){ %>
+                	<div class="intro-lead-in">Benvenuto nel nostro sito di e-commerce!</div>
+                	<div class="intro-heading">It's Nice To Meet You</div>
+                <%}else if ((us.getType()==1)||(us.getType()==2)){ %>
+                
+                	<div class="intro-lead-in">Bentornato nel nostro sito di e-commerce, <%= us.getUserid() %>!</div>
+                	<div class="intro-heading">It's Nice To Meet You</div>
+                
+                
+                <%} %>
             </div>
         </div>
     </header>
@@ -190,14 +256,22 @@
                 <div class="col-lg-12">
 					<form name="cerca" id="ricercaForm">
 						<div class="row">
-							<div class="form-group">
-								<input type="text" class="form-control" placeholder="Categoria"  id="categoria" >
-								<p class="help-block text-danger" ></p>
-							</div>
-							<div class="form-group">
-								<input type="text" class="form-control" placeholder="Tipologia"  id="tipologia" >
-								<p class="help-block text-danger" ></p>
-							</div>
+							 <div class="form-group">
+           				 		<label class="col-lg-3 control-label">Categoria:</label>
+            					<div class="col-lg-8">
+              						<div class="ui-select">
+                						<select id="user_time_zone" class="form-control">
+                  							<option value="Elettronica">ELETTRONICA</option>
+                 						    <option value="Smartphone">----->Smartphone</option>
+                  			 				<option value="Computer">----->Computer</option>
+							                <option value="Mobili">MOBILI</option>
+							                <option value="Sedie">----->Sedie</option>
+							                <option value="Scrivanie">----->Scrivanie</option>
+      
+      							          </select>
+              						</div>
+            					</div>
+          					</div>
 							<div class="form-group">
 								<input type="text" class="form-control" placeholder="Nome prodotto"  id="nomeprodotto" >
 								<p class="help-block text-danger" ></p>
@@ -224,8 +298,11 @@
             </div>
         </div>
     </section>
+	
+	
+   
 
-	<footer>
+    <footer>
         <div class="container">
             <div class="row">
                 <div class="col-md-4">
@@ -233,16 +310,15 @@
                 </div>
                 <div class="col-md-4">
                     <ul class="list-inline quicklinks">
-                         <li><a href="#" style="float:right">Regolamento</a>
+                        <li><a href="#">Regolamento</a>
                         </li>
-                        <li><a href="#" style="float:right">Contattaci</a>
+                        <li><a href="#">Contattaci</a>
                         </li>
                     </ul>
                 </div>
             </div>
         </div>
     </footer>
-   
 
     <!-- jQuery -->
     <script src="vendor/jquery/jquery.min.js"></script>
