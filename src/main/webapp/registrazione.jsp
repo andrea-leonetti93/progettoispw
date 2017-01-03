@@ -2,40 +2,49 @@
 <%@ page import="it.uniroma2.ispw.bean.*" %>
 <%@ page import="it.uniroma2.ispw.controller.*" %>
 <%@ page import="it.uniroma2.ispw.model.*" %>
+<%@ page import="it.uniroma2.ispw.session.*" %>
 
 
-<jsp:useBean id="utente" scope="session" class="it.uniroma2.ispw.bean.UtenteBean"/>
 
 
+<jsp:useBean id="loginb" scope="session" class="it.uniroma2.ispw.bean.LoginBean"/>
+<jsp:setProperty name="loginb" property="*"/>
 
-<jsp:setProperty name="utente" property="*"/>
+<jsp:useBean id="regb" scope="session" class="it.uniroma2.ispw.bean.RegistrazioneBean"/>
+<jsp:setProperty name="regb" property="*"/>
 
 <%
-	if(request.getParameter("accedi") != null){
-		
-		if(utente.validate()){
-			if(utente.getType().equals("Venditore")){
-				//vai a pagina venditore
-				response.sendRedirect("indexPageV.jsp");
-			}else{
-				//vai a pagina consumatore
-				response.sendRedirect("indexPageC.jsp");
-			}
+if(request.getParameter("accedi") != null){
+	
+	UtenteSessione us = loginb.validate();
+	if(us != null){
 			
-		}else{
-			%>
-		<script type="text/javascript">
-			$('#modalErrLogin').openModal();
-		</script>
 		
-		<%	
-		}
+			//vai alla homepage registrata
+			
+			session.setAttribute("utente",us);
+			response.sendRedirect("indexPageR.jsp");
+	}else{
+		%>
+	
+	<script type="text/javascript">
+		$('#modalErrLogin').modal('show')
+	</script>
+	
+	<%	
 	}
+}
+
+if(request.getParameter("invia") != null){
+	
+	out.println("we");
+
+}
 %>
 
 <%
 	if(request.getParameter("invia") != null){
-		if(utente.effettuaRegistrazione() == true){
+		if(regb.effettuaRegistrazione() == true){
 			response.sendRedirect("index.jsp");
 		}else{
 			response.sendRedirect("registrazione.jsp");
@@ -180,9 +189,12 @@
             </div>
             <div class="row text-center">
                 <div class="col-lg-12">
-                    <form name="registrazione" id="registrazioneForm" action="index.jsp" method="post">
-
-                        <div class="row">
+                    <form name="registrazione" id="registrazioneForm" action="registrazione.jsp" method="post">
+                    <div class="row">
+                    		<div class="form-group">
+								<input type="text" id="useridRegistrazione" placeholder="Userid" name="userid" class="form-control">
+                                <p class="help-block text-danger"></p>
+                            </div>
 							<div class="col-md-6">
                                 <div class="form-group">
                                     <input type="text" id="nomeRegistrazione" placeholder="Nome" name="name" class="form-control" >
@@ -219,9 +231,9 @@
                             </div>
 							<div class="checkbox">
 								<label>
-									<input type="checkbox" name="regCheck" id="check_value" class="text-primary">Ho letto e accettato regolamento<br>
-									<input type="radio" value="Venditore" name="type" id="check_value" class="text-primary">Venditore<br>
-									<input type="radio" value="Consumatore" name="type" id="check_value" class="text-primary">Consumatore<br>
+									<input type="checkbox" name="regCheck" id="check_value" class="text-primary"><font color="white">Ho letto e accettato il regolamento</font> <br>
+									<input type="radio" value="Venditore" name="type" id="check_value" class="text-primary"> <font color="white">Venditore</font> <br>
+									<input type="radio" value="Consumatore" name="type" id="check_value" class="text-primary"><font color="white">Consumatore</font> <br>
 								</label>
 							</div>
             

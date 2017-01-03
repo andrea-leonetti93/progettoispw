@@ -2,14 +2,15 @@
 <%@ page import="it.uniroma2.ispw.bean.*" %>
 <%@ page import="it.uniroma2.ispw.controller.*" %>
 <%@ page import="it.uniroma2.ispw.model.*" %>
+<%@ page import="it.uniroma2.ispw.session.*" %>
 
 
-<jsp:useBean id="utente" scope="session" class="it.uniroma2.ispw.bean.UtenteBean"/>
-<jsp:setProperty name="utente" property="*"/>
+
 
 <%
 
-UtenteBean u = (UtenteBean) session.getAttribute("utente");
+UtenteSessione us = (UtenteSessione) session.getAttribute("utente");
+
 %>
 
 
@@ -74,17 +75,24 @@ UtenteBean u = (UtenteBean) session.getAttribute("utente");
                         <a class="forget" data-toggle="modal" data-target=".forget-modal-logout" href="#modalLogout" >Logout</a>
                     </li>
                     <li>
-                        <a class="page-scroll" href="prova.jsp">Profilo</a>
+                        <a class="page-scroll" href="profilo.jsp">Profilo</a>
                     </li>
                     
-                     <%if (u.getType().equals("Consumatore")){ %>
-                     <li>
-                        <a class="page-scroll" href="prova.jsp">Tuoi annunci</a>
+                     <%if (us.getType()==2){ %>
+                      <li>
+                        <a class="page-scroll" href="prova.jsp">Tuoi acquisti</a>
                     </li>
-                    <%}else { %>
                      <li>
                         <a class="page-scroll" href="prova.jsp">Carrello</a>
                     </li>
+                    <%}else { %>
+                     <li>
+                        <a class="page-scroll" href="prova.jsp">Tuoi annunci</a>
+                    </li>
+                     <li>
+                        <a class="page-scroll" href="prova.jsp">Tue Vendite</a>
+                    </li>
+                    
                     
                     <%}%>
                     <li>
@@ -129,7 +137,7 @@ UtenteBean u = (UtenteBean) session.getAttribute("utente");
             <div class="intro-text">
                 
                 
-                <div class="intro-lead-in">Bentornato nel nostro sito di e-commerce, <%= utente.getName() %>!</div>
+                <div class="intro-lead-in">Bentornato nel nostro sito di e-commerce, <%= us.getUserid() %>!</div>
                 <div class="intro-heading">It's Nice To Meet You</div>
             </div>
         </div>

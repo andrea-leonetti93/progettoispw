@@ -2,11 +2,13 @@ package it.uniroma2.ispw.bean;
 
 import it.uniroma2.ispw.controller.GestisciUtente;
 import it.uniroma2.ispw.model.UtenteRegistrato;
+import it.uniroma2.ispw.persistence.UtenteDAO;
 
 
 public class UtenteBean {
 	
 
+	private String userid;
     private String name;
     private String surname;
     private String email;
@@ -17,7 +19,9 @@ public class UtenteBean {
 
     
     public UtenteBean(){
-		this.name="";
+		
+    	this.userid = "";
+    	this.name="";
 		this.surname="";
 		this.email="";
 		this.password="";
@@ -68,14 +72,22 @@ public class UtenteBean {
     public void setType(String type) {
         this.type = type;
     }
-     
-    public boolean validate(){
+    
+    public String getUserid() {
+		return userid;
+	}
+
+	public void setUserid(String userid) {
+		this.userid = userid;
+	}
+
+	public boolean validate(){
          
         System.out.println("entrato in validate");
          
         GestisciUtente gu = GestisciUtente.getInstance();
          
-        return gu.effettuaLogin(this);
+        return false;
     }
     
     
@@ -90,5 +102,27 @@ public class UtenteBean {
     		return false;
     	}
     	return true;
+    }
+    
+    public boolean modificaInfo(UtenteBean u){
+    	
+    	GestisciUtente gu = GestisciUtente.getInstance();
+    	
+    	UtenteRegistrato ur = null;
+    	
+    	ur = gu.modificaInformazioni(u);
+    	if (ur==null){
+    		return false;
+    	}
+    	
+    	this.setName(u.getName());
+    	this.setSurname(u.getSurname());
+    	this.setPassword(u.getPassword());
+    	this.setStreet(u.getStreet());
+    	this.setTelephone(u.getTelephone());
+    	
+    	return true; 
+    	
+ 
     }
 }

@@ -72,4 +72,43 @@ private static SessionFactory sessionFactory = buildSessionFactory();
     	}
 		return null;
 	}
+	
+	public UtenteRegistrato getUtente(String email){
+
+		Session session = sessionFactory.openSession();
+	    Transaction tx = null;
+	    try{
+	    	tx = session.beginTransaction();
+	    	UtenteRegistrato u = (UtenteRegistrato) session.get(UtenteRegistrato.class, email);
+	    	System.out.println("Utente trovato");
+	    	return u;
+	    }catch (HibernateException e) {
+    		if (tx!=null) tx.rollback();
+    		e.printStackTrace(); 
+    	}finally {
+         session.close(); 
+    	}
+		return null;
+		
+	}
+	
+	public UtenteRegistrato modificaUtente(UtenteRegistrato utente){
+		
+		Session session = sessionFactory.openSession();
+	    Transaction tx = null;
+        try{
+            tx = session.beginTransaction();
+            session.update(utente);
+            tx.commit();
+            System.out.println("Utente modificato");
+        }catch (HibernateException e) {
+            if (tx!=null) tx.rollback();
+            e.printStackTrace();
+            System.out.println("Utente non modificato");
+            utente = null;
+        }finally {
+         session.close(); 
+        }
+        return utente;
+	}
 }
