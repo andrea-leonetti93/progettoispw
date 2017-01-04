@@ -26,4 +26,6 @@ public class GestisciProdotto {
 		return newProdotto;
 	}
 	
+	/*carica tipo prodotti in liste*/
+	
 }

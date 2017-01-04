@@ -6,10 +6,26 @@
 
 <jsp:useBean id="utente" scope="session" class="it.uniroma2.ispw.bean.UtenteBean"/>
 <jsp:setProperty name="utente" property="*"/>
+<jsp:useBean id="insProdotto" class="it.uniroma2.ispw.bean.InsProdottoBean"></jsp:useBean>
+<jsp:setProperty name="insProdotto" property="*"/>
 
 <%
 
 UtenteBean u = (UtenteBean) session.getAttribute("utente");
+%>
+
+<%
+	if(request.getParameter("addProduct") != null){
+		/*carica categoria da db*/
+	}
+%>
+
+<% 
+	if(request.getParameter("allow") != null){
+		if(insProdotto.acquisisciProdotto()){
+			
+		}
+	}
 %>
 
 
@@ -184,7 +200,7 @@ UtenteBean u = (UtenteBean) session.getAttribute("utente");
 
 
 
-	<div id="modalAddProduct" class="modal fade forget-modal-login" tabindex="-1" role="dialog" aria-labelledby="myLoginModalLabel" aria-hidden="true">
+	<div id="modalAddProduct" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLoginModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -202,12 +218,25 @@ UtenteBean u = (UtenteBean) session.getAttribute("utente");
 							<input type="text" id="name" name="name" class="form-control" placeholder="Name">
 						</div>					
 						<div class="form-group">
-							<label for="categoriaAdd" class="sr-only">Categoria</label>
-							<input type="text" id="category" name="category" class="form-control" placeholder="Category">
+							<label for="categoriaAdd" class="sr-only">Category</label>
+							<select class="form-control" id="selectCategory" name="selectCategory">
+								<option value="x" selected="selected">Select category</option>
+								<option value="a">Elettronica</option>
+								<option value="b">Giardinaggio</option>
+								<option value="c">Arredamento</option>
+							</select>
 						</div>
 						<div class="form-group">
 							<label for="typologyAdd" class="sr-only">Typology</label>
-							<input type="text" id="typology" name="typology" class="form-control" placeholder="Typology">
+							<select class="form-control" id="selectTypology" name="selectTypology">
+								<option data-option="x" selected>Select typology</option>
+								<option data-option="a">Telefoni</option>
+								<option data-option="a">Televisori</option>
+								<option data-option="b">Taglia erba</option>
+								<option data-option="b">Piante</option>
+								<option data-option="c">Tavoli</option>
+								<option data-option="c">Sedie</option>
+							</select>
 						</div>
 						<div class="form-group">
 							<label for="amountAdd" class="sr-only">Amount</label>
@@ -230,7 +259,7 @@ UtenteBean u = (UtenteBean) session.getAttribute("utente");
 							<input type="text" id="sale" name="sale" class="form-control" placeholder="Sale">
 						</div>
 						<div class="modal-footer">
-							<input class="btn btn-custom" type="submit" id="btn-login" name="accedi" value="accedi">
+							<input class="btn btn-custom" type="submit" id="btn-login" name="allow" value="allow">
 						</div>
 					</form>
 							
@@ -254,7 +283,7 @@ UtenteBean u = (UtenteBean) session.getAttribute("utente");
    			</div>
    			<div class="body">
    				<div class="row">
-   					<input class="btn btn-custom" type="submit" name="addproduct" value="Add Product" data-target="#modalAddProduct">
+   					<input class="btn btn-custom" type="submit" name="addProduct" value="addProduct" data-toggle="modal" data-target="#modalAddProduct">
    				</div>
    			</div>
    		</div>
@@ -300,5 +329,28 @@ UtenteBean u = (UtenteBean) session.getAttribute("utente");
 
 </body>
 
+<script type="text/javascript">
+$(function() {
+    var temp="x"; 
+    $("#selectCategory").val(temp);
+});
+</script>
+<script type="text/javascript">
+   var sel1 = document.querySelector('#selectCategory');
+   var sel2 = document.querySelector('#selectTypology');
+   var options2 = sel2.querySelectorAll('option');
+   function giveSelection(selValue) {
+      sel2.innerHTML = '';
+      for(var i=0; i<options2.length; i++){
+	 if(options2[i].dataset.option === selValue){
+	    sel2.appendChild(options2[i]);
+	 }
+      }
+   }
+   giveSelection(sel1.value);
+</script>
+
 </html>
+
+
 
