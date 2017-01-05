@@ -1,11 +1,16 @@
 package it.uniroma2.ispw.persistence;
 
 
+import javax.persistence.Query;
+
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
+
+import java.util.Iterator;
+import java.util.List; 
 
 import it.uniroma2.ispw.model.UtenteRegistrato;
 
@@ -90,6 +95,28 @@ private static SessionFactory sessionFactory = buildSessionFactory();
     	}
 		return null;
 		
+	}
+	
+
+	public UtenteRegistrato getUtenteByUserid(String userid){
+		Session session = sessionFactory.openSession();
+	    Transaction tx = null;
+	    try{
+	    	tx = session.beginTransaction();
+	    	@SuppressWarnings("unchecked")
+	    	List<UtenteRegistrato> utenti = session.createQuery("FROM UtenteRegistrato").getResultList();
+	        for (Iterator<UtenteRegistrato> iterator = utenti.iterator(); iterator.hasNext();){
+	        	UtenteRegistrato u = (UtenteRegistrato) iterator.next();
+	        	if (u.getUserid().equals(userid)) return u;}
+	        tx.commit();
+	    
+	    }catch (HibernateException e) {
+	    	if (tx!=null) tx.rollback();
+	    	e.printStackTrace(); 
+	   }finally {
+		   session.close(); 
+	   }
+	    return null;
 	}
 	
 	public UtenteRegistrato modificaUtente(UtenteRegistrato utente){

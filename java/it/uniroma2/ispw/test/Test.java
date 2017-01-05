@@ -23,12 +23,12 @@ public static void main(String[] args) {
         u.addUtente(v1);
         System.out.println("Utenti aggiunti");*/
 	
-		UpdateUtenteBean upub = new UpdateUtenteBean();
+		UtenteDAO u = new UtenteDAO();
+		UtenteRegistrato ur = u.getUtenteByUserid("nickmio");
 		
-		upub.setName("giggio");
+		System.out.println(ur.getEmail());
 		
-		upub.updateUtente("nick", "giorgioiannone@gmail.com");
-	
+		
 
 		
 	}

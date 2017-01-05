@@ -51,13 +51,14 @@ public class GestisciUtente {
 		return null;
 	}
 	
-	public UtenteRegistrato effettuaRegistrazione(String userid, String name, String surname, String email, String password, String telephone, String street, int type){
+	/* 1 ok, 2 mail in uso, 3 userid in uso*/
+	public int effettuaRegistrazione(String userid, String name, String surname, String email, String password, String telephone, String street, int type){
 		
 		UtenteRegistrato newUtente = null;
 		
-		if(u.checkUtente(email, password) != null){
-			return newUtente;
-		}
+		if (u.getUtente(email)!=null) return 2;
+		if (u.getUtenteByUserid(userid)!=null) return 3;
+		
 		if(type == 1){
 			newUtente = new Venditore(userid , name, surname, email , password, telephone, street);
 			u.addUtente(newUtente);
@@ -66,7 +67,7 @@ public class GestisciUtente {
 			u.addUtente(newUtente);
 		}
 		
-		return newUtente;
+		return 1;
 	}
 	
 	public UtenteRegistrato modificaInformazioni(String userid, String name, String surname, String email, String password, String telephone, String street, int type){

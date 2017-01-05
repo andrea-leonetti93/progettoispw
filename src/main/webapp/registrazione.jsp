@@ -15,6 +15,7 @@
 
 <%
 
+String errorMessage = "";
 UtenteSessione us = (UtenteSessione) session.getAttribute("utente");
 
 if(request.getParameter("accedi") != null){
@@ -28,15 +29,19 @@ if(request.getParameter("accedi") != null){
 	}
 }
 
+
 if(request.getParameter("inviaReg") != null){
-	if(regb.effettuaRegistrazione() == true){
-		//ti sei registrato, ti porto alla home
-		response.sendRedirect("index.jsp");
-	}else{
-		//registrazione fallita, mettiamo un popup o cosa?
-		response.sendRedirect("registrazione.jsp");
+	
+	errorMessage = regb.controlloCampi();
+	if (errorMessage==null){
+		int result = regb.effettuaRegistrazione();
+		if (result==1) errorMessage = "Registrazione effettuata con successo";
+		else if (result==2) errorMessage = "Email gia utilizzata";
+		else if (result ==3) errorMessage = "Userid gia utilizzato";
 	}
 }
+
+
 %>
 
 <!DOCTYPE html>
@@ -83,7 +88,7 @@ if(request.getParameter("inviaReg") != null){
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                     <span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
                 </button>
-                <a class="navbar-brand page-scroll" href="#page-top">Shopping Express</a>
+                <a class="navbar-brand page-scroll" href="index.jsp">Shopping Express</a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -168,7 +173,7 @@ if(request.getParameter("inviaReg") != null){
 	</div>	
 			
 
-
+	
 
 
     <!-- Contact Section -->
@@ -224,7 +229,7 @@ if(request.getParameter("inviaReg") != null){
                             </div>
 							<div class="checkbox">
 								<label>
-									<input type="checkbox" name="regCheck" id="check_value" class="text-primary"><font color="white">Ho letto e accettato il regolamento</font> <br>
+									<input type="checkbox" value= "Regolamento" name="regCheck" id="check_value" class="text-primary"><font color="white">Ho letto e accettato il regolamento</font> <br>
 									<input type="radio" value="Venditore" name="type" id="check_value" class="text-primary"> <font color="white">Venditore</font> <br>
 									<input type="radio" value="Consumatore" name="type" id="check_value" class="text-primary"><font color="white">Consumatore</font> <br>
 								</label>
@@ -235,13 +240,15 @@ if(request.getParameter("inviaReg") != null){
                                 <div id="success"></div>
                                 <button type="submit" class="btn btn-xl" name="inviaReg" value="inviaReg">Invia</button>
                             </div>
-							
-                        </div>
+                         		<font color="white"><%=errorMessage%></font>
+                         		 </div>
                     </form>
                 </div>
             </div>
         </div>
     </section>
+	
+	
 	
 
 <!--popup errore registrazione-->
