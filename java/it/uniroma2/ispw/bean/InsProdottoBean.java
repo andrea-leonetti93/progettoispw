@@ -7,7 +7,8 @@ import it.uniroma2.ispw.model.Prodotto;
 
 public class InsProdottoBean {
 
-	private String name;
+	private int idProd;
+	private String nameProduct;
 	private String category;
 	private String typology;
 	private int amount;
@@ -19,7 +20,8 @@ public class InsProdottoBean {
 	private List<Prodotto> arrayProdotti;
 	
 	public InsProdottoBean(){
-		this.name = "";
+		this.idProd = 0;
+		this.nameProduct = "";
 		this.category = "";
 		this.typology = "";
 		this.amount = 0;
@@ -28,15 +30,24 @@ public class InsProdottoBean {
 		this.deliveryType = "";
 		this.sale = 0;
 		this.utente = null;
+		this.arrayProdotti = null;
 	}
 
 	
-	public String getName() {
-		return name;
+	public int getIdProd() {
+		return idProd;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setIdProd(int idProd) {
+		this.idProd = idProd;
+	}
+
+	public String getNameProduct() {
+		return nameProduct;
+	}
+
+	public void setNameProduct(String nameProduct) {
+		this.nameProduct = nameProduct;
 	}
 
 	public String getCategory() {
@@ -121,7 +132,7 @@ public class InsProdottoBean {
 		if(p == null){
 			return false;
 		}
-		arrayProdotti.add(p);
+		//arrayProdotti.add(p);
 		return true;
 	}
 	
@@ -129,6 +140,15 @@ public class InsProdottoBean {
 		
 		GestisciProdotto gp = new GestisciProdotto();
 		arrayProdotti = gp.prodottiUtente(email);
+	}
+	
+	public boolean eliminaProdotto(int idProd){
+		
+		GestisciProdotto gp = new GestisciProdotto();
+		if(gp.deleteProduct(idProd)){
+			return true;
+		}
+		return false;
 	}
 	
 	

@@ -82,4 +82,24 @@ private static SessionFactory sessionFactory = buildSessionFactory();
     
 	}
 	
+	public boolean deleteProduct(int id){
+		Session session = getSessionFactory().openSession();
+		Transaction tx = null;
+		try{
+			tx = session.beginTransaction();
+			Prodotto p = (Prodotto) session.get(Prodotto.class, id);
+			session.delete(p);
+			tx.commit();
+			System.out.println("Prodotto eliminato");
+		}catch(HibernateException e){
+			if (tx!=null) tx.rollback();
+            e.printStackTrace();
+            System.out.println("Prodotto NON eliminato");
+            return false;
+		}finally {    
+		session.close();
+		}
+		return true;
+	}
+	
 }

@@ -32,6 +32,15 @@ UtenteBean u = (UtenteBean) session.getAttribute("utente");
 	}
 %>
 
+<%
+	if(request.getParameter("delete") != null){
+		if(insProdotto.eliminaProdotto(insProdotto.getIdProd())){
+			response.sendRedirect("vendCons.jsp");
+		}else{
+			System.out.println("errore eliminazione prodotto");
+		}
+	}
+%>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -219,27 +228,27 @@ UtenteBean u = (UtenteBean) session.getAttribute("utente");
 					<form action="" method="post">
 						<div class="form-group">
 							<label for="nameAdd" class="sr-only">Name</label>
-							<input type="text" id="name" name="name" class="form-control" placeholder="Name">
+							<input type="text" id="nameProduct" name="nameProduct" class="form-control" placeholder="Name">
 						</div>					
 						<div class="form-group">
 							<label for="categoriaAdd" class="sr-only">Category</label>
-							<select class="form-control" id="selectCategory" name="selectCategory" onchange="giveSelection(this.value)">
+							<select class="form-control" id="selectCategory" name="category" onchange="giveSelection(this.value)">
 								<option value="x" selected="selected">Select category</option>
-								<option value="a">Elettronica</option>
-								<option value="b">Giardinaggio</option>
-								<option value="c">Arredamento</option>
+								<option value="Elettronica">Elettronica</option>
+								<option value="Giardinaggio">Giardinaggio</option>
+								<option value="Arredamento">Arredamento</option>
 							</select>
 						</div>
 						<div class="form-group">
 							<label for="typologyAdd" class="sr-only">Typology</label>
-							<select class="form-control" id="selectTypology" name="selectTypology">
+							<select class="form-control" id="selectTypology" name="typology">
 								<option data-option="x" selected="selected">Select typology</option>
-								<option data-option="a">Telefoni</option>
-								<option data-option="a">Televisori</option>
-								<option data-option="b">Taglia erba</option>
-								<option data-option="b">Piante</option>
-								<option data-option="c">Tavoli</option>
-								<option data-option="c">Sedie</option>
+								<option data-option="Elettronica">Cellulari</option>
+								<option data-option="Elettronica">Televisori</option>
+								<option data-option="Giardinaggio">Taglia erba</option>
+								<option data-option="Giardinaggio">Piante</option>
+								<option data-option="Arredamento">Tavoli</option>
+								<option data-option="Arredamento">Sedie</option>
 							</select>
 						</div>
 						<div class="form-group">
@@ -256,7 +265,7 @@ UtenteBean u = (UtenteBean) session.getAttribute("utente");
 						</div>
 						<div class="form-group">
 							<label for="deliveryTypeAdd" class="sr-only">Delivery type</label>
-							<input type="text" id="deliveryType" name="deliverytype" class="form-control" placeholder="Delivery type">
+							<input type="text" id="deliveryType" name="deliveryType" class="form-control" placeholder="Delivery type">
 						</div>
 						<div class="form-group">
 							<label for="saleAdd" class="sr-only">Sale</label>
@@ -290,7 +299,7 @@ UtenteBean u = (UtenteBean) session.getAttribute("utente");
    			</div>
    			<div class="body">
    				<div class="row">
-   					<input class="btn btn-custom" type="submit" name="addProduct" value="addProduct" data-toggle="modal" data-target="#modalAddProduct">
+   					<input class="btn btn-primary btn-lg btn-block" type="submit" name="addProduct" value="Add Product" data-toggle="modal" data-target="#modalAddProduct">
    				</div>
    				<%
    					List<Prodotto> lp = insProdotto.getArrayProdotti();
@@ -300,14 +309,33 @@ UtenteBean u = (UtenteBean) session.getAttribute("utente");
    							p = lp.get(i);
    				%>		
    					<div class="container">
-   						<h3>Prodotto: <%= p.getNome() %></h3>
-						<ul class="list-group">
-   							<li class="list-group-item"><%= p.getCategoria() %></li>
-   							<li class="list-group-item"><%= p.getTipologia() %></li>
-   							<li class="list-group-item"><%= p.getQuantità() %></li>
-   							<li class="list-group-item"><%= p.getPrezzo() %></li>
-   							<li class="list-group-item"><%= p.getSconto() %></li>
-   						</ul>
+   						<form action="" method="post">
+   						<div class="header">
+   							<h3>Prodotto: <%= p.getNome() %></h3>
+   							<h5>IdProd:<input class="btn btn-custom" type="button" name="idProd" value=<%= p.getId() %> disabled></h5>
+						</div>
+						<div class="body">
+								<ul class="list-group">
+   									<li class="list-group-item"><span class="tag tag-default tag-pill float-xs-right">Tipologia:</span> <%= p.getTipologia() %> </li>
+   									<li class="list-group-item"><span class="tag tag-default tag-pill float-xs-right">Quantità:</span> <%= p.getQuantità() %></li>
+   									<li class="list-group-item"><span class="tag tag-default tag-pill float-xs-right">Prezzo:</span> <%= p.getPrezzo() %></li>
+   									<li class="list-group-item"><span class="tag tag-default tag-pill float-xs-right">Sconto:</span> <%= p.getSconto() %></li>
+   								</ul>
+   							
+   											<p class="help-block text-danger" ></p>
+   						</div>
+   						<div class="footer">
+   							<div class="row">
+   								<div class="col-md-3 offset-md-3">
+   									<input class="btn btn-primary" name="change" value="Change">
+   								</div>
+   								<div class="col-md-3 offset-md-3">						
+	   								<input class="btn btn-danger" type="submit" name="delete" value="Delete">	
+   								</div>
+   							</div>
+   						
+   						</div>
+   						</form>
    					</div>	
    				<% 	
    						}

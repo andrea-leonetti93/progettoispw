@@ -21,7 +21,7 @@ public class GestisciProdotto {
 		
 		UtenteRegistrato ur = u.checkUtente(iPBean.getUtente().getEmail(), iPBean.getUtente().getPassword());
 		
-		Prodotto newProdotto = new Prodotto(iPBean.getName(), iPBean.getCategory(), iPBean.getTypology(), iPBean.getAmount(), iPBean.getPrice(), 
+		Prodotto newProdotto = new Prodotto(iPBean.getNameProduct(), iPBean.getCategory(), iPBean.getTypology(), iPBean.getAmount(), iPBean.getPrice(), 
 				iPBean.getMethodPay(), iPBean.getDeliveryType(), iPBean.getSale(), ur);
 		p.addProdotto(newProdotto);
 		
@@ -35,4 +35,13 @@ public class GestisciProdotto {
 		listaP = p.listaProdottiUtente(email);
 		return listaP;
 	}
+	
+	public boolean deleteProduct(int id){
+		
+		if(p.deleteProduct(id)){
+			return true;
+		}
+		return false;
+	}
+
 }
