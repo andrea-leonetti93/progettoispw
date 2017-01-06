@@ -82,6 +82,14 @@ public class Prodotto {
 		this.email = email;
 	}*/
 
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
 	public UtenteRegistrato getUtenteRegistrato() {
 		return utenteRegistrato;
 	}

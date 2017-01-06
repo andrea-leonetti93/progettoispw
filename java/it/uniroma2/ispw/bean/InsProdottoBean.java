@@ -1,5 +1,7 @@
 package it.uniroma2.ispw.bean;
 
+import java.util.List;
+
 import it.uniroma2.ispw.controller.GestisciProdotto;
 import it.uniroma2.ispw.model.Prodotto;
 
@@ -14,6 +16,7 @@ public class InsProdottoBean {
 	private String deliveryType;
 	private int sale;
 	private UtenteBean utente;
+	private List<Prodotto> arrayProdotti;
 	
 	public InsProdottoBean(){
 		this.name = "";
@@ -100,6 +103,14 @@ public class InsProdottoBean {
 		this.utente = utente;
 	}
 
+	public List<Prodotto> getArrayProdotti() {
+		return arrayProdotti;
+	}
+
+	public void setArrayProdotti(List<Prodotto> arrayProdotti) {
+		this.arrayProdotti = arrayProdotti;
+	}
+
 
 	public boolean acquisisciProdotto(){
 		
@@ -110,7 +121,14 @@ public class InsProdottoBean {
 		if(p == null){
 			return false;
 		}
+		arrayProdotti.add(p);
 		return true;
+	}
+	
+	public void riempiLista(String email){
+		
+		GestisciProdotto gp = new GestisciProdotto();
+		arrayProdotti = gp.prodottiUtente(email);
 	}
 	
 	

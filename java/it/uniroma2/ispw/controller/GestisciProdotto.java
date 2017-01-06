@@ -1,5 +1,7 @@
 package it.uniroma2.ispw.controller;
 
+import java.util.List;
+
 import it.uniroma2.ispw.bean.InsProdottoBean;
 import it.uniroma2.ispw.model.Prodotto;
 import it.uniroma2.ispw.model.UtenteRegistrato;
@@ -27,5 +29,10 @@ public class GestisciProdotto {
 	}
 	
 	/*carica tipo prodotti in liste*/
-	
+	public List<Prodotto> prodottiUtente(String email){
+		
+		List<Prodotto> listaP = null;
+		listaP = p.listaProdottiUtente(email);
+		return listaP;
+	}
 }

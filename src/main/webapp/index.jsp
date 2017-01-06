@@ -14,7 +14,7 @@
 				
 				//vai alla homepage registrata
 				session.setAttribute("utente",utente);
-				response.sendRedirect("indexPageR.jsp");
+				response.sendRedirect("vendCons.jsp");
 		}else{
 			%>
 		

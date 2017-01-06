@@ -2,6 +2,7 @@
 <%@ page import="it.uniroma2.ispw.bean.*" %>
 <%@ page import="it.uniroma2.ispw.controller.*" %>
 <%@ page import="it.uniroma2.ispw.model.*" %>
+<%@ page import="java.util.*" %>
 
 
 <jsp:useBean id="utente" scope="session" class="it.uniroma2.ispw.bean.UtenteBean"/>
@@ -22,8 +23,11 @@ UtenteBean u = (UtenteBean) session.getAttribute("utente");
 
 <% 
 	if(request.getParameter("allow") != null){
+		insProdotto.setUtente(u);
 		if(insProdotto.acquisisciProdotto()){
-			
+			response.sendRedirect("vendCons.jsp");
+		}else{
+			System.out.println("errore inserimento prodotto");
 		}
 	}
 %>
@@ -219,7 +223,7 @@ UtenteBean u = (UtenteBean) session.getAttribute("utente");
 						</div>					
 						<div class="form-group">
 							<label for="categoriaAdd" class="sr-only">Category</label>
-							<select class="form-control" id="selectCategory" name="selectCategory">
+							<select class="form-control" id="selectCategory" name="selectCategory" onchange="giveSelection(this.value)">
 								<option value="x" selected="selected">Select category</option>
 								<option value="a">Elettronica</option>
 								<option value="b">Giardinaggio</option>
@@ -229,7 +233,7 @@ UtenteBean u = (UtenteBean) session.getAttribute("utente");
 						<div class="form-group">
 							<label for="typologyAdd" class="sr-only">Typology</label>
 							<select class="form-control" id="selectTypology" name="selectTypology">
-								<option data-option="x" selected>Select typology</option>
+								<option data-option="x" selected="selected">Select typology</option>
 								<option data-option="a">Telefoni</option>
 								<option data-option="a">Televisori</option>
 								<option data-option="b">Taglia erba</option>
@@ -272,7 +276,10 @@ UtenteBean u = (UtenteBean) session.getAttribute("utente");
 
 
 
-<%if(u.getType().equals("Venditore")){ %>
+<%
+	if(u.getType().equals("Venditore")){
+		insProdotto.riempiLista(u.getEmail());
+%>
    
    <section id="prodotti">
    		<div class = "container">
@@ -285,6 +292,28 @@ UtenteBean u = (UtenteBean) session.getAttribute("utente");
    				<div class="row">
    					<input class="btn btn-custom" type="submit" name="addProduct" value="addProduct" data-toggle="modal" data-target="#modalAddProduct">
    				</div>
+   				<%
+   					List<Prodotto> lp = insProdotto.getArrayProdotti();
+   					Prodotto p = null;
+   					if(lp.size() != 0){
+   						for(int i=0; i<lp.size(); i++){
+   							p = lp.get(i);
+   				%>		
+   					<div class="container">
+   						<h3>Prodotto: <%= p.getNome() %></h3>
+						<ul class="list-group">
+   							<li class="list-group-item"><%= p.getCategoria() %></li>
+   							<li class="list-group-item"><%= p.getTipologia() %></li>
+   							<li class="list-group-item"><%= p.getQuantità() %></li>
+   							<li class="list-group-item"><%= p.getPrezzo() %></li>
+   							<li class="list-group-item"><%= p.getSconto() %></li>
+   						</ul>
+   					</div>	
+   				<% 	
+   						}
+   					}
+   				%>
+   				
    			</div>
    		</div>
    </section>
@@ -329,7 +358,7 @@ UtenteBean u = (UtenteBean) session.getAttribute("utente");
 
 </body>
 
-<script type="text/javascript">
+<script>
 $(function() {
     var temp="x"; 
     $("#selectCategory").val(temp);

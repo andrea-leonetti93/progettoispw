@@ -1,6 +1,10 @@
 package it.uniroma2.ispw.persistence;
 
+import java.util.List;
+
+
 import org.hibernate.HibernateException;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -50,5 +54,32 @@ private static SessionFactory sessionFactory = buildSessionFactory();
             }
             return prodotto;
     }
+	
+	public List<Prodotto> listaProdottiUtente(String email){
+		Session session = sessionFactory.openSession();
+        Transaction tx = null;
+        List<Prodotto> listaP = null;
+            try{
+                tx = session.beginTransaction();
+                String hql = "FROM Prodotto P WHERE P.utenteRegistrato.email = :email_prodotto";
+                Query<Prodotto> query = session.createQuery(hql);
+                query.setParameter("email_prodotto", email);
+                /*for(Object o : query.list()){
+                	listaP.add((Prodotto) o);
+                }*/
+                listaP = query.getResultList();
+                tx.commit();
+                System.out.println("Lista prodotti aggiunta");
+            }catch (HibernateException e) {
+                if (tx!=null) tx.rollback();
+                e.printStackTrace();
+                System.out.println("Lista prodotti NON aggiunta");
+                listaP = null;
+            }finally {
+             session.close(); 
+            }
+            return listaP;
+    
+	}
 	
 }
