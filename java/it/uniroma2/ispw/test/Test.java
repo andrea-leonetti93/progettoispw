@@ -36,11 +36,13 @@ public static void main(String[] args) {
 	pd.addProdotto(p);
 	System.out.println("prodotto aggiunto");*/
 	
-		List<Prodotto> listaP = null;
-		ProdottoDAO p = new ProdottoDAO();
-		listaP = p.listaProdottiUtente("gesù@gmail.com");
-		for(int i = 0; i<listaP.size(); i++){
+		//List<Prodotto> listaP = null;
+		ProdottoDAO pd = new ProdottoDAO();
+		pd.deleteProduct(20);
+		
+		//listaP = p.listaProdottiUtente("gesù@gmail.com");
+		/*for(int i = 0; i<listaP.size(); i++){
 			System.out.println("Nome prodotto numero " + i + ":" + (listaP.get(i)).getNome());
-		}
+		}*/
 	}
 }

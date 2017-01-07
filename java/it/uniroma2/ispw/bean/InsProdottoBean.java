@@ -142,7 +142,7 @@ public class InsProdottoBean {
 		arrayProdotti = gp.prodottiUtente(email);
 	}
 	
-	public boolean eliminaProdotto(int idProd){
+	public boolean eliminaProdotto(){
 		
 		GestisciProdotto gp = new GestisciProdotto();
 		if(gp.deleteProduct(idProd)){

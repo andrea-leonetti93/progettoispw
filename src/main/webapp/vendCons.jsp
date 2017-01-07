@@ -7,7 +7,7 @@
 
 <jsp:useBean id="utente" scope="session" class="it.uniroma2.ispw.bean.UtenteBean"/>
 <jsp:setProperty name="utente" property="*"/>
-<jsp:useBean id="insProdotto" class="it.uniroma2.ispw.bean.InsProdottoBean"></jsp:useBean>
+<jsp:useBean id="insProdotto" class="it.uniroma2.ispw.bean.InsProdottoBean"/>
 <jsp:setProperty name="insProdotto" property="*"/>
 
 <%
@@ -34,11 +34,20 @@ UtenteBean u = (UtenteBean) session.getAttribute("utente");
 
 <%
 	if(request.getParameter("delete") != null){
-		if(insProdotto.eliminaProdotto(insProdotto.getIdProd())){
+		String id = request.getParameter("idProd");
+		//int foo = Integer.parseInt(id);
+		System.out.println("valore idProd" + " " +insProdotto.getIdProd() + " " + id);
+		if(insProdotto.eliminaProdotto()){
 			response.sendRedirect("vendCons.jsp");
 		}else{
 			System.out.println("errore eliminazione prodotto");
 		}
+	}
+%>
+
+<%
+	if(request.getParameter("") != null){
+		
 	}
 %>
 
@@ -311,8 +320,10 @@ UtenteBean u = (UtenteBean) session.getAttribute("utente");
    					<div class="container">
    						<form action="" method="post">
    						<div class="header">
-   							<h3>Prodotto: <%= p.getNome() %></h3>
-   							<h5>IdProd:<input class="btn btn-custom" type="button" name="idProd" value=<%= p.getId() %> disabled></h5>
+   							<div class="form-group">
+   								<h3>Prodotto: <%= p.getNome() %></h3>
+   								<h5>IdProdotto:<input class="btn btn-custom" type="text" id="idProd" name="idProd" value=<%= p.getId() %> readonly></h5>
+							</div>
 						</div>
 						<div class="body">
 								<ul class="list-group">
@@ -327,7 +338,7 @@ UtenteBean u = (UtenteBean) session.getAttribute("utente");
    						<div class="footer">
    							<div class="row">
    								<div class="col-md-3 offset-md-3">
-   									<input class="btn btn-primary" name="change" value="Change">
+   									<input class="btn btn-primary" type ="submit" name="change" value="Change">
    								</div>
    								<div class="col-md-3 offset-md-3">						
 	   								<input class="btn btn-danger" type="submit" name="delete" value="Delete">	
@@ -405,6 +416,14 @@ $(function() {
       }
    }
    giveSelection(sel1.value);
+</script>
+<!-- funzione per appendere elemento dinamicamente ad una lista -->
+<script type="text/javascript">
+	var num = 1;
+	function elimina_elemento () {
+			$("#menu").append("<li>nuovo elemento "+num+"</li>");
+			num++;
+	}
 </script>
 
 </html>
