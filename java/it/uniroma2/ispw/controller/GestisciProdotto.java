@@ -44,4 +44,27 @@ public class GestisciProdotto {
 		return false;
 	}
 
+	public Prodotto selezionaProdottoPerID(int idProd) {
+		// TODO Auto-generated method stub
+		Prodotto pr = null;
+		if((pr = p.prendiProdottoPerID(idProd)) != null){
+			return pr;
+		}
+		return null;
+	}
+
+	public Prodotto aggiornaProdotto(InsProdottoBean iPBean) {
+		// TODO Auto-generated method stub
+		UtenteRegistrato ur = u.checkUtente(iPBean.getUtente().getEmail(), iPBean.getUtente().getPassword());
+		
+		Prodotto productChange = new Prodotto(iPBean.getNameProduct(), iPBean.getCategory(), iPBean.getTypology(), iPBean.getAmount(), iPBean.getPrice(), 
+				iPBean.getMethodPay(), iPBean.getDeliveryType(), iPBean.getSale(), ur);
+		
+		productChange.setId(iPBean.getIdProd());
+		if(p.updateProdotto(productChange)){
+			return productChange;
+		}
+		return null;
+	}
+
 }

@@ -34,9 +34,9 @@ UtenteBean u = (UtenteBean) session.getAttribute("utente");
 
 <%
 	if(request.getParameter("delete") != null){
-		String id = request.getParameter("idProd");
+		//String id = request.getParameter("idProd");
 		//int foo = Integer.parseInt(id);
-		System.out.println("valore idProd" + " " +insProdotto.getIdProd() + " " + id);
+		//System.out.println("valore idProd" + " " +insProdotto.getIdProd() + " " + id);
 		if(insProdotto.eliminaProdotto()){
 			response.sendRedirect("vendCons.jsp");
 		}else{
@@ -46,11 +46,25 @@ UtenteBean u = (UtenteBean) session.getAttribute("utente");
 %>
 
 <%
-	if(request.getParameter("") != null){
+	if(request.getParameter("change") != null){
 		
+		if(insProdotto.trovaProdotto() == false){
+			System.out.println("prodotto non trovato");
+		}
+		//notifica?
 	}
 %>
 
+<%
+	if(request.getParameter("addChanges") != null){
+		
+		if(insProdotto.modificheProdotto()){
+			response.sendRedirect("vendCons.jsp");
+		}else{
+			System.out.println("prodotto non modificato");
+		}
+	}
+%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -221,7 +235,7 @@ UtenteBean u = (UtenteBean) session.getAttribute("utente");
     </section>
 
 
-
+<!-- popup aggiungi prodotto -->
 	<div id="modalAddProduct" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLoginModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
@@ -293,6 +307,64 @@ UtenteBean u = (UtenteBean) session.getAttribute("utente");
 			</div>
 
 
+<!-- popup modifica prodotto -->
+	<div id="modalChangeProduct" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLoginModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">
+						<span aria-hidden="true">x</span>
+						<span class="sr-only">Close</span>
+					</button>
+					<h3 class="modal-title">Change Product</h3>
+			</div>	
+			<div class="modal-body">
+				<div class="form-wrap">
+					<form action="" method="post">
+						<div class="form-group">
+							<label for="nameAdd" class="sr-only">Name</label>
+							<input type="text" id="nameProduct" name="nameProduct" class="form-control" value=<%= insProdotto.getNameProduct() %>>
+						</div>					
+						<div class="form-group">
+							<label for="categoriaAdd" class="sr-only">Category</label>
+							<input type="text" id="category" name="category" class="form-control" value=<%= insProdotto.getCategory() %> readonly>
+						</div>
+						<div class="form-group">
+							<label for="typologyAdd" class="sr-only">Typology</label>
+							<input type="text" id="typology" name="typology" class="form-control" value=<%= insProdotto.getTypology() %> readonly>
+						</div>
+						<div class="form-group">
+							<label for="amountAdd" class="sr-only">Amount</label>
+							<input type="text" id="amount" name="amount" class="form-control" value=<%= insProdotto.getAmount() %>>
+						</div>
+						<div class="form-group">
+							<label for="priceAdd" class="sr-only">Price</label>
+							<input type="text" id="price" name="price" class="form-control" value=<%= insProdotto.getPrice() %>>
+						</div>
+						<div class="form-group">
+							<label for="methodPayAdd" class="sr-only">Pay Method</label>
+							<input type="text" id="methodPay" name="methodPay" class="form-control" value=<%= insProdotto.getMethodPay() %>>
+						</div>
+						<div class="form-group">
+							<label for="deliveryTypeAdd" class="sr-only">Delivery type</label>
+							<input type="text" id="deliveryType" name="deliveryType" class="form-control" value=<%= insProdotto.getDeliveryType() %>>
+						</div>
+						<div class="form-group">
+							<label for="saleAdd" class="sr-only">Sale</label>
+							<input type="text" id="sale" name="sale" class="form-control" value=<%= insProdotto.getSale() %>>
+						</div>
+						<div class="modal-footer">
+							<input class="btn btn-custom" type="submit" id="btn-login" name="addChanges" value="addChanges">
+						</div>
+					</form>
+							
+				</div>
+						
+			</div>
+		</div>
+				</div>
+			</div>
+
 
 <%
 	if(u.getType().equals("Venditore")){
@@ -338,7 +410,7 @@ UtenteBean u = (UtenteBean) session.getAttribute("utente");
    						<div class="footer">
    							<div class="row">
    								<div class="col-md-3 offset-md-3">
-   									<input class="btn btn-primary" type ="submit" name="change" value="Change">
+   									<input class="btn btn-primary" type ="submit" name="change" value="Change" data-toggle="modal" data-target="#modalChangeProduct">
    								</div>
    								<div class="col-md-3 offset-md-3">						
 	   								<input class="btn btn-danger" type="submit" name="delete" value="Delete">	
@@ -357,7 +429,7 @@ UtenteBean u = (UtenteBean) session.getAttribute("utente");
    		</div>
    </section>
    
-<%} %>   
+<% } %>   
 
 
 

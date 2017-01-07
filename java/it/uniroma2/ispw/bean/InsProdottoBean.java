@@ -151,5 +151,35 @@ public class InsProdottoBean {
 		return false;
 	}
 	
+	public boolean trovaProdotto(){
+		
+		GestisciProdotto gp = new GestisciProdotto();
+		Prodotto p = new Prodotto();
+		if((p = gp.selezionaProdottoPerID(idProd)) == null){
+			return false;
+		}
+		//idProd è qià quello del prodotto scelto
+		nameProduct = p.getNome();
+		category = p.getCategoria();
+		typology = p.getTipologia();
+		amount = p.getQuantità();
+		price = p.getPrezzo();
+		methodPay = p.getMetodoPag();
+		deliveryType  = p.getTipoConsegna();
+		sale = p.getSconto();
+		return true;
+	}
+
+	public boolean modificheProdotto(){
+		
+		GestisciProdotto gp = new GestisciProdotto();
+		Prodotto p = null;
+		
+		p = gp.aggiornaProdotto(this);
+		if(p == null){
+			return false;
+		}
+		return true;
+	}
 	
 }

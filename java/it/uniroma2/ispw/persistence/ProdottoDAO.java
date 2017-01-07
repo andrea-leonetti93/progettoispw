@@ -101,5 +101,47 @@ private static SessionFactory sessionFactory = buildSessionFactory();
 		}
 		return true;
 	}
+
+	public Prodotto prendiProdottoPerID(int id) {
+		// TODO Auto-generated method stub
+		Session session = getSessionFactory().openSession();
+		Transaction tx = null;
+		Prodotto p = null;
+		try{
+			tx = session.beginTransaction();
+			p = (Prodotto) session.get(Prodotto.class, id);
+			tx.commit();
+			System.out.println("Prodotto trovato");
+		}catch(HibernateException e){
+			if (tx!=null) tx.rollback();
+            e.printStackTrace();
+            System.out.println("Prodotto NON trovato");
+            return p;
+		}finally {    
+		session.close();
+		}
+		return p;
+	}
+
+	public boolean updateProdotto(Prodotto productChange) {
+		// TODO Auto-generated method stub
+		Session session = getSessionFactory().openSession();
+		Transaction tx = null;
+		Prodotto p = null;
+		try{
+			tx = session.beginTransaction();
+			session.update(productChange);
+			tx.commit();
+			System.out.println("Prodotto aggiornato");
+		}catch(HibernateException e){
+			if (tx!=null) tx.rollback();
+            e.printStackTrace();
+            System.out.println("Prodotto NON aggiornato");
+            return false;
+		}finally {    
+		session.close();
+		}
+		return true;
+	}
 	
 }
