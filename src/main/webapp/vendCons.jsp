@@ -47,7 +47,6 @@ UtenteBean u = (UtenteBean) session.getAttribute("utente");
 
 <%
 	if(request.getParameter("change") != null){
-		
 		if(insProdotto.trovaProdotto() == false){
 			System.out.println("prodotto non trovato");
 		}
@@ -57,7 +56,7 @@ UtenteBean u = (UtenteBean) session.getAttribute("utente");
 
 <%
 	if(request.getParameter("addChanges") != null){
-		
+		insProdotto.setUtente(u);
 		if(insProdotto.modificheProdotto()){
 			response.sendRedirect("vendCons.jsp");
 		}else{
@@ -323,38 +322,42 @@ UtenteBean u = (UtenteBean) session.getAttribute("utente");
 					<form action="" method="post">
 						<div class="form-group">
 							<label for="nameAdd" class="sr-only">Name</label>
-							<input type="text" id="nameProduct" name="nameProduct" class="form-control" value=<%= insProdotto.getNameProduct() %>>
-						</div>					
+							<input type="text" id="nomeProd" name="nomeProd" class="form-control" value="{{ request.form.nomeProd }}">
+						</div>
+						<div class="form-group">
+							<label for="nameAdd" class="sr-only">IdProd</label>
+							<input type="text" id="idProd" name="idProd" class="form-control" value="{{ request.form.idProd }}" readonly>
+						</div>						
 						<div class="form-group">
 							<label for="categoriaAdd" class="sr-only">Category</label>
-							<input type="text" id="category" name="category" class="form-control" value=<%= insProdotto.getCategory() %> readonly>
+							<input type="text" id="cate" name="cate" class="form-control" value="{{ request.form.cate }}" readonly>
 						</div>
 						<div class="form-group">
 							<label for="typologyAdd" class="sr-only">Typology</label>
-							<input type="text" id="typology" name="typology" class="form-control" value=<%= insProdotto.getTypology() %> readonly>
+							<input type="text" id="tipo" name="tipo" class="form-control" value="{{ request.form.tipo }}" readonly>
 						</div>
 						<div class="form-group">
 							<label for="amountAdd" class="sr-only">Amount</label>
-							<input type="text" id="amount" name="amount" class="form-control" value=<%= insProdotto.getAmount() %>>
+							<input type="text" id="quant" name="quant" class="form-control" value="{{ request.form.quant }}">
 						</div>
 						<div class="form-group">
 							<label for="priceAdd" class="sr-only">Price</label>
-							<input type="text" id="price" name="price" class="form-control" value=<%= insProdotto.getPrice() %>>
+							<input type="text" id="prezzo" name="prezzo" class="form-control" value="{{ request.form.prezzo }}">
 						</div>
 						<div class="form-group">
 							<label for="methodPayAdd" class="sr-only">Pay Method</label>
-							<input type="text" id="methodPay" name="methodPay" class="form-control" value=<%= insProdotto.getMethodPay() %>>
+							<input type="text" id="metodPag" name="metodPag" class="form-control" value="{{ request.form.metodPag }}">
 						</div>
 						<div class="form-group">
 							<label for="deliveryTypeAdd" class="sr-only">Delivery type</label>
-							<input type="text" id="deliveryType" name="deliveryType" class="form-control" value=<%= insProdotto.getDeliveryType() %>>
+							<input type="text" id="tipoCons" name="tipoCons" class="form-control" value="{{ request.form.tipoCons }}">
 						</div>
 						<div class="form-group">
 							<label for="saleAdd" class="sr-only">Sale</label>
-							<input type="text" id="sale" name="sale" class="form-control" value=<%= insProdotto.getSale() %>>
+							<input type="text" id="sconto" name="sconto" class="form-control" value="{{ request.form.sconto }}">
 						</div>
 						<div class="modal-footer">
-							<input class="btn btn-custom" type="submit" id="btn-login" name="addChanges" value="addChanges">
+							<input class="btn btn-custom" type="submit" id="addChanges" name="addChanges" value="Add changes">
 						</div>
 					</form>
 							
@@ -390,19 +393,22 @@ UtenteBean u = (UtenteBean) session.getAttribute("utente");
    							p = lp.get(i);
    				%>		
    					<div class="container">
-   						<form action="" method="post">
+   						<form method="post" id="inserzione-prodotto" action="{{ url_for('modalChangeProduct') }}">
    						<div class="header">
    							<div class="form-group">
-   								<h3>Prodotto: <%= p.getNome() %></h3>
-   								<h5>IdProdotto:<input class="btn btn-custom" type="text" id="idProd" name="idProd" value=<%= p.getId() %> readonly></h5>
+   								<h3>Prodotto: <input type="text" value="<%= p.getNome() %>" id="nomeProd-init" name="nomeProd" readonly></h3>
+   								<h5>IdProdotto:<input class="btn btn-custom" type="text" id="idProd-init" name="idProd" value="<%= p.getId() %>" readonly></h5>
 							</div>
 						</div>
 						<div class="body">
 								<ul class="list-group">
-   									<li class="list-group-item"><span class="tag tag-default tag-pill float-xs-right">Tipologia:</span> <%= p.getTipologia() %> </li>
-   									<li class="list-group-item"><span class="tag tag-default tag-pill float-xs-right">Quantità:</span> <%= p.getQuantità() %></li>
-   									<li class="list-group-item"><span class="tag tag-default tag-pill float-xs-right">Prezzo:</span> <%= p.getPrezzo() %></li>
-   									<li class="list-group-item"><span class="tag tag-default tag-pill float-xs-right">Sconto:</span> <%= p.getSconto() %></li>
+									<li class="list-group-item"><span class="tag tag-default tag-pill float-xs-right">Categoria: </span> <input type="text" value="<%= p.getCategoria() %>" id="cate-init" data-target="#modalChangeProduct" name="cate" readonly></li>
+   									<li class="list-group-item"><span class="tag tag-default tag-pill float-xs-right">Tipologia: </span> <input type="text" value="<%= p.getTipologia() %>" id="tipo-init" data-target="#modalChangeProduct" name="tipo" readonly></li>
+   									<li class="list-group-item"><span class="tag tag-default tag-pill float-xs-right">Quantità: </span> <input type="text" value="<%= p.getQuantità() %>" id="quant-init" data-target="#modalChangeProduct" name="quant" readonly></li>
+   									<li class="list-group-item"><span class="tag tag-default tag-pill float-xs-right">Prezzo: </span> <input type="text" value="<%= p.getPrezzo() %>" id="prezzo-init" data-target="#modalChangeProduct" name="prezzo" readonly></li>
+   									<li class="list-group-item"><span class="tag tag-default tag-pill float-xs-right">Metodo pagamento: </span> <input type="text" value="<%= p.getMetodoPag() %>" id="metodPag-init" data-target="#modalChangeProduct" name="metodPag" readonly></li>
+   									<li class="list-group-item"><span class="tag tag-default tag-pill float-xs-right">Tipologia consegna: </span> <input type="text" value="<%= p.getTipoConsegna() %>" id="tipoCons-init" data-target="#modalChangeProduct" name="tipoCons" readonly></li>
+   									<li class="list-group-item"><span class="tag tag-default tag-pill float-xs-right">Sconto: </span> <input type="text" value="<%= p.getSconto() %>" id="sconto-init" data-target="#modalChangeProduct" name="sconto" readonly></li>
    								</ul>
    							
    											<p class="help-block text-danger" ></p>
@@ -410,7 +416,7 @@ UtenteBean u = (UtenteBean) session.getAttribute("utente");
    						<div class="footer">
    							<div class="row">
    								<div class="col-md-3 offset-md-3">
-   									<input class="btn btn-primary" type ="submit" name="change" value="Change" data-toggle="modal" data-target="#modalChangeProduct">
+   									<input class="btn btn-primary" type ="submit" id="change_btn" name="change" value="Change" data-toggle="modal" data-target="#modalChangeProduct">
    								</div>
    								<div class="col-md-3 offset-md-3">						
 	   								<input class="btn btn-danger" type="submit" name="delete" value="Delete">	
@@ -419,6 +425,10 @@ UtenteBean u = (UtenteBean) session.getAttribute("utente");
    						
    						</div>
    						</form>
+   						<div class="row">
+   							<hr>
+   						</div>
+   						
    					</div>	
    				<% 	
    						}
@@ -497,6 +507,25 @@ $(function() {
 			num++;
 	}
 </script>
+
+<!-- funzione per riempire il modifica prodotto -->
+<script>
+   $('#inserzione-prodotto').on('submit', function(e){
+   //$('#change_btn').click(function(){
+	e.preventDefault();
+	$('#nomeProd').val($('#nomeProd-init').val());
+	$('#idProd').val($('#idProd-init').val());
+	$('#cate').val($('#cate-init').val());
+	$('#tipo').val($('#tipo-init').val());
+	$('#quant').val($('#quant-init').val());
+	$('#prezzo').val($('#prezzo-init').val());
+	$('#metodPag').val($('#metodPag-init').val());
+	$('#tipoCons').val($('#tipoCons-init').val());
+	$('#sconto').val($('#sconto-init').val());
+	$('#modalChangeProduct').modal('show');
+});
+</script>
+
 
 </html>
 

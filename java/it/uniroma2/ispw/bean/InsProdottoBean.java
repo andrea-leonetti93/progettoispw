@@ -159,14 +159,14 @@ public class InsProdottoBean {
 			return false;
 		}
 		//idProd è qià quello del prodotto scelto
-		nameProduct = p.getNome();
-		category = p.getCategoria();
-		typology = p.getTipologia();
-		amount = p.getQuantità();
-		price = p.getPrezzo();
-		methodPay = p.getMetodoPag();
-		deliveryType  = p.getTipoConsegna();
-		sale = p.getSconto();
+		this.nameProduct = p.getNome();
+		this.category = p.getCategoria();
+		this.typology = p.getTipologia();
+		this.amount = p.getQuantità();
+		this.price = p.getPrezzo();
+		this.methodPay = p.getMetodoPag();
+		this.deliveryType  = p.getTipoConsegna();
+		this.sale = p.getSconto();
 		return true;
 	}
 
