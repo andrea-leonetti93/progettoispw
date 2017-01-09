@@ -1,11 +1,12 @@
 package it.uniroma2.ispw.controller;
 
 
-import it.uniroma2.ispw.bean.UtenteBean;
+
 import it.uniroma2.ispw.model.Consumatore;
 import it.uniroma2.ispw.model.UtenteRegistrato;
 import it.uniroma2.ispw.model.Venditore;
 import it.uniroma2.ispw.persistence.UtenteDAO;
+import it.uniroma2.ispw.session.UtenteSessione;
 
 public class GestisciUtente {
 
@@ -24,39 +25,79 @@ public class GestisciUtente {
     }
 	
 	
-	public boolean effettuaLogin(UtenteBean uBean){
+	public UtenteSessione effettuaLogin(String email, String password){
+		
+		UtenteSessione us = new UtenteSessione();
 		UtenteRegistrato ur = null;
+		
 		System.out.println("Entrato in effettualogin");
-		if((ur = u.checkUtente(uBean.getEmail(), uBean.getPassword())) != null){
+		if((ur = u.checkUtente(email, password)) != null){
+			
 			if(ur instanceof Venditore){
-				uBean.setType("Venditore");
-			}else if(ur instanceof Consumatore){
-				uBean.setType("Consumatore");
+				us.setEmail(ur.getEmail());
+				us.setType(1);
+				us.setUserid(ur.getUserid());
+				return us;
 			}
-			//uBean.setType(ur.instanceof(Venditore));//insanceof()
-			uBean.setName(ur.getNome());
-			return true;
+			
+			else if(ur instanceof Consumatore){
+				us.setEmail(ur.getEmail());
+				us.setType(2);
+				us.setUserid(ur.getUserid());
+				return us;
+			}
 		}
-		return false;
+		
+		return null;
 	}
 	
-	
-	public UtenteRegistrato effettuaRegistrazione(UtenteBean uBean){
+	/* 1 ok, 2 mail in uso, 3 userid in uso*/
+	public int effettuaRegistrazione(String userid, String name, String surname, String email, String password, String telephone, String street, int type){
 		
 		UtenteRegistrato newUtente = null;
 		
-		if(u.checkUtente(uBean.getEmail(), uBean.getPassword()) != null){
-			return newUtente;
-		}
-		if(uBean.getType().equals("Venditore")){
-			newUtente = new Venditore(uBean.getName(), uBean.getSurname(), uBean.getEmail(), uBean.getPassword(), uBean.getPassword(), uBean.getStreet());
+		if (u.getUtente(email)!=null) return 2;
+		if (u.getUtenteByUserid(userid)!=null) return 3;
+		
+		if(type == 1){
+			newUtente = new Venditore(userid , name, surname, email , password, telephone, street);
 			u.addUtente(newUtente);
-		}else if(uBean.getType().equals("Consumatore")){
-			newUtente = new Consumatore(uBean.getName(), uBean.getSurname(), uBean.getEmail(), uBean.getPassword(), uBean.getPassword(), uBean.getStreet());
+		}else if(type==2){
+			newUtente = new Consumatore(userid , name, surname, email , password, telephone, street);
 			u.addUtente(newUtente);
 		}
 		
-		return newUtente;
+		return 1;
 	}
+	
+	public UtenteRegistrato modificaInformazioni(String userid, String name, String surname, String email, String password, String telephone, String street, int type){
+		
+		UtenteRegistrato newUtente = null;
+		
+		if(type==1){
+			newUtente = new Venditore(userid , name, surname, email , password, telephone, street);
+			u.modificaUtente(newUtente);
+		}else if(type==2){
+			newUtente = new Consumatore(userid , name, surname, email , password, telephone, street);
+			u.modificaUtente(newUtente);
+		}
+		
+		return newUtente;
+		
+	}
+	
+	public UtenteRegistrato visualizzaInformazioni(String email){
+		
+		UtenteRegistrato newUtente = null;
+		
+		newUtente = u.getUtente(email);
+		
+		return newUtente;
+		
+		
+	}
+	
+	
+	
 
 }

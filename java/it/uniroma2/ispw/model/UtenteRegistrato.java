@@ -31,6 +31,10 @@ public class UtenteRegistrato implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 4294029448300657668L;
+	
+	@Column(name = "userid", unique = true)
+	String userid;
+	
 
 	@Column(name = "nome")
 	String nome;
@@ -63,9 +67,10 @@ public class UtenteRegistrato implements Serializable{
 	public UtenteRegistrato(){}
 	
 	
-	public UtenteRegistrato(String nome, String cognome, String email, String password, String telefono,
+	public UtenteRegistrato(String userid,String nome, String cognome, String email, String password, String telefono,
 			String residenza) {
 		
+		this.userid = userid;
 		this.nome = nome;
 		this.cognome = cognome;
 		this.email = email;
@@ -112,6 +117,16 @@ public class UtenteRegistrato implements Serializable{
 	public void setResidenza(String residenza) {
 		this.residenza = residenza;
 	}
+
+		public String getUserid() {
+		return userid;
+	}
+
+	public void setUserid(String userid) {
+		this.userid = userid;
+	}
+	
+	
 	
 	public Set<Prodotto> getProdotti() {
 		return prodotti;
