@@ -249,11 +249,11 @@ UtenteBean u = (UtenteBean) session.getAttribute("utente");
 				<div class="form-wrap">
 					<form action="" method="post">
 						<div class="form-group">
-							<label for="nameAdd" class="sr-only">Name</label>
+							<label for="nameAdd" class="form-control-label">Name</label>
 							<input type="text" id="nameProduct" name="nameProduct" class="form-control" placeholder="Name">
 						</div>					
 						<div class="form-group">
-							<label for="categoriaAdd" class="sr-only">Category</label>
+							<label for="categoriaAdd" class="form-control-label">Category</label>
 							<select class="form-control" id="selectCategory" name="category" onchange="giveSelection(this.value)">
 								<option value="x" selected="selected">Select category</option>
 								<option value="Elettronica">Elettronica</option>
@@ -262,7 +262,7 @@ UtenteBean u = (UtenteBean) session.getAttribute("utente");
 							</select>
 						</div>
 						<div class="form-group">
-							<label for="typologyAdd" class="sr-only">Typology</label>
+							<label for="typologyAdd" class="form-control-label">Typology</label>
 							<select class="form-control" id="selectTypology" name="typology">
 								<option data-option="x" selected="selected">Select typology</option>
 								<option data-option="Elettronica">Cellulari</option>
@@ -274,23 +274,23 @@ UtenteBean u = (UtenteBean) session.getAttribute("utente");
 							</select>
 						</div>
 						<div class="form-group">
-							<label for="amountAdd" class="sr-only">Amount</label>
+							<label for="amountAdd" class="form-control-label">Amount</label>
 							<input type="text" id="amount" name="amount" class="form-control" placeholder="Amount">
 						</div>
 						<div class="form-group">
-							<label for="priceAdd" class="sr-only">Price</label>
+							<label for="priceAdd" class="form-control-label">Price</label>
 							<input type="text" id="price" name="price" class="form-control" placeholder="Price">
 						</div>
 						<div class="form-group">
-							<label for="methodPayAdd" class="sr-only">Pay Method</label>
+							<label for="methodPayAdd" class="form-control-label">Pay Method</label>
 							<input type="text" id="methodPay" name="methodPay" class="form-control" placeholder="Pay method">
 						</div>
 						<div class="form-group">
-							<label for="deliveryTypeAdd" class="sr-only">Delivery type</label>
+							<label for="deliveryTypeAdd" class="form-control-label">Delivery type</label>
 							<input type="text" id="deliveryType" name="deliveryType" class="form-control" placeholder="Delivery type">
 						</div>
 						<div class="form-group">
-							<label for="saleAdd" class="sr-only">Sale</label>
+							<label for="saleAdd" class="form-control-label">Sale</label>
 							<input type="text" id="sale" name="sale" class="form-control" placeholder="Sale">
 						</div>
 						<div class="modal-footer">
@@ -321,39 +321,39 @@ UtenteBean u = (UtenteBean) session.getAttribute("utente");
 				<div class="form-wrap">
 					<form action="" method="post">
 						<div class="form-group">
-							<label for="nameAdd" class="sr-only">Name</label>
+							<label for="nameAdd" class="form-control-label">Name</label>
 							<input type="text" id="nomeProd" name="nomeProd" class="form-control" value="{{ request.form.nomeProd }}">
 						</div>
 						<div class="form-group">
-							<label for="nameAdd" class="sr-only">IdProd</label>
+							<label for="nameAdd" class="form-control-label">IdProd</label>
 							<input type="text" id="idProd" name="idProd" class="form-control" value="{{ request.form.idProd }}" readonly>
 						</div>						
 						<div class="form-group">
-							<label for="categoriaAdd" class="sr-only">Category</label>
+							<label for="categoriaAdd" class="form-control-label">Category</label>
 							<input type="text" id="cate" name="cate" class="form-control" value="{{ request.form.cate }}" readonly>
 						</div>
 						<div class="form-group">
-							<label for="typologyAdd" class="sr-only">Typology</label>
+							<label for="typologyAdd" class="form-control-label">Typology</label>
 							<input type="text" id="tipo" name="tipo" class="form-control" value="{{ request.form.tipo }}" readonly>
 						</div>
 						<div class="form-group">
-							<label for="amountAdd" class="sr-only">Amount</label>
+							<label for="amountAdd" class="form-control-label">Amount</label>
 							<input type="text" id="quant" name="quant" class="form-control" value="{{ request.form.quant }}">
 						</div>
 						<div class="form-group">
-							<label for="priceAdd" class="sr-only">Price</label>
+							<label for="priceAdd" class="form-control-label">Price</label>
 							<input type="text" id="prezzo" name="prezzo" class="form-control" value="{{ request.form.prezzo }}">
 						</div>
 						<div class="form-group">
-							<label for="methodPayAdd" class="sr-only">Pay Method</label>
+							<label for="methodPayAdd" class="form-control-label">Pay Method</label>
 							<input type="text" id="metodPag" name="metodPag" class="form-control" value="{{ request.form.metodPag }}">
 						</div>
 						<div class="form-group">
-							<label for="deliveryTypeAdd" class="sr-only">Delivery type</label>
+							<label for="deliveryTypeAdd" class="form-control-label">Delivery type</label>
 							<input type="text" id="tipoCons" name="tipoCons" class="form-control" value="{{ request.form.tipoCons }}">
 						</div>
 						<div class="form-group">
-							<label for="saleAdd" class="sr-only">Sale</label>
+							<label for="saleAdd" class="form-control-label">Sale</label>
 							<input type="text" id="sconto" name="sconto" class="form-control" value="{{ request.form.sconto }}">
 						</div>
 						<div class="modal-footer">
@@ -393,7 +393,7 @@ UtenteBean u = (UtenteBean) session.getAttribute("utente");
    							p = lp.get(i);
    				%>		
    					<div class="container">
-   						<form method="post" id="inserzione-prodotto" action="{{ url_for('modalChangeProduct') }}">
+   						<form method="post" id="inserzione-prodotto">		<!-- action="{{ url_for('modalChangeProduct') }}" -->
    						<div class="header">
    							<div class="form-group">
    								<h3>Prodotto: <input type="text" value="<%= p.getNome() %>" id="nomeProd-init" name="nomeProd" readonly></h3>
