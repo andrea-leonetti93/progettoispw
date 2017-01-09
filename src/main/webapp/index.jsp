@@ -13,12 +13,18 @@
 UtenteSessione us = (UtenteSessione) session.getAttribute("utente");
 
 if(request.getParameter("accedi") != null){
-	us = loginb.validate();
-	if(us != null){
-			session.setAttribute("utente",us);
-			// non necessario---> response.sendRedirect("index.jsp");
-	}else{
-		//pagina di errore o javascript?
+	String errorMessage;
+	errorMessage = loginb.controlloCampi();
+	if (errorMessage==null){
+		us = loginb.validate();
+		if(us != null){
+				session.setAttribute("utente",us);
+		}else{
+			out.println("login fallito");
+		}
+	}
+	else{
+		out.println(errorMessage);
 	}
 }
 

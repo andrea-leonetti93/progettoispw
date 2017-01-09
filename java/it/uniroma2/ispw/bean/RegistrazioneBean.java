@@ -10,9 +10,12 @@ public class RegistrazioneBean {
     private String surname;
     private String email;
     private String password;
+    private String rippassword;
     private String telephone;
     private String street;
     private String type;
+    private String regcheck;
+    
 	public String getUserid() {
 		return userid;
 	}
@@ -61,8 +64,13 @@ public class RegistrazioneBean {
 	public void setType(String type) {
 		this.type = type;
 	}
-    
-	 
+	
+	public String getRippassword() {
+		return rippassword;
+	}
+	public void setRippassword(String rippassword) {
+		this.rippassword = rippassword;
+	}
 	/* 1 ok, 2 mail in uso, 3 userid in uso */
 	public int effettuaRegistrazione(){
 	    	
@@ -73,6 +81,48 @@ public class RegistrazioneBean {
 		GestisciUtente gu = GestisciUtente.getInstance();
 	    return gu.effettuaRegistrazione(userid, name, surname, email, password, telephone, street, numerictype);
 	   
+	}
+	
+	public String controlloCampi(){
+		
+		if (this.userid == null) return "Inserisci un userid";
+		if (this.userid.equals("")) return "Inserisci un userid";
+		
+		if (this.name == null) return "Inserisci un nome";
+		if (this.name.equals("")) return "Inserisci un nome";
+		
+		if (this.surname == null) return "Inserisci un cognome";
+		if (this.surname.equals("")) return "Inserisci un cognome";
+		
+		if (this.email == null) return "Inserisci una email";
+		if (this.email.equals("")) return "Inserisci un email";
+		
+		if (this.userid == null) return "Inserisci un userid";
+		if (this.userid.equals("")) return "Inserisci un userid";
+		
+		if (this.password == null) return "Inserisci una password";
+		if (this.password.equals("")) return "Inserisci una password";
+		
+		if (this.rippassword == null) return "Inserisci una password";
+		if (this.rippassword.equals("")) return "Inserisci una password";
+		
+		if (this.telephone == null) return "Inserisci un telefono";
+		if (this.telephone.equals("")) return "Inserisci un telefono";
+		
+		if (this.street == null) return "Inserisci una via";
+		if (this.street.equals("")) return "Inserisci una via";
+		
+		if (this.userid == null) return "Inserisci un userid";
+		if (this.userid.equals("")) return "Inserisci un userid";
+		
+		if (this.password.equals(this.rippassword)) return "Le 2 pass non coincidono";
+		
+		if (type==null) return "Scegli un utente";
+		
+		if (this.regcheck==null) return "Accetta il regolamento";
+		
+		return null;
+		
 	}
 
 }

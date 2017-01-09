@@ -2,6 +2,7 @@ package it.uniroma2.ispw.bean;
 
 import it.uniroma2.ispw.controller.GestisciUtente;
 import it.uniroma2.ispw.model.UtenteRegistrato;
+import it.uniroma2.ispw.model.Venditore;
 
 public class UpdateUtenteBean {
 	
@@ -11,6 +12,7 @@ public class UpdateUtenteBean {
     private String rippassword;
     private String telephone;
     private String street;
+    private int type;
 	
     public String getName() {
 		return name;
@@ -62,12 +64,36 @@ public class UpdateUtenteBean {
 			this.rippassword = ur.getPassword();
 			this.street = ur.getResidenza();
 			this.telephone = ur.getTelefono();
+			if(ur instanceof Venditore){
+				this.type=1;
+			}
+			else this.type=2;
 			return true;
 		}
 		
 		return false;
 		
 	}
+	
+	public boolean controlloCampi(){
+		
+		return (this.password.equals(this.rippassword));
+	}
+	
+
+	public boolean updateUtente(String userid, String email){
+    	
+    	GestisciUtente gu = GestisciUtente.getInstance();
+    	
+    	UtenteRegistrato ur = null;
+    	
+    	ur = gu.modificaInformazioni(userid, name, surname, email, password, telephone, street, type);
+    	
+    	if (ur==null) return false;
+    	return true;
+    	
+    	
+    }
 	
 
 

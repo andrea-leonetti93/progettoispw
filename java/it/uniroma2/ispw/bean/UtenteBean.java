@@ -104,25 +104,17 @@ public class UtenteBean {
     	return true;
     }
     
-    public boolean modificaInfo(UtenteBean u){
+  
+    boolean updateUtente(String userid, String email){
     	
     	GestisciUtente gu = GestisciUtente.getInstance();
     	
     	UtenteRegistrato ur = null;
     	
-    	ur = gu.modificaInformazioni(u);
-    	if (ur==null){
-    		return false;
-    	}
+    	ur = gu.modificaInformazioni(userid, name, surname, email, password, telephone, street, int type);
     	
-    	this.setName(u.getName());
-    	this.setSurname(u.getSurname());
-    	this.setPassword(u.getPassword());
-    	this.setStreet(u.getStreet());
-    	this.setTelephone(u.getTelephone());
+    		
     	
-    	return true; 
     	
- 
     }
 }

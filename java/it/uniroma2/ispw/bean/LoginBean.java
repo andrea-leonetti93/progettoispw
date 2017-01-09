@@ -25,10 +25,23 @@ public class LoginBean {
         
         GestisciUtente gu = GestisciUtente.getInstance();
         
-        return gu.effettuaLogin(email, password);
-         
+        return gu.effettuaLogin(this.email, this.password);
         
     }
+	
+	public String controlloCampi(){
+		
+		if (this.email==null) return "Inserisci una email";
+		if (this.email.equals("")) return "Inserisci una email";
+		
+		if (this.password==null) return "Inserisci una password";
+		if (this.email.equals("")) return "Inserisci una password";
+		
+		return null;
+		
+		
+		
+	}
     
 
 }

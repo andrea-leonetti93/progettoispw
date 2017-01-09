@@ -229,7 +229,7 @@ if(request.getParameter("inviaReg") != null){
                             </div>
 							<div class="checkbox">
 								<label>
-									<input type="checkbox" value= "Regolamento" name="regCheck" id="check_value" class="text-primary"><font color="white">Ho letto e accettato il regolamento</font> <br>
+									<input type="checkbox" value= "Regolamento" name="regcheck" id="check_value" class="text-primary"><font color="white">Ho letto e accettato il regolamento</font> <br>
 									<input type="radio" value="Venditore" name="type" id="check_value" class="text-primary"> <font color="white">Venditore</font> <br>
 									<input type="radio" value="Consumatore" name="type" id="check_value" class="text-primary"><font color="white">Consumatore</font> <br>
 								</label>
