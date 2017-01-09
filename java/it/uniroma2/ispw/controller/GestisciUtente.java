@@ -19,10 +19,6 @@ public class GestisciUtente {
             instance = new GestisciUtente();
         return instance;
     }
-     
-    private GestisciUtente(){
-         
-    }
 	
 	
 	public UtenteSessione effettuaLogin(String email, String password){
@@ -96,6 +92,7 @@ public class GestisciUtente {
 		
 		
 	}
+	
 	
 	
 	
