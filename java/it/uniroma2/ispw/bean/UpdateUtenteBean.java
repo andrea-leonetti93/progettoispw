@@ -3,7 +3,7 @@ package it.uniroma2.ispw.bean;
 import it.uniroma2.ispw.controller.GestisciUtente;
 import it.uniroma2.ispw.model.UtenteRegistrato;
 
-public class UpdateBean {
+public class UpdateUtenteBean {
 	
     private String name;
     private String surname;
@@ -68,5 +68,7 @@ public class UpdateBean {
 		return false;
 		
 	}
+	
+
 
 }
