@@ -33,6 +33,7 @@ public class GestisciUtente {
 				us.setEmail(ur.getEmail());
 				us.setType(1);
 				us.setUserid(ur.getUserid());
+				us.setPassword(ur.getPassword());
 				return us;
 			}
 			
@@ -40,6 +41,7 @@ public class GestisciUtente {
 				us.setEmail(ur.getEmail());
 				us.setType(2);
 				us.setUserid(ur.getUserid());
+				us.setPassword(ur.getPassword());
 				return us;
 			}
 		}

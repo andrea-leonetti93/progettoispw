@@ -5,6 +5,7 @@ public class UtenteSessione {
 	private String userid;
 	private String email;
 	private int type; /*1 venditore, 2 consumatore*/
+	private String password;
 	
 	
 	public String getUserid() {
@@ -25,6 +26,14 @@ public class UtenteSessione {
 	public void setType(int type) {
 		this.type = type;
 	}
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	
+	
 	
 	
 	

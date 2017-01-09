@@ -2,17 +2,16 @@
 <%@ page import="it.uniroma2.ispw.bean.*" %>
 <%@ page import="it.uniroma2.ispw.controller.*" %>
 <%@ page import="it.uniroma2.ispw.model.*" %>
+<%@ page import="it.uniroma2.ispw.session.*" %>
 <%@ page import="java.util.*" %>
 
 
-<jsp:useBean id="utente" scope="session" class="it.uniroma2.ispw.bean.UtenteBean"/>
-<jsp:setProperty name="utente" property="*"/>
+
 <jsp:useBean id="insProdotto" class="it.uniroma2.ispw.bean.InsProdottoBean"/>
 <jsp:setProperty name="insProdotto" property="*"/>
 
 <%
-
-UtenteBean u = (UtenteBean) session.getAttribute("utente");
+UtenteSessione us = (UtenteSessione) session.getAttribute("utente");
 %>
 
 <%
@@ -23,7 +22,7 @@ UtenteBean u = (UtenteBean) session.getAttribute("utente");
 
 <% 
 	if(request.getParameter("allow") != null){
-		insProdotto.setUtente(u);
+		insProdotto.setUtente(us);
 		if(insProdotto.acquisisciProdotto()){
 			response.sendRedirect("vendCons.jsp");
 		}else{
@@ -56,7 +55,7 @@ UtenteBean u = (UtenteBean) session.getAttribute("utente");
 
 <%
 	if(request.getParameter("addChanges") != null){
-		insProdotto.setUtente(u);
+		insProdotto.setUtente(us);
 		if(insProdotto.modificheProdotto()){
 			response.sendRedirect("vendCons.jsp");
 		}else{
@@ -128,7 +127,7 @@ UtenteBean u = (UtenteBean) session.getAttribute("utente");
                         <a class="page-scroll" href="prova.jsp">Profilo</a>
                     </li>
                     
-                     <%if (u.getType().equals("Consumatore")){ %>
+                     <%if (us.getType()==2){ %>
                      <li>
                         <a class="page-scroll" href="prova.jsp">Tuoi annunci</a>
                     </li>
@@ -180,7 +179,7 @@ UtenteBean u = (UtenteBean) session.getAttribute("utente");
             <div class="intro-text">
                 
                 
-                <div class="intro-lead-in">Bentornato nel nostro sito di e-commerce, <%= utente.getName() %>!</div>
+                <div class="intro-lead-in">Bentornato nel nostro sito di e-commerce, <%= us.getUserid() %>!</div>
                 <div class="intro-heading">It's Nice To Meet You</div>
             </div>
         </div>
@@ -370,8 +369,8 @@ UtenteBean u = (UtenteBean) session.getAttribute("utente");
 
 
 <%
-	if(u.getType().equals("Venditore")){
-		insProdotto.riempiLista(u.getEmail());
+	if(us.getType()==1){
+		insProdotto.riempiLista(us.getEmail());
 %>
    
    <section id="prodotti">
