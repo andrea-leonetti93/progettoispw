@@ -11,15 +11,21 @@
 <%
 
 UtenteSessione us = (UtenteSessione) session.getAttribute("utente");
+String errorMessage = "";
 
 if(request.getParameter("salvaInfo") != null){
-	if (updatebean.updateUtente(us.getUserid(),us.getEmail())){
-		System.out.println("info aggiornate");
-		response.sendRedirect("index.jsp");
+	
+	if (updatebean.controlloCampi()){
+		if (updatebean.updateUtente(us.getUserid(),us.getEmail())){
+			errorMessage = "informazioni aggiornate";
+		}
+		else {
+			errorMessage = "impossibile aggiornare";
+		}
 	}
+	
 	else {
-		out.println("Impossibile aggiornare il profilo!");
-		response.sendRedirect("profilo.jsp");
+		errorMessage = "Password diverse";
 	}
 }
 
@@ -28,13 +34,6 @@ if (!(updatebean.getUtente(us.getEmail()))){
 }
 
 if (request.getParameter("indietro") != null){
-	response.sendRedirect("index.jsp");
-}
-
-if (request.getParameter("logout") != null){
-
-	us = null;
-	session.invalidate();
 	response.sendRedirect("index.jsp");
 }
 
@@ -116,7 +115,7 @@ if (request.getParameter("logout") != null){
                    
                     <%}else if (us.getType()==1) { %>
                      <li>
-                        <a class="page-scroll" href="prova.jsp">Tuoi annunci</a>
+                        <a class="page-scroll" href="annunci.jsp">Tuoi annunci</a>
                     </li>
                      <li>
                         <a class="page-scroll" href="prova.jsp">Tue Vendite</a>
@@ -146,12 +145,26 @@ if (request.getParameter("logout") != null){
         </div>
     </header>
     
+    <%
+    
+    String email = us.getEmail();
+    String userid = us.getUserid();
+    
+    String type;
+    
+    if (us.getType()==1) type = "Venditore";
+    else type = "Consumatore";
+    
+    
+    
+    %>
+    
      <div class="container">
-    <h1>Edit Profile</h1>
+     <font size="6">Profilo di <%= userid%> ( <%= email%>,  <%= type%>) </font> 
   	<hr>
       
       <!-- edit form column -->
-        <h3>Personal info</h3>
+        <font size="2">*Le informazioni lasciate in bianco non saranno aggiornate</font> <br> 
         
         <form name="modificaInfo" id="modificaInfoForm" class="form-horizontal" role="form" action="profilo.jsp" method="post">
           <div class="form-group">
@@ -199,6 +212,8 @@ if (request.getParameter("logout") != null){
             </div>
           </div>
         </form>
+        
+        <font color="red"><%=errorMessage%></font>
 		<hr>
 		</div>
 		

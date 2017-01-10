@@ -2,40 +2,49 @@
 <%@ page import="it.uniroma2.ispw.bean.*" %>
 <%@ page import="it.uniroma2.ispw.controller.*" %>
 <%@ page import="it.uniroma2.ispw.model.*" %>
+<%@ page import="it.uniroma2.ispw.session.*" %>
 
+<jsp:useBean id="loginb" scope="session" class="it.uniroma2.ispw.bean.LoginBean"/>
+<jsp:setProperty name="loginb" property="*"/>
 
-<jsp:useBean id="utente" scope="session" class="it.uniroma2.ispw.bean.UtenteBean"/>
-<jsp:setProperty name="utente" property="*"/>
 
 <%
-	if(request.getParameter("accedi") != null){
-		
-		if(utente.validate()){
-				
-				//vai alla homepage registrata
-				session.setAttribute("utente",utente);
-				response.sendRedirect("vendCons.jsp");
+
+UtenteSessione us = (UtenteSessione) session.getAttribute("utente");
+
+if(request.getParameter("accedi") != null){
+	String errorMessage;
+	errorMessage = loginb.controlloCampi();
+	if (errorMessage==null){
+		us = loginb.validate();
+		if(us != null){
+				session.setAttribute("utente",us);
 		}else{
-			%>
-		
-		<script type="text/javascript">
-			$('#modalErrLogin').modal('show')
-		</script>
-		
-		<%	
+			out.println("login fallito");
 		}
 	}
-
-	if(request.getParameter("invia") != null){
-		
-		out.println("we");
-	
+	else{
+		out.println(errorMessage);
 	}
+}
+
+if(request.getParameter("invia") != null){
+	
+	out.println("we");
+}
+
+if (request.getParameter("logout") != null){
+
+	us = null;
+	session.invalidate();
+}
+
 %>
 
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
     <meta charset="utf-8">
@@ -90,13 +99,51 @@
                     <li>
                         <a class="page-scroll" href="#ricerca">Cerca prodotto</a>
                     </li>
+                  
+                    
+                    <%if (us==null){ %>
+                    
                     <li>
                         <a class="forget" data-toggle="modal" data-target=".forget-modal-login" href="#modalLogin">Login</a>
                     </li>
                     <li>
                         <a class="page-scroll" href="registrazione.jsp">Registrazione</a>
                     </li>
+                    
+                    <%}else if (us.getType()==2){ %>
+                     <li>
+                        <a class="forget" data-toggle="modal" data-target=".forget-modal-logout" href="#modalLogout" >Logout</a>
+                    </li>
+                     <li>
+                        <a class="page-scroll" href="profilo.jsp">Profilo</a>
+                    </li>
+                      <li>
+                        <a class="page-scroll" href="prova.jsp">Tuoi acquisti</a>
+                    </li>
+                     <li>
+                        <a class="page-scroll" href="prova.jsp">Carrello</a>
+                    </li>
                    
+                    <%}else if (us.getType()==1) { %>
+                    <li>
+                        <a class="forget" data-toggle="modal" data-target=".forget-modal-logout" href="#modalLogout" >Logout</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="profilo.jsp">Profilo</a>
+                    </li>
+                     <li>
+                        <a class="page-scroll" href="annunci.jsp">Tuoi annunci</a>
+                    </li>
+                     <li>
+                        <a class="page-scroll" href="prova.jsp">Tue Vendite</a>
+                    </li>
+                    
+                    
+                    <%}%>
+                    <li>
+                        <a class="page-scroll" href="#team"></a>
+                    </li>
+                
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
@@ -104,7 +151,7 @@
         <!-- /.container-fluid -->
     </nav>
 
-<!-- popup login -->
+	<!-- popup login -->
 	<div id="modalLogin" class="modal fade forget-modal-login" tabindex="-1" role="dialog" aria-labelledby="myLoginModalLabel" aria-hidden="true">
 			<div class="modal-dialog">
 				<div class="modal-content">
@@ -137,9 +184,8 @@
 				</div>
 				</div>
 			</div>
-
-
-<!--popup login non riuscito-->
+			
+			<!--popup login non riuscito-->
 	<div id="modalErrlogin" class="modal fade forget-modal-errlogin" tabindex="-1" role="dialog" aria-labelledby="myLoginModalLabel" aria-hidden="true">
 			<div class="modal-dialog">
 				<div class="modal-content">
@@ -159,15 +205,47 @@
 				</div>
 			</div>
 	</div>	
+			
 
 
+	<div id="modalLogout" class="modal fade forget-modal-logout" tabindex="-1" role="dialog" aria-labelledby="myLoginModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">
+							<span aria-hidden="true">x</span>
+							<span class="sr-only">Close</span>
+						</button>
+						<h4 class="modal-title">Logout</h4>
+					</div>	
+					<div class="modal-body">
+						<p>Sicuro di abbandonare la sessione?</p>					
+					</div>
+					<div class="modal-footer">	
+					
+					<form action="index.jsp" method="post">		
+						<input class="btn btn-custom" type="submit" id="btn-logout" name="logout" value="Abbandona">
+					</form>
+					</div>
+				</div>
+			</div>
+	</div>	
 
     <!-- Header -->
     <header>
         <div class="container">
             <div class="intro-text">
-                <div class="intro-lead-in">Benvenuto nel nostro sito di e-commerce!</div>
-                <div class="intro-heading">It's Nice To Meet You</div>
+                
+                <%if (us==null){ %>
+                	<div class="intro-lead-in">Benvenuto nel nostro sito di e-commerce!</div>
+                	<div class="intro-heading">It's Nice To Meet You</div>
+                <%}else if ((us.getType()==1)||(us.getType()==2)){ %>
+                
+                	<div class="intro-lead-in">Bentornato nel nostro sito di e-commerce, <%= us.getUserid() %>!</div>
+                	<div class="intro-heading">It's Nice To Meet You</div>
+                
+                
+                <%} %>
             </div>
         </div>
     </header>
@@ -184,14 +262,22 @@
                 <div class="col-lg-12">
 					<form name="cerca" id="ricercaForm">
 						<div class="row">
-							<div class="form-group">
-								<input type="text" class="form-control" placeholder="Categoria"  id="categoria" >
-								<p class="help-block text-danger" ></p>
-							</div>
-							<div class="form-group">
-								<input type="text" class="form-control" placeholder="Tipologia"  id="tipologia" >
-								<p class="help-block text-danger" ></p>
-							</div>
+							 <div class="form-group">
+           				 		<label class="col-lg-3 control-label">Categoria:</label>
+            					<div class="col-lg-8">
+              						<div class="ui-select">
+                						<select id="user_time_zone" class="form-control">
+                  							<option value="Elettronica">ELETTRONICA</option>
+                 						    <option value="Smartphone">----->Smartphone</option>
+                  			 				<option value="Computer">----->Computer</option>
+							                <option value="Mobili">MOBILI</option>
+							                <option value="Sedie">----->Sedie</option>
+							                <option value="Scrivanie">----->Scrivanie</option>
+      
+      							          </select>
+              						</div>
+            					</div>
+          					</div>
 							<div class="form-group">
 								<input type="text" class="form-control" placeholder="Nome prodotto"  id="nomeprodotto" >
 								<p class="help-block text-danger" ></p>
@@ -218,44 +304,11 @@
             </div>
         </div>
     </section>
-    
-         <!-- Project One -->
-        <div class="row">
-            <div class="col-md-7">
-                <a href="#">
-                    <img class="img-responsive" src="http://placehold.it/700x300" alt="">
-                </a>
-            </div>
-            <div class="col-md-5">
-                <h3>Project One</h3>
-                <h4>Subheading</h4>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium veniam exercitationem expedita laborum at voluptate. Labore, voluptates totam at aut nemo deserunt rem magni pariatur quos perspiciatis atque eveniet unde.</p>
-                <a class="btn btn-primary" href="#">View Project <span class="glyphicon glyphicon-chevron-right"></span></a>
-            </div>
-        </div>
-        <!-- /.row -->
+	
+	
+   
 
-        <hr>
-
-        <!-- Project Two -->
-        <div class="row">
-            <div class="col-md-7">
-                <a href="#">
-                    <img class="img-responsive" src="http://placehold.it/700x300" alt="">
-                </a>
-            </div>
-            <div class="col-md-5">
-                <h3>Project Two</h3>
-                <h4>Subheading</h4>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut, odit velit cumque vero doloremque repellendus distinctio maiores rem expedita a nam vitae modi quidem similique ducimus! Velit, esse totam tempore.</p>
-                <a class="btn btn-primary" href="#">View Project <span class="glyphicon glyphicon-chevron-right"></span></a>
-            </div>
-        </div>
-        <!-- /.row -->
-
-        <hr>
-
-	<footer>
+    <footer>
         <div class="container">
             <div class="row">
                 <div class="col-md-4">
@@ -263,115 +316,15 @@
                 </div>
                 <div class="col-md-4">
                     <ul class="list-inline quicklinks">
-                         <li><a href="#" style="float:right">Regolamento</a>
+                        <li><a href="#">Regolamento</a>
                         </li>
-                        <li><a href="#" style="float:right">Contattaci</a>
+                        <li><a href="#">Contattaci</a>
                         </li>
                     </ul>
                 </div>
             </div>
         </div>
     </footer>
-    
-    
-    <div class="container">
-    <h1>Edit Profile</h1>
-  	<hr>
-	<div class="row">
-      <!-- left column -->
-      <div class="col-md-3">
-        <div class="text-center">
-          <img src="//placehold.it/100" class="avatar img-circle" alt="avatar">
-          <h6>Upload a different photo...</h6>
-          
-          <input class="form-control" type="file">
-        </div>
-      </div>
-      
-      <!-- edit form column -->
-      <div class="col-md-9 personal-info">
-        <div class="alert alert-info alert-dismissable">
-          <a class="panel-close close" data-dismiss="alert">×</a> 
-          <i class="fa fa-coffee"></i>
-          This is an <strong>.alert</strong>. Use this to show important messages to the user.
-        </div>
-        <h3>Personal info</h3>
-        
-        <form class="form-horizontal" role="form">
-          <div class="form-group">
-            <label class="col-lg-3 control-label">First name:</label>
-            <div class="col-lg-8">
-              <input class="form-control" value="Jane" type="text">
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="col-lg-3 control-label">Last name:</label>
-            <div class="col-lg-8">
-              <input class="form-control" value="Bishop" type="text">
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="col-lg-3 control-label">Company:</label>
-            <div class="col-lg-8">
-              <input class="form-control" value="" type="text">
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="col-lg-3 control-label">Email:</label>
-            <div class="col-lg-8">
-              <input class="form-control" value="janesemail@gmail.com" type="text">
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="col-lg-3 control-label">Time Zone:</label>
-            <div class="col-lg-8">
-              <div class="ui-select">
-                <select id="user_time_zone" class="form-control">
-                  <option value="Hawaii">(GMT-10:00) Hawaii</option>
-                  <option value="Alaska">(GMT-09:00) Alaska</option>
-                  <option value="Pacific Time (US &amp; Canada)">(GMT-08:00) Pacific Time (US &amp; Canada)</option>
-                  <option value="Arizona">(GMT-07:00) Arizona</option>
-                  <option value="Mountain Time (US &amp; Canada)">(GMT-07:00) Mountain Time (US &amp; Canada)</option>
-                  <option value="Central Time (US &amp; Canada)" selected="selected">(GMT-06:00) Central Time (US &amp; Canada)</option>
-                  <option value="Eastern Time (US &amp; Canada)">(GMT-05:00) Eastern Time (US &amp; Canada)</option>
-                  <option value="Indiana (East)">(GMT-05:00) Indiana (East)</option>
-                </select>
-              </div>
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="col-md-3 control-label">Username:</label>
-            <div class="col-md-8">
-              <input class="form-control" value="janeuser" type="text">
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="col-md-3 control-label">Password:</label>
-            <div class="col-md-8">
-              <input class="form-control" value="11111122333" type="password">
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="col-md-3 control-label">Confirm password:</label>
-            <div class="col-md-8">
-              <input class="form-control" value="11111122333" type="password">
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="col-md-3 control-label"></label>
-            <div class="col-md-8">
-              <input class="btn btn-primary" value="Save Changes" type="button">
-              <span></span>
-              <input class="btn btn-default" value="Cancel" type="reset">
-            </div>
-          </div>
-        </form>
-      </div>
-  </div>
-</div>
-<hr>
-
-   
 
     <!-- jQuery -->
     <script src="vendor/jquery/jquery.min.js"></script>

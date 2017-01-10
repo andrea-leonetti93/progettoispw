@@ -2,45 +2,46 @@
 <%@ page import="it.uniroma2.ispw.bean.*" %>
 <%@ page import="it.uniroma2.ispw.controller.*" %>
 <%@ page import="it.uniroma2.ispw.model.*" %>
+<%@ page import="it.uniroma2.ispw.session.*" %>
 
 
-<jsp:useBean id="utente" scope="session" class="it.uniroma2.ispw.bean.UtenteBean"/>
 
 
+<jsp:useBean id="loginb" scope="session" class="it.uniroma2.ispw.bean.LoginBean"/>
+<jsp:setProperty name="loginb" property="*"/>
 
-<jsp:setProperty name="utente" property="*"/>
-
-<%
-	if(request.getParameter("accedi") != null){
-		
-		if(utente.validate()){
-			if(utente.getType().equals("Venditore")){
-				//vai a pagina venditore
-				response.sendRedirect("indexPageV.jsp");
-			}else{
-				//vai a pagina consumatore
-				response.sendRedirect("indexPageC.jsp");
-			}
-			
-		}else{
-			%>
-		<script type="text/javascript">
-			$('#modalErrLogin').openModal();
-		</script>
-		
-		<%	
-		}
-	}
-%>
+<jsp:useBean id="regb" scope="session" class="it.uniroma2.ispw.bean.RegistrazioneBean"/>
+<jsp:setProperty name="regb" property="*"/>
 
 <%
-	if(request.getParameter("invia") != null){
-		if(utente.effettuaRegistrazione() == true){
+
+String errorMessage = "";
+UtenteSessione us = (UtenteSessione) session.getAttribute("utente");
+
+if(request.getParameter("accedi") != null){
+	System.out.println("login cliccato");
+	us = loginb.validate();
+	if(us != null){
+			session.setAttribute("utente",us);
 			response.sendRedirect("index.jsp");
-		}else{
-			response.sendRedirect("registrazione.jsp");
-		}
+	}else{
+		//pagina di errore o javascript?
 	}
+}
+
+
+if(request.getParameter("inviaReg") != null){
+	
+	errorMessage = regb.controlloCampi();
+	if (errorMessage==null){
+		int result = regb.effettuaRegistrazione();
+		if (result==1) errorMessage = "Registrazione effettuata con successo";
+		else if (result==2) errorMessage = "Email gia utilizzata";
+		else if (result ==3) errorMessage = "Userid gia utilizzato";
+	}
+}
+
+
 %>
 
 <!DOCTYPE html>
@@ -97,11 +98,18 @@
                         <a href="#page-top"></a>
                     </li>
                     <li>
+                        <a class="page-scroll" href="#ricerca">Cerca prodotto</a>
+                    </li>
+                  	 <li>
                         <a class="forget" data-toggle="modal" data-target=".forget-modal-login" href="#modalLogin">Login</a>
                     </li>
                     <li>
-                        <a class="page-scroll" href="#team">Regolamento</a>
+                        <a class="page-scroll" href="registrazione.jsp">Registrazione</a>
                     </li>
+                    <li>
+                        <a class="page-scroll" href="#team"></a>
+                    </li>
+                
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
@@ -109,9 +117,8 @@
         <!-- /.container-fluid -->
     </nav>
 
-
-<!--popup login-->
-	<div id="modalLogin" class="modal fade forget-modal-login" tabindex="-1" role="dialog" aria-labelledby="myLoginModalLabel" aria-hidden="true" data-backdrop="static">
+	<!-- popup login -->
+	<div id="modalLogin" class="modal fade forget-modal-login" tabindex="-1" role="dialog" aria-labelledby="myLoginModalLabel" aria-hidden="true">
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-header">
@@ -123,7 +130,7 @@
 					</div>	
 					<div class="modal-body">
 						<div class="form-wrap">
-							<form action="upload.jsp" method="post">
+						<form action="index.jsp" method="post">
 								<div class="form-group">
 									<label for="usernameLogin" class="sr-only">Username</label>
 									<input type="text" id="email" name="email" class="form-control" placeholder="Username">
@@ -132,20 +139,19 @@
 									<label for="usernameLogin" class="sr-only">Password</label>
 									<input type="password" id="password" name="password" class="form-control" placeholder="Password">
 								</div>
+								<div class="modal-footer">
+									<input class="btn btn-custom" type="submit" id="btn-login" name="accedi" value="accedi">
+								</div>
 							</form>
+							
 						</div>
-					</div>
-					<div class="modal-footer">
-						<input class="btn btn-custom" type="submit" id="btn-login" name="accedi" value="accedi">
+						
 					</div>
 				</div>
+				</div>
 			</div>
-	</div>	
-
-
-
-
-<!--popup login non riuscito-->
+			
+			<!--popup login non riuscito-->
 	<div id="modalErrlogin" class="modal fade forget-modal-errlogin" tabindex="-1" role="dialog" aria-labelledby="myLoginModalLabel" aria-hidden="true">
 			<div class="modal-dialog">
 				<div class="modal-content">
@@ -165,8 +171,9 @@
 				</div>
 			</div>
 	</div>	
+			
 
-
+	
 
 
     <!-- Contact Section -->
@@ -180,9 +187,12 @@
             </div>
             <div class="row text-center">
                 <div class="col-lg-12">
-                    <form name="registrazione" id="registrazioneForm" action="index.jsp" method="post">
-
-                        <div class="row">
+                    <form name="registrazione" id="registrazioneForm" action="registrazione.jsp" method="post">
+                    <div class="row">
+                    		<div class="form-group">
+								<input type="text" id="useridRegistrazione" placeholder="Userid" name="userid" class="form-control">
+                                <p class="help-block text-danger"></p>
+                            </div>
 							<div class="col-md-6">
                                 <div class="form-group">
                                     <input type="text" id="nomeRegistrazione" placeholder="Nome" name="name" class="form-control" >
@@ -219,24 +229,26 @@
                             </div>
 							<div class="checkbox">
 								<label>
-									<input type="checkbox" name="regCheck" id="check_value" class="text-primary">Ho letto e accettato regolamento<br>
-									<input type="radio" value="Venditore" name="type" id="check_value" class="text-primary">Venditore<br>
-									<input type="radio" value="Consumatore" name="type" id="check_value" class="text-primary">Consumatore<br>
+									<input type="checkbox" value= "Regolamento" name="regcheck" id="check_value" class="text-primary"><font color="white">Ho letto e accettato il regolamento</font> <br>
+									<input type="radio" value="Venditore" name="type" id="check_value" class="text-primary"> <font color="white">Venditore</font> <br>
+									<input type="radio" value="Consumatore" name="type" id="check_value" class="text-primary"><font color="white">Consumatore</font> <br>
 								</label>
 							</div>
             
 							<div class="clearfix"></div>
                             <div class="col-lg-12 text-center">
                                 <div id="success"></div>
-                                <button type="submit" class="btn btn-xl" name="invia" value="invia">Invia</button>
+                                <button type="submit" class="btn btn-xl" name="inviaReg" value="inviaReg">Invia</button>
                             </div>
-							
-                        </div>
+                         		<font color="white"><%=errorMessage%></font>
+                         		 </div>
                     </form>
                 </div>
             </div>
         </div>
     </section>
+	
+	
 	
 
 <!--popup errore registrazione-->

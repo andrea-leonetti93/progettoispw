@@ -4,6 +4,7 @@ import java.util.List;
 
 import it.uniroma2.ispw.controller.GestisciProdotto;
 import it.uniroma2.ispw.model.Prodotto;
+import it.uniroma2.ispw.session.UtenteSessione;
 
 public class InsProdottoBean {
 
@@ -16,7 +17,7 @@ public class InsProdottoBean {
 	private String methodPay;
 	private String deliveryType;
 	private int sale;
-	private UtenteBean utente;
+	private UtenteSessione utente;
 	private List<Prodotto> arrayProdotti;
 	
 	public InsProdottoBean(){
@@ -106,11 +107,11 @@ public class InsProdottoBean {
 		this.sale = sale;
 	}
 	
-	public UtenteBean getUtente() {
+	public UtenteSessione getUtente() {
 		return utente;
 	}
 
-	public void setUtente(UtenteBean utente) {
+	public void setUtente(UtenteSessione utente) {
 		this.utente = utente;
 	}
 
@@ -159,14 +160,14 @@ public class InsProdottoBean {
 			return false;
 		}
 		//idProd è qià quello del prodotto scelto
-		this.nameProduct = p.getNome();
-		this.category = p.getCategoria();
-		this.typology = p.getTipologia();
-		this.amount = p.getQuantità();
-		this.price = p.getPrezzo();
-		this.methodPay = p.getMetodoPag();
-		this.deliveryType  = p.getTipoConsegna();
-		this.sale = p.getSconto();
+		nameProduct = p.getNome();
+		category = p.getCategoria();
+		typology = p.getTipologia();
+		amount = p.getQuantità();
+		price = p.getPrezzo();
+		methodPay = p.getMetodoPag();
+		deliveryType  = p.getTipoConsegna();
+		sale = p.getSconto();
 		return true;
 	}
 
@@ -174,7 +175,8 @@ public class InsProdottoBean {
 		
 		GestisciProdotto gp = new GestisciProdotto();
 		Prodotto p = null;
-		
+		System.out.println("nome prodotto" + nameProduct);
+		System.out.println("categoria" + category);
 		p = gp.aggiornaProdotto(this);
 		if(p == null){
 			return false;
