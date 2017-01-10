@@ -22,6 +22,12 @@ UtenteSessione us = (UtenteSessione) session.getAttribute("utente");
 if(request.getParameter("cerca")!=null){
 	
 	ricercab.ricercaProdotto();
+	out.println(ricercab.getCategoria());
+	out.println(ricercab.getTipologia());
+	out.println(ricercab.getNomeRicerca());
+	out.println(ricercab.getPrezzomin());
+	out.println(ricercab.getPrezzomax());
+
 
 	
 	}
@@ -284,11 +290,11 @@ if (request.getParameter("logout") != null){
 						<div class="row">
 							 <div class="form-group">
            				 		<label class="col-lg-3 control-label">Categoria:</label>
-            					<div class="col-lg-8">
+            					
               				<div class="form-group">
 							<select class="form-control" id="selectCategory" name="categoria" onchange="giveSelection(this.value)">
 								<option value="x" selected="selected">Select category</option>
-								<option value="Elettronica">Elettronica</option>
+								<option value="elettronica">elettronica</option>
 								<option value="Giardinaggio">Giardinaggio</option>
 								<option value="Arredamento">Arredamento</option>
 							</select>
@@ -297,8 +303,8 @@ if (request.getParameter("logout") != null){
 						<div class="form-group">
 							<select class="form-control" id="selectTypology" name="tipologia">
 								<option data-option="x" selected="selected">Select typology</option>
-								<option data-option="Elettronica">Cellulari</option>
-								<option data-option="Elettronica">Televisori</option>
+								<option data-option="elettronica">cellulari</option>
+								<option data-option="elettronica">Televisori</option>
 								<option data-option="Giardinaggio">Taglia erba</option>
 								<option data-option="Giardinaggio">Piante</option>
 								<option data-option="Arredamento">Tavoli</option>
@@ -327,11 +333,12 @@ if (request.getParameter("logout") != null){
 								<input type="submit" class="btn-xl" id="btncerca" name="cerca" value="cerca">
 								<p class="help-block text-danger"></p>							
 							</div>
-						</div>	
+							
 					</form>
                 </div>
+                </div>
             </div>
-        </div>
+        
     </section>
     
     <%
@@ -341,7 +348,15 @@ if (request.getParameter("logout") != null){
     	
     
     %>
-    	<font color="black"><%= ricercab.getLpv().get(i).getP().getNome() %></font>
+    
+    	<form action="your_url" method="post">
+ 			 <button  type="submit" name="visualizzaProdotto" value=<%=ricercab.getLpv().get(i) %> class="btn-link"><%= ricercab.getLpv().get(i).getP().getNome() %></button>
+		</form>
+    	<font size="2" color="black">userid: <%= ricercab.getLpv().get(i).getV().getUserid()%></font> <br>
+    	<font size="2" color="black"><%= ricercab.getLpv().get(i).getP().getPrezzo()%> euro</font> <br>
+    	<br> <br> <br>
+    	
+    	
     <%} }%>
     
 	
