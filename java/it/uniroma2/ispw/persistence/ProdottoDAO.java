@@ -1,5 +1,7 @@
 package it.uniroma2.ispw.persistence;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 
@@ -11,6 +13,7 @@ import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 
 import it.uniroma2.ispw.model.Prodotto;
+import it.uniroma2.ispw.model.UtenteRegistrato;
 
 public class ProdottoDAO {
 
@@ -30,7 +33,6 @@ private static SessionFactory sessionFactory = buildSessionFactory();
         }
     }
 
- 
 	public static SessionFactory getSessionFactory() {
 		return sessionFactory;
 	}
@@ -143,5 +145,33 @@ private static SessionFactory sessionFactory = buildSessionFactory();
 		}
 		return true;
 	}
+	
+	public List<Prodotto> listaProdotti(){
+		Session session = sessionFactory.openSession();
+        Transaction tx = null;
+        List<Prodotto> listaP = null;
+            try{
+                tx = session.beginTransaction();
+                String hql = "FROM Prodotto P";
+                Query<Prodotto> query = session.createQuery(hql);
+                listaP = query.getResultList();
+                tx.commit();
+                System.out.println("Lista prodotti aggiunta");
+            }catch (HibernateException e) {
+                if (tx!=null) tx.rollback();
+                e.printStackTrace();
+                System.out.println("Lista prodotti NON aggiunta");
+                listaP = null;
+            }finally {
+             session.close(); 
+            }
+            return listaP;
+    
+	}
+		
+	
+	
+	
+
 	
 }

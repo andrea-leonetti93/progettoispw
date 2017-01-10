@@ -10,8 +10,9 @@ import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 
 import java.util.Iterator;
-import java.util.List; 
+import java.util.List;
 
+import it.uniroma2.ispw.model.Prodotto;
 import it.uniroma2.ispw.model.UtenteRegistrato;
 
 
@@ -93,7 +94,8 @@ private static SessionFactory sessionFactory = buildSessionFactory();
     	}finally {
          session.close(); 
     	}
-		return null;
+		
+	    return null;
 		
 	}
 	
@@ -138,4 +140,27 @@ private static SessionFactory sessionFactory = buildSessionFactory();
         }
         return utente;
 	}
+	
+	public List<UtenteRegistrato> listaUtenti(){
+		Session session = sessionFactory.openSession();
+        Transaction tx = null;
+        List<UtenteRegistrato> listaU = null;
+            try{
+                tx = session.beginTransaction();
+                String hql = "FROM UtenteRegistrato u";
+                Query query = session.createQuery(hql);
+                listaU = query.getResultList();
+                tx.commit();
+                System.out.println("Lista prodotti aggiunta");
+            }catch (HibernateException e) {
+                if (tx!=null) tx.rollback();
+                e.printStackTrace();
+                System.out.println("Lista prodotti NON aggiunta");
+                listaU = null;
+            }finally {
+             session.close(); 
+            }
+            return listaU;
+	}
+	
 }

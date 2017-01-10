@@ -24,7 +24,7 @@ public class Prodotto {
 	@Column(name = "emailProprietario")
 	protected String emailProprietario;*/
 	
-	@Column(name = "cateogria")
+	@Column(name = "categoria")
 	public String categoria;
 	
 	@Column(name ="tipologia")

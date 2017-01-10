@@ -3,6 +3,7 @@
 <%@ page import="it.uniroma2.ispw.controller.*" %>
 <%@ page import="it.uniroma2.ispw.model.*" %>
 <%@ page import="it.uniroma2.ispw.session.*" %>
+<%@ page import="java.util.*" %>
 
 <jsp:useBean id="loginb" scope="session" class="it.uniroma2.ispw.bean.LoginBean"/>
 <jsp:setProperty name="loginb" property="*"/>
@@ -11,6 +12,13 @@
 <%
 
 UtenteSessione us = (UtenteSessione) session.getAttribute("utente");
+
+if(request.getParameter("inviaReg2")!=null){
+	
+	System.out.println("prova");
+	System.out.println(request.getParameter("inviaReg2"));
+	
+}
 
 if(request.getParameter("accedi") != null){
 	String errorMessage;
@@ -304,6 +312,22 @@ if (request.getParameter("logout") != null){
             </div>
         </div>
     </section>
+    
+    <%
+    ArrayList<String> l = new ArrayList<String>();
+    l.add("ciao");
+    l.add("come");
+    l.add("ciao");
+    
+    for(int i =0;i<l.size();i++){
+    	
+    
+    %>
+    	<form action="index.jsp" method="post">
+    	<button type="submit" class="btn btn-xl" name="inviaReg2" value=<%= l.get(i) %>>Invia</button>
+    	</form>
+    <%} %>
+    
 	
 	
    
