@@ -12,6 +12,8 @@ public class GestisciUtente {
 
 	UtenteDAO u = new UtenteDAO();
 	
+	protected GestisciUtente(){}
+	
 	private static GestisciUtente instance;
 	 
     public static GestisciUtente getInstance() {

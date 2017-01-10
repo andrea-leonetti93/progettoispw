@@ -53,7 +53,7 @@ public class UpdateUtenteBean {
 	
 	public boolean getUtente(String email){
 		
-		GestisciUtente gu = new GestisciUtente();
+		GestisciUtente gu = GestisciUtente.getInstance();
 		
 		UtenteRegistrato ur = gu.visualizzaInformazioni(email);
 		
