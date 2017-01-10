@@ -10,7 +10,6 @@
 <jsp:useBean id="insProdotto" class="it.uniroma2.ispw.bean.InsProdottoBean"/>
 <jsp:setProperty name="insProdotto" property="*"/>
 
-
 <%
 
 UtenteSessione us = (UtenteSessione) session.getAttribute("utente");
@@ -44,16 +43,16 @@ UtenteSessione us = (UtenteSessione) session.getAttribute("utente");
 		}
 	}
 %>
-
-<%
+ 
+<%/*
 	if(request.getParameter("change") != null){
 		if(insProdotto.trovaProdotto() == false){
 			System.out.println("prodotto non trovato");
 		}
 		//notifica?
-	}
+	}*/
 %>
-
+   
 <%
 	if(request.getParameter("addChanges") != null){
 		insProdotto.setUtente(us);
@@ -188,7 +187,7 @@ UtenteSessione us = (UtenteSessione) session.getAttribute("utente");
 							<span class="sr-only">Close</span>
 						</button>
 					
-						<h4 class="modal-title">Conferma eliminazione prodotto id: <input type="text" id="idProd" name="idProd" class="form-control" value="{{ request.form.idProd }}" readonly></h4>
+						<h4 class="modal-title">Conferma eliminazione prodotto </h4>
 					</div>	
 					<div class="modal-body">
 						<p>Sicuro di voler eliminare il prodotto?</p>					
@@ -307,36 +306,36 @@ UtenteSessione us = (UtenteSessione) session.getAttribute("utente");
 							<input type="text" id="nomeProd" name="nameProduct" class="form-control" value="{{ request.form.nomeProd }}">
 						</div>
 						<div class="form-group">
-							<label for="nameAdd" class="form-control-label">IdProd</label>
+							<label for="idAdd" class="form-control-label">IdProd</label>
 							<input type="text" id="idProd" name="idProd" class="form-control" value="{{ request.form.idProd }}" readonly>
 						</div>						
 						<div class="form-group">
 							<label for="categoriaAdd" class="form-control-label">Category</label>
-							<input type="text" id="cate" name="category" class="form-control" value="{{ request.form.cate }}" readonly>
+							<input type="text" id="cate" name="category" class="form-control" value="<%= insProdotto.getCategory() %>" readonly>
 						</div>
 						<div class="form-group">
 							<label for="typologyAdd" class="form-control-label">Typology</label>
-							<input type="text" id="tipo" name="typology" class="form-control" value="{{ request.form.tipo }}" readonly>
+							<input type="text" id="tipo" name="typology" class="form-control" value="<%= insProdotto.getTypology() %>" readonly>
 						</div>
 						<div class="form-group">
 							<label for="amountAdd" class="form-control-label">Amount</label>
-							<input type="text" id="quant" name="amount" class="form-control" value="{{ request.form.quant }}">
+							<input type="text" id="quant" name="amount" class="form-control" value="<%= insProdotto.getAmount() %>">
 						</div>
 						<div class="form-group">
 							<label for="priceAdd" class="form-control-label">Price</label>
-							<input type="text" id="prezzo" name="price" class="form-control" value="{{ request.form.prezzo }}">
+							<input type="text" id="prezzo" name="price" class="form-control" value="<%= insProdotto.getPrice() %>">
 						</div>
 						<div class="form-group">
 							<label for="methodPayAdd" class="form-control-label">Pay Method</label>
-							<input type="text" id="metodPag" name="methodPay" class="form-control" value="{{ request.form.metodPag }}">
+							<input type="text" id="metodPag" name="methodPay" class="form-control" value="<%= insProdotto.getMethodPay() %>">
 						</div>
 						<div class="form-group">
 							<label for="deliveryTypeAdd" class="form-control-label">Delivery type</label>
-							<input type="text" id="tipoCons" name="deliveryType" class="form-control" value="{{ request.form.tipoCons }}">
+							<input type="text" id="tipoCons" name="deliveryType" class="form-control" value="<%= insProdotto.getDeliveryType() %>">
 						</div>
 						<div class="form-group">
 							<label for="saleAdd" class="form-control-label">Sale</label>
-							<input type="text" id="sconto" name="sale" class="form-control" value="{{ request.form.sconto }}">
+							<input type="text" id="sconto" name="sale" class="form-control" value="<%= insProdotto.getSale() %>">
 						</div>
 						<div class="modal-footer">
 							<input class="btn btn-custom" type="submit" id="addChanges" name="addChanges" value="Add changes">
@@ -361,7 +360,7 @@ UtenteSessione us = (UtenteSessione) session.getAttribute("utente");
    		<div class = "container">
    			<div class="row text-center">
    				<div class="header">
-   					<h2 class="title">I tuoi prodotti</h2>
+   					<h2 class="title" id="title">I tuoi prodotti</h2>
    				</div>
    			</div>
    			<div class="body">
@@ -376,22 +375,22 @@ UtenteSessione us = (UtenteSessione) session.getAttribute("utente");
    							p = lp.get(i);
    				%>		
    					<div class="container">
-   						<form method="post" id="inserzione-prodotto">		<!-- action="{{ url_for('modalChangeProduct') }}" -->
+   					<!--  	<form method="post" id="inserzione-prodotto">		 action="{{ url_for('modalChangeProduct') }}" -->
    						<div class="header">
    							<div class="form-group">
-   								<h3>Prodotto: <input type="text" value="<%= p.getNome() %>" id="nomeProd-init" name="nomeProd" readonly></h3>
+   								<h3>Prodotto: <input type="text" value="<%= p.getNome() %>" id="nomeProd-init" name="nameProduct" readonly></h3>
    								<h5>IdProdotto:<input class="btn btn-custom" type="text" id="idProd-init" name="idProd" value="<%= p.getId() %>" readonly></h5>
 							</div>
 						</div>
 						<div class="body">
 								<ul class="list-group">
-									<li class="list-group-item"><span class="tag tag-default tag-pill float-xs-right">Categoria: </span> <input type="text" value="<%= p.getCategoria() %>" id="cate-init" data-target="#modalChangeProduct" name="cate" readonly></li>
-   									<li class="list-group-item"><span class="tag tag-default tag-pill float-xs-right">Tipologia: </span> <input type="text" value="<%= p.getTipologia() %>" id="tipo-init" data-target="#modalChangeProduct" name="tipo" readonly></li>
-   									<li class="list-group-item"><span class="tag tag-default tag-pill float-xs-right">Quantità: </span> <input type="text" value="<%= p.getQuantità() %>" id="quant-init" data-target="#modalChangeProduct" name="quant" readonly></li>
-   									<li class="list-group-item"><span class="tag tag-default tag-pill float-xs-right">Prezzo: </span> <input type="text" value="<%= p.getPrezzo() %>" id="prezzo-init" data-target="#modalChangeProduct" name="prezzo" readonly></li>
-   									<li class="list-group-item"><span class="tag tag-default tag-pill float-xs-right">Metodo pagamento: </span> <input type="text" value="<%= p.getMetodoPag() %>" id="metodPag-init" data-target="#modalChangeProduct" name="metodPag" readonly></li>
-   									<li class="list-group-item"><span class="tag tag-default tag-pill float-xs-right">Tipologia consegna: </span> <input type="text" value="<%= p.getTipoConsegna() %>" id="tipoCons-init" data-target="#modalChangeProduct" name="tipoCons" readonly></li>
-   									<li class="list-group-item"><span class="tag tag-default tag-pill float-xs-right">Sconto: </span> <input type="text" value="<%= p.getSconto() %>" id="sconto-init" data-target="#modalChangeProduct" name="sconto" readonly></li>
+									<li class="list-group-item" id=""><span class="tag tag-default tag-pill float-xs-right">Categoria: </span> <input type="text" value="<%= p.getCategoria() %>" id="cate-init" data-target="#modalChangeProduct" name="category" readonly></li>
+   									<li class="list-group-item"><span class="tag tag-default tag-pill float-xs-right">Tipologia: </span> <input type="text" value="<%= p.getTipologia() %>" id="tipo-init" data-target="#modalChangeProduct" name="typology" readonly></li>
+   									<li class="list-group-item"><span class="tag tag-default tag-pill float-xs-right">Quantità: </span> <input type="text" value="<%= p.getQuantità() %>" id="quant-init" data-target="#modalChangeProduct" name="amount" readonly></li>
+   									<li class="list-group-item"><span class="tag tag-default tag-pill float-xs-right">Prezzo: </span> <input type="text" value="<%= p.getPrezzo() %>" id="prezzo-init" data-target="#modalChangeProduct" name="price" readonly></li>
+   									<li class="list-group-item"><span class="tag tag-default tag-pill float-xs-right">Metodo pagamento: </span> <input type="text" value="<%= p.getMetodoPag() %>" id="metodPag-init" data-target="#modalChangeProduct" name="methodPay" readonly></li>
+   									<li class="list-group-item"><span class="tag tag-default tag-pill float-xs-right">Tipologia consegna: </span> <input type="text" value="<%= p.getTipoConsegna() %>" id="tipoCons-init" data-target="#modalChangeProduct" name="deliveryType" readonly></li>
+   									<li class="list-group-item"><span class="tag tag-default tag-pill float-xs-right">Sconto: </span> <input type="text" value="<%= p.getSconto() %>" id="sconto-init" data-target="#modalChangeProduct" name="sale" readonly></li>
    								</ul>
    							
    											<p class="help-block text-danger" ></p>
@@ -399,15 +398,15 @@ UtenteSessione us = (UtenteSessione) session.getAttribute("utente");
    						<div class="footer">
    							<div class="row">
    								<div class="col-md-3 offset-md-3">
-   									<input class="btn btn-primary" type ="submit" id="change_btn" name="change" value="Change" data-toggle="modal" data-target="#modalChangeProduct">
+   									<button class="btn btn-primary"  onclick="myFunction()" id="change_btn" name="change" >Change</button>
    								</div>
    								<div class="col-md-3 offset-md-3">						
-	   								<input class="btn btn-danger" type="submit" id="delete_btn" name="delete" value="Delete">	
+	   								<input class="btn btn-danger" type="text" id="delete_btn" name="delete" value="Delete">	
    								</div>
    							</div>
    						
    						</div>
-   						</form>
+   				<!-- 		</form> -->
    						<div class="row">
    							<hr>
    						</div>
@@ -425,8 +424,17 @@ UtenteSessione us = (UtenteSessione) session.getAttribute("utente");
 <% } %>   
 
 	
-	
-   
+
+<!-- 	
+<script type="text/javascript">
+$(function myFunction() {
+	$('#nomeProd').val($('#nomeProd-init').val());
+	$('#idProd').val($('#idProd-init').val());
+	$('#modalChangeProduct').modal('show');
+});
+
+</script>
+    -->
 
     <footer>
         <div class="container">
@@ -495,31 +503,53 @@ $(function() {
 </script>
 
 <!-- funzione per riempire il modifica prodotto -->
-<script>
+<script type="text/javascript">
 
-
-   $('#inserzione-prodotto').on('submit', function(e){
-	   e.preventDefault();
-//});
-   
-  // $('#change_btn').click(function(){	
+$('#change_btn').click( function(){
 	$('#nomeProd').val($('#nomeProd-init').val());
 	$('#idProd').val($('#idProd-init').val());
-	$('#cate').val($('#cate-init').val());
-	$('#tipo').val($('#tipo-init').val());
-	$('#quant').val($('#quant-init').val());
-	$('#prezzo').val($('#prezzo-init').val());
-	$('#metodPag').val($('#metodPag-init').val());
-	$('#tipoCons').val($('#tipoCons-init').val());
-	$('#sconto').val($('#sconto-init').val());
-	//$function(e);
 	$('#modalChangeProduct').modal('show');
+
 });
+   /*$('#inserzione-prodotto').submit(function(e){
+	   e.preventDefault();
+	});*/
+$(document).ready(function(){   
+	$(document).on('click', "#change_btn", function(){
+	  $('#change_btn').click( function(){	
+		$('#nomeProd').val($('#nomeProd-init').val());
+		$('#idProd').val($('#idProd-init').val());
+		$('#cate').val($('#cate-init').val());
+		$('#tipo').val($('#tipo-init').val());
+		$('#quant').val($('#quant-init').val());
+		$('#prezzo').val($('#prezzo-init').val());
+		$('#metodPag').val($('#metodPag-init').val());
+		$('#tipoCons').val($('#tipoCons-init').val());
+		$('#sconto').val($('#sconto-init').val());
+	//$function(e);
+		$('#modalChangeProduct').modal('show');
+  		});
+	});
+	
+});
+	
    
   $('#delete_btn').click(function(){
 	$('#idProd').val($('#idProd-init').val());  
 	$('#modalDelete').modal('show');
   });
+  
+});
+</script>
+
+<script type="text/javascript">
+
+$(function myFunction() {
+	$('#nomeProd').val($('#nomeProd-init').val());
+	$('#idProd').val($('#idProd-init').val());
+	$('#modalChangeProduct').modal('show');
+});
+
 </script>
 
 

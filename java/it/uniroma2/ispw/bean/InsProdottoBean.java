@@ -168,6 +168,7 @@ public class InsProdottoBean {
 		methodPay = p.getMetodoPag();
 		deliveryType  = p.getTipoConsegna();
 		sale = p.getSconto();
+		System.out.println("nome prodotto" + nameProduct);
 		return true;
 	}
 
