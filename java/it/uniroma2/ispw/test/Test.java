@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import it.uniroma2.ispw.bean.RicercaBean;
 import it.uniroma2.ispw.controller.GestisciRicerca;
 import it.uniroma2.ispw.controller.GestisciUtente;
 import it.uniroma2.ispw.model.Consumatore;
@@ -21,17 +22,22 @@ public class Test {
 
 
 	public static void main(String[] args) {
-	
-	
-	GestisciRicerca gr = GestisciRicerca.getInstance();
-	
-	List<PropostaVendita> lpv = gr.ricercaProdotto("tuta nike","vestiti","sport",0,1000);
-	
-	for(PropostaVendita pv : lpv){
+		
+		RicercaBean rb = new RicercaBean();
+		
+		rb.setCategoria("vestiti");
+		rb.setTipologia("sport");
+		rb.setNomeRicerca("tuta nike");
+		rb.setPrezzomin(0);
+		rb.setPrezzomax(1000);
+		rb.ricercaProdotto();
+		for(PropostaVendita pv : rb.getLpv()){
 		System.out.println(pv.getP().getNome()+" "+ pv.getV().getEmail());
-	}
 	
-	System.out.println(GestisciRicerca.distance("ciao", "ciaa"));
+		}
+		System.out.println(GestisciRicerca.distance("ciao cpme", "ciaa come"));
+	
+	
 		
 	
 	

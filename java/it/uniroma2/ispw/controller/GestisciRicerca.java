@@ -30,7 +30,7 @@ public class GestisciRicerca {
 		
 		/* filtro lista dei prodotti*/
 		for (Prodotto p : plist){
-			if ((distance(p.getNome(),nomeRicerca) < 5)&&(p.getNome().equals(nomeRicerca))
+			if ((distance(p.getNome(),nomeRicerca) < 5)&&(p.getCategoria().equals(categoria))
 					&&(p.getTipologia().equals(tipologia))&&(p.getPrezzo()>prezzomin)&&(p.getPrezzo()<prezzomax))
 							plistf.add(p);
 		}

@@ -8,11 +8,23 @@
 <jsp:useBean id="loginb" scope="session" class="it.uniroma2.ispw.bean.LoginBean"/>
 <jsp:setProperty name="loginb" property="*"/>
 
+<jsp:useBean id="ricercab" scope="session" class="it.uniroma2.ispw.bean.RicercaBean"/>
+<jsp:setProperty name="ricercab" property="*"/>
+
 
 <%
 
+
+
 UtenteSessione us = (UtenteSessione) session.getAttribute("utente");
 
+
+if(request.getParameter("cerca")!=null){
+	
+	ricercab.ricercaProdotto();
+
+	
+	}
 if(request.getParameter("inviaReg2")!=null){
 	
 	System.out.println("prova");
@@ -268,42 +280,51 @@ if (request.getParameter("logout") != null){
             </div>
             <div class="row text-center">
                 <div class="col-lg-12">
-					<form name="cerca" id="ricercaForm">
+					<form action="index.jsp" method="post" name="cerca" id="ricercaForm">
 						<div class="row">
 							 <div class="form-group">
            				 		<label class="col-lg-3 control-label">Categoria:</label>
             					<div class="col-lg-8">
-              						<div class="ui-select">
-                						<select id="user_time_zone" class="form-control">
-                  							<option value="Elettronica">ELETTRONICA</option>
-                 						    <option value="Smartphone">----->Smartphone</option>
-                  			 				<option value="Computer">----->Computer</option>
-							                <option value="Mobili">MOBILI</option>
-							                <option value="Sedie">----->Sedie</option>
-							                <option value="Scrivanie">----->Scrivanie</option>
-      
-      							          </select>
-              						</div>
+              				<div class="form-group">
+							<select class="form-control" id="selectCategory" name="categoria" onchange="giveSelection(this.value)">
+								<option value="x" selected="selected">Select category</option>
+								<option value="Elettronica">Elettronica</option>
+								<option value="Giardinaggio">Giardinaggio</option>
+								<option value="Arredamento">Arredamento</option>
+							</select>
+						</div>
+						<label class="col-lg-3 control-label">Tipologia:</label>
+						<div class="form-group">
+							<select class="form-control" id="selectTypology" name="tipologia">
+								<option data-option="x" selected="selected">Select typology</option>
+								<option data-option="Elettronica">Cellulari</option>
+								<option data-option="Elettronica">Televisori</option>
+								<option data-option="Giardinaggio">Taglia erba</option>
+								<option data-option="Giardinaggio">Piante</option>
+								<option data-option="Arredamento">Tavoli</option>
+								<option data-option="Arredamento">Sedie</option>
+							</select>
             					</div>
+            				</div>	
           					</div>
 							<div class="form-group">
-								<input type="text" class="form-control" placeholder="Nome prodotto"  id="nomeprodotto" >
+								<input type="text" class="form-control" placeholder="Nome prodotto" name="nomeRicerca"  id="nomeprodotto" >
 								<p class="help-block text-danger" ></p>
 							</div>
 							<div class="col-md-6">
 								<div class="form-group">
-									<input type="text" class="form-control" placeholder="Prezzo min"  id="prezzomin" >
+									<input type="text" class="form-control" placeholder="Prezzo min" name="prezzomin" id="prezzomin" >
 									<p class="help-block text-danger" ></p>									
 								</div>
 							</div>
 							<div class="col-md-6">
 								<div class="form-group">
-									<input type="text" class="form-control" placeholder="Prezzo max"  id="prezzomax" >
+									<input type="text" class="form-control" placeholder="Prezzo max" name="prezzomax"  id="prezzomax" >
 									<p class="help-block text-danger" ></p>									
 								</div>
 							</div>
 							<div class="form-group">
-								<input type="button" class="btn-xl" id="btncerca" value="cerca">
+								<input type="submit" class="btn-xl" id="btncerca" name="cerca" value="cerca">
 								<p class="help-block text-danger"></p>							
 							</div>
 						</div>	
@@ -314,19 +335,14 @@ if (request.getParameter("logout") != null){
     </section>
     
     <%
-    ArrayList<String> l = new ArrayList<String>();
-    l.add("ciao");
-    l.add("come");
-    l.add("ciao");
-    
-    for(int i =0;i<l.size();i++){
+   
+    if (ricercab.getLpv()!=null){
+    	for(int i=0;i<ricercab.getLpv().size();i++){
     	
     
     %>
-    	<form action="index.jsp" method="post">
-    	<button type="submit" class="btn btn-xl" name="inviaReg2" value=<%= l.get(i) %>>Invia</button>
-    	</form>
-    <%} %>
+    	<font color="black"><%= ricercab.getLpv().get(i).getP().getNome() %></font>
+    <%} }%>
     
 	
 	
@@ -349,6 +365,37 @@ if (request.getParameter("logout") != null){
             </div>
         </div>
     </footer>
+    
+    
+    
+    <script>
+$(function() {
+    var temp="x"; 
+    $("#selectCategory").val(temp);
+});
+</script>
+<script type="text/javascript">
+   var sel1 = document.querySelector('#selectCategory');
+   var sel2 = document.querySelector('#selectTypology');
+   var options2 = sel2.querySelectorAll('option');
+   function giveSelection(selValue) {
+      sel2.innerHTML = '';
+      for(var i=0; i<options2.length; i++){
+	 if(options2[i].dataset.option === selValue){
+	    sel2.appendChild(options2[i]);
+	 }
+      }
+   }
+   giveSelection(sel1.value);
+</script>
+<!-- funzione per appendere elemento dinamicamente ad una lista -->
+<script type="text/javascript">
+	var num = 1;
+	function elimina_elemento () {
+			$("#menu").append("<li>nuovo elemento "+num+"</li>");
+			num++;
+	}
+</script>
 
     <!-- jQuery -->
     <script src="vendor/jquery/jquery.min.js"></script>
