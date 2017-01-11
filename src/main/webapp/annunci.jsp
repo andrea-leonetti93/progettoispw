@@ -44,13 +44,15 @@ UtenteSessione us = (UtenteSessione) session.getAttribute("utente");
 	}
 %>
  
-<%/*
+<%
 	if(request.getParameter("change") != null){
+		int idProd = Integer.parseInt(request.getParameter("idProd")); 
+		out.println(idProd);
 		if(insProdotto.trovaProdotto() == false){
 			System.out.println("prodotto non trovato");
 		}
 		//notifica?
-	}*/
+	}
 %>
    
 <%
@@ -375,22 +377,22 @@ UtenteSessione us = (UtenteSessione) session.getAttribute("utente");
    							p = lp.get(i);
    				%>		
    					<div class="container">
-   					<!--  	<form method="post" id="inserzione-prodotto">		 action="{{ url_for('modalChangeProduct') }}" -->
+   					 	<form method="post" id="inserzione_prodotto">		 <!-- action="{{ url_for('modalChangeProduct') }}" -->
    						<div class="header">
-   							<div class="form-group">
-   								<h3>Prodotto: <input type="text" value="<%= p.getNome() %>" id="nomeProd-init" name="nameProduct" readonly></h3>
+   							<div class="row">
+   								<h3>Prodotto: <%= p.getNome() %></h3>
    								<h5>IdProdotto:<input class="btn btn-custom" type="text" id="idProd-init" name="idProd" value="<%= p.getId() %>" readonly></h5>
 							</div>
 						</div>
 						<div class="body">
 								<ul class="list-group">
-									<li class="list-group-item" id=""><span class="tag tag-default tag-pill float-xs-right">Categoria: </span> <input type="text" value="<%= p.getCategoria() %>" id="cate-init" data-target="#modalChangeProduct" name="category" readonly></li>
-   									<li class="list-group-item"><span class="tag tag-default tag-pill float-xs-right">Tipologia: </span> <input type="text" value="<%= p.getTipologia() %>" id="tipo-init" data-target="#modalChangeProduct" name="typology" readonly></li>
-   									<li class="list-group-item"><span class="tag tag-default tag-pill float-xs-right">Quantità: </span> <input type="text" value="<%= p.getQuantità() %>" id="quant-init" data-target="#modalChangeProduct" name="amount" readonly></li>
-   									<li class="list-group-item"><span class="tag tag-default tag-pill float-xs-right">Prezzo: </span> <input type="text" value="<%= p.getPrezzo() %>" id="prezzo-init" data-target="#modalChangeProduct" name="price" readonly></li>
-   									<li class="list-group-item"><span class="tag tag-default tag-pill float-xs-right">Metodo pagamento: </span> <input type="text" value="<%= p.getMetodoPag() %>" id="metodPag-init" data-target="#modalChangeProduct" name="methodPay" readonly></li>
-   									<li class="list-group-item"><span class="tag tag-default tag-pill float-xs-right">Tipologia consegna: </span> <input type="text" value="<%= p.getTipoConsegna() %>" id="tipoCons-init" data-target="#modalChangeProduct" name="deliveryType" readonly></li>
-   									<li class="list-group-item"><span class="tag tag-default tag-pill float-xs-right">Sconto: </span> <input type="text" value="<%= p.getSconto() %>" id="sconto-init" data-target="#modalChangeProduct" name="sale" readonly></li>
+									<li class="list-group-item" id=""><span class="tag tag-default tag-pill float-xs-right">Categoria: </span><%= p.getCategoria() %></li>
+   									<li class="list-group-item"><span class="tag tag-default tag-pill float-xs-right">Tipologia: </span><%= p.getTipologia() %></li>
+   									<li class="list-group-item"><span class="tag tag-default tag-pill float-xs-right">Quantità: </span><%= p.getQuantità() %></li>
+   									<li class="list-group-item"><span class="tag tag-default tag-pill float-xs-right">Prezzo: </span><%= p.getPrezzo() %></li>
+   									<li class="list-group-item"><span class="tag tag-default tag-pill float-xs-right">Metodo pagamento: </span><%= p.getMetodoPag() %></li>
+   									<li class="list-group-item"><span class="tag tag-default tag-pill float-xs-right">Tipologia consegna: </span><%= p.getTipoConsegna() %></li>
+   									<li class="list-group-item"><span class="tag tag-default tag-pill float-xs-right">Sconto: </span><%= p.getSconto() %></li>
    								</ul>
    							
    											<p class="help-block text-danger" ></p>
@@ -398,7 +400,7 @@ UtenteSessione us = (UtenteSessione) session.getAttribute("utente");
    						<div class="footer">
    							<div class="row">
    								<div class="col-md-3 offset-md-3">
-   									<button class="btn btn-primary"  onclick="myFunction()" id="change_btn" name="change" >Change</button>
+   									<input onclick="javascript:changeProd(<%= i %>);" class="forget btn btn-primary pull-right" type="submit" name="change" id="change_btn" value="Change">
    								</div>
    								<div class="col-md-3 offset-md-3">						
 	   								<input class="btn btn-danger" type="text" id="delete_btn" name="delete" value="Delete">	
@@ -406,7 +408,7 @@ UtenteSessione us = (UtenteSessione) session.getAttribute("utente");
    							</div>
    						
    						</div>
-   				<!-- 		</form> -->
+   				 		</form> 
    						<div class="row">
    							<hr>
    						</div>
@@ -473,6 +475,20 @@ $(function myFunction() {
     <script src="https://code.jquery.com/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 <script src="https://code.jquery.com/jquery-2.1.4.js"></script>
+ <script type="text/javascript">
+ 
+ 
+ $('#inserzione_prodotto').submit( function(e){
+	   e.preventDefault();
+	   $('#modalChangeProduct').modal('show');	   
+	   
+ });
+ 
+ 	function changeProd(prodottoNum){
+ 	//	var arrayProd = document.get
+ 		$('#modalChangeProduct').openModal();
+ 	}); 
+ </script>
 
 </body>
 
@@ -507,6 +523,7 @@ $(function() {
 </script>
 
 <!-- funzione per riempire il modifica prodotto -->
+<!-- 
 <script type="text/javascript">
 
 $('#change_btn').click( function(){
@@ -543,7 +560,7 @@ $(document).ready(function(){
 	$('#modalDelete').modal('show');
   });
   
-});
+
 </script>
 
 <script type="text/javascript">
@@ -555,6 +572,7 @@ $(function myFunction() {
 });
 
 </script>
+ -->
 
 
 </html>
