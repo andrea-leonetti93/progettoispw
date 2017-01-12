@@ -6,7 +6,7 @@ public class AcquistaProdotto {
 
 	private OrdineDAO od = new OrdineDAO();
 	
-	protected AcquistaProdotto(){}
+	public AcquistaProdotto(){}
 	
 	
 }
