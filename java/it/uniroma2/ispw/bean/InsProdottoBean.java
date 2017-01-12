@@ -12,11 +12,10 @@ public class InsProdottoBean {
 	private String nameProduct;
 	private String category;
 	private String typology;
-	private int amount;
 	private int price;
-	private String methodPay;
-	private String deliveryType;
 	private int sale;
+	private int disponibilita;
+	private String comment;
 	private UtenteSessione utente;
 	private List<Prodotto> arrayProdotti;
 	
@@ -25,11 +24,10 @@ public class InsProdottoBean {
 		this.nameProduct = "";
 		this.category = "";
 		this.typology = "";
-		this.amount = 0;
 		this.price = 0;
-		this.methodPay = "";
-		this.deliveryType = "";
 		this.sale = 0;
+		this.disponibilita = 0;
+		this.comment = "";
 		this.utente = null;
 		this.arrayProdotti = null;
 	}
@@ -67,36 +65,12 @@ public class InsProdottoBean {
 		this.typology = typology;
 	}
 
-	public int getAmount() {
-		return amount;
-	}
-
-	public void setAmount(int amount) {
-		this.amount = amount;
-	}
-
 	public int getPrice() {
 		return price;
 	}
 
 	public void setPrice(int price) {
 		this.price = price;
-	}
-
-	public String getMethodPay() {
-		return methodPay;
-	}
-
-	public void setMethodPay(String methodPay) {
-		this.methodPay = methodPay;
-	}
-
-	public String getDeliveryType() {
-		return deliveryType;
-	}
-
-	public void setDeliveryType(String deliveryType) {
-		this.deliveryType = deliveryType;
 	}
 
 	public int getSale() {
@@ -121,6 +95,25 @@ public class InsProdottoBean {
 
 	public void setArrayProdotti(List<Prodotto> arrayProdotti) {
 		this.arrayProdotti = arrayProdotti;
+	}
+
+	
+	public int getDisponibilita() {
+		return disponibilita;
+	}
+
+
+	public void setDisponibilita(int disponibilita) {
+		this.disponibilita = disponibilita;
+	}
+
+	public String getComment() {
+		return comment;
+	}
+
+
+	public void setComment(String comment) {
+		this.comment = comment;
 	}
 
 
@@ -163,11 +156,9 @@ public class InsProdottoBean {
 		nameProduct = p.getNome();
 		category = p.getCategoria();
 		typology = p.getTipologia();
-		amount = p.getQuantità();
 		price = p.getPrezzo();
-		methodPay = p.getMetodoPag();
-		deliveryType  = p.getTipoConsegna();
 		sale = p.getSconto();
+		System.out.println("nome prodotto" + nameProduct);
 		return true;
 	}
 

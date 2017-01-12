@@ -21,8 +21,8 @@ public class GestisciProdotto {
 		
 		UtenteRegistrato ur = u.checkUtente(iPBean.getUtente().getEmail(), iPBean.getUtente().getPassword());
 		
-		Prodotto newProdotto = new Prodotto(iPBean.getNameProduct(), iPBean.getCategory(), iPBean.getTypology(), iPBean.getAmount(), iPBean.getPrice(), 
-				iPBean.getMethodPay(), iPBean.getDeliveryType(), iPBean.getSale(), ur);
+		Prodotto newProdotto = new Prodotto(iPBean.getNameProduct(), iPBean.getCategory(), iPBean.getTypology(), iPBean.getPrice(), 
+				 iPBean.getSale(), ur, 1, iPBean.getComment());
 		p.addProdotto(newProdotto);
 		
 		return newProdotto;
@@ -57,8 +57,8 @@ public class GestisciProdotto {
 		// TODO Auto-generated method stub
 		UtenteRegistrato ur = u.checkUtente(iPBean.getUtente().getEmail(), iPBean.getUtente().getPassword());
 		
-		Prodotto productChange = new Prodotto(iPBean.getNameProduct(), iPBean.getCategory(), iPBean.getTypology(), iPBean.getAmount(), iPBean.getPrice(), 
-				iPBean.getMethodPay(), iPBean.getDeliveryType(), iPBean.getSale(), ur);
+		Prodotto productChange = new Prodotto(iPBean.getNameProduct(), iPBean.getCategory(), iPBean.getTypology(), iPBean.getPrice(), 
+				 iPBean.getSale(), ur, iPBean.getDisponibilita(), iPBean.getComment());
 		
 		productChange.setId(iPBean.getIdProd());
 		if(p.updateProdotto(productChange)){

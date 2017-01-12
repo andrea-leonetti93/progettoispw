@@ -19,51 +19,45 @@ public class Prodotto {
 	protected int id; 
 	
 	@Column(name = "nome")
-	public String nome;
-	/*
-	@Column(name = "emailProprietario")
-	protected String emailProprietario;*/
+	private String nome;
 	
 	@Column(name = "categoria")
-	public String categoria;
+	private String categoria;
 	
 	@Column(name ="tipologia")
-	public String tipologia;
+	private String tipologia;
 	
-	@Column(name = "quantità")
-	public int quantità;
+	/*@Column(name = "quantità")
+	public int quantità;*/
 	
 	@Column(name = "prezzo")
-	public int prezzo;
-	
-	@Column(name = "metogoPag")
-	public String metodoPag;
-	
-	@Column(name = "tipoConsegna")
-	public String tipoConsegna;
+	private int prezzo;
 	
 	@Column(name = "sconto")
-	public int sconto;
+	private int sconto;
 	
+	@Column(name = "disponibilita")
+	private int disponibilita;
 	
 	@ManyToOne
 	@JoinColumn(name = "emailProprietario", referencedColumnName = "email")
 	protected UtenteRegistrato utenteRegistrato;
 	
+	@Column(name = "commento")
+	private String commento;
 	
 	public Prodotto(){}
 	
-	public Prodotto(String nome, String categoria, String tipologia, int quantità, int prezzo, 
-			String metodoPag, String tipoConsegna, int sconto, UtenteRegistrato utenteRegistrato){
+	public Prodotto(String nome, String categoria, String tipologia, int prezzo, 
+			int sconto, UtenteRegistrato utenteRegistrato, int disponibilita, String commento){
 		this.nome = nome;
 		this.categoria = categoria;
 		this.tipologia = tipologia;
-		this.quantità = quantità;
 		this.prezzo = prezzo;
-		this.metodoPag = metodoPag;
-		this.tipoConsegna = tipoConsegna;
 		this.sconto = sconto;
 		this.utenteRegistrato = utenteRegistrato;
+		this.disponibilita = disponibilita;
+		this.commento = commento;
 	}
 
 	public int getId() {
@@ -114,36 +108,12 @@ public class Prodotto {
 		this.tipologia = tipologia;
 	}
 
-	public int getQuantità() {
-		return quantità;
-	}
-
-	public void setQuantità(int quantità) {
-		this.quantità = quantità;
-	}
-
 	public int getPrezzo() {
 		return prezzo;
 	}
 
 	public void setPrezzo(int prezzo) {
 		this.prezzo = prezzo;
-	}
-
-	public String getMetodoPag() {
-		return metodoPag;
-	}
-
-	public void setMetodoPag(String metodoPag) {
-		this.metodoPag = metodoPag;
-	}
-
-	public String getTipoConsegna() {
-		return tipoConsegna;
-	}
-
-	public void setTipoConsegna(String tipoConsegna) {
-		this.tipoConsegna = tipoConsegna;
 	}
 
 	public int getSconto() {
@@ -153,5 +123,23 @@ public class Prodotto {
 	public void setSconto(int sconto) {
 		this.sconto = sconto;
 	}
+
+	public int getDisponibilita() {
+		return disponibilita;
+	}
+
+	public void setDisponibilita(int disponibilita) {
+		this.disponibilita = disponibilita;
+	}
+
+	public String getCommento() {
+		return commento;
+	}
+
+	public void setCommento(String commento) {
+		this.commento = commento;
+	}
+	
+	
 	
 }
