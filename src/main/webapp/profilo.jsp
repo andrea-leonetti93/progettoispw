@@ -164,7 +164,7 @@ if (request.getParameter("indietro") != null){
   	<hr>
       
       <!-- edit form column -->
-        <font size="2">*Le informazioni lasciate in bianco non saranno aggiornate</font> <br> 
+        <font size="2">*Le informazioni lasciate in bianco non saranno aggiornate</font> <br> <br> 
         
         <form name="modificaInfo" id="modificaInfoForm" class="form-horizontal" role="form" action="profilo.jsp" method="post">
           <div class="form-group">

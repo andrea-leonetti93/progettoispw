@@ -3,6 +3,7 @@ package it.uniroma2.ispw.bean;
 import java.util.List;
 
 import it.uniroma2.ispw.controller.GestisciRicerca;
+import it.uniroma2.ispw.model.Prodotto;
 import it.uniroma2.ispw.model.PropostaVendita;
 
 public class RicercaBean {
@@ -13,6 +14,18 @@ public class RicercaBean {
 	private String nomeRicerca;
 	private int prezzomin;
 	private int prezzomax;
+	private int idProdotto;
+	
+	
+	
+	
+	public int getIdProdotto() {
+		return idProdotto;
+	}
+
+	public void setIdProdotto(int idProdotto) {
+		this.idProdotto = idProdotto;
+	}
 
 	public String getCategoria() {
 		return categoria;

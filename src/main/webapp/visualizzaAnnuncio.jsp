@@ -1,69 +1,38 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<%@ page import="it.uniroma2.ispw.bean.*" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+    <%@ page import="it.uniroma2.ispw.bean.*" %>
 <%@ page import="it.uniroma2.ispw.controller.*" %>
 <%@ page import="it.uniroma2.ispw.model.*" %>
 <%@ page import="it.uniroma2.ispw.session.*" %>
 <%@ page import="java.util.*" %>
-
-<jsp:useBean id="loginb" scope="session" class="it.uniroma2.ispw.bean.LoginBean"/>
-<jsp:setProperty name="loginb" property="*"/>
-
+    
+  
 <jsp:useBean id="ricercab" scope="session" class="it.uniroma2.ispw.bean.RicercaBean"/>
 <jsp:setProperty name="ricercab" property="*"/>
-
-
-<%
-
-
-UtenteSessione us = (UtenteSessione) session.getAttribute("utente");
-
-
-
-
-if(request.getParameter("cerca")!=null){
+    
+    
+ <%
+ 
+ UtenteSessione us = (UtenteSessione) session.getAttribute("utente");
+ PropostaVendita pv;
+ 
+ 
+ if(request.getParameter("visualizzaProdotto")!=null){
+		
+		int i = Integer.parseInt(request.getParameter("i"));
+		pv = (PropostaVendita) ricercab.getLpv().get(i);
+		session.setAttribute("pv",pv);
 	
-	ricercab.ricercaProdotto();
-}
-
-else {
-	ricercab.setLpv(null);
-}
-
-if(request.getParameter("inviaReg2")!=null){
-	
-	System.out.println("prova");
-	System.out.println(request.getParameter("inviaReg2"));
-	
-}
-
-if(request.getParameter("accedi") != null){
-	String errorMessage;
-	errorMessage = loginb.controlloCampi();
-	if (errorMessage==null){
-		us = loginb.validate();
-		if(us != null){
-				session.setAttribute("utente",us);
-		}else{
-			out.println("login fallito");
-		}
-	}
-	else{
-		out.println(errorMessage);
-	}
-}
-
-if(request.getParameter("invia") != null){
-	
-	out.println("we");
-}
-
-if (request.getParameter("logout") != null){
-
-	us = null;
-	session.invalidate();
-}
-
+ }
+ 
+ else{
+	 pv = (PropostaVendita) session.getAttribute("pv");
+ }
+ 
+ 
+ 
 %>
+
 
 
 <!DOCTYPE html>
@@ -271,105 +240,36 @@ if (request.getParameter("logout") != null){
                 
                 <%} %>
             </div>
+               
         </div>
-    </header>
 
-    <!-- Services Section -->
-    <section id="ricerca">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <h2 class="section-heading">Ricerca Prodotto</h2>
-                </div>
-            </div>
-            <div class="row text-center">
-                <div class="col-lg-12">
-					<form action="index.jsp" method="post" name="cerca" id="ricercaForm">
-						<div class="row">
-							 <div class="form-group">
-           				 		<label class="col-lg-3 control-label">Categoria:</label>
-            					
-              				<div class="form-group">
-							<select class="form-control" id="selectCategory" name="categoria" onchange="giveSelection(this.value)">
-								<option value="x" selected="selected">Select category</option>
-								<option value="elettronica">elettronica</option>
-								<option value="Giardinaggio">Giardinaggio</option>
-								<option value="Arredamento">Arredamento</option>
-							</select>
-						</div>
-						<label class="col-lg-3 control-label">Tipologia:</label>
-						<div class="form-group">
-							<select class="form-control" id="selectTypology" name="tipologia">
-								<option data-option="x" selected="selected">Select typology</option>
-								<option data-option="elettronica">cellulari</option>
-								<option data-option="elettronica">Televisori</option>
-								<option data-option="Giardinaggio">Taglia erba</option>
-								<option data-option="Giardinaggio">Piante</option>
-								<option data-option="Arredamento">Tavoli</option>
-								<option data-option="Arredamento">Sedie</option>
-							</select>
-            					</div>
-            				</div>	
-          					</div>
-							<div class="form-group">
-								<input type="text" class="form-control" placeholder="Nome prodotto" name="nomeRicerca"  id="nomeprodotto" >
-								<p class="help-block text-danger" ></p>
-							</div>
-							<div class="col-md-6">
-								<div class="form-group">
-									<input type="text" class="form-control" placeholder="Prezzo min" name="prezzomin" id="prezzomin" >
-									<p class="help-block text-danger" ></p>									
-								</div>
-							</div>
-							<div class="col-md-6">
-								<div class="form-group">
-									<input type="text" class="form-control" placeholder="Prezzo max" name="prezzomax"  id="prezzomax" >
-									<p class="help-block text-danger" ></p>									
-								</div>
-							</div>
-							<div class="form-group">
-								<input type="submit" class="btn-xl" id="btncerca" name="cerca" value="cerca">
-								<p class="help-block text-danger"></p>							
-							</div>
-							
-					</form>
-                </div>
-                </div>
-            </div>
-        
-    </section>
-    
-    <%
-   
-    if (ricercab.getLpv()!=null){
-    	for(int i=0;i<ricercab.getLpv().size();i++){
-    	
-    
-    %>
-    	
-    	    <!-- Project One -->
-        <div class="row">
-           
-            </div>
-            <div class="col-md-9">
-                <h3><%= ricercab.getLpv().get(i).getP().getNome() %></h3>
-                <h4 class="pull-right">$<%=ricercab.getLpv().get(i).getPrezzoFinale()%></h4>
-                <h4><%= ricercab.getLpv().get(i).getV().getUserid()%></h4>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium veniam exercitationem expedita laborum at voluptate. Labore, voluptates totam at aut nemo deserunt rem magni pariatur quos perspiciatis atque eveniet unde.</p>
-             
-              <form action="visualizzaAnnuncio.jsp" method="post">
- 			<input type="hidden" class="form-control" name="i" value=<%= i%>  id="nomeprodotto" >
- 			<button  type="submit" name="visualizzaProdotto" value="ttt"  class="btn-primary">Vedi Prodotto</button>
-				</form>
-            
-        </div>
-        <!-- /.row -->
-    	
-    	
-    <%} }%>
     
        
+    </header>
     
+    
+    <div class="col-md-9">
+
+         <div class="thumbnail">
+           <div class="caption-full">
+               <h4 class="pull-right">$<%=pv.getPrezzoFinale() %></h4>
+              <h4><a href="#"><%=pv.getP().getNome()%></a>
+                </h4>
+                    <p><%=pv.getV().getUserid()%>, <%= pv.getV().getEmail() %></p>
+                   <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
+                </div>
+                    
+                 <div class="form-group">
+					<input type="submit" class="btn-xl" id="btnacquista" name="acquista" value="acquista">
+					<p class="help-block text-danger"></p>							
+			</div>
+           </div>
+                
+               
+        </div>
+
+    
+ 
 	
 	
    
