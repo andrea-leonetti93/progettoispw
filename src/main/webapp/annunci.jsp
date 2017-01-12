@@ -256,20 +256,8 @@ UtenteSessione us = (UtenteSessione) session.getAttribute("utente");
 							</select>
 						</div>
 						<div class="form-group">
-							<label for="amountAdd" class="form-control-label">Amount</label>
-							<input type="text" id="amount" name="amount" class="form-control" placeholder="Amount">
-						</div>
-						<div class="form-group">
 							<label for="priceAdd" class="form-control-label">Price</label>
 							<input type="text" id="price" name="price" class="form-control" placeholder="Price">
-						</div>
-						<div class="form-group">
-							<label for="methodPayAdd" class="form-control-label">Pay Method</label>
-							<input type="text" id="methodPay" name="methodPay" class="form-control" placeholder="Pay method">
-						</div>
-						<div class="form-group">
-							<label for="deliveryTypeAdd" class="form-control-label">Delivery type</label>
-							<input type="text" id="deliveryType" name="deliveryType" class="form-control" placeholder="Delivery type">
 						</div>
 						<div class="form-group">
 							<label for="saleAdd" class="form-control-label">Sale</label>
@@ -320,20 +308,8 @@ UtenteSessione us = (UtenteSessione) session.getAttribute("utente");
 							<input type="text" id="tipo" name="typology" class="form-control" value="<%= insProdotto.getTypology() %>" readonly>
 						</div>
 						<div class="form-group">
-							<label for="amountAdd" class="form-control-label">Amount</label>
-							<input type="text" id="quant" name="amount" class="form-control" value="<%= insProdotto.getAmount() %>">
-						</div>
-						<div class="form-group">
 							<label for="priceAdd" class="form-control-label">Price</label>
 							<input type="text" id="prezzo" name="price" class="form-control" value="<%= insProdotto.getPrice() %>">
-						</div>
-						<div class="form-group">
-							<label for="methodPayAdd" class="form-control-label">Pay Method</label>
-							<input type="text" id="metodPag" name="methodPay" class="form-control" value="<%= insProdotto.getMethodPay() %>">
-						</div>
-						<div class="form-group">
-							<label for="deliveryTypeAdd" class="form-control-label">Delivery type</label>
-							<input type="text" id="tipoCons" name="deliveryType" class="form-control" value="<%= insProdotto.getDeliveryType() %>">
 						</div>
 						<div class="form-group">
 							<label for="saleAdd" class="form-control-label">Sale</label>
@@ -388,10 +364,7 @@ UtenteSessione us = (UtenteSessione) session.getAttribute("utente");
 								<ul class="list-group">
 									<li class="list-group-item" id=""><span class="tag tag-default tag-pill float-xs-right">Categoria: </span><%= p.getCategoria() %></li>
    									<li class="list-group-item"><span class="tag tag-default tag-pill float-xs-right">Tipologia: </span><%= p.getTipologia() %></li>
-   									<li class="list-group-item"><span class="tag tag-default tag-pill float-xs-right">Quantità: </span><%= p.getQuantità() %></li>
    									<li class="list-group-item"><span class="tag tag-default tag-pill float-xs-right">Prezzo: </span><%= p.getPrezzo() %></li>
-   									<li class="list-group-item"><span class="tag tag-default tag-pill float-xs-right">Metodo pagamento: </span><%= p.getMetodoPag() %></li>
-   									<li class="list-group-item"><span class="tag tag-default tag-pill float-xs-right">Tipologia consegna: </span><%= p.getTipoConsegna() %></li>
    									<li class="list-group-item"><span class="tag tag-default tag-pill float-xs-right">Sconto: </span><%= p.getSconto() %></li>
    								</ul>
    							

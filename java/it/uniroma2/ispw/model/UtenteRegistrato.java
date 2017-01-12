@@ -63,6 +63,9 @@ public class UtenteRegistrato implements Serializable{
 
 	@OneToMany(mappedBy = "utenteRegistrato")
 	protected Set<Prodotto> prodotti;
+	
+	@OneToMany(mappedBy = "utenteRegistrato")
+	protected Set<Ordine> ordini;
 		
 	public UtenteRegistrato(){}
 	
@@ -134,6 +137,16 @@ public class UtenteRegistrato implements Serializable{
 
 	public void setProdotti(Set<Prodotto> prodotti) {
 		this.prodotti = prodotti;
+	}
+
+
+	public Set<Ordine> getOrdini() {
+		return ordini;
+	}
+
+
+	public void setOrdini(Set<Ordine> ordini) {
+		this.ordini = ordini;
 	}
 	
 }
