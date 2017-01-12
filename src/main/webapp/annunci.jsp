@@ -232,11 +232,11 @@ UtenteSessione us = (UtenteSessione) session.getAttribute("utente");
 					<form action="" method="post">
 						<div class="form-group">
 							<label for="nameAdd" class="form-control-label">Name</label>
-							<input type="text" id="nameProduct" name="nameProduct" class="form-control" placeholder="Name">
+							<input type="text" id="nameProduct" name="nameProduct" class="form-control" placeholder="Name" required data-validation-required-message="Inserire il nome">
 						</div>					
 						<div class="form-group">
 							<label for="categoriaAdd" class="form-control-label">Category</label>
-							<select class="form-control" id="selectCategory" name="category" onchange="giveSelection(this.value)">
+							<select class="form-control" id="selectCategory" name="category" onchange="giveSelection(this.value)" required data-validation-required-message="Scegliere una categoria">
 								<option value="x" selected="selected">Select category</option>
 								<option value="Elettronica">Elettronica</option>
 								<option value="Giardinaggio">Giardinaggio</option>
@@ -257,12 +257,16 @@ UtenteSessione us = (UtenteSessione) session.getAttribute("utente");
 						</div>
 						<div class="form-group">
 							<label for="priceAdd" class="form-control-label">Price</label>
-							<input type="text" id="price" name="price" class="form-control" placeholder="Price">
+							<input type="text" id="price" name="price" class="form-control" placeholder="Price" required data-validation-required-message="Inserire il prezzo">
 						</div>
 						<div class="form-group">
 							<label for="saleAdd" class="form-control-label">Sale</label>
-							<input type="text" id="sale" name="sale" class="form-control" placeholder="Sale">
+							<input type="text" id="sale" name="sale" class="form-control" placeholder="Sale" required data-validation-required-message="Inserire il possibile sconto">
 						</div>
+						<div class="form-group">
+							<label for="commentAdd" class="form-control-label">Description</label>
+							<textarea id="comment" name="comment" class="form-control" placeholder="Description" maxlength="255" required data-validation-required-message="Inserire una descrizione"></textarea>
+						</div>						
 						<div class="modal-footer">
 							<input class="btn btn-custom" type="submit" id="btn-login" name="allow" value="allow">
 						</div>
@@ -293,7 +297,7 @@ UtenteSessione us = (UtenteSessione) session.getAttribute("utente");
 					<form action="" method="post">
 						<div class="form-group">
 							<label for="nameAdd" class="form-control-label">Name</label>
-							<input type="text" id="nomeProd" name="nameProduct" class="form-control" value="{{ request.form.nomeProd }}">
+							<input type="text" id="nomeProd" name="nameProduct" class="form-control" value="{{ request.form.nomeProd }}" required data-validation-required-message="Inserire il nome">
 						</div>
 						<div class="form-group">
 							<label for="idAdd" class="form-control-label">IdProd</label>
@@ -309,11 +313,15 @@ UtenteSessione us = (UtenteSessione) session.getAttribute("utente");
 						</div>
 						<div class="form-group">
 							<label for="priceAdd" class="form-control-label">Price</label>
-							<input type="text" id="prezzo" name="price" class="form-control" value="<%= insProdotto.getPrice() %>">
+							<input type="text" id="prezzo" name="price" class="form-control" value="<%= insProdotto.getPrice() %>" required data-validation-required-message="Inserire il prezzo">
 						</div>
 						<div class="form-group">
 							<label for="saleAdd" class="form-control-label">Sale</label>
-							<input type="text" id="sconto" name="sale" class="form-control" value="<%= insProdotto.getSale() %>">
+							<input type="text" id="sconto" name="sale" class="form-control" value="<%= insProdotto.getSale() %>" required data-validation-required-message="Inserire il possibile sconto">
+						</div>
+						<div class="form-group">
+							<label for="commentAdd" class="form-control-label">Description</label>
+							<textarea id="comment" name="comment" class="form-control" placeholder="Description" maxlength="255" required data-validation-required-message="Inserire la descrizione"></textarea>
 						</div>
 						<div class="modal-footer">
 							<input class="btn btn-custom" type="submit" id="addChanges" name="addChanges" value="Add changes">

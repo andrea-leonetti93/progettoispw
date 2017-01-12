@@ -65,6 +65,7 @@ public class AcquistoBean {
 	public boolean iniziaAcquisto(){
 		
 		AcquistaProdotto ap = new AcquistaProdotto();
+		//ap.
 		return true;
 	}
 	

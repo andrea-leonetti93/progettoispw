@@ -15,6 +15,7 @@ public class InsProdottoBean {
 	private int price;
 	private int sale;
 	private int disponibilita;
+	private String comment;
 	private UtenteSessione utente;
 	private List<Prodotto> arrayProdotti;
 	
@@ -26,6 +27,7 @@ public class InsProdottoBean {
 		this.price = 0;
 		this.sale = 0;
 		this.disponibilita = 0;
+		this.comment = "";
 		this.utente = null;
 		this.arrayProdotti = null;
 	}
@@ -103,6 +105,15 @@ public class InsProdottoBean {
 
 	public void setDisponibilita(int disponibilita) {
 		this.disponibilita = disponibilita;
+	}
+
+	public String getComment() {
+		return comment;
+	}
+
+
+	public void setComment(String comment) {
+		this.comment = comment;
 	}
 
 

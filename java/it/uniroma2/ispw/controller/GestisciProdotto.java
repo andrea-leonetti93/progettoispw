@@ -22,7 +22,7 @@ public class GestisciProdotto {
 		UtenteRegistrato ur = u.checkUtente(iPBean.getUtente().getEmail(), iPBean.getUtente().getPassword());
 		
 		Prodotto newProdotto = new Prodotto(iPBean.getNameProduct(), iPBean.getCategory(), iPBean.getTypology(), iPBean.getPrice(), 
-				 iPBean.getSale(), ur, 1);
+				 iPBean.getSale(), ur, 1, iPBean.getComment());
 		p.addProdotto(newProdotto);
 		
 		return newProdotto;
@@ -58,7 +58,7 @@ public class GestisciProdotto {
 		UtenteRegistrato ur = u.checkUtente(iPBean.getUtente().getEmail(), iPBean.getUtente().getPassword());
 		
 		Prodotto productChange = new Prodotto(iPBean.getNameProduct(), iPBean.getCategory(), iPBean.getTypology(), iPBean.getPrice(), 
-				 iPBean.getSale(), ur, iPBean.getDisponibilita());
+				 iPBean.getSale(), ur, iPBean.getDisponibilita(), iPBean.getComment());
 		
 		productChange.setId(iPBean.getIdProd());
 		if(p.updateProdotto(productChange)){

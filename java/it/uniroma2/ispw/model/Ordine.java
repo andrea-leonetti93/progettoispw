@@ -1,5 +1,6 @@
 package it.uniroma2.ispw.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,6 +10,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.swing.JTable.DropLocation;
 
 @Entity
 @Table(name = "Ordine")
@@ -28,7 +30,7 @@ public class Ordine {
 	@JoinColumn(name = "emailProprietario", referencedColumnName = "email")
 	protected UtenteRegistrato utenteReg;
 	
-	@OneToOne
+	@OneToOne()
 	@JoinColumn(name = "idProdotto", referencedColumnName = "id")
 	protected Prodotto prodotto;
 	

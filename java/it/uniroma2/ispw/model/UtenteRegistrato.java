@@ -64,7 +64,7 @@ public class UtenteRegistrato implements Serializable{
 	@OneToMany(mappedBy = "utenteRegistrato")
 	protected Set<Prodotto> prodotti;
 	
-	@OneToMany(mappedBy = "utenteRegistrato")
+	@OneToMany(mappedBy = "utenteReg")
 	protected Set<Ordine> ordini;
 		
 	public UtenteRegistrato(){}

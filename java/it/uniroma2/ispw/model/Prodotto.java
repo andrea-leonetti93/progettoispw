@@ -43,11 +43,13 @@ public class Prodotto {
 	@JoinColumn(name = "emailProprietario", referencedColumnName = "email")
 	protected UtenteRegistrato utenteRegistrato;
 	
+	@Column(name = "commento")
+	private String commento;
 	
 	public Prodotto(){}
 	
 	public Prodotto(String nome, String categoria, String tipologia, int prezzo, 
-			int sconto, UtenteRegistrato utenteRegistrato, int disponibilita){
+			int sconto, UtenteRegistrato utenteRegistrato, int disponibilita, String commento){
 		this.nome = nome;
 		this.categoria = categoria;
 		this.tipologia = tipologia;
@@ -55,6 +57,7 @@ public class Prodotto {
 		this.sconto = sconto;
 		this.utenteRegistrato = utenteRegistrato;
 		this.disponibilita = disponibilita;
+		this.commento = commento;
 	}
 
 	public int getId() {
@@ -127,6 +130,14 @@ public class Prodotto {
 
 	public void setDisponibilita(int disponibilita) {
 		this.disponibilita = disponibilita;
+	}
+
+	public String getCommento() {
+		return commento;
+	}
+
+	public void setCommento(String commento) {
+		this.commento = commento;
 	}
 	
 	
