@@ -13,10 +13,9 @@
  <%
  
  UtenteSessione us = (UtenteSessione) session.getAttribute("utente");
- PropostaVendita pv;
+ PropostaVendita pv =(PropostaVendita) request.getAttribute("propVend"); 
  
- 
- 
+ out.println(pv.getP().getNome());
  
 %>
 
