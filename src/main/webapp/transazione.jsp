@@ -12,10 +12,9 @@
     
  <%
  
- UtenteSessione us = (UtenteSessione) session.getAttribute("utente");
- PropostaVendita pv =(PropostaVendita) request.getAttribute("propVend"); 
+ UtenteSessione us = (UtenteSessione) session.getAttribute("utente"); 
+ CarrelloBean carb = (CarrelloBean) session.getAttribute("carrello");
  
- out.println(pv.getP().getNome());
  
 %>
 
@@ -76,7 +75,7 @@
                         <a href="#page-top"></a>
                     </li>
                     <li>
-                        <a class="page-scroll" href="#ricerca">Cerca prodotto</a>
+                        <a class="page-scroll" href="index.jsp">Cerca prodotto</a>
                     </li>
                   
                     
@@ -100,7 +99,7 @@
                         <a class="page-scroll" href="prova.jsp">Tuoi acquisti</a>
                     </li>
                      <li>
-                        <a class="page-scroll" href="prova.jsp">Carrello</a>
+                        <a class="page-scroll" href="carrello.jsp">Carrello</a>
                     </li>
                    
                     <%}else if (us.getType()==1) { %>
@@ -130,62 +129,7 @@
         <!-- /.container-fluid -->
     </nav>
 
-	<!-- popup login -->
-	<div id="modalLogin" class="modal fade forget-modal-login" tabindex="-1" role="dialog" aria-labelledby="myLoginModalLabel" aria-hidden="true">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal">
-							<span aria-hidden="true">x</span>
-							<span class="sr-only">Close</span>
-						</button>
-						<h4 class="modal-title">Login</h4>
-					</div>	
-					<div class="modal-body">
-						<div class="form-wrap">
-						<form action="index.jsp" method="post">
-								<div class="form-group">
-									<label for="usernameLogin" class="sr-only">Username</label>
-									<input type="text" id="email" name="email" class="form-control" placeholder="Username">
-								</div>
-								<div class="form-group">
-									<label for="usernameLogin" class="sr-only">Password</label>
-									<input type="password" id="password" name="password" class="form-control" placeholder="Password">
-								</div>
-								<div class="modal-footer">
-									<input class="btn btn-custom" type="submit" id="btn-login" name="accedi" value="accedi">
-								</div>
-							</form>
-							
-						</div>
-						
-					</div>
-				</div>
-				</div>
-			</div>
-			
-			<!--popup login non riuscito-->
-	<div id="modalErrlogin" class="modal fade forget-modal-errlogin" tabindex="-1" role="dialog" aria-labelledby="myLoginModalLabel" aria-hidden="true">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal">
-							<span aria-hidden="true">x</span>
-							<span class="sr-only">Close</span>
-						</button>
-						<h4 class="modal-title">Errore</h4>
-					</div>	
-					<div class="modal-body">
-						<p>Errore nell'inserimento dei dati per il login, riprovare!</p>					
-					</div>
-					<div class="modal-footer">			
-						<input class="btn btn-custom" type="submit" id="btn-logout" name="ok" value="ok">
-					</div>
-				</div>
-			</div>
-	</div>	
-			
-
+	
 
 	<div id="modalLogout" class="modal fade forget-modal-logout" tabindex="-1" role="dialog" aria-labelledby="myLoginModalLabel" aria-hidden="true">
 			<div class="modal-dialog">
@@ -233,33 +177,55 @@
        
     </header>
     
-    
-    <div class="col-md-9">
-
-         <div class="thumbnail">
-           <div class="caption-full">
-               <h4 class="pull-right">$<%=pv.getPrezzoFinale() %></h4>
-              <h4><a href="#"><%=pv.getP().getNome()%></a>
-                </h4>
-                    <p><%=pv.getV().getUserid()%>, <%= pv.getV().getEmail() %></p>
-                   <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
-                </div>
-                    
-                 <div class="form-group">
-					<input type="submit" class="btn-xl" id="btnacquista" name="acquista" value="acquista">
-					<p class="help-block text-danger"></p>							
-			</div>
-           </div>
-                
-               
-        </div>
-
-    
- 
+<div id="page-wrapper">
+	<div class="row">
+    	<div class="col-lg-12">
+<div class="panel panel-default">
+	<div class="panel-heading">Acquisto</div>
+	<div class="panel-body">
+	<p>Per effettuare l'acquisto scegliere il metodo di pagamento preferito e completare i campi obligatori con i dati personali</p>
+	</div>
+	
+	<table class="table">
+	<thead>
+		<tr>
+			<th>#</th>
+			<th>Nome prodotto</th>
+			<th>Prezzo</th>
+		</tr>
+	</thead>	
+		<tbody>
+	<%
+		int prezzoTot = 0;
+		List<PropostaVendita> lpv = carb.getListaPropVend();
+		PropostaVendita pv = null;
+		if(lpv.size() != 0){
+			for(int i=0; i<lpv.size(); i++){
+				pv = lpv.get(i);
+				prezzoTot += lpv.get(i).getPrezzoFinale();
+	%>
 	
 	
-   
+		<tr>
+			<th scope="row"><%= i %></th>
+			<td><%= pv.getP().getNome() %></td>
+			<td><%= pv.getPrezzoFinale() %></td>
+		</tr>
+	
 
+	<% }} %>
+		
+		</tbody>
+	</table>
+
+	<div class="panel-footer">
+		<h4><%= prezzoTot %></h4>
+	</div>
+</div>
+</div>
+</div>
+</div>
+    
     <footer>
         <div class="container">
             <div class="row">

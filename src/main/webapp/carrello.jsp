@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="it.uniroma2.ispw.bean.*" %>
 <%@ page import="it.uniroma2.ispw.controller.*" %>
 <%@ page import="it.uniroma2.ispw.model.*" %>
@@ -16,55 +16,11 @@
 
 
 UtenteSessione us = (UtenteSessione) session.getAttribute("utente");
+CarrelloBean carb = (CarrelloBean) session.getAttribute("carrello");
 
-
-
-
-if(request.getParameter("cerca")!=null){
-	
-	ricercab.ricercaProdotto();
-}
-
-else {
-	ricercab.setLpv(null);
-}
-
-if(request.getParameter("inviaReg2")!=null){
-	
-	System.out.println("prova");
-	System.out.println(request.getParameter("inviaReg2"));
-	
-}
-
-if(request.getParameter("accedi") != null){
-	String errorMessage;
-	errorMessage = loginb.controlloCampi();
-	if (errorMessage==null){
-		us = loginb.validate();
-		if(us != null){
-				session.setAttribute("utente",us);
-				if(us.getType() == 2){
-					CarrelloBean carB = new CarrelloBean();
-					session.setAttribute("carrello", carB);
-				}
-		}else{
-			out.println("login fallito");
-		}
-	}
-	else{
-		out.println(errorMessage);
-	}
-}
-
-if(request.getParameter("invia") != null){
-	
-	out.println("we");
-}
-
-if (request.getParameter("logout") != null){
-
-	us = null;
-	session.invalidate();
+if(request.getParameter("elimina")!=null){
+	int i = Integer.parseInt(request.getParameter("elimina"));
+	carb.getListaPropVend().remove(i);
 }
 
 %>
@@ -125,7 +81,7 @@ if (request.getParameter("logout") != null){
                         <a href="#page-top"></a>
                     </li>
                     <li>
-                        <a class="page-scroll" href="#ricerca">Cerca prodotto</a>
+                        <a class="page-scroll" href="index.jsp">Cerca prodotto</a>
                     </li>
                   
                     
@@ -149,7 +105,7 @@ if (request.getParameter("logout") != null){
                         <a class="page-scroll" href="prova.jsp">Tuoi acquisti</a>
                     </li>
                      <li>
-                        <a class="page-scroll" href="carrello.jsp">Carrello</a>
+                        <a class="page-scroll" href="prova.jsp">Carrello</a>
                     </li>
                    
                     <%}else if (us.getType()==1) { %>
@@ -178,62 +134,6 @@ if (request.getParameter("logout") != null){
         </div>
         <!-- /.container-fluid -->
     </nav>
-
-	<!-- popup login -->
-	<div id="modalLogin" class="modal fade forget-modal-login" tabindex="-1" role="dialog" aria-labelledby="myLoginModalLabel" aria-hidden="true">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal">
-							<span aria-hidden="true">x</span>
-							<span class="sr-only">Close</span>
-						</button>
-						<h4 class="modal-title">Login</h4>
-					</div>	
-					<div class="modal-body">
-						<div class="form-wrap">
-						<form action="index.jsp" method="post">
-								<div class="form-group">
-									<label for="usernameLogin" class="sr-only">Username</label>
-									<input type="text" id="email" name="email" class="form-control" placeholder="Username">
-								</div>
-								<div class="form-group">
-									<label for="usernameLogin" class="sr-only">Password</label>
-									<input type="password" id="password" name="password" class="form-control" placeholder="Password">
-								</div>
-								<div class="modal-footer">
-									<input class="btn btn-custom" type="submit" id="btn-login" name="accedi" value="accedi">
-								</div>
-							</form>
-							
-						</div>
-						
-					</div>
-				</div>
-				</div>
-			</div>
-			
-			<!--popup login non riuscito-->
-	<div id="modalErrlogin" class="modal fade forget-modal-errlogin" tabindex="-1" role="dialog" aria-labelledby="myLoginModalLabel" aria-hidden="true">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal">
-							<span aria-hidden="true">x</span>
-							<span class="sr-only">Close</span>
-						</button>
-						<h4 class="modal-title">Errore</h4>
-					</div>	
-					<div class="modal-body">
-						<p>Errore nell'inserimento dei dati per il login, riprovare!</p>					
-					</div>
-					<div class="modal-footer">			
-						<input class="btn btn-custom" type="submit" id="btn-logout" name="ok" value="ok">
-					</div>
-				</div>
-			</div>
-	</div>	
-			
 
 
 	<div id="modalLogout" class="modal fade forget-modal-logout" tabindex="-1" role="dialog" aria-labelledby="myLoginModalLabel" aria-hidden="true">
@@ -277,106 +177,59 @@ if (request.getParameter("logout") != null){
             </div>
         </div>
     </header>
-
-    <!-- Services Section -->
-    <section id="ricerca">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <h2 class="section-heading">Ricerca Prodotto</h2>
-                </div>
-            </div>
-            <div class="row text-center">
-                <div class="col-lg-12">
-					<form action="index.jsp" method="post" name="cerca" id="ricercaForm">
-						<div class="row">
-							 <div class="form-group">
-           				 		<label class="col-lg-3 control-label">Categoria:</label>
-            					
-              				<div class="form-group">
-							<select class="form-control" id="selectCategory" name="categoria" onchange="giveSelection(this.value)">
-								<option value="x" selected="selected">Select category</option>
-								<option value="Elettronica">Elettronica</option>
-								<option value="Giardinaggio">Giardinaggio</option>
-								<option value="Arredamento">Arredamento</option>
-							</select>
-						</div>
-						<label class="col-lg-3 control-label">Tipologia:</label>
-						<div class="form-group">
-							<select class="form-control" id="selectTypology" name="tipologia">
-								<option data-option="x" selected="selected">Select typology</option>
-								<option data-option="Elettronica">Cellulari</option>
-								<option data-option="Elettronica">Televisori</option>
-								<option data-option="Giardinaggio">Taglia erba</option>
-								<option data-option="Giardinaggio">Piante</option>
-								<option data-option="Arredamento">Tavoli</option>
-								<option data-option="Arredamento">Sedie</option>
-							</select>
-            					</div>
-            				</div>	
-          					</div>
-							<div class="form-group">
-								<input type="text" class="form-control" placeholder="Nome prodotto" name="nomeRicerca"  id="nomeprodotto" >
-								<p class="help-block text-danger" ></p>
-							</div>
-							<div class="col-md-6">
-								<div class="form-group">
-									<input type="text" class="form-control" placeholder="Prezzo min" name="prezzomin" id="prezzomin" >
-									<p class="help-block text-danger" ></p>									
-								</div>
-							</div>
-							<div class="col-md-6">
-								<div class="form-group">
-									<input type="text" class="form-control" placeholder="Prezzo max" name="prezzomax"  id="prezzomax" >
-									<p class="help-block text-danger" ></p>									
-								</div>
-							</div>
-							<div class="form-group">
-								<input type="submit" class="btn-xl" id="btncerca" name="cerca" value="cerca">
-								<p class="help-block text-danger"></p>							
-							</div>
-							
-					</form>
-                </div>
-                </div>
-            </div>
-        
+    
+    <section>
+    	<div class="container">
+    		<div class="row text-center">
+				<div class="header">
+					<h2 class="title">Prodotti nel carrello</h2>
+				</div>	    		
+    		</div>
+    		<div class="body">
+				
+			<%
+				int prezzoTot = 0;
+				List<PropostaVendita> lpv = carb.getListaPropVend();
+				PropostaVendita pv = null;
+				if(lpv.size() != 0){
+					for(int i=0; i<lpv.size(); i++){
+						pv = lpv.get(i);
+						prezzoTot += lpv.get(i).getPrezzoFinale();
+			%>	
+				
+				<div class="card">
+					<h4 class="card-header"><%=pv.getP().getNome() %></h4>
+					<div class="card-block">
+						<p class="card-text"><%=pv.getV().getUserid() %> </p>
+					</div>				
+					<div class="card-block">
+						<h4 class="card-text">$<%=pv.getPrezzoFinale() %></h4>
+					</div>
+					<div class="card-footer">
+						<form action="carrello.jsp" method="post">
+							<button class="btn-primary" type="submit" name="elimina" value="<%= i %>">Elimina</button>
+						</form>
+					</div>
+				</div>
+				
+				
+			<% }}%>	
+    		</div>	
+    	</div>
+    	<div class="row">
+    		<div class="pull-right">
+    			<h4>$<%= prezzoTot %></h4>
+    		</div>
+    		<div class="footer">
+    			<form action="transazione.jsp" method="post">
+    				<input type="submit" class="btn btn-default btn-lg btn-block" value="Effettua acquisto">
+    			</form>
+    		</div>
+    	</div>	
+    	
     </section>
-    
-    <%
-   
-    if (ricercab.getLpv()!=null){
-    	for(int i=0;i<ricercab.getLpv().size();i++){
-    	
-    
-    %>
-    	
-    	    <!-- Project One -->
-        <div class="row">
-           
-            </div>
-            <div class="col-md-9">
-                <h3><%= ricercab.getLpv().get(i).getP().getNome() %></h3>
-                <h4 class="pull-right">$<%=ricercab.getLpv().get(i).getPrezzoFinale()%></h4>
-                <h4><%= ricercab.getLpv().get(i).getV().getUserid()%></h4>
-                <p><%= ricercab.getLpv().get(i).getP().getCommento() %></p>
-             
-              <form action="visualizzaAnnuncio.jsp" method="post">
- 			<input type="hidden" class="form-control" name="i" value=<%= i%>  id="nomeprodotto" >
- 			<button  type="submit" name="visualizzaProdotto" value="ttt"  class="btn-primary">Vedi Prodotto</button>
-				</form>
-            
-        </div>
-        <!-- /.row -->
-    	
-    	
-    <%} }%>
-    
-       
-    
-	
-	
-   
+
+
 
     <footer>
         <div class="container">
@@ -397,35 +250,7 @@ if (request.getParameter("logout") != null){
     </footer>
     
     
-    
-    <script>
-$(function() {
-    var temp="x"; 
-    $("#selectCategory").val(temp);
-});
-</script>
-<script type="text/javascript">
-   var sel1 = document.querySelector('#selectCategory');
-   var sel2 = document.querySelector('#selectTypology');
-   var options2 = sel2.querySelectorAll('option');
-   function giveSelection(selValue) {
-      sel2.innerHTML = '';
-      for(var i=0; i<options2.length; i++){
-	 if(options2[i].dataset.option === selValue){
-	    sel2.appendChild(options2[i]);
-	 }
-      }
-   }
-   giveSelection(sel1.value);
-</script>
-<!-- funzione per appendere elemento dinamicamente ad una lista -->
-<script type="text/javascript">
-	var num = 1;
-	function elimina_elemento () {
-			$("#menu").append("<li>nuovo elemento "+num+"</li>");
-			num++;
-	}
-</script>
+
 
     <!-- jQuery -->
     <script src="vendor/jquery/jquery.min.js"></script>
@@ -446,3 +271,5 @@ $(function() {
 </body>
 
 </html>
+
+
