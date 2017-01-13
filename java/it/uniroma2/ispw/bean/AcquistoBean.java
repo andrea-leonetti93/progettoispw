@@ -2,6 +2,7 @@ package it.uniroma2.ispw.bean;
 
 import it.uniroma2.ispw.controller.AcquistaProdotto;
 import it.uniroma2.ispw.model.Prodotto;
+import it.uniroma2.ispw.model.PropostaVendita;
 import it.uniroma2.ispw.model.UtenteRegistrato;
 
 public class AcquistoBean {
@@ -12,6 +13,7 @@ public class AcquistoBean {
 	private String metodoPagamento;
 	private UtenteRegistrato utenteReg;
 	private Prodotto prodotto;
+	private PropostaVendita propVend;
 	
 	public AcquistoBean(){
 		this.idOrdine = 0;
@@ -19,6 +21,7 @@ public class AcquistoBean {
 		this.metodoPagamento = "";
 		this.utenteReg = null;
 		this.prodotto = null;
+		this.propVend = null;
 	}
 
 	public int getIdOrdine() {
@@ -59,13 +62,22 @@ public class AcquistoBean {
 
 	public void setProdotto(Prodotto prodotto) {
 		this.prodotto = prodotto;
+	}	
+	
+	public PropostaVendita getPropVend() {
+		return propVend;
 	}
-	
-	
+
+	public void setPropVend(PropostaVendita propVend) {
+		this.propVend = propVend;
+	}
+
 	public boolean iniziaAcquisto(){
 		
 		AcquistaProdotto ap = new AcquistaProdotto();
-		//ap.
+		if(ap.acquistaProdotto(prezzoFinale, metodoPagamento, utenteReg, prodotto)){
+			return true;
+		}
 		return true;
 	}
 	

@@ -1,6 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-    <%@ page import="it.uniroma2.ispw.bean.*" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="it.uniroma2.ispw.bean.*" %>
 <%@ page import="it.uniroma2.ispw.controller.*" %>
 <%@ page import="it.uniroma2.ispw.model.*" %>
 <%@ page import="it.uniroma2.ispw.session.*" %>
@@ -9,8 +8,7 @@
   
 <jsp:useBean id="ricercab" scope="session" class="it.uniroma2.ispw.bean.RicercaBean"/>
 <jsp:setProperty name="ricercab" property="*"/>
-<jsp:useBean id="acquistob" scope="session" class="it.uniroma2.ispw.bean.AcquistoBean"/>    
-<jsp:setProperty property="*" name="acquistob"/>    
+    
     
  <%
  
@@ -18,25 +16,7 @@
  PropostaVendita pv;
  
  
- if(request.getParameter("visualizzaProdotto")!=null){
-		
-		int i = Integer.parseInt(request.getParameter("i"));
-		pv = (PropostaVendita) ricercab.getLpv().get(i);
-		session.setAttribute("pv",pv);
-	
- }else{
-	 pv = (PropostaVendita) session.getAttribute("pv");
- }
  
- 
- if(request.getParameter("acquista")!=null){
-	 //acquistob.setPropVend(ricercab.ge)
-	 if((us.getType())==2){
-		 response.sendRedirect("transazione.jsp");
-	 }else{
-		 response.sendRedirect("effettuaLogin.jsp");
-	 }
- }
  
 %>
 
@@ -255,35 +235,26 @@
     </header>
     
     
- <div class="container">
-    <div class="w-75 p-3">
-    	<div class="card">
-            <div class="card-header">	
-	              <h4 class="pull-right">$<%=pv.getPrezzoFinale() %></h4>
-    	          <h4 class="card-title"><%=pv.getP().getNome()%></h4>
-            </div>
-            <div class="card-block">
-                   <p class="card-text"><%=pv.getV().getUserid()%>, <%= pv.getV().getEmail() %></p>
-          	</div>
-       		<div class="card-block">
-           			<p class="card-text"><%= pv.getP().getCommento()%></p>
-       		</div>
-           
-           
-           <div class="card-footer text-center">
-           
-           <%	if(us.getType() != 1){  %>  
-  				         
-              	  	<div class="form-group">
-						<input type="submit" class="btn btn-primary" id="btnacquista" name="acquista" value="acquista">
-						<p class="help-block text-danger"></p>							
-					</div>
-				
-		   <% 	}    %>
-		   </div>
-         </div>         
-    </div>
-</div>
+    <div class="col-md-9">
+
+         <div class="thumbnail">
+           <div class="caption-full">
+               <h4 class="pull-right">$<%=pv.getPrezzoFinale() %></h4>
+              <h4><a href="#"><%=pv.getP().getNome()%></a>
+                </h4>
+                    <p><%=pv.getV().getUserid()%>, <%= pv.getV().getEmail() %></p>
+                   <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
+                </div>
+                    
+                 <div class="form-group">
+					<input type="submit" class="btn-xl" id="btnacquista" name="acquista" value="acquista">
+					<p class="help-block text-danger"></p>							
+			</div>
+           </div>
+                
+               
+        </div>
+
     
  
 	

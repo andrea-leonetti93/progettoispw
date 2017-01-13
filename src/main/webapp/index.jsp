@@ -292,7 +292,7 @@ if (request.getParameter("logout") != null){
               				<div class="form-group">
 							<select class="form-control" id="selectCategory" name="categoria" onchange="giveSelection(this.value)">
 								<option value="x" selected="selected">Select category</option>
-								<option value="elettronica">elettronica</option>
+								<option value="Elettronica">Elettronica</option>
 								<option value="Giardinaggio">Giardinaggio</option>
 								<option value="Arredamento">Arredamento</option>
 							</select>
@@ -301,8 +301,8 @@ if (request.getParameter("logout") != null){
 						<div class="form-group">
 							<select class="form-control" id="selectTypology" name="tipologia">
 								<option data-option="x" selected="selected">Select typology</option>
-								<option data-option="elettronica">cellulari</option>
-								<option data-option="elettronica">Televisori</option>
+								<option data-option="Elettronica">Cellulari</option>
+								<option data-option="Elettronica">Televisori</option>
 								<option data-option="Giardinaggio">Taglia erba</option>
 								<option data-option="Giardinaggio">Piante</option>
 								<option data-option="Arredamento">Tavoli</option>
@@ -355,7 +355,7 @@ if (request.getParameter("logout") != null){
                 <h3><%= ricercab.getLpv().get(i).getP().getNome() %></h3>
                 <h4 class="pull-right">$<%=ricercab.getLpv().get(i).getPrezzoFinale()%></h4>
                 <h4><%= ricercab.getLpv().get(i).getV().getUserid()%></h4>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium veniam exercitationem expedita laborum at voluptate. Labore, voluptates totam at aut nemo deserunt rem magni pariatur quos perspiciatis atque eveniet unde.</p>
+                <p><%= ricercab.getLpv().get(i).getP().getCommento() %></p>
              
               <form action="visualizzaAnnuncio.jsp" method="post">
  			<input type="hidden" class="form-control" name="i" value=<%= i%>  id="nomeprodotto" >

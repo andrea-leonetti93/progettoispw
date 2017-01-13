@@ -17,8 +17,6 @@ public class RicercaBean {
 	private int idProdotto;
 	
 	
-	
-	
 	public int getIdProdotto() {
 		return idProdotto;
 	}
