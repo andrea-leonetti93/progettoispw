@@ -23,21 +23,11 @@ public class Test {
 
 	public static void main(String[] args) {
 		
-		RicercaBean rb = new RicercaBean();
+		ProdottoDAO pdao = new ProdottoDAO();
 		
-		rb.setCategoria("vestiti");
-		rb.setTipologia("sport");
-		rb.setNomeRicerca("tuta nike");
-		rb.setPrezzomin(0);
-		rb.setPrezzomax(1000);
-		rb.ricercaProdotto();
-		for(PropostaVendita pv : rb.getLpv()){
-		System.out.println(pv.getP().getNome()+" "+ pv.getV().getEmail());
-	
-		}
-		System.out.println(GestisciRicerca.distance("ciao cpme", "ciaa come"));
-	
-	
+		Prodotto p = pdao.prendiProdottoPerID(11);
+		
+		System.out.println(p.getUtenteRegistrato().getNome());
 		
 	
 	

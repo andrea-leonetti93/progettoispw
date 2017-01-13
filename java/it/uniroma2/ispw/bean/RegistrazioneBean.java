@@ -71,6 +71,14 @@ public class RegistrazioneBean {
 	public void setRippassword(String rippassword) {
 		this.rippassword = rippassword;
 	}
+	
+	
+	public String getRegcheck() {
+		return regcheck;
+	}
+	public void setRegcheck(String regcheck) {
+		this.regcheck = regcheck;
+	}
 	/* 1 ok, 2 mail in uso, 3 userid in uso */
 	public int effettuaRegistrazione(){
 	    	
@@ -84,6 +92,8 @@ public class RegistrazioneBean {
 	}
 	
 	public String controlloCampi(){
+		
+		if (this.regcheck==null) return "Accetta il regolamento";
 		
 		if (this.userid == null) return "Inserisci un userid";
 		if (this.userid.equals("")) return "Inserisci un userid";
@@ -115,11 +125,11 @@ public class RegistrazioneBean {
 		if (this.userid == null) return "Inserisci un userid";
 		if (this.userid.equals("")) return "Inserisci un userid";
 		
-		if (this.password.equals(this.rippassword)) return "Le 2 pass non coincidono";
+		if (!(this.password.equals(this.rippassword))) return "Le 2 pass non coincidono";
 		
 		if (type==null) return "Scegli un utente";
 		
-		if (this.regcheck==null) return "Accetta il regolamento";
+		
 		
 		return null;
 		
