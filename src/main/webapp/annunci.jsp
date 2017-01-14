@@ -20,6 +20,8 @@ UtenteSessione us = (UtenteSessione) session.getAttribute("utente");
 	if(request.getParameter("addProduct") != null){
 		/*carica categoria da db*/
 	}
+
+	
 %>
 
 <% 
@@ -38,6 +40,10 @@ UtenteSessione us = (UtenteSessione) session.getAttribute("utente");
 		//String id = request.getParameter("idProd");
 		//int foo = Integer.parseInt(id);
 		//System.out.println("valore idProd" + " " +insProdotto.getIdProd() + " " + id);
+		
+		int idProd = Integer.parseInt(request.getParameter("idProd")); 
+		out.println("Hai scelto di eliminare il prodotto con id= "+ idProd);
+		
 		if(insProdotto.eliminaProdotto()==false){
 			System.out.println("errore eliminazione prodotto");
 		}
@@ -47,7 +53,7 @@ UtenteSessione us = (UtenteSessione) session.getAttribute("utente");
 <%
 	if(request.getParameter("change") != null){
 		int idProd = Integer.parseInt(request.getParameter("idProd")); 
-		out.println(idProd);
+		out.println("Hai scelto di modificare il prodotto con id= "+ idProd);
 		if(insProdotto.trovaProdotto() == false){
 			System.out.println("prodotto non trovato");
 		}
@@ -361,7 +367,7 @@ UtenteSessione us = (UtenteSessione) session.getAttribute("utente");
    							p = lp.get(i);
    				%>		
    					<div class="container">
-   					 	<form method="post" id="inserzione_prodotto">		 <!-- action="{{ url_for('modalChangeProduct') }}" -->
+   					 	<form action="annunci.jsp" method="post" id="inserzione_prodotto">		 <!-- action="{{ url_for('modalChangeProduct') }}" -->
    						<div class="header">
    							<div class="row">
    								<h3>Prodotto: <%= p.getNome() %></h3>
@@ -381,10 +387,11 @@ UtenteSessione us = (UtenteSessione) session.getAttribute("utente");
    						<div class="footer">
    							<div class="row">
    								<div class="col-md-3 offset-md-3">
-   									<input onclick="javascript:changeProd(<%= i %>);" class="forget btn btn-primary pull-right" type="submit" name="change" id="change_btn" value="Change">
+   									<button  type="submit" name="change" value=<%=i %>  class="forget btn btn-primary pull-right">Change</button>
    								</div>
    								<div class="col-md-3 offset-md-3">						
-	   								<input class="btn btn-danger" type="text" id="delete_btn" name="delete" value="Delete">	
+   									<button  type="submit" name="deleteProd" value=<%=i %>  class="btn btn-danger">Delete</button>
+	   								
    								</div>
    							</div>
    						

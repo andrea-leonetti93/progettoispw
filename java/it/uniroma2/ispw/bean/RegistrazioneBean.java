@@ -83,8 +83,10 @@ public class RegistrazioneBean {
 	public int effettuaRegistrazione(){
 	    	
 		int numerictype = 0;
+		
 		if (type.equals("Venditore")) numerictype = 1;
 		else if (type.equals("Consumatore")) numerictype = 2;
+		else if (type.equalsIgnoreCase("Ente")) numerictype = 3;
 	    	
 		GestisciUtente gu = GestisciUtente.getInstance();
 	    return gu.effettuaRegistrazione(userid, name, surname, email, password, telephone, street, numerictype);

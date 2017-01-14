@@ -3,6 +3,7 @@ package it.uniroma2.ispw.controller;
 
 
 import it.uniroma2.ispw.model.Consumatore;
+import it.uniroma2.ispw.model.Ente;
 import it.uniroma2.ispw.model.UtenteRegistrato;
 import it.uniroma2.ispw.model.Venditore;
 import it.uniroma2.ispw.persistence.UtenteDAO;
@@ -36,6 +37,7 @@ public class GestisciUtente {
 				us.setType(1);
 				us.setUserid(ur.getUserid());
 				us.setPassword(ur.getPassword());
+				us.setEnteB(false);
 				return us;
 			}
 			
@@ -44,6 +46,9 @@ public class GestisciUtente {
 				us.setType(2);
 				us.setUserid(ur.getUserid());
 				us.setPassword(ur.getPassword());
+				
+				if (ur instanceof Ente) us.setEnteB(true);
+				else us.setEnteB(false);
 				return us;
 			}
 		}
@@ -65,6 +70,11 @@ public class GestisciUtente {
 		}else if(type==2){
 			newUtente = new Consumatore(userid , name, surname, email , password, telephone, street);
 			u.addUtente(newUtente);
+		}
+		else if(type==3){
+			newUtente = new Ente(userid , name, surname, email , password, telephone, street);
+			u.addUtente(newUtente);
+			
 		}
 		
 		return 1;

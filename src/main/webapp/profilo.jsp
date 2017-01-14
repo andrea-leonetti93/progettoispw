@@ -150,10 +150,13 @@ if (request.getParameter("indietro") != null){
     String email = us.getEmail();
     String userid = us.getUserid();
     
-    String type;
-    
+    String type = "Sconosciuto";
+   
     if (us.getType()==1) type = "Venditore";
-    else type = "Consumatore";
+    else if (us.getType()==2){
+    	if (us.isEnteB()) type = "Ente";
+    	else type = "Consumatore";
+    }
     
     
     

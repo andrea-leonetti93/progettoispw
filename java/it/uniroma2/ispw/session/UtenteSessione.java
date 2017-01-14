@@ -6,8 +6,15 @@ public class UtenteSessione {
 	private String email;
 	private int type; /*1 venditore, 2 consumatore*/
 	private String password;
+	private boolean enteB;
 	
 	
+	public boolean isEnteB() {
+		return enteB;
+	}
+	public void setEnteB(boolean enteB) {
+		this.enteB = enteB;
+	}
 	public String getUserid() {
 		return userid;
 	}
