@@ -24,7 +24,10 @@ public class Spedizione {
 	@Column(name = "idSpedizione")
 	private int idSpedizione;
 	
+<<<<<<< HEAD
 	
+=======
+>>>>>>> 1bb6771a81d16b763ed151dfa5badd799de45a0a
 	@Column(name = "statoSpedizione")
 	private String statoSpedizione;
 	

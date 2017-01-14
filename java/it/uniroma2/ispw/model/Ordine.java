@@ -38,6 +38,10 @@ public class Ordine {
 	@OneToMany(mappedBy = "idLineaOrdine")
 	protected List<LineaOrdine> lineeOrdine;
 	
+	@ManyToOne
+	@JoinColumn(name = "emailProprietario", referencedColumnName = "email")
+	protected UtenteRegistrato utenteReg;
+	
 	@OneToOne
 	@JoinColumn(name = "idPagamento", referencedColumnName = "idPagamento")
 	protected Pagamento pagamento;
