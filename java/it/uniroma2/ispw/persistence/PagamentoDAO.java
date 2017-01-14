@@ -28,7 +28,7 @@ private static SessionFactory sessionFactory = buildSessionFactory();
 		return sessionFactory;
 	}
 	
-	public Pagamento addOrdine(Pagamento pagamento){
+	public Pagamento addPagamento(Pagamento pagamento){
 		Session session = sessionFactory.openSession();
         Transaction tx = null;
             try{

@@ -25,15 +25,5 @@ public class CarrelloBean {
 		this.listaPropVend = listaPropVend;
 	}
 
-
-
-	public boolean iniziaAcquisto(){
-		
-		AcquistaProdotto ap = new AcquistaProdotto();
-		if(ap.acquistaProdotto(prezzoFinale, metodoPagamento, utenteReg, prodotto)){
-			return true;
-		}
-		return true;
-	}
 	
 }

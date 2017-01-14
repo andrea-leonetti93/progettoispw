@@ -5,13 +5,14 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
-import it.uniroma2.ispw.model.LineaOrdine;
+import it.uniroma2.ispw.model.Spedizione;
 
-public class LineaOrdineDAO {
+public class SpedizioneDAO {
+
 	
 private static SessionFactory sessionFactory = buildSessionFactory();
 	
-	public LineaOrdineDAO(){}
+	public SpedizioneDAO(){}
 	
 	private static SessionFactory buildSessionFactory() {
         
@@ -28,22 +29,23 @@ private static SessionFactory sessionFactory = buildSessionFactory();
 		return sessionFactory;
 	}
 	
-	public LineaOrdine addLineaOrdine(LineaOrdine lineaOrdine){
+	public Spedizione addSpedizione(Spedizione spedizione){
 		Session session = sessionFactory.openSession();
         Transaction tx = null;
             try{
                 tx = session.beginTransaction();
-                session.save(lineaOrdine);
+                session.save(spedizione);
                 tx.commit();
-                System.out.println("Linea ordine aggiunta");
+                System.out.println("Spedizione aggiunta");
             }catch (HibernateException e) {
                 if (tx!=null) tx.rollback();
                 e.printStackTrace();
-                System.out.println("Linea ordine NON aggiunta");
-                lineaOrdine = null;
+                System.out.println("Spedizione NON aggiunta");
+                spedizione = null;
             }finally {
              session.close(); 
             }
-		return lineaOrdine;
-	}
+            return spedizione;
+    }
+	
 }
