@@ -1,8 +1,8 @@
 package it.uniroma2.ispw.model;
 
 import java.util.Date;
+import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
@@ -20,43 +21,45 @@ public class Ordine {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "idOrdine")
 	private int idOrdine;
 	
-	@Column(name = "prezzoFinale")
-	private int prezzoFinale;
+	@Column(name = "prezzo")
+	private int prezzo;
 	
-	@Column(name = "metodoPagamento")
-	private String metodoPagamento;
+	@Column(name = "prezzoSpedizione")
+	private int prezzoSped;
 	
-	@ManyToOne
-	@JoinColumn(name = "emailProprietario", referencedColumnName = "email")
-	protected UtenteRegistrato utenteReg;
+	@Column(name = "tipoSpedizione")
+	private String tipoSped;
 	
-	@OneToOne()
-	@JoinColumn(name = "idProdotto", referencedColumnName = "id")
-	protected Prodotto prodotto;
+	@OneToMany(mappedBy = "idLineaOrdine")
+	protected Set<LineaOrdine> lineeOrdine;
+	
+	@OneToOne
+	@JoinColumn(name = "idPagamento", referencedColumnName = "idPagamento")
+	protected Pagamento pagamento;
+	
 	
 	/*@Temporal(TemporalType.DATE)*/
 	@Column(name = "date")
 	private Date created;
+
 	
 	public Ordine(){}
 	
-	public Ordine(int prezzoFinale, String metodoPagamento, UtenteRegistrato utenteReg, Prodotto prodotto){
-		this.prezzoFinale = prezzoFinale;
-		this.metodoPagamento = metodoPagamento;
-		this.utenteReg = utenteReg;
-		this.prodotto = prodotto;
+	public Ordine(int prezzo, int prezzoSped, String tipoSped, String modalitaPag, Pagamento pagamento){
+		this.prezzo = prezzo;
+		this.prezzoSped = prezzoSped;
+		this.tipoSped = tipoSped;
+		this.pagamento = pagamento;
 	}
-	
-	
+
 	@PrePersist
 	protected  void onCreate(){
 		created = new Date();
 	}
-	
-	
-	
+
 	public int getIdOrdine() {
 		return idOrdine;
 	}
@@ -65,12 +68,28 @@ public class Ordine {
 		this.idOrdine = idOrdine;
 	}
 
-	public int getPrezzoFinale() {
-		return prezzoFinale;
+	public int getPrezzo() {
+		return prezzo;
 	}
 
-	public void setPrezzoFinale(int prezzoFinale) {
-		this.prezzoFinale = prezzoFinale;
+	public void setPrezzo(int prezzo) {
+		this.prezzo = prezzo;
+	}
+
+	public int getPrezzoSped() {
+		return prezzoSped;
+	}
+
+	public void setPrezzoSped(int prezzoSped) {
+		this.prezzoSped = prezzoSped;
+	}
+
+	public String getTipoSped() {
+		return tipoSped;
+	}
+
+	public void setTipoSped(String tipoSped) {
+		this.tipoSped = tipoSped;
 	}
 
 	public Date getCreated() {
@@ -81,29 +100,21 @@ public class Ordine {
 		this.created = created;
 	}
 
-	public String getMetodoPagamento() {
-		return metodoPagamento;
+	public Set<LineaOrdine> getLineeOrdine() {
+		return lineeOrdine;
 	}
 
-	public void setMetodoPagamento(String metodoPagamento) {
-		this.metodoPagamento = metodoPagamento;
+	public void setLineeOrdine(Set<LineaOrdine> lineeOrdine) {
+		this.lineeOrdine = lineeOrdine;
 	}
 
-	public UtenteRegistrato getUtenteReg() {
-		return utenteReg;
+	public Pagamento getPagamento() {
+		return pagamento;
 	}
 
-	public void setUtenteReg(UtenteRegistrato utenteReg) {
-		this.utenteReg = utenteReg;
+	public void setPagamento(Pagamento pagamento) {
+		this.pagamento = pagamento;
 	}
 
-	public Prodotto getProdotto() {
-		return prodotto;
-	}
-
-	public void setProdotto(Prodotto prodotto) {
-		this.prodotto = prodotto;
-	}
-	
 	
 }

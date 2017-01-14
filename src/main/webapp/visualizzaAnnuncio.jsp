@@ -8,13 +8,13 @@
   
 <jsp:useBean id="ricercab" scope="session" class="it.uniroma2.ispw.bean.RicercaBean"/>
 <jsp:setProperty name="ricercab" property="*"/>
-   
+
     
  <%
  
  UtenteSessione us = (UtenteSessione) session.getAttribute("utente");
  PropostaVendita pv;
- 
+ CarrelloBean carb = (CarrelloBean) session.getAttribute("carrello"); 
  
  
  
@@ -26,16 +26,15 @@
 		pv = (PropostaVendita) ricercab.getLpv().get(i);
 		session.setAttribute("pv",pv);
 	
- }
- 
- else{
+ }else{
 	 pv = (PropostaVendita) session.getAttribute("pv");
  }
  
- if(request.getParameter("acquista")!=null){
-	 request.setAttribute("propVend", pv);
+ if(request.getParameter("addCarrello")!=null){
+	request.setAttribute("propVend", pv);
+	carb.getListaPropVend().add(pv);	 
  		if(us.getType()==2){
- 			request.getRequestDispatcher("carrello.jsp").forward(request, response);
+ 			request.getRequestDispatcher("index.jsp").forward(request, response);
  		}else{
  			response.sendRedirect("");
  		}
@@ -124,7 +123,7 @@
                         <a class="page-scroll" href="prova.jsp">Tuoi acquisti</a>
                     </li>
                      <li>
-                        <a class="page-scroll" href="prova.jsp">Carrello</a>
+                        <a class="page-scroll" href="carrello.jsp">Carrello</a>
                     </li>
                    
                     <%}else if (us.getType()==1) { %>
@@ -263,8 +262,7 @@
          <div class="thumbnail">
            <div class="caption-full">
                <h4 class="pull-right">$<%=pv.getPrezzoFinale() %></h4>
-              <h4><a href="#"><%=pv.getP().getNome()%></a>
-                </h4>
+              <h4><%=pv.getP().getNome()%></h4>
                     <p><%=pv.getV().getUserid()%>, <%= pv.getV().getEmail() %></p>
                    <p><%= pv.getP().getCommento() %></p>
                 </div>
@@ -272,7 +270,7 @@
             <%if(us.getType() != 1){ %>
               
                  <form action="visualizzaAnnuncio.jsp" method="post">
- 				<button  type="submit" name="acquista" class="btn-primary">Acquista</button>
+ 				<button  type="submit" name="addCarrello" class="btn-primary">Aggiungi al carrello</button>
 				</form>
 			
 			<% } %>	

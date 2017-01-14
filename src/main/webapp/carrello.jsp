@@ -4,20 +4,26 @@
 <%@ page import="it.uniroma2.ispw.model.*" %>
 <%@ page import="it.uniroma2.ispw.session.*" %>
 <%@ page import="java.util.*" %>
-    
-  
+
+<jsp:useBean id="loginb" scope="session" class="it.uniroma2.ispw.bean.LoginBean"/>
+<jsp:setProperty name="loginb" property="*"/>
+
 <jsp:useBean id="ricercab" scope="session" class="it.uniroma2.ispw.bean.RicercaBean"/>
 <jsp:setProperty name="ricercab" property="*"/>
-    
-    
- <%
- 
- UtenteSessione us = (UtenteSessione) session.getAttribute("utente"); 
- CarrelloBean carb = (CarrelloBean) session.getAttribute("carrello");
- 
- 
-%>
 
+
+<%
+
+
+UtenteSessione us = (UtenteSessione) session.getAttribute("utente");
+CarrelloBean carb = (CarrelloBean) session.getAttribute("carrello");
+
+if(request.getParameter("elimina")!=null){
+	int i = Integer.parseInt(request.getParameter("elimina"));
+	carb.getListaPropVend().remove(i);
+}
+
+%>
 
 
 <!DOCTYPE html>
@@ -99,7 +105,7 @@
                         <a class="page-scroll" href="prova.jsp">Tuoi acquisti</a>
                     </li>
                      <li>
-                        <a class="page-scroll" href="carrello.jsp">Carrello</a>
+                        <a class="page-scroll" href="prova.jsp">Carrello</a>
                     </li>
                    
                     <%}else if (us.getType()==1) { %>
@@ -129,7 +135,6 @@
         <!-- /.container-fluid -->
     </nav>
 
-	
 
 	<div id="modalLogout" class="modal fade forget-modal-logout" tabindex="-1" role="dialog" aria-labelledby="myLoginModalLabel" aria-hidden="true">
 			<div class="modal-dialog">
@@ -170,64 +175,62 @@
                 
                 <%} %>
             </div>
-               
         </div>
-
-    
-       
     </header>
     
-<div id="page-wrapper">
-	<div class="row">
-    	<div class="col-lg-12">
-<div class="panel panel-default">
-	<div class="panel-heading">Acquisto</div>
-	<div class="panel-body">
-	<p>Per effettuare l'acquisto scegliere il metodo di pagamento preferito e completare i campi obligatori con i dati personali</p>
-	</div>
-	
-	<table class="table">
-	<thead>
-		<tr>
-			<th>#</th>
-			<th>Nome prodotto</th>
-			<th>Prezzo</th>
-		</tr>
-	</thead>	
-		<tbody>
-	<%
-		int prezzoTot = 0;
-		List<PropostaVendita> lpv = carb.getListaPropVend();
-		PropostaVendita pv = null;
-		if(lpv.size() != 0){
-			for(int i=0; i<lpv.size(); i++){
-				pv = lpv.get(i);
-				prezzoTot += lpv.get(i).getPrezzoFinale();
-	%>
-	
-	
-		<tr>
-			<th scope="row"><%= i %></th>
-			<td><%= pv.getP().getNome() %></td>
-			<td><%= pv.getPrezzoFinale() %></td>
-		</tr>
-	
+    <section>
+    	<div class="container">
+    		<div class="row text-center">
+				<div class="header">
+					<h2 class="title">Prodotti nel carrello</h2>
+				</div>	    		
+    		</div>
+    		<div class="body">
+				
+			<%
+				int prezzoTot = 0;
+				List<PropostaVendita> lpv = carb.getListaPropVend();
+				PropostaVendita pv = null;
+				if(lpv.size() != 0){
+					for(int i=0; i<lpv.size(); i++){
+						pv = lpv.get(i);
+						prezzoTot += lpv.get(i).getPrezzoFinale();
+			%>	
+				
+				<div class="card">
+					<h4 class="card-header"><%=pv.getP().getNome() %></h4>
+					<div class="card-block">
+						<p class="card-text"><%=pv.getV().getUserid() %> </p>
+					</div>				
+					<div class="card-block">
+						<h4 class="card-text">$<%=pv.getPrezzoFinale() %></h4>
+					</div>
+					<div class="card-footer">
+						<form action="carrello.jsp" method="post">
+							<button class="btn-primary" type="submit" name="elimina" value="<%= i %>">Elimina</button>
+						</form>
+					</div>
+				</div>
+				
+				
+			<% }}%>	
+    		</div>	
+    	</div>
+    	<div class="row">
+    		<div class="pull-right">
+    			<h4>$<%= prezzoTot %></h4>
+    		</div>
+    		<div class="footer">
+    			<form action="transazione.jsp" method="post">
+    				<input type="submit" class="btn btn-default btn-lg btn-block" value="Effettua acquisto">
+    			</form>
+    		</div>
+    	</div>	
+    	
+    </section>
 
-	<% }} %>
-		
-		</tbody>
-	</table>
 
-	<div class="panel-footer">
-		<h4><%= prezzoTot %></h4>
-	</div>
-</div>
-</div>
-</div>
-</div>
-    
-    
-    
+
     <footer>
         <div class="container">
             <div class="row">
@@ -247,35 +250,7 @@
     </footer>
     
     
-    
-    <script>
-$(function() {
-    var temp="x"; 
-    $("#selectCategory").val(temp);
-});
-</script>
-<script type="text/javascript">
-   var sel1 = document.querySelector('#selectCategory');
-   var sel2 = document.querySelector('#selectTypology');
-   var options2 = sel2.querySelectorAll('option');
-   function giveSelection(selValue) {
-      sel2.innerHTML = '';
-      for(var i=0; i<options2.length; i++){
-	 if(options2[i].dataset.option === selValue){
-	    sel2.appendChild(options2[i]);
-	 }
-      }
-   }
-   giveSelection(sel1.value);
-</script>
-<!-- funzione per appendere elemento dinamicamente ad una lista -->
-<script type="text/javascript">
-	var num = 1;
-	function elimina_elemento () {
-			$("#menu").append("<li>nuovo elemento "+num+"</li>");
-			num++;
-	}
-</script>
+
 
     <!-- jQuery -->
     <script src="vendor/jquery/jquery.min.js"></script>
@@ -296,3 +271,5 @@ $(function() {
 </body>
 
 </html>
+
+

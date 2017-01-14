@@ -60,7 +60,9 @@ public class UtenteRegistrato implements Serializable{
 	@Column(name = "residenza")
 	String residenza;
 	
-
+	@OneToMany(mappedBy = "utenteRegistrato")
+	protected Set<Pagamento> pagamenti;
+	
 	@OneToMany(mappedBy = "utenteRegistrato")
 	protected Set<Prodotto> prodotti;
 	

@@ -43,6 +43,10 @@ if(request.getParameter("accedi") != null){
 		us = loginb.validate();
 		if(us != null){
 				session.setAttribute("utente",us);
+				if(us.getType() == 2){
+					CarrelloBean carB = new CarrelloBean();
+					session.setAttribute("carrello", carB);
+				}
 		}else{
 			out.println("login fallito");
 		}
@@ -145,7 +149,7 @@ if (request.getParameter("logout") != null){
                         <a class="page-scroll" href="prova.jsp">Tuoi acquisti</a>
                     </li>
                      <li>
-                        <a class="page-scroll" href="prova.jsp">Carrello</a>
+                        <a class="page-scroll" href="carrello.jsp">Carrello</a>
                     </li>
                    
                     <%}else if (us.getType()==1) { %>

@@ -18,7 +18,9 @@
 		<mapping class="it.uniroma2.ispw.model.UtenteRegistrato"></mapping>
 		<mapping class="it.uniroma2.ispw.model.Prodotto"></mapping> 
 		<mapping class="it.uniroma2.ispw.model.TipoProdotto"></mapping>
-		<mapping class="it.uniroma2.ispw.model.Ordine"/>
+		<mapping class="it.uniroma2.ispw.model.Ordine"></mapping>
+		<mapping class="it.uniroma2.ispw.model.LineaOrdine"></mapping>
+		<mapping class="it.uniroma2.ispw.model.Pagamento"/>
 	</session-factory>
 </hibernate-configuration>
 
