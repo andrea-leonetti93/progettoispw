@@ -29,18 +29,14 @@ public abstract class Pagamento {
 	@JoinColumn(name = "emailConsumatore", referencedColumnName = "email")
 	protected UtenteRegistrato utenteRegistrato;
 	
-	@OneToOne
-	@JoinColumn(name = "idOrdine", referencedColumnName = "idOrdine")
-	protected Ordine ordine;
 
 	@Column(name = "importo")
 	private int importo;
 	
 	public Pagamento(){}
 	
-	public Pagamento(UtenteRegistrato utenteRegistrato, String metodo, Ordine ordine, int importo){
+	public Pagamento(UtenteRegistrato utenteRegistrato, String metodo, int importo){
 		this.utenteRegistrato = utenteRegistrato;
-		this.ordine = ordine;
 		this.importo = importo;
 	}
 
@@ -58,14 +54,6 @@ public abstract class Pagamento {
 
 	public void setUtenteRegistrato(UtenteRegistrato utenteRegistrato) {
 		this.utenteRegistrato = utenteRegistrato;
-	}
-
-	public Ordine getOrdine() {
-		return ordine;
-	}
-
-	public void setOrdine(Ordine ordine) {
-		this.ordine = ordine;
 	}
 
 	public int getImporto() {

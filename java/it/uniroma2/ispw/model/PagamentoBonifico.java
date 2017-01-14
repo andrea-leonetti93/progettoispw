@@ -20,7 +20,7 @@ public class PagamentoBonifico extends Pagamento{
 	
 	public PagamentoBonifico(UtenteRegistrato utenteRegistrato, String metodo, Ordine ordine, 
 			int importo, String codiceIBAN, String causale){
-		super(utenteRegistrato, metodo, ordine, importo);
+		super(utenteRegistrato, metodo,importo);
 		this.codiceIBAN = codiceIBAN;
 		this.causale = causale;
 	}

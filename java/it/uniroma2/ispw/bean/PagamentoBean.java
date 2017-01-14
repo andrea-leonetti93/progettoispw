@@ -1,17 +1,21 @@
 package it.uniroma2.ispw.bean;
 
+import it.uniroma2.ispw.model.UtenteRegistrato;
+
 public class PagamentoBean {
 
-	private int importo;
+	private int importoScontato;
 	private String metodoPag;
 	private String numeroCarta;
 	private String scadenzaCarta;
 	private String numeroDiSicurezza;
+	
 	private String codiceIBAN;
 	private String causale;
+	private UtenteRegistrato ur;
 	
 	public PagamentoBean(){
-		this.importo = 0;
+		this.importoScontato = 0;
 		this.metodoPag = "";
 		this.numeroCarta = "";
 		this.scadenzaCarta = "";
@@ -20,12 +24,12 @@ public class PagamentoBean {
 		this.causale = "";
 	}
 
-	public int getImporto() {
-		return importo;
+	public int getImportoScontato() {
+		return importoScontato;
 	}
 
-	public void setImporto(int importo) {
-		this.importo = importo;
+	public void setImportoScontato(int importo) {
+		this.importoScontato = importo;
 	}
 
 	public String getMetodoPag() {
@@ -75,6 +79,16 @@ public class PagamentoBean {
 	public void setCausale(String causale) {
 		this.causale = causale;
 	}
+
+	public UtenteRegistrato getUr() {
+		return ur;
+	}
+
+	public void setUr(UtenteRegistrato ur) {
+		this.ur = ur;
+	}
+	
+	
 	
 	
 }

@@ -1,6 +1,7 @@
 package it.uniroma2.ispw.model;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -30,15 +31,21 @@ public class Ordine {
 	@Column(name = "prezzoSpedizione")
 	private int prezzoSped;
 	
-	@Column(name = "tipoSpedizione")
-	private String tipoSped;
+	@OneToOne
+	@JoinColumn(name = "idSpedizione", referencedColumnName = "idSpedizione")
+	private Spedizione sped;
 	
 	@OneToMany(mappedBy = "idLineaOrdine")
-	protected Set<LineaOrdine> lineeOrdine;
+	protected List<LineaOrdine> lineeOrdine;
 	
 	@OneToOne
 	@JoinColumn(name = "idPagamento", referencedColumnName = "idPagamento")
 	protected Pagamento pagamento;
+	
+
+	@ManyToOne
+	@JoinColumn(name = "emailProprietario", referencedColumnName = "email")
+	protected UtenteRegistrato utenteReg;
 	
 	
 	/*@Temporal(TemporalType.DATE)*/
@@ -48,10 +55,10 @@ public class Ordine {
 	
 	public Ordine(){}
 	
-	public Ordine(int prezzo, int prezzoSped, String tipoSped, String modalitaPag, Pagamento pagamento){
+	public Ordine(int prezzo, int prezzoSped, String tipoSped, String modalitaPag, Pagamento pagamento,Spedizione sped){
 		this.prezzo = prezzo;
 		this.prezzoSped = prezzoSped;
-		this.tipoSped = tipoSped;
+		this.sped = sped;
 		this.pagamento = pagamento;
 	}
 
@@ -84,12 +91,13 @@ public class Ordine {
 		this.prezzoSped = prezzoSped;
 	}
 
-	public String getTipoSped() {
-		return tipoSped;
+	
+	public Spedizione getSped() {
+		return sped;
 	}
 
-	public void setTipoSped(String tipoSped) {
-		this.tipoSped = tipoSped;
+	public void setSped(Spedizione sped) {
+		this.sped = sped;
 	}
 
 	public Date getCreated() {
@@ -100,12 +108,12 @@ public class Ordine {
 		this.created = created;
 	}
 
-	public Set<LineaOrdine> getLineeOrdine() {
+	public List<LineaOrdine> getLineeOrdine() {
 		return lineeOrdine;
 	}
 
-	public void setLineeOrdine(Set<LineaOrdine> lineeOrdine) {
-		this.lineeOrdine = lineeOrdine;
+	public void setLineeOrdine(List<LineaOrdine> lineeOrdine2) {
+		this.lineeOrdine = lineeOrdine2;
 	}
 
 	public Pagamento getPagamento() {
