@@ -1,10 +1,14 @@
 package it.uniroma2.ispw.model;
 
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
@@ -12,7 +16,9 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "pagamento")
-public class Pagamento {
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "metodo", discriminatorType = DiscriminatorType.STRING)
+public abstract class Pagamento {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -23,40 +29,19 @@ public class Pagamento {
 	@JoinColumn(name = "emailConsumatore", referencedColumnName = "email")
 	protected UtenteRegistrato utenteRegistrato;
 	
-	@Column(name = "metodo")
-	private String metodo;
-	
 	@OneToOne
 	@JoinColumn(name = "idOrdine", referencedColumnName = "idOrdine")
-	private Ordine ordine;
+	protected Ordine ordine;
 
-	@Column(name = "numeroCarta")
-	private String numeroCarta;
+	@Column(name = "importo")
+	private int importo;
 	
-	@Column(name = "scadenzaCarta")
-	private String scadenzaCarta;
-	
-	@Column(name = "numeorDiScadenza")
-	private int numeroDiSicurezza;
-	
-	@Column(name = "codiceIBAN")
-	private String codiceIBAN;
-	
-	@Column(name = "causale")
-	private String causale;
-
 	public Pagamento(){}
 	
-	public Pagamento(UtenteRegistrato utenteRegistrato, String metodo, Ordine ordine, String numeroCarta, 
-			String scadenzaCarta, int numeroDiSicurezza, String codiceIBAN, String causale){
+	public Pagamento(UtenteRegistrato utenteRegistrato, String metodo, Ordine ordine, int importo){
 		this.utenteRegistrato = utenteRegistrato;
-		this.metodo = metodo;
 		this.ordine = ordine;
-		this.numeroCarta = numeroCarta;
-		this.scadenzaCarta = scadenzaCarta;
-		this.numeroDiSicurezza = numeroDiSicurezza;
-		this.codiceIBAN = codiceIBAN;
-		this.causale = causale;
+		this.importo = importo;
 	}
 
 	public int getIdPagamento() {
@@ -75,14 +60,6 @@ public class Pagamento {
 		this.utenteRegistrato = utenteRegistrato;
 	}
 
-	public String getMetodo() {
-		return metodo;
-	}
-
-	public void setMetodo(String metodo) {
-		this.metodo = metodo;
-	}
-
 	public Ordine getOrdine() {
 		return ordine;
 	}
@@ -91,45 +68,12 @@ public class Pagamento {
 		this.ordine = ordine;
 	}
 
-	public String getNumeroCarta() {
-		return numeroCarta;
+	public int getImporto() {
+		return importo;
 	}
 
-	public void setNumeroCarta(String numeroCarta) {
-		this.numeroCarta = numeroCarta;
+	public void setImporto(int importo) {
+		this.importo = importo;
 	}
-
-	public String getScadenzaCarta() {
-		return scadenzaCarta;
-	}
-
-	public void setScadenzaCarta(String scadenzaCarta) {
-		this.scadenzaCarta = scadenzaCarta;
-	}
-
-	public int getNumeroDiSicurezza() {
-		return numeroDiSicurezza;
-	}
-
-	public void setNumeroDiSicurezza(int numeroDiSicurezza) {
-		this.numeroDiSicurezza = numeroDiSicurezza;
-	}
-
-	public String getCodiceIBAN() {
-		return codiceIBAN;
-	}
-
-	public void setCodiceIBAN(String codiceIBAN) {
-		this.codiceIBAN = codiceIBAN;
-	}
-
-	public String getCausale() {
-		return causale;
-	}
-
-	public void setCausale(String causale) {
-		this.causale = causale;
-	}
-
 	
 }

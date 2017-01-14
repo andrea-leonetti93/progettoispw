@@ -18,13 +18,11 @@ public class LineaOrdine {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "idLineaOrdine")
 	private int idLineaOrdine;
 	
-	@Column(name = "prezzoFinale")
-	private int prezzoFinale;
-	
-	@Column(name = "metodoPagamento")
-	private String metodoPagamento;
+	@Column(name = "prezzoLinea")
+	private int prezzoLinea;
 	
 	@ManyToOne
 	@JoinColumn(name = "idOrdine", referencedColumnName = "idOrdine")
@@ -37,9 +35,8 @@ public class LineaOrdine {
 	
 	public LineaOrdine(){}
 	
-	public LineaOrdine(int prezzoFinale, String metodoPagamento, Ordine ordine, Prodotto prodotto){
-		this.prezzoFinale = prezzoFinale;
-		this.metodoPagamento = metodoPagamento;
+	public LineaOrdine(int prezzoLinea, Ordine ordine, Prodotto prodotto){
+		this.prezzoLinea = prezzoLinea;
 		this.ordine = ordine;
 		this.prodotto = prodotto;
 	}
@@ -54,20 +51,12 @@ public class LineaOrdine {
 		this.idLineaOrdine = idLineaOrdine;
 	}
 
-	public int getPrezzoFinale() {
-		return prezzoFinale;
+	public int getPrezzoLinea() {
+		return prezzoLinea;
 	}
 
-	public void setPrezzoFinale(int prezzoFinale) {
-		this.prezzoFinale = prezzoFinale;
-	}
-
-	public String getMetodoPagamento() {
-		return metodoPagamento;
-	}
-
-	public void setMetodoPagamento(String metodoPagamento) {
-		this.metodoPagamento = metodoPagamento;
+	public void setPrezzoLinea(int prezzoLinea) {
+		this.prezzoLinea = prezzoLinea;
 	}
 
 	public Prodotto getProdotto() {

@@ -1,6 +1,7 @@
 package it.uniroma2.ispw.model;
 
 import java.util.Date;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,6 +10,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
 
@@ -30,12 +33,13 @@ public class Ordine {
 	@Column(name = "tipoSpedizione")
 	private String tipoSped;
 	
-	@Column(name = "modalitaPagamento")
-	private String modalitaPag;
+	@OneToMany(mappedBy = "idLineaOrdine")
+	protected Set<LineaOrdine> lineeOrdine;
 	
-	@ManyToOne
-	@JoinColumn(name = "emailProprietario", referencedColumnName = "email")
-	private UtenteRegistrato utenteRegistrato;
+	@OneToOne
+	@JoinColumn(name = "idPagamento", referencedColumnName = "idPagamento")
+	protected Pagamento pagamento;
+	
 	
 	/*@Temporal(TemporalType.DATE)*/
 	@Column(name = "date")
@@ -44,13 +48,11 @@ public class Ordine {
 	
 	public Ordine(){}
 	
-	public Ordine(int prezzo, int prezzoSped, String tipoSped, String modalitaPag, 
-			UtenteRegistrato utenteRegistrato){
+	public Ordine(int prezzo, int prezzoSped, String tipoSped, String modalitaPag, Pagamento pagamento){
 		this.prezzo = prezzo;
 		this.prezzoSped = prezzoSped;
 		this.tipoSped = tipoSped;
-		this.modalitaPag = modalitaPag;
-		this.utenteRegistrato = utenteRegistrato;
+		this.pagamento = pagamento;
 	}
 
 	@PrePersist
@@ -90,22 +92,6 @@ public class Ordine {
 		this.tipoSped = tipoSped;
 	}
 
-	public String getModalitaPag() {
-		return modalitaPag;
-	}
-
-	public void setModalitaPag(String modalitaPag) {
-		this.modalitaPag = modalitaPag;
-	}
-
-	public UtenteRegistrato getUtenteRegistrato() {
-		return utenteRegistrato;
-	}
-
-	public void setUtenteRegistrato(UtenteRegistrato utenteRegistrato) {
-		this.utenteRegistrato = utenteRegistrato;
-	}
-
 	public Date getCreated() {
 		return created;
 	}
@@ -114,4 +100,21 @@ public class Ordine {
 		this.created = created;
 	}
 
+	public Set<LineaOrdine> getLineeOrdine() {
+		return lineeOrdine;
+	}
+
+	public void setLineeOrdine(Set<LineaOrdine> lineeOrdine) {
+		this.lineeOrdine = lineeOrdine;
+	}
+
+	public Pagamento getPagamento() {
+		return pagamento;
+	}
+
+	public void setPagamento(Pagamento pagamento) {
+		this.pagamento = pagamento;
+	}
+
+	
 }
