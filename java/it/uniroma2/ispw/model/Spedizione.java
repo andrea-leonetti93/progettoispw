@@ -4,6 +4,9 @@ import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
@@ -16,6 +19,11 @@ import javax.persistence.Table;
 @DiscriminatorColumn(name = "type", discriminatorType = DiscriminatorType.STRING)
 public class Spedizione {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "idSpedizione")
+	private int idSpedizione;
+	
 	@Column(name = "statoSpedizione")
 	private String statoSpedizione;
 	
