@@ -37,14 +37,9 @@ public class Ordine {
 	@JoinColumn(name = "idSpedizione", referencedColumnName = "idSpedizione")
 	private Spedizione sped;
 	
-<<<<<<< HEAD
 	@OneToMany(mappedBy = "ordine", fetch = FetchType.EAGER, cascade=CascadeType.ALL)
 	protected List<LineaOrdine> lineeOrdine;
-=======
-	@OneToMany(mappedBy = "ordine")
-	protected Set<LineaOrdine> lineeOrdine;
->>>>>>> 4699c13b6c4c901af587e59043f5e96322d30c26
-	
+
 	@ManyToOne
 	@JoinColumn(name = "emailProprietario", referencedColumnName = "email")
 	protected UtenteRegistrato utenteReg;
@@ -52,13 +47,7 @@ public class Ordine {
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "idPagamento", referencedColumnName = "idPagamento")
 	protected Pagamento pagamento;
-	
 
-<<<<<<< HEAD
-=======
-
-	
->>>>>>> 4699c13b6c4c901af587e59043f5e96322d30c26
 	
 	/*@Temporal(TemporalType.DATE)*/
 	@Column(name = "date")
@@ -120,15 +109,11 @@ public class Ordine {
 		this.created = created;
 	}
 
-	public Set<LineaOrdine> getLineeOrdine() {
+	public List<LineaOrdine> getLineeOrdine() {
 		return lineeOrdine;
 	}
 
-<<<<<<< HEAD
 	public void setLineeOrdine(List<LineaOrdine> lineeOrdine) {
-=======
-	public void setLineeOrdine(Set<LineaOrdine> lineeOrdine) {
->>>>>>> 4699c13b6c4c901af587e59043f5e96322d30c26
 		this.lineeOrdine = lineeOrdine;
 	}
 
