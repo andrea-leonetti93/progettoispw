@@ -1,10 +1,11 @@
 package it.uniroma2.ispw.factory;
 
 import it.uniroma2.ispw.spedizione.CostoSpedizione;
-import it.uniroma2.ispw.spedizione.SpedizioneNormale;
-import it.uniroma2.ispw.spedizione.SpedizioneRapida;
+import it.uniroma2.ispw.spedizione.CostoSpedizioneNormale;
+import it.uniroma2.ispw.spedizione.CostoSpedizioneRapida;
 
-public class FactorySpedizione {
+
+public class FactoryCostoSpedizione {
 	
 	/* 1->rapida
 	 *  2->normale
@@ -21,11 +22,11 @@ public class FactorySpedizione {
 	}
 	
 	public CostoSpedizione creaSpedizioneRapida(){
-		return new SpedizioneRapida();
+		return new CostoSpedizioneRapida();
 	}
 	
 	public CostoSpedizione creaSpedizioneNormale(){
-		return new SpedizioneNormale();
+		return new CostoSpedizioneNormale();
 	}
 
 }

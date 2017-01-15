@@ -1,6 +1,6 @@
 package it.uniroma2.ispw.spedizione;
 
-public class SpedizioneRapida implements CostoSpedizione {
+public class CostoSpedizioneRapida implements CostoSpedizione {
 	
 	public int calcolaCostoSpedizione(int numeroDiElementi){
 		

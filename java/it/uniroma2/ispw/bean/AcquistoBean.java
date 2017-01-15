@@ -10,6 +10,7 @@ public class AcquistoBean {
 
 	private List<Prodotto> prodotti;
 	private String tipoSedizione;
+	private int prezzoNonScontato;
 	private UtenteRegistrato utenteReg;
 	private PagamentoBean pagBean;
 	private String recapito;
@@ -22,6 +23,17 @@ public class AcquistoBean {
 		this.recapito = "";
 	}
 	
+	
+	
+	
+	
+	public int getPrezzoNonScontato() {
+		return prezzoNonScontato;
+	}
+
+	public void setPrezzoNonScontato(int prezzoNonScontato) {
+		this.prezzoNonScontato = prezzoNonScontato;
+	}
 	
 	public List<Prodotto> getProdotti() {
 		return prodotti;
@@ -63,7 +75,7 @@ public class AcquistoBean {
 		this.recapito = recapito;
 	}
 
-
+/*
 	public boolean iniziaAcquisto(){
 		
 		AcquistaProdotto ap = new AcquistaProdotto();
@@ -71,5 +83,5 @@ public class AcquistoBean {
 			return true;
 		}
 		return true;
-	}
+	}*/
 }

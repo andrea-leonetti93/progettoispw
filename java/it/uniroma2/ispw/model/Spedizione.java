@@ -24,6 +24,7 @@ public class Spedizione {
 	@Column(name = "idSpedizione")
 	private int idSpedizione;
 	
+
 	@Column(name = "statoSpedizione")
 	private String statoSpedizione;
 	

@@ -22,9 +22,9 @@ public class PagamentoCarta extends Pagamento{
 		super();
 	}
 	
-	public PagamentoCarta(UtenteRegistrato utenteRegistrato, String metodo, Ordine ordine, int importo, 
+	public PagamentoCarta(UtenteRegistrato utenteRegistrato, String metodo, int importo, 
 			String numeroCarta, String scadenzaCarta, int numeroDiSicurezza){
-		super(utenteRegistrato, metodo, ordine, importo);
+		super(utenteRegistrato, metodo,importo);
 		this.numeroCarta = numeroCarta;
 		this.scadenzaCarta = scadenzaCarta;
 		this.numeroDiSicurezza = numeroDiSicurezza;
