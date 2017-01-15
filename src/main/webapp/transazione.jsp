@@ -104,7 +104,7 @@
                         <a class="page-scroll" href="profilo.jsp">Profilo</a>
                     </li>
                       <li>
-                        <a class="page-scroll" href="prova.jsp">Tuoi acquisti</a>
+                        <a class="page-scroll" href="listaAcquisti.jsp">Tuoi acquisti</a>
                     </li>
                      <li>
                         <a class="page-scroll" href="carrello.jsp">Carrello</a>
@@ -216,8 +216,8 @@
 	
 		<tr>
 			<th scope="row"><%= i %></th>
-			<td><%= pv.getP().getNome() %></td>
-			<td><%= pv.getPrezzoFinale() %></td>
+			<td>$<%= pv.getP().getNome() %></td>
+			<td>$<%= pv.getPrezzoFinale() %></td>
 		</tr>
 	
 
@@ -227,7 +227,7 @@
 	</table>
 
 	<div class="panel-footer">
-		<h4><%= prezzoTot %></h4>
+		<h4>$<%= prezzoTot %></h4>
 	</div>
 </div>
 </div>

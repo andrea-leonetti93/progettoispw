@@ -146,7 +146,7 @@ if (request.getParameter("logout") != null){
                         <a class="page-scroll" href="profilo.jsp">Profilo</a>
                     </li>
                       <li>
-                        <a class="page-scroll" href="prova.jsp">Tuoi acquisti</a>
+                        <a class="page-scroll" href="listaAcquisti.jsp">Tuoi acquisti</a>
                     </li>
                      <li>
                         <a class="page-scroll" href="carrello.jsp">Carrello</a>

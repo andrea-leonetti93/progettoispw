@@ -101,6 +101,14 @@ public class AcquistaProdotto {
 		
 	}
 
+	public List<Pagamento> acquistiUtente(String email) {
+		// TODO Auto-generated method stub
+		List<Pagamento> listaPag = null;
+		PagamentoDAO pd = new PagamentoDAO();
+		listaPag = pd.listaAcquistiUtente(email);
+		return listaPag;
+	}
+
 
 	
 }
