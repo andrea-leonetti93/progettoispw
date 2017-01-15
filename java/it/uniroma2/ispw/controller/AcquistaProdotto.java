@@ -90,8 +90,6 @@ public class AcquistaProdotto {
 		OrdineDAO odao = new OrdineDAO();
 		System.out.println("prova");
 		
-		System.out.println(ord.getLineeOrdine().get(0).getProdotto().getNome());
-		System.out.println(ord.getLineeOrdine().get(1).getProdotto().getNome());
 		
 		ord.setUtenteReg(ur);
 		odao.addOrdine(ord);

@@ -8,6 +8,13 @@
   
 <jsp:useBean id="ricercab" scope="session" class="it.uniroma2.ispw.bean.RicercaBean"/>
 <jsp:setProperty name="ricercab" property="*"/>
+
+
+<jsp:useBean id="acquistob" scope="session" class="it.uniroma2.ispw.bean.AcquistoBean"/>
+<jsp:setProperty name="acquistob" property="*"/>
+
+<jsp:useBean id="pagamentob" scope="session" class="it.uniroma2.ispw.bean.PagamentoBean"/>
+<jsp:setProperty name="pagamentob" property="*"/>
     
     
  <%
@@ -15,8 +22,33 @@
  UtenteSessione us = (UtenteSessione) session.getAttribute("utente"); 
  CarrelloBean carb = (CarrelloBean) session.getAttribute("carrello");
  
+ if (request.getParameter("confermaAcquisto")!=null)
+ {
+	 if (acquistob ==null) System.out.println("è nullo");
+	 acquistob.iniziaAcquisto();
+	 response.sendRedirect("index.jsp");
+ }
  if(request.getParameter("inviaDati")!=null){
-	//	 
+	
+	 GestisciUtente gu = GestisciUtente.getInstance();
+	 UtenteRegistrato ur = gu.visualizzaInformazioni(us.getEmail());
+	 acquistob.setUtenteReg(ur);
+	 acquistob.setPagBean(pagamentob);
+	 pagamentob.setUr(ur);
+	
+	 if (request.getParameter("pagamentoBonifico")!=null){
+		 pagamentob.setMetodoPag("Bonifico");
+		 }
+	 else {
+		 pagamentob.setMetodoPag("Carta");
+	 }
+	 
+	 acquistob.compilaPrezzi();
+	 
+	// out.println(acquistob.getTipoSpedizione());
+	//response.sendRedirect("riassunto.jsp");
+	 
+	// out.println(acquistob.getRecapito());
  }
 %>
 
@@ -231,11 +263,18 @@
     
  <div class="row">   
     <div class="col-lg-12">
-    <form action="" method="post">
+    <form action="riassunto.jsp" method="post">
 		<div class="panel panel-default">
 			<div class="panel-heading">Pagamento selezionato:</div>
 			<div class="panel-body">
-				<%= //pagamentoscelto %>
+				<%= acquistob.getPagBean().getMetodoPag()%>
+			</div>
+		</div>
+		
+		<div class="panel panel-default">
+			<div class="panel-heading">Sconto Ente Benefico:</div>
+			<div class="panel-body">
+				Quantità Sconto <h4 class="pull-right">$<%=acquistob.getScontoEnte()%></h4>
 			</div>
 		</div>
 		
@@ -243,7 +282,7 @@
 		<div class="panel panel-default">
 			<div class="panel-heading">Tipo spedizione selezionata:</div>
 			<div class="panel-body">
-				<%= //tipo spedizione %> <h4 class="pull-right">$<%= //prezzospedizione %></h4>
+				<%= acquistob.getTipoSpedizione()%> <h4 class="pull-right">$<%= acquistob.getPrezzoSpedizione()%></h4>
 			</div>
 		</div>
 	
@@ -251,14 +290,14 @@
 		<div class="panel panel-default">
 			<div class="panel-heading">Prezzo totale:</div>
 			<div class="panel-body">
-				<h4>$<%= //prezzo finale compreso di sconti e spedizione %></h4>
+				<h4><%= acquistob.getPrezzoFinale() %></h4>
 			</div>
 		</div>	
 	
 		<div class="panel panel-default">
 			<div class="panel-heading">Concludi acquisto</div>
 			<div class="panel-body">
-				<input type="submit" class="btn-primary" id="conferma" name="conferma" value="Conferma"> 
+				<input type="submit" class="btn-primary" id="conferma" name="confermaAcquisto" value="Conferma"> 
 			</div>
 		</div>
 	</form>

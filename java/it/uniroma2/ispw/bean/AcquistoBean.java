@@ -1,39 +1,49 @@
 package it.uniroma2.ispw.bean;
 
+import java.util.ArrayList;
 import java.util.List;
 import it.uniroma2.ispw.controller.AcquistaProdotto;
+import it.uniroma2.ispw.factory.FactoryCostoSpedizione;
+import it.uniroma2.ispw.model.Ente;
 import it.uniroma2.ispw.model.Pagamento;
 import it.uniroma2.ispw.model.Prodotto;
 import it.uniroma2.ispw.model.UtenteRegistrato;
+import it.uniroma2.ispw.prezzo.PrezzoFinale;
+import it.uniroma2.ispw.prezzo.PrezzoFinaleConsumatore;
+import it.uniroma2.ispw.prezzo.PrezzoFinaleEnte;
+import it.uniroma2.ispw.spedizione.CostoSpedizione;
 
 public class AcquistoBean {
 
-	private List<Prodotto> prodotti;
-	private String tipoSedizione;
-	private int prezzoNonScontato;
+	/* input per caso d'uso */
+	private List<Prodotto> prodotti = new ArrayList<Prodotto>();
+	private String tipoSpedizione;
 	private UtenteRegistrato utenteReg;
 	private PagamentoBean pagBean;
 	private String recapito;
+	
+	/*da visualizzare*/
+	private int prezzoNonScontato = 0;
+	private int prezzoScontato = 0;
+	private int prezzoSpedizione = 0;
+	private int prezzoFinale = 0;
+	private int scontoEnte = 0;
 
 	public AcquistoBean(){
 		this.prodotti = null;
-		this.tipoSedizione = "";
+		this.tipoSpedizione = "";
 		this.utenteReg = null;
 		this.pagBean = null;
 		this.recapito = "";
+		prezzoNonScontato = 0;
+		prezzoScontato = 0;
+		prezzoSpedizione = 0;
+		prezzoFinale = 0;
+		scontoEnte = 0;
 	}
 	
 	
 	
-	
-	
-	public int getPrezzoNonScontato() {
-		return prezzoNonScontato;
-	}
-
-	public void setPrezzoNonScontato(int prezzoNonScontato) {
-		this.prezzoNonScontato = prezzoNonScontato;
-	}
 	
 	public List<Prodotto> getProdotti() {
 		return prodotti;
@@ -43,12 +53,12 @@ public class AcquistoBean {
 		this.prodotti = prodotti;
 	}
 
-	public String getTipoSedizione() {
-		return tipoSedizione;
+	public String getTipoSpedizione() {
+		return tipoSpedizione;
 	}
 
-	public void setTipoSedizione(String tipoSedizione) {
-		this.tipoSedizione = tipoSedizione;
+	public void setTipoSpedizione(String tipoSpedizione) {
+		this.tipoSpedizione = tipoSpedizione;
 	}
 
 	public UtenteRegistrato getUtenteReg() {
@@ -74,14 +84,111 @@ public class AcquistoBean {
 	public void setRecapito(String recapito) {
 		this.recapito = recapito;
 	}
+	
+	
+	
 
-/*
+
+	public int getScontoEnte() {
+		return scontoEnte;
+	}
+
+
+
+
+	public void setScontoEnte(int scontoEnte) {
+		this.scontoEnte = scontoEnte;
+	}
+
+
+
+
+	public int getPrezzoNonScontato() {
+		return prezzoNonScontato;
+	}
+
+
+
+
+	public void setPrezzoNonScontato(int prezzoNonScontato) {
+		this.prezzoNonScontato = prezzoNonScontato;
+	}
+
+
+
+
+	public int getPrezzoScontato() {
+		return prezzoScontato;
+	}
+
+
+
+
+	public void setPrezzoScontato(int prezzoScontato) {
+		this.prezzoScontato = prezzoScontato;
+	}
+
+
+
+
+	public int getPrezzoSpedizione() {
+		return prezzoSpedizione;
+	}
+
+
+
+
+	public void setPrezzoSpedizione(int prezzoSpedizione) {
+		this.prezzoSpedizione = prezzoSpedizione;
+	}
+
+
+
+
+	public int getPrezzoFinale() {
+		return prezzoFinale;
+	}
+
+
+
+
+	public void setPrezzoFinale(int prezzoFinale) {
+		this.prezzoFinale = prezzoFinale;
+	}
+
+
+
+
 	public boolean iniziaAcquisto(){
 		
 		AcquistaProdotto ap = new AcquistaProdotto();
-		if(ap.acquistaProdotto(prezzoFinale, metodoPagamento, utenteReg, prodotto)){
-			return true;
+		return ap.effettuaAcquisto(prodotti, tipoSpedizione, utenteReg, pagBean, recapito);
+	}
+	
+	public void compilaPrezzi(){
+		
+		for (Prodotto p : prodotti){
+			prezzoNonScontato += p.getPrezzo();
 		}
-		return true;
-	}*/
+		
+		PrezzoFinale pf;
+		if (utenteReg instanceof Ente){
+			pf = new PrezzoFinaleEnte();
+		}
+		else{
+			pf = new PrezzoFinaleConsumatore();
+		}
+		
+		for (Prodotto p : prodotti){
+			prezzoScontato += pf.calcolaPrezzoFinale(p);
+		}
+		scontoEnte = prezzoNonScontato - prezzoScontato;
+		
+		/* calcolo costo Spedizione */
+		FactoryCostoSpedizione fcs = new FactoryCostoSpedizione();
+		CostoSpedizione cs = fcs.creaSpedizione(tipoSpedizione);
+		prezzoSpedizione = cs.calcolaCostoSpedizione(prodotti.size());
+		
+		prezzoFinale = prezzoScontato + prezzoSpedizione;
+	}
 }
