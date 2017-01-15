@@ -4,8 +4,10 @@ import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -31,26 +33,22 @@ public class Ordine {
 	@Column(name = "prezzoSpedizione")
 	private int prezzoSped;
 	
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "idSpedizione", referencedColumnName = "idSpedizione")
 	private Spedizione sped;
 	
-	@OneToMany(mappedBy = "idLineaOrdine")
+	@OneToMany(mappedBy = "ordine", fetch = FetchType.EAGER, cascade=CascadeType.ALL)
 	protected List<LineaOrdine> lineeOrdine;
 	
 	@ManyToOne
 	@JoinColumn(name = "emailProprietario", referencedColumnName = "email")
 	protected UtenteRegistrato utenteReg;
 	
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "idPagamento", referencedColumnName = "idPagamento")
 	protected Pagamento pagamento;
 	
 
-	@ManyToOne
-	@JoinColumn(name = "emailProprietario", referencedColumnName = "email")
-	protected UtenteRegistrato utenteReg;
-	
 	
 	/*@Temporal(TemporalType.DATE)*/
 	@Column(name = "date")
@@ -116,8 +114,8 @@ public class Ordine {
 		return lineeOrdine;
 	}
 
-	public void setLineeOrdine(List<LineaOrdine> lineeOrdine2) {
-		this.lineeOrdine = lineeOrdine2;
+	public void setLineeOrdine(List<LineaOrdine> lineeOrdine) {
+		this.lineeOrdine = lineeOrdine;
 	}
 
 	public Pagamento getPagamento() {
@@ -127,6 +125,16 @@ public class Ordine {
 	public void setPagamento(Pagamento pagamento) {
 		this.pagamento = pagamento;
 	}
+
+	public UtenteRegistrato getUtenteReg() {
+		return utenteReg;
+	}
+
+	public void setUtenteReg(UtenteRegistrato utenteReg) {
+		this.utenteReg = utenteReg;
+	}
+	
+	
 
 	
 }

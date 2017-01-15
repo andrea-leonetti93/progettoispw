@@ -2,12 +2,15 @@ package it.uniroma2.ispw.model;
 
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -60,14 +63,14 @@ public class UtenteRegistrato implements Serializable{
 	@Column(name = "residenza")
 	String residenza;
 	
-	@OneToMany(mappedBy = "utenteRegistrato")
-	protected Set<Pagamento> pagamenti;
+	@OneToMany(mappedBy = "utenteRegistrato", cascade=CascadeType.ALL)
+	protected List<Pagamento> pagamenti;
 	
-	@OneToMany(mappedBy = "utenteRegistrato")
-	protected Set<Prodotto> prodotti;
+	@OneToMany(mappedBy = "utenteRegistrato", fetch = FetchType.EAGER, cascade=CascadeType.ALL)
+	protected List<Prodotto> prodotti;
 	
 	@OneToMany(mappedBy = "utenteReg")
-	protected Set<Ordine> ordini;
+	protected List<Ordine> ordini;
 		
 	public UtenteRegistrato(){}
 	
@@ -85,6 +88,18 @@ public class UtenteRegistrato implements Serializable{
 		
 	}
 	
+	
+	
+	public List<Pagamento> getPagamenti() {
+		return pagamenti;
+	}
+
+
+	public void setPagamenti(List<Pagamento> pagamenti) {
+		this.pagamenti = pagamenti;
+	}
+
+
 	public String getNome() {
 		return nome;
 	}
@@ -133,21 +148,21 @@ public class UtenteRegistrato implements Serializable{
 	
 	
 	
-	public Set<Prodotto> getProdotti() {
+	public List<Prodotto> getProdotti() {
 		return prodotti;
 	}
 
-	public void setProdotti(Set<Prodotto> prodotti) {
+	public void setProdotti(List<Prodotto> prodotti) {
 		this.prodotti = prodotti;
 	}
 
 
-	public Set<Ordine> getOrdini() {
+	public List<Ordine> getOrdini() {
 		return ordini;
 	}
 
 
-	public void setOrdini(Set<Ordine> ordini) {
+	public void setOrdini(List<Ordine> ordini) {
 		this.ordini = ordini;
 	}
 	

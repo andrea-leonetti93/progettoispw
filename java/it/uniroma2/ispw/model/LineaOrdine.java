@@ -41,8 +41,6 @@ public class LineaOrdine {
 		this.prodotto = prodotto;
 	}
 	
-	
-	
 	public int getIdOrdine() {
 		return idLineaOrdine;
 	}

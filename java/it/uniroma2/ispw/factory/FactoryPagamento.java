@@ -12,8 +12,8 @@ public class FactoryPagamento {
 	 */
 	
 	public Pagamento creaPagamento(PagamentoBean pbean){
-		if (pbean.getMetodoPag().equals("Bonifico")) creaPagamentoBonifico(pbean);
-		else if (pbean.getMetodoPag().equals("Carta")) creaPagamentoCarta(pbean);
+		if (pbean.getMetodoPag().equals("Bonifico"))  return creaPagamentoBonifico(pbean);
+		else if (pbean.getMetodoPag().equals("Carta")) return creaPagamentoCarta(pbean);
 		return null;
 	}
 	

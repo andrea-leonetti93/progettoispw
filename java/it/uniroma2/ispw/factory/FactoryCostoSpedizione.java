@@ -9,16 +9,12 @@ public class FactoryCostoSpedizione {
 	
 	/* 1->rapida
 	 *  2->normale
-	 *  3->lenta
+	 *  
 	 */
 	
-	public CostoSpedizione creaSpedizione(int type){
-		 switch (type)
-	        {
-	            case 1: return creaSpedizioneRapida();
-	            case 2: return creaSpedizioneNormale();
-	            default: return null;
-	        }
+	public CostoSpedizione creaSpedizione(String type){
+		if (type.equals("Normale")) return creaSpedizioneNormale();
+		return creaSpedizioneRapida();
 	}
 	
 	public CostoSpedizione creaSpedizioneRapida(){
