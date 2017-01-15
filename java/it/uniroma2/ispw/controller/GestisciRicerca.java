@@ -22,7 +22,8 @@ public class GestisciRicerca {
         return instance;
     }
 	
-	public List<PropostaVendita> ricercaProdotto(String nomeRicerca,String categoria, String tipologia, int prezzomin, int prezzomax){
+	public List<PropostaVendita> ricercaProdotto(String nomeRicerca,String categoria, 
+			String tipologia, int prezzomin, int prezzomax){
 		
 		ProdottoDAO pdao = new ProdottoDAO();
 		List<Prodotto> plist = pdao.listaProdotti();
