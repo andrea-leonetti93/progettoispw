@@ -21,7 +21,7 @@ public class FactoryPagamento {
 		PagamentoBonifico pbon = new PagamentoBonifico();
 		pbon.setCausale(pbean.getCausale());
 		pbon.setCodiceIBAN(pbean.getCodiceIBAN());
-		pbon.setImporto(pbean.getImportoScontato());
+		
 		
 		return pbon;
 	}
@@ -31,7 +31,6 @@ public class FactoryPagamento {
 		pcarta.setNumeroCarta(pbean.getNumeroCarta());
 		pcarta.setNumeroDiSicurezza(Integer.parseInt(pbean.getNumeroDiSicurezza()));
 		pcarta.setScadenzaCarta(pbean.getScadenzaCarta());
-		pcarta.setImporto(pbean.getImportoScontato());
 		
 		return pcarta;
 		

@@ -1,7 +1,6 @@
 package it.uniroma2.ispw.bean;
 
 import java.util.List;
-
 import it.uniroma2.ispw.controller.AcquistaProdotto;
 import it.uniroma2.ispw.model.Pagamento;
 import it.uniroma2.ispw.model.Prodotto;

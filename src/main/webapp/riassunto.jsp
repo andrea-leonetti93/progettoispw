@@ -233,47 +233,32 @@
     <div class="col-lg-12">
     <form action="" method="post">
 		<div class="panel panel-default">
-			<div class="panel-heading">Pagamento con carta di credito<input type="checkbox" name="pagamentoCarta" value="pagamentoCarta"></div>
+			<div class="panel-heading">Pagamento selezionato:</div>
 			<div class="panel-body">
-				<label for="numeroCartaPag" class="sr-only">Numero carta</label>
-				<input type="text" id="numeroCarta" name="numeroCarta" class="form-control" placeholder="Numero carta">
-			</div>
-			<div class="panel-body">
-				<label for="scadenzaCartaPag" class="sr-only">Scadenza carta</label>
-				<input type="text" id="scadenzaCarta" name="scadenzaCarta" class="form-control" placeholder="Scadenza carta">
-			</div>
-			<div class="panel-body">
-				<label for="numeroDiSicurezzaPag" class="sr-only">Numero di sicurezza</label>
-				<input type="text" id="numeroDiSicurezza" name="numeroDiSicurezza" class="form-control" placeholder="Numero di sicurezza">			
+				<%= //pagamentoscelto %>
 			</div>
 		</div>
 		
 		
 		<div class="panel panel-default">
-			<div class="panel-heading">Pagamento con bonifico bancario<input type="checkbox" name="pagamentoBonifico" value="pagamentoBonifico"></div>
+			<div class="panel-heading">Tipo spedizione selezionata:</div>
 			<div class="panel-body">
-				<label for="codiceIbanPag" class="sr-only">Codice IBAN</label>
-				<input type="text" id="codiceIBAN" name="codiceIBAN" class="form-control" placeholder="Codice IBAN">
-			</div>
-			<div class="panel-body">
-				<label for="causalePag" class="sr-only">Causale</label>
-				<input type="text" id="causale" name="causale" class="form-control" placeholder="Causale">
+				<%= //tipo spedizione %> <h4 class="pull-right">$<%= //prezzospedizione %></h4>
 			</div>
 		</div>
 	
 	
 		<div class="panel panel-default">
-			<div class="panel-heading">Tipo spedizione</div>
+			<div class="panel-heading">Prezzo totale:</div>
 			<div class="panel-body">
-				<input type="radio" name="spedizioneNormale" id="check_value" class="text-primary">  Spedizione normale <br>
-				<input type="radio" name="spedizioneRapida" id="check_value" class="text-primary">  Spedizione rapida <br>
+				<h4>$<%= //prezzo finale compreso di sconti e spedizione %></h4>
 			</div>
 		</div>	
 	
 		<div class="panel panel-default">
 			<div class="panel-heading">Concludi acquisto</div>
 			<div class="panel-body">
-				<input type="submit" class="btn-primary" id="inviaDati" name="inviaDati" value="Invia dati"> 
+				<input type="submit" class="btn-primary" id="conferma" name="conferma" value="Conferma"> 
 			</div>
 		</div>
 	</form>
@@ -298,7 +283,6 @@
         </div>
     </footer>
     
-
     <!-- jQuery -->
     <script src="vendor/jquery/jquery.min.js"></script>
 
