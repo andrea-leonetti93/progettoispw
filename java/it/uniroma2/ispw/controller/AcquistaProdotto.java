@@ -79,6 +79,7 @@ public class AcquistaProdotto {
 		Pagamento pag = fp.creaPagamento(pbean);
 		pag.setImporto(importoScontato + costoSped);
 		pag.setOrdine(ord);
+		pag.setUtenteRegistrato(ur);
 		ord.setPagamento(pag);
 		
 		/* creazione Spedizione*/

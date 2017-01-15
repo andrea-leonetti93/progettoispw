@@ -15,7 +15,7 @@ public class PagamentoCarta extends Pagamento{
 	@Column(name = "scadenzaCarta")
 	private String scadenzaCarta;
 	
-	@Column(name = "numeorDiScadenza")
+	@Column(name = "numeorDiSicurezza")
 	private int numeroDiSicurezza;
 	
 	public PagamentoCarta(){
