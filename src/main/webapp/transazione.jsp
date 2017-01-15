@@ -8,16 +8,22 @@
   
 <jsp:useBean id="ricercab" scope="session" class="it.uniroma2.ispw.bean.RicercaBean"/>
 <jsp:setProperty name="ricercab" property="*"/>
+
+<jsp:useBean id="acquistob" scope="session" class="it.uniroma2.ispw.bean.AcquistoBean"/>
+<jsp:setProperty name="acquistob" property="*"/>
+
+<jsp:useBean id="pagamentob" scope="session" class="it.uniroma2.ispw.bean.PagamentoBean"/>
+<jsp:setProperty name="pagamentob" property="*"/>
     
     
  <%
  
  UtenteSessione us = (UtenteSessione) session.getAttribute("utente"); 
  CarrelloBean carb = (CarrelloBean) session.getAttribute("carrello");
+
+ acquistob.setProdotti(carb.getListaProdotti());
  
- if(request.getParameter("inviaDati")!=null){
-	//	 
- }
+
 %>
 
 
@@ -231,7 +237,7 @@
     
  <div class="row">   
     <div class="col-lg-12">
-    <form action="" method="post">
+    <form action="riassunto.jsp" method="post">
 		<div class="panel panel-default">
 			<div class="panel-heading">Pagamento con carta di credito<input type="checkbox" name="pagamentoCarta" value="pagamentoCarta"></div>
 			<div class="panel-body">
@@ -260,14 +266,26 @@
 				<input type="text" id="causale" name="causale" class="form-control" placeholder="Causale">
 			</div>
 		</div>
+		
+		<div class="panel panel-default">
+			<div class="panel-heading">Recapito</div>
+			<div class="panel-body">
+				<label for="recapito" class="sr-only">Recapito</label>
+				<input type="text" id="recapito" name="recapito" class="form-control" placeholder="Recapito">
+			</div>
+		</div>
+	
 	
 	
 		<div class="panel panel-default">
 			<div class="panel-heading">Tipo spedizione</div>
 			<div class="panel-body">
-				<input type="radio" name="spedizioneNormale" id="check_value" class="text-primary">  Spedizione normale <br>
-				<input type="radio" name="spedizioneRapida" id="check_value" class="text-primary">  Spedizione rapida <br>
+				<div class="checkbox">
+				<input type="radio" name="tipoSpedizione" value="Normale" id="check_value" class="text-primary">Spedizione normale <br>
+				<input type="radio" name="tipoSpedizione" value="Rapida" id="check_value" class="text-primary">Spedizione rapida <br>
 			</div>
+			</div>
+			
 		</div>	
 	
 		<div class="panel panel-default">

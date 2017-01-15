@@ -24,7 +24,7 @@ public class PagamentoCarta extends Pagamento{
 	
 	public PagamentoCarta(UtenteRegistrato utenteRegistrato, String metodo, int importo, 
 			String numeroCarta, String scadenzaCarta, int numeroDiSicurezza){
-		super(utenteRegistrato, metodo,importo);
+		super(utenteRegistrato,importo);
 		this.numeroCarta = numeroCarta;
 		this.scadenzaCarta = scadenzaCarta;
 		this.numeroDiSicurezza = numeroDiSicurezza;

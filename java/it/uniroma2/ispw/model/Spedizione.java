@@ -42,6 +42,16 @@ public class Spedizione {
 		this.recapito = recapito;
 		this.ordine = ordine;
 	}
+	
+	
+
+	public int getIdSpedizione() {
+		return idSpedizione;
+	}
+
+	public void setIdSpedizione(int idSpedizione) {
+		this.idSpedizione = idSpedizione;
+	}
 
 	public String getStatoSpedizione() {
 		return statoSpedizione;

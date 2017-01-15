@@ -12,8 +12,8 @@ public class FactoryPagamento {
 	 */
 	
 	public Pagamento creaPagamento(PagamentoBean pbean){
-		if (pbean.getMetodoPag().equals("Bonifico")) creaPagamentoBonifico(pbean);
-		else if (pbean.getMetodoPag().equals("Carta")) creaPagamentoCarta(pbean);
+		if (pbean.getMetodoPag().equals("Bonifico"))  return creaPagamentoBonifico(pbean);
+		else if (pbean.getMetodoPag().equals("Carta")) return creaPagamentoCarta(pbean);
 		return null;
 	}
 	
@@ -21,7 +21,7 @@ public class FactoryPagamento {
 		PagamentoBonifico pbon = new PagamentoBonifico();
 		pbon.setCausale(pbean.getCausale());
 		pbon.setCodiceIBAN(pbean.getCodiceIBAN());
-		pbon.setImporto(pbean.getImportoScontato());
+		
 		
 		return pbon;
 	}
@@ -31,7 +31,6 @@ public class FactoryPagamento {
 		pcarta.setNumeroCarta(pbean.getNumeroCarta());
 		pcarta.setNumeroDiSicurezza(Integer.parseInt(pbean.getNumeroDiSicurezza()));
 		pcarta.setScadenzaCarta(pbean.getScadenzaCarta());
-		pcarta.setImporto(pbean.getImportoScontato());
 		
 		return pcarta;
 		

@@ -20,6 +20,14 @@ public class CarrelloBean {
 	public List<PropostaVendita> getListaPropVend() {
 		return listaPropVend;
 	}
+	
+	public List<Prodotto> getListaProdotti(){
+		List<Prodotto> lp = new ArrayList<Prodotto>();
+		for (PropostaVendita pv: listaPropVend){
+			lp.add(pv.getP());
+		}
+		return lp;
+	}
 
 	public void setListaPropVend(List<PropostaVendita> listaPropVend) {
 		this.listaPropVend = listaPropVend;

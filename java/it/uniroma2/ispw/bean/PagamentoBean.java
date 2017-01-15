@@ -4,7 +4,6 @@ import it.uniroma2.ispw.model.UtenteRegistrato;
 
 public class PagamentoBean {
 
-	private int importoScontato;
 	private String metodoPag;
 	private String numeroCarta;
 	private String scadenzaCarta;
@@ -15,7 +14,6 @@ public class PagamentoBean {
 	private UtenteRegistrato ur;
 	
 	public PagamentoBean(){
-		this.importoScontato = 0;
 		this.metodoPag = "";
 		this.numeroCarta = "";
 		this.scadenzaCarta = "";
@@ -24,13 +22,6 @@ public class PagamentoBean {
 		this.causale = "";
 	}
 
-	public int getImportoScontato() {
-		return importoScontato;
-	}
-
-	public void setImportoScontato(int importo) {
-		this.importoScontato = importo;
-	}
 
 	public String getMetodoPag() {
 		return metodoPag;
