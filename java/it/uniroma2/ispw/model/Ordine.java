@@ -33,7 +33,7 @@ public class Ordine {
 	@Column(name = "tipoSpedizione")
 	private String tipoSped;
 	
-	@OneToMany(mappedBy = "idLineaOrdine")
+	@OneToMany(mappedBy = "ordine")
 	protected Set<LineaOrdine> lineeOrdine;
 	
 	@ManyToOne
