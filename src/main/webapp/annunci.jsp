@@ -7,20 +7,19 @@
 
 <jsp:useBean id="loginb" scope="session" class="it.uniroma2.ispw.bean.LoginBean"/>
 <jsp:setProperty name="loginb" property="*"/>
+
 <jsp:useBean id="insProdotto" class="it.uniroma2.ispw.bean.InsProdottoBean"/>
 <jsp:setProperty name="insProdotto" property="*"/>
 
 <%
-
 UtenteSessione us = (UtenteSessione) session.getAttribute("utente");
-
+insProdotto.setUtente(us);
 %>
 
 <%
 	if(request.getParameter("addProduct") != null){
 		/*carica categoria da db*/
 	}
-
 	
 %>
 
@@ -28,15 +27,19 @@ UtenteSessione us = (UtenteSessione) session.getAttribute("utente");
 	if(request.getParameter("allow") != null){
 		insProdotto.setUtente(us);
 		if(insProdotto.acquisisciProdotto()==false){
-
 			System.out.println("errore inserimento prodotto");
 		}
 		
 	}
 %>
 
+
 <%
-	if(request.getParameter("deleteProd") != null){
+
+
+
+
+if(request.getParameter("deleteProd") != null){
 		//String id = request.getParameter("idProd");
 		//int foo = Integer.parseInt(id);
 		//System.out.println("valore idProd" + " " +insProdotto.getIdProd() + " " + id);
@@ -49,29 +52,6 @@ UtenteSessione us = (UtenteSessione) session.getAttribute("utente");
 		}
 	}
 %>
- 
-<%
-	if(request.getParameter("change") != null){
-		int idProd = Integer.parseInt(request.getParameter("idProd")); 
-		out.println("Hai scelto di modificare il prodotto con id= "+ idProd);
-		if(insProdotto.trovaProdotto() == false){
-			System.out.println("prodotto non trovato");
-		}
-		//notifica?
-	}
-%>
-   
-<%
-	if(request.getParameter("addChanges") != null){
-		insProdotto.setUtente(us);
-		if(insProdotto.modificheProdotto()){
-			response.sendRedirect("annunci.jsp");
-		}else{
-			System.out.println("prodotto non modificato");
-		}
-	}
-%>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -365,9 +345,10 @@ UtenteSessione us = (UtenteSessione) session.getAttribute("utente");
    					if(lp.size() != 0){
    						for(int i=0; i<lp.size(); i++){
    							p = lp.get(i);
+   							if (p.getDisponibilita()==1){
    				%>		
    					<div class="container">
-   					 	<form action="annunci.jsp" method="post" id="inserzione_prodotto">		 <!-- action="{{ url_for('modalChangeProduct') }}" -->
+   					 	<form action="modificaProdotto.jsp" method="post" id="inserzione_prodotto">		 <!-- action="{{ url_for('modalChangeProduct') }}" -->
    						<div class="header">
    							<div class="row">
    								<h3>Prodotto: <%= p.getNome() %></h3>
@@ -387,10 +368,10 @@ UtenteSessione us = (UtenteSessione) session.getAttribute("utente");
    						<div class="footer">
    							<div class="row">
    								<div class="col-md-3 offset-md-3">
-   									<button  type="submit" name="change" value=<%=i %>  class="forget btn btn-primary pull-right">Change</button>
+   									<button  type="submit" name="change" value=<%=p.getId()%>  class="forget btn btn-primary pull-right">Change</button>
    								</div>
    								<div class="col-md-3 offset-md-3">						
-   									<button  type="submit" name="deleteProd" value=<%=i %>  class="btn btn-danger">Delete</button>
+   									<button  type="submit" name="deleteProd" value=<%=p.getId() %>  class="btn btn-danger">Delete</button>
 	   								
    								</div>
    							</div>
@@ -403,6 +384,8 @@ UtenteSessione us = (UtenteSessione) session.getAttribute("utente");
    						
    					</div>	
    				<% 	
+   						}
+   							
    						}
    					}
    				%>
@@ -422,7 +405,6 @@ $(function myFunction() {
 	$('#idProd').val($('#idProd-init').val());
 	$('#modalChangeProduct').modal('show');
 });
-
 </script>
     -->
 
@@ -513,12 +495,10 @@ $(function() {
 <!-- funzione per riempire il modifica prodotto -->
 <!-- 
 <script type="text/javascript">
-
 $('#change_btn').click( function(){
 	$('#nomeProd').val($('#nomeProd-init').val());
 	$('#idProd').val($('#idProd-init').val());
 	$('#modalChangeProduct').modal('show');
-
 });
    /*$('#inserzione-prodotto').submit(function(e){
 	   e.preventDefault();
@@ -548,17 +528,13 @@ $(document).ready(function(){
 	$('#modalDelete').modal('show');
   });
   
-
 </script>
-
 <script type="text/javascript">
-
 $(function myFunction() {
 	$('#nomeProd').val($('#nomeProd-init').val());
 	$('#idProd').val($('#idProd-init').val());
 	$('#modalChangeProduct').modal('show');
 });
-
 </script>
  -->
 

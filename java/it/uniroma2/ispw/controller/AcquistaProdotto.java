@@ -19,6 +19,7 @@ import it.uniroma2.ispw.model.UtenteRegistrato;
 import it.uniroma2.ispw.persistence.LineaOrdineDAO;
 import it.uniroma2.ispw.persistence.OrdineDAO;
 import it.uniroma2.ispw.persistence.PagamentoDAO;
+import it.uniroma2.ispw.persistence.ProdottoDAO;
 import it.uniroma2.ispw.persistence.SpedizioneDAO;
 import it.uniroma2.ispw.prezzo.PrezzoFinale;
 import it.uniroma2.ispw.prezzo.PrezzoFinaleConsumatore;
@@ -93,6 +94,13 @@ public class AcquistaProdotto {
 		
 		ord.setUtenteReg(ur);
 		odao.addOrdine(ord);
+		
+		/* aggiorna disponibilita*/
+		ProdottoDAO pdao = new ProdottoDAO();
+		for(Prodotto p :lp){
+			p.setDisponibilita(0);
+			pdao.updateProdotto(p);
+		}
 	
 		return true;
 		
