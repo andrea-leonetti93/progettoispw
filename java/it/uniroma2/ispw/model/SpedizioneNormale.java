@@ -14,4 +14,8 @@ public class SpedizioneNormale extends Spedizione{
 	public SpedizioneNormale(String statoSpedizione, String recapito, Ordine ordine){
 		super(statoSpedizione, recapito, ordine);
 	}
+	
+	public int calcolaCostoSpedizione(int numeroDiElementi){
+		return (numeroDiElementi*4);
+	}
 }
