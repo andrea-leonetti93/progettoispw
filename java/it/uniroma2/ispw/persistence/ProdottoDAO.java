@@ -129,7 +129,6 @@ private static SessionFactory sessionFactory = buildSessionFactory();
 		// TODO Auto-generated method stub
 		Session session = getSessionFactory().openSession();
 		Transaction tx = null;
-		Prodotto p = null;
 		try{
 			tx = session.beginTransaction();
 			session.update(productChange);

@@ -12,7 +12,6 @@ import org.hibernate.cfg.Configuration;
 import java.util.Iterator;
 import java.util.List;
 
-import it.uniroma2.ispw.model.Prodotto;
 import it.uniroma2.ispw.model.UtenteRegistrato;
 
 
