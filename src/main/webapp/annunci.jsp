@@ -457,7 +457,7 @@ $(function myFunction() {
  	function changeProd(prodottoNum){
  	//	var arrayProd = document.get
  		$('#modalChangeProduct').openModal();
- 	}); 
+ 	}; 
  </script>
 
 </body>

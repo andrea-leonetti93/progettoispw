@@ -4,44 +4,20 @@
 <%@ page import="it.uniroma2.ispw.model.*" %>
 <%@ page import="it.uniroma2.ispw.session.*" %>
 <%@ page import="java.util.*" %>
-    
-  
-<jsp:useBean id="ricercab" scope="session" class="it.uniroma2.ispw.bean.RicercaBean"/>
-<jsp:setProperty name="ricercab" property="*"/>
 
-    
- <%
- 
- UtenteSessione us = (UtenteSessione) session.getAttribute("utente");
- PropostaVendita pv;
- CarrelloBean carb = (CarrelloBean) session.getAttribute("carrello"); 
- 
- 
- 
- 
- 
- if(request.getParameter("visualizzaProdotto")!=null){
-		
-		int i = Integer.parseInt(request.getParameter("i"));
-		pv = (PropostaVendita) ricercab.getLpv().get(i);
-		session.setAttribute("pv",pv);
-	
- }else{
-	 pv = (PropostaVendita) session.getAttribute("pv");
- }
- 
- if(request.getParameter("addCarrello")!=null){
-	request.setAttribute("propVend", pv);
-	carb.getListaPropVend().add(pv);	 
- 		if(us.getType()==2){
- 			request.getRequestDispatcher("index.jsp").forward(request, response);
- 		}else{
- 			response.sendRedirect("");
- 		}
- }
- 
+<jsp:useBean id="loginb" scope="session" class="it.uniroma2.ispw.bean.LoginBean"/>
+<jsp:setProperty name="loginb" property="*"/>
+
+<jsp:useBean id="pagamentob" scope="session" class="it.uniroma2.ispw.bean.PagamentoBean"/>
+<jsp:setProperty name="pagamentob" property="*"/>
+
+<%
+
+
+UtenteSessione us = (UtenteSessione) session.getAttribute("utente");
+
+
 %>
-
 
 
 <!DOCTYPE html>
@@ -99,7 +75,7 @@
                         <a href="#page-top"></a>
                     </li>
                     <li>
-                        <a class="page-scroll" href="#ricerca">Cerca prodotto</a>
+                        <a class="page-scroll" href="index.jsp">Cerca prodotto</a>
                     </li>
                   
                     
@@ -153,62 +129,6 @@
         <!-- /.container-fluid -->
     </nav>
 
-	<!-- popup login -->
-	<div id="modalLogin" class="modal fade forget-modal-login" tabindex="-1" role="dialog" aria-labelledby="myLoginModalLabel" aria-hidden="true">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal">
-							<span aria-hidden="true">x</span>
-							<span class="sr-only">Close</span>
-						</button>
-						<h4 class="modal-title">Login</h4>
-					</div>	
-					<div class="modal-body">
-						<div class="form-wrap">
-						<form action="index.jsp" method="post">
-								<div class="form-group">
-									<label for="usernameLogin" class="sr-only">Username</label>
-									<input type="text" id="email" name="email" class="form-control" placeholder="Username">
-								</div>
-								<div class="form-group">
-									<label for="usernameLogin" class="sr-only">Password</label>
-									<input type="password" id="password" name="password" class="form-control" placeholder="Password">
-								</div>
-								<div class="modal-footer">
-									<input class="btn btn-custom" type="submit" id="btn-login" name="accedi" value="accedi">
-								</div>
-							</form>
-							
-						</div>
-						
-					</div>
-				</div>
-				</div>
-			</div>
-			
-			<!--popup login non riuscito-->
-	<div id="modalErrlogin" class="modal fade forget-modal-errlogin" tabindex="-1" role="dialog" aria-labelledby="myLoginModalLabel" aria-hidden="true">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal">
-							<span aria-hidden="true">x</span>
-							<span class="sr-only">Close</span>
-						</button>
-						<h4 class="modal-title">Errore</h4>
-					</div>	
-					<div class="modal-body">
-						<p>Errore nell'inserimento dei dati per il login, riprovare!</p>					
-					</div>
-					<div class="modal-footer">			
-						<input class="btn btn-custom" type="submit" id="btn-logout" name="ok" value="ok">
-					</div>
-				</div>
-			</div>
-	</div>	
-			
-
 
 	<div id="modalLogout" class="modal fade forget-modal-logout" tabindex="-1" role="dialog" aria-labelledby="myLoginModalLabel" aria-hidden="true">
 			<div class="modal-dialog">
@@ -249,39 +169,68 @@
                 
                 <%} %>
             </div>
-               
         </div>
-
-    
-       
     </header>
     
+    <% pagamentob.popolaLista(us.getEmail()); %>
     
-    <div class="col-md-9">
+<section>
+	<div id="page-wrapper">
 
-         <div class="thumbnail">
-           <div class="caption-full">
-               <h4 class="pull-right">$<%=pv.getPrezzoFinale() %></h4>
-              <h4><%=pv.getP().getNome()%></h4>
-                    <p><%=pv.getV().getUserid()%>, <%= pv.getV().getEmail() %></p>
-                   <p><%= pv.getP().getCommento() %></p>
-                </div>
-                
-            <%if(us.getType() != 1){ %>
-              
-                 <form action="visualizzaAnnuncio.jsp" method="post">
- 				<button  type="submit" name="addCarrello" class="btn-primary">Aggiungi al carrello</button>
-				</form>
+			<div class="row text-center">
+				<div class="panel panel-default">
+					<div class="panel-heading"><h4>Lista acquisti</h4></div>
+				</div>
+			</div>
 			
-			<% } %>	
-             </div>
-       </div>
+			<%
+				List<Pagamento> lp = pagamentob.getListaPag();
+				List<LineaOrdine> lo = null;
+				Pagamento p = null;
+				LineaOrdine l = null;
+				if(lp.size() != 0){
+					for(int i=0; i<lp.size(); i++){
+						p = lp.get(i);
+						lo = p.getOrdine().getLineeOrdine();
+			%>
+			
+			<div class="panel panel-default">
+				<div class="panel-heading">Pagamento ordine id: <%= p.getOrdine().getIdOrdine()%></div>
+					
+					<table class="table">
+						<thead>
+							<tr>
+							<th>#</th>
+							<th>Nome prodotto</th>
+							<th>Prezzo</th>
+							</tr>
+						</thead>	
+						<tbody>
+						<%
+							for(int j=0; j<lo.size(); j++){
+								l = lo.get(j);
+						%>
+						
+							<tr>
+							<th scope="row"><%= j %></th>
+							<td><%= l.getProdotto().getNome() %></td>
+							<td>$<%= l.getPrezzoLinea() %> </td>
+							</tr>
+						
+						
+						<% } %>
+						</tbody>					
+					</table>
+				<div class="panel-footer">
+					<h4>$<%= p.getImporto() %></h4>
+				</div>
+			</div>
+			
+			<% }} %>
+		</div>
 
-    
- 
-	
-	
-   
+</section>    
+
 
     <footer>
         <div class="container">
@@ -302,35 +251,7 @@
     </footer>
     
     
-    
-    <script>
-$(function() {
-    var temp="x"; 
-    $("#selectCategory").val(temp);
-});
-</script>
-<script type="text/javascript">
-   var sel1 = document.querySelector('#selectCategory');
-   var sel2 = document.querySelector('#selectTypology');
-   var options2 = sel2.querySelectorAll('option');
-   function giveSelection(selValue) {
-      sel2.innerHTML = '';
-      for(var i=0; i<options2.length; i++){
-	 if(options2[i].dataset.option === selValue){
-	    sel2.appendChild(options2[i]);
-	 }
-      }
-   }
-   giveSelection(sel1.value);
-</script>
-<!-- funzione per appendere elemento dinamicamente ad una lista -->
-<script type="text/javascript">
-	var num = 1;
-	function elimina_elemento () {
-			$("#menu").append("<li>nuovo elemento "+num+"</li>");
-			num++;
-	}
-</script>
+
 
     <!-- jQuery -->
     <script src="vendor/jquery/jquery.min.js"></script>
@@ -351,3 +272,5 @@ $(function() {
 </body>
 
 </html>
+
+

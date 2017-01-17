@@ -31,6 +31,9 @@ import it.uniroma2.ispw.spedizione.CostoSpedizioneRapida;
 
 public class AcquistaProdotto {
 	
+	ProdottoDAO p = new ProdottoDAO();
+	LineaOrdineDAO lo = new LineaOrdineDAO();
+	
 	public boolean effettuaAcquisto(List<Prodotto> lp, String tipoSpedizione, 
 			UtenteRegistrato ur, PagamentoBean pbean, String recapito){
 		
@@ -80,6 +83,7 @@ public class AcquistaProdotto {
 		Pagamento pag = fp.creaPagamento(pbean);
 		pag.setImporto(importoScontato + costoSped);
 		pag.setOrdine(ord);
+		pag.setUtenteRegistrato(ur);
 		ord.setPagamento(pag);
 		
 		/* creazione Spedizione*/
@@ -108,6 +112,34 @@ public class AcquistaProdotto {
 		
 	}
 
+	public List<Pagamento> acquistiUtente(String email) {
+		// TODO Auto-generated method stub
+		List<Pagamento> listaPag = null;
+		PagamentoDAO pd = new PagamentoDAO();
+		listaPag = pd.listaAcquistiUtente(email);
+		return listaPag;
+	}
 
+	public List<Prodotto> prodottiUtente(String email){
+		
+		List<Prodotto> prodotti = null;
+		prodotti = p.listaProdottiUtente(email);
+		return prodotti;
+	}
 	
+	public List<LineaOrdine> venditeUtente(String email){
+		
+		List<Prodotto> listaP = prodottiUtente(email);
+		List<LineaOrdine> listaLO = null;
+		List<LineaOrdine> listaLO2 = new ArrayList<LineaOrdine>();
+		Prodotto prod = null;
+		for(int i=0; i<listaP.size(); i++){
+			prod = listaP.get(i);
+			listaLO = lo.listaVenditeUtente(prod);
+			for(int j=0; j<listaLO.size(); j++){
+				listaLO2.add(listaLO.get(j));
+			}
+		}
+		return listaLO2;
+	}
 }

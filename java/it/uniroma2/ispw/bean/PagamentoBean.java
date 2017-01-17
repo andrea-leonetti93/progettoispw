@@ -1,9 +1,14 @@
 package it.uniroma2.ispw.bean;
 
+import java.util.List;
+
+import it.uniroma2.ispw.controller.AcquistaProdotto;
+import it.uniroma2.ispw.model.Pagamento;
 import it.uniroma2.ispw.model.UtenteRegistrato;
 
 public class PagamentoBean {
 
+	private List<Pagamento> listaPag;
 	private String metodoPag;
 	private String numeroCarta;
 	private String scadenzaCarta;
@@ -20,6 +25,7 @@ public class PagamentoBean {
 		this.numeroDiSicurezza = "";
 		this.codiceIBAN = "";
 		this.causale = "";
+		this.listaPag = null;
 	}
 
 
@@ -78,8 +84,21 @@ public class PagamentoBean {
 	public void setUr(UtenteRegistrato ur) {
 		this.ur = ur;
 	}
+
+
+	public List<Pagamento> getListaPag() {
+		return listaPag;
+	}
+
+
+	public void setListaPag(List<Pagamento> listaPag) {
+		this.listaPag = listaPag;
+	}
 	
-	
-	
+	public void popolaLista(String email){
+		
+		AcquistaProdotto ap = new AcquistaProdotto();
+		listaPag = ap.acquistiUtente(email);
+	}
 	
 }
