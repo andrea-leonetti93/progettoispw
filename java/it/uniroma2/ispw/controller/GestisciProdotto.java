@@ -55,7 +55,7 @@ public class GestisciProdotto {
 
 	public Prodotto aggiornaProdotto(InsProdottoBean iPBean) {
 		// TODO Auto-generated method stub
-		UtenteRegistrato ur = u.checkUtente(iPBean.getUtente().getEmail(), iPBean.getUtente().getPassword());
+		UtenteRegistrato ur = u.getUtente(iPBean.getUtente().getEmail());
 		
 		Prodotto productChange = new Prodotto(iPBean.getNameProduct(), iPBean.getCategory(), iPBean.getTypology(), iPBean.getPrice(), 
 				 iPBean.getSale(), ur, iPBean.getDisponibilita(), iPBean.getComment());
@@ -64,6 +64,15 @@ public class GestisciProdotto {
 		if(p.updateProdotto(productChange)){
 			return productChange;
 		}
+		return null;
+	}
+	
+	public Prodotto aggiornaProdotto(Prodotto updateProduct){
+		
+		if (p.updateProdotto(updateProduct)){
+			return updateProduct;
+		}
+		
 		return null;
 	}
 

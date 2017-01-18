@@ -66,7 +66,10 @@ public class UtenteRegistrato implements Serializable{
 	@OneToMany(mappedBy = "utenteRegistrato", cascade=CascadeType.ALL)
 	protected List<Pagamento> pagamenti;
 	
-	@OneToMany(mappedBy = "utenteRegistrato", fetch = FetchType.EAGER, cascade=CascadeType.ALL)
+	//@OneToMany(mappedBy = "utenteRegistrato", fetch = FetchType.EAGER, cascade=CascadeType.ALL)
+	//@OneToMany(mappedBy = "utenteRegistrato", fetch = FetchType.EAGER)
+	//@OneToMany(mappedBy = "utenteRegistrato", fetch = FetchType.EAGER, cascade=CascadeType.DETACH)
+	@OneToMany(mappedBy = "utenteRegistrato", fetch = FetchType.EAGER)
 	protected List<Prodotto> prodotti;
 	
 	@OneToMany(mappedBy = "utenteReg")

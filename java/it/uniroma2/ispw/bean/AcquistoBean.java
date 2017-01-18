@@ -3,15 +3,15 @@ package it.uniroma2.ispw.bean;
 import java.util.ArrayList;
 import java.util.List;
 import it.uniroma2.ispw.controller.AcquistaProdotto;
-import it.uniroma2.ispw.factory.FactoryCostoSpedizione;
+import it.uniroma2.ispw.factory.FactorySpedizione;
 import it.uniroma2.ispw.model.Ente;
 import it.uniroma2.ispw.model.Pagamento;
 import it.uniroma2.ispw.model.Prodotto;
+import it.uniroma2.ispw.model.Spedizione;
 import it.uniroma2.ispw.model.UtenteRegistrato;
 import it.uniroma2.ispw.prezzo.PrezzoFinale;
 import it.uniroma2.ispw.prezzo.PrezzoFinaleConsumatore;
 import it.uniroma2.ispw.prezzo.PrezzoFinaleEnte;
-import it.uniroma2.ispw.spedizione.CostoSpedizione;
 
 public class AcquistoBean {
 
@@ -184,10 +184,9 @@ public class AcquistoBean {
 		}
 		scontoEnte = prezzoNonScontato - prezzoScontato;
 		
-		/* calcolo costo Spedizione */
-		FactoryCostoSpedizione fcs = new FactoryCostoSpedizione();
-		CostoSpedizione cs = fcs.creaSpedizione(tipoSpedizione);
-		prezzoSpedizione = cs.calcolaCostoSpedizione(prodotti.size());
+		FactorySpedizione fs = new FactorySpedizione();
+		Spedizione sped = fs.creaSpedizione(tipoSpedizione);
+		prezzoSpedizione = sped.calcolaCostoSpedizione(prodotti.size());
 		
 		prezzoFinale = prezzoScontato + prezzoSpedizione;
 	}

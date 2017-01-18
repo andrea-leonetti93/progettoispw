@@ -6,8 +6,10 @@ import java.util.List;
 import java.util.Set;
 
 import it.uniroma2.ispw.bean.PagamentoBean;
+import it.uniroma2.ispw.bean.ProdottoBean;
 import it.uniroma2.ispw.bean.RicercaBean;
 import it.uniroma2.ispw.controller.AcquistaProdotto;
+import it.uniroma2.ispw.controller.GestisciProdotto;
 import it.uniroma2.ispw.controller.GestisciRicerca;
 import it.uniroma2.ispw.controller.GestisciUtente;
 
@@ -28,41 +30,31 @@ public class Test {
 
 	public static void main(String[] args) {
 		
-		UtenteDAO u = new UtenteDAO();
-		UtenteRegistrato urCons = u.getUtente("giorgioiannone@gmail.com");
-		UtenteRegistrato urVend = u.getUtente("giannino@hotmail.it");
-		
-		if (urCons instanceof Ente) System.out.println("ente");
 		/*
-		UtenteRegistrato ur = new Venditore("nickname","ilnome","ilcognome","unamail","pass","73476","addovivo");
-		Prodotto p = new Prodotto("iphone 10","Elettronica","Cellulari", 433, 10, ur, 1, "commento blabla");
-		List<Prodotto> lp = new ArrayList<Prodotto>();
-		lp.add(p);
-		ur.setProdotti(lp);
-		u.addUtente(ur);*/
+		GestisciProdotto gp = new GestisciProdotto();
 		
-		/*
-		rodotto(String nome, String categoria, String tipologia, int prezzo, 
-				int sconto, UtenteRegistrato utenteRegistrato, int disponibilita, String commento){
-			this.nome = nome;*/
-		
-		
-		List<Prodotto> listProd = null;
-		listProd = urVend.getProdotti();
-		
-		AcquistaProdotto ap = new AcquistaProdotto();
-		
-		PagamentoBean pb = new PagamentoBean();
-		pb.setMetodoPag("Carta");
-		pb.setNumeroCarta("b43hgt6t4");
-		pb.setScadenzaCarta("2019");
-		pb.setNumeroDiSicurezza("1234");
-		
-		ap.effettuaAcquisto(listProd, "Normale", urCons, pb, "Cassino");
-		
-		
+		Prodotto p = gp.selezionaProdottoPerID(38);
+		System.out.println(p.getPrezzo());
+		gp.deleteProduct(38);*/
 		
 
+		//GestisciUtente gu = GestisciUtente.getInstance();
+		//UtenteRegistrato ur = gu.visualizzaInformazioni("paolo@hotmail.it");
+		
+		
+		UtenteRegistrato ur = new Venditore("paolino", "paolo", "paolocogn","paolo@hotmail.it", "paolopass","3458943","viapaolo");
+		
+		Prodotto p = new Prodotto("Samsung S5", "Elettronica","Cellulari",50,20, ur, 1, "buon telefono");
+		
+		
+		ur.setProdotti(new ArrayList<Prodotto>());
+		ur.getProdotti().add(p);
+		
+		UtenteDAO udao = new UtenteDAO();
+		udao.addUtente(ur);
+		
+		
+		
 	
 	
 

@@ -17,7 +17,7 @@ import javax.persistence.Table;
 @Table(name = "spedizione")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "type", discriminatorType = DiscriminatorType.STRING)
-public class Spedizione {
+public abstract class Spedizione {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -76,5 +76,7 @@ public class Spedizione {
 	public void setOrdine(Ordine ordine) {
 		this.ordine = ordine;
 	}
+	
+	public abstract int calcolaCostoSpedizione(int numeroDiElementi);
 	
 }

@@ -26,7 +26,7 @@ public class Ordine {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "idOrdine")
 	private int idOrdine;
-	
+
 	@Column(name = "prezzo")
 	private int prezzo;
 	

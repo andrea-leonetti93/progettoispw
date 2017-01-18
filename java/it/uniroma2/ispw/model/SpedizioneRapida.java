@@ -14,4 +14,9 @@ public class SpedizioneRapida extends Spedizione{
 	public SpedizioneRapida(String statoSpedizione, String recapito, Ordine ordine){
 		super(statoSpedizione, recapito, ordine);
 	}
+	
+	public int calcolaCostoSpedizione(int numeroDiElementi) {
+		return (numeroDiElementi*2);
+	}
+	
 }
