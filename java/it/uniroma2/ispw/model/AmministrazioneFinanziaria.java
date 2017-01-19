@@ -7,8 +7,8 @@ import javax.persistence.Entity;
 @DiscriminatorValue(value = "amministrazioneFinanziaria")
 public class AmministrazioneFinanziaria extends RuoloAmministrazione{
 
-	public AmministrazioneFinanziaria(Amministratore amministratore) {
-		super(amministratore);
+	public AmministrazioneFinanziaria() {
+		super();
 		// TODO Auto-generated constructor stub
 	}
 

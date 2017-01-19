@@ -7,6 +7,7 @@ import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 
 import it.uniroma2.ispw.model.Amministratore;
+import it.uniroma2.ispw.model.UtenteRegistrato;
 
 
 public class AmministratoreDAO {
@@ -70,5 +71,4 @@ private static SessionFactory sessionFactory = buildSessionFactory();
     	}
 		return null;
 	}
-	
 }

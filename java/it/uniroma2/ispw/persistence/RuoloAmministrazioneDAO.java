@@ -6,6 +6,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 
+import it.uniroma2.ispw.model.Prodotto;
 import it.uniroma2.ispw.model.RuoloAmministrazione;
 
 
@@ -48,5 +49,45 @@ private static SessionFactory sessionFactory = buildSessionFactory();
             }
             return ruoloAmmin;
     }
+	
+	public boolean updateRuoloAmministrazione(RuoloAmministrazione ra) {
+		// TODO Auto-generated method stub
+		Session session = getSessionFactory().openSession();
+		Transaction tx = null;
+		try{
+			tx = session.beginTransaction();
+			session.update(ra);
+			tx.commit();
+			System.out.println("Ruolo Amministrazione aggiornato");
+		}catch(HibernateException e){
+			if (tx!=null) tx.rollback();
+            e.printStackTrace();
+            System.out.println("Ruolo Amministrazione NON aggiornato");
+            return false;
+		}finally {    
+		session.close();
+		}
+		return true;
+	}
+	
+	public boolean deleteRuoloAmministrazione(int idRuolo){
+		Session session = getSessionFactory().openSession();
+		Transaction tx = null;
+		try{
+			tx = session.beginTransaction();
+			RuoloAmministrazione ra = (RuoloAmministrazione) session.get(RuoloAmministrazione.class, idRuolo);
+			session.delete(ra);
+			tx.commit();
+			System.out.println("Ruolo Amministrazione eliminato");
+		}catch(HibernateException e){
+			if (tx!=null) tx.rollback();
+            e.printStackTrace();
+            System.out.println("Ruolo Amministrazione NON eliminato");
+            return false;
+		}finally {    
+		session.close();
+		}
+		return true;
+	}
 	
 }

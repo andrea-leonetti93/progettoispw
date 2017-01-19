@@ -7,8 +7,8 @@ import javax.persistence.Entity;
 @DiscriminatorValue(value = "amministrazioneDiSistema")
 public class AmministrazioneDiSistema extends RuoloAmministrazione{
 
-	public AmministrazioneDiSistema(Amministratore amministratore) {
-		super(amministratore);
+	public AmministrazioneDiSistema() {
+		super();
 		// TODO Auto-generated constructor stub
 	}
 

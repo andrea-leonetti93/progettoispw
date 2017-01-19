@@ -24,13 +24,10 @@ public class RuoloAmministrazione {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "idRuolo")
 	private int idRuolo;
-	
-	@OneToOne
-	@JoinColumn(name = "idAmministratore", referencedColumnName = "idAmministratore")
-	protected Amministratore amministratore;
 
-	public RuoloAmministrazione(Amministratore amministratore) {
-		this.amministratore = amministratore;
+
+	public RuoloAmministrazione() {
+		super();
 	}
 
 	public int getIdRuolo() {
@@ -40,14 +37,9 @@ public class RuoloAmministrazione {
 	public void setIdRuolo(int idRuolo) {
 		this.idRuolo = idRuolo;
 	}
+	
 
-	public Amministratore getAmministratore() {
-		return amministratore;
-	}
-
-	public void setAmministratore(Amministratore amministratore) {
-		this.amministratore = amministratore;
-	}
+	
 	
 	
 }
