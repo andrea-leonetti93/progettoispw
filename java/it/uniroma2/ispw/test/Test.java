@@ -13,12 +13,10 @@ import it.uniroma2.ispw.controller.GestioneSistema;
 import it.uniroma2.ispw.controller.GestisciProdotto;
 import it.uniroma2.ispw.controller.GestisciRicerca;
 import it.uniroma2.ispw.controller.GestisciUtente;
-<<<<<<< HEAD
+
 import it.uniroma2.ispw.model.Amministratore;
 import it.uniroma2.ispw.model.AmministrazioneDiSistema;
-=======
 import it.uniroma2.ispw.laptop.LoginFrame;
->>>>>>> 76b2ee3095ab7baaa6f1a2b0a0febf89ab5e6df2
 import it.uniroma2.ispw.model.Consumatore;
 import it.uniroma2.ispw.model.Ente;
 import it.uniroma2.ispw.model.Ordine;
@@ -40,7 +38,7 @@ public class Test {
 
 	public static void main(String[] args) {
 		
-<<<<<<< HEAD
+/*
 		Amministratore amm = new Amministratore("Giorgio","Iannone","giorgioiannone@hotmail.it","lamiapassword");
 		
 		AmministratoreDAO ammDAO = new AmministratoreDAO();
@@ -55,7 +53,7 @@ public class Test {
 		ammDAO.addAmministratore(amm);
 		
 		GestisciUtente gu = GestisciUtente.getInstance();
-=======
+*/
 		/*
 		GestisciProdotto gp = new GestisciProdotto();
 		
@@ -79,15 +77,15 @@ public class Test {
 		UtenteDAO udao = new UtenteDAO();
 		udao.addUtente(ur);*/
 		
-		LoginFrame windows = new LoginFrame();
->>>>>>> 76b2ee3095ab7baaa6f1a2b0a0febf89ab5e6df2
+		//LoginFrame windows = new LoginFrame();
 		
+		/*
 		if (gu.loginAmministratore("giorgioiannone@hotmail.it","lamiapassword")!=null){
 			System.out.println("login effettuato");
 		}
 		else{
 			System.out.println("login NON effettuato");
-		}
+		}*/
 	
 	
 
