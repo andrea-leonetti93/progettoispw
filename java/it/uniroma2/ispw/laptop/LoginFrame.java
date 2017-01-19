@@ -1,51 +1,132 @@
 package it.uniroma2.ispw.laptop;
 
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
-public class LoginFrame {
+import it.uniroma2.ispw.controller.GestisciUtente;
+import it.uniroma2.ispw.model.Amministratore;
 
-	public static void main(String[] args) {
-		JFrame frame = new JFrame("Demo application");
-		frame.setSize(300, 150);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+public class LoginFrame extends JFrame{
 
-		JPanel panel = new JPanel();
-		frame.add(panel);
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	//private LoginController controller = new LoginController(); 
+	private GestisciUtente gu = GestisciUtente.getInstance();
+	
+	private final static String titolo = "Login";
+	
+
+	private final JPanel panel = new JPanel();
+	
+	private static JLabel userLabel;
+	private static JTextField userText;
+	private static JLabel passwordLabel;
+	private static JPasswordField passwordText;
+	private static JButton loginButton;
+	private String userIDString;
+	private String passwordString;
+	
+
+	public LoginFrame(){
+		super(titolo);
+		this.setSize(300, 200);
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.add(panel);
 		placeComponents(panel);
-
-		frame.setVisible(true);
+		centerFrame();
+		addActionListener();
+		
+		this.setVisible(true);
 	}
-
+	
 	private static void placeComponents(JPanel panel) {
 
 		panel.setLayout(null);
 
-		JLabel userLabel = new JLabel("User");
+		userLabel = new JLabel("User");
 		userLabel.setBounds(10, 10, 80, 25);
 		panel.add(userLabel);
 
-		JTextField userText = new JTextField(20);
+		userText = new JTextField(20);
 		userText.setBounds(100, 10, 160, 25);
 		panel.add(userText);
 
-		JLabel passwordLabel = new JLabel("Password");
+		passwordLabel = new JLabel("Password");
 		passwordLabel.setBounds(10, 40, 80, 25);
 		panel.add(passwordLabel);
 
-		JPasswordField passwordText = new JPasswordField(20);
+		passwordText = new JPasswordField(20);
 		passwordText.setBounds(100, 40, 160, 25);
 		panel.add(passwordText);
 
-		JButton loginButton = new JButton("login");
+		loginButton = new JButton("login");
 		loginButton.setBounds(10, 80, 80, 25);
 		panel.add(loginButton);
 		
 	}
 
+	private void centerFrame(){
+		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+		this.setLocation(dim.width/2-this.getWidth()/2, dim.height/2-this.getHeight()/2);
+	}
+	
+	private void addActionListener(){
+		loginButton.addActionListener(new ActionListener(){
+			
+			public void actionPerformed(ActionEvent e){
+				updateFields();
+				Amministratore admin = gu.effettuaLoginAdmin(userIDString, passwordString);
+				if(admin!=null){
+					createMainUserFrame(admin);
+				}else{
+					String title = "Login fallito";
+					String message = "Credenziali di accesso non valide!";
+					JOptionPane.showMessageDialog(null, message, title, JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
+	}
+	
+	@SuppressWarnings("deprecation")
+	private void updateFields(){
+		userIDString = userText.getText();
+		passwordString = passwordText.getText();
+	}
+
+	private void close(){
+		
+		this.setVisible(false);
+	}
+	
+	public void createMainUserFrame(Amministratore admin){
+		if(admin.getRuoloAmministrazione().equals("amministrazioneDiSistema")){
+			this.close();
+			AdminFrame mainFrame = new AdminFrame();
+			mainFrame.setVisible(true);
+		    mainFrame.toFront();
+		    mainFrame.repaint();
+		} else {
+			this.close();
+			AdminFinanceFrame mainFrame = new AdminFinanceFrame();
+			mainFrame.setVisible(true);
+		    mainFrame.toFront();
+		    mainFrame.repaint();
+		}
+		
+	}
+	
 }

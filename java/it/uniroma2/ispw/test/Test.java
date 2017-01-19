@@ -12,7 +12,7 @@ import it.uniroma2.ispw.controller.AcquistaProdotto;
 import it.uniroma2.ispw.controller.GestisciProdotto;
 import it.uniroma2.ispw.controller.GestisciRicerca;
 import it.uniroma2.ispw.controller.GestisciUtente;
-
+import it.uniroma2.ispw.laptop.LoginFrame;
 import it.uniroma2.ispw.model.Consumatore;
 import it.uniroma2.ispw.model.Ente;
 import it.uniroma2.ispw.model.Prodotto;
@@ -41,7 +41,7 @@ public class Test {
 		//GestisciUtente gu = GestisciUtente.getInstance();
 		//UtenteRegistrato ur = gu.visualizzaInformazioni("paolo@hotmail.it");
 		
-		
+		/*
 		UtenteRegistrato ur = new Venditore("paolino", "paolo", "paolocogn","paolo@hotmail.it", "paolopass","3458943","viapaolo");
 		
 		Prodotto p = new Prodotto("Samsung S5", "Elettronica","Cellulari",50,20, ur, 1, "buon telefono");
@@ -51,9 +51,9 @@ public class Test {
 		ur.getProdotti().add(p);
 		
 		UtenteDAO udao = new UtenteDAO();
-		udao.addUtente(ur);
+		udao.addUtente(ur);*/
 		
-		
+		LoginFrame windows = new LoginFrame();
 		
 	
 	

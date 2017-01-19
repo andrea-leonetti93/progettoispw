@@ -17,7 +17,7 @@ import javax.persistence.Table;
 @Table(name = "ruoloAmministrazione")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "tipoAmministrazione", discriminatorType = DiscriminatorType.STRING)
-public abstract class RuoloAmministrazione {
+public class RuoloAmministrazione {
 	
 	
 	@Id

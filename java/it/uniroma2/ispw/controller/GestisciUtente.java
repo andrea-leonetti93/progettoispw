@@ -2,16 +2,19 @@ package it.uniroma2.ispw.controller;
 
 
 
+import it.uniroma2.ispw.model.Amministratore;
 import it.uniroma2.ispw.model.Consumatore;
 import it.uniroma2.ispw.model.Ente;
 import it.uniroma2.ispw.model.UtenteRegistrato;
 import it.uniroma2.ispw.model.Venditore;
+import it.uniroma2.ispw.persistence.AmministratoreDAO;
 import it.uniroma2.ispw.persistence.UtenteDAO;
 import it.uniroma2.ispw.session.UtenteSessione;
 
 public class GestisciUtente {
 
 	UtenteDAO u = new UtenteDAO();
+	AmministratoreDAO ad = new AmministratoreDAO();
 	
 	protected GestisciUtente(){}
 	
@@ -108,7 +111,12 @@ public class GestisciUtente {
 	}
 	
 	
+	public Amministratore effettuaLoginAdmin(String email, String password){
+		Amministratore admin = null;
+		if((admin = ad.checkamministratore(email, password))!=null){
+			return admin;
+		}
+		return null;
+	}
 	
-	
-
 }

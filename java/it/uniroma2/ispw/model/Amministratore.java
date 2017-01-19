@@ -13,7 +13,6 @@ import javax.persistence.Table;
 @Table(name = "amministratore")
 public class Amministratore {
 
-	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "idAmministratore")
 	private int idAmministratore;
@@ -24,6 +23,7 @@ public class Amministratore {
 	@Column(name = "cognome")
 	private String cognome;
 	
+	@Id
 	@Column(name = "email")
 	private String email;
 	
@@ -81,6 +81,13 @@ public class Amministratore {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
+
+	public RuoloAmministrazione getRuoloAmministrazione() {
+		return ruoloAmministrazione;
+	}
+
+	public void setRuoloAmministrazione(RuoloAmministrazione ruoloAmministrazione) {
+		this.ruoloAmministrazione = ruoloAmministrazione;
+	}
 	
 }
