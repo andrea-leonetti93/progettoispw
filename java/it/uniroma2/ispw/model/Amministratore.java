@@ -15,8 +15,12 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "amministratore")
 public class Amministratore {
+<<<<<<< HEAD
 	
 	
+=======
+
+>>>>>>> 76b2ee3095ab7baaa6f1a2b0a0febf89ab5e6df2
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "idAmministratore")
 	private int idAmministratore;
@@ -95,8 +99,11 @@ public class Amministratore {
 	public void setRuoloAmministrazione(RuoloAmministrazione ruoloAmministrazione) {
 		this.ruoloAmministrazione = ruoloAmministrazione;
 	}
+<<<<<<< HEAD
 	
 	
 	
+=======
+>>>>>>> 76b2ee3095ab7baaa6f1a2b0a0febf89ab5e6df2
 	
 }

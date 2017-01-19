@@ -14,6 +14,7 @@ import it.uniroma2.ispw.session.UtenteSessione;
 public class GestisciUtente {
 
 	UtenteDAO u = new UtenteDAO();
+	AmministratoreDAO ad = new AmministratoreDAO();
 	
 	protected GestisciUtente(){}
 	
@@ -94,7 +95,12 @@ public class GestisciUtente {
 	}
 	
 	
+	public Amministratore effettuaLoginAdmin(String email, String password){
+		Amministratore admin = null;
+		if((admin = ad.checkamministratore(email, password))!=null){
+			return admin;
+		}
+		return null;
+	}
 	
-	
-
 }

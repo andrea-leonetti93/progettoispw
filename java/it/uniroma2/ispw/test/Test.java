@@ -13,8 +13,12 @@ import it.uniroma2.ispw.controller.GestioneSistema;
 import it.uniroma2.ispw.controller.GestisciProdotto;
 import it.uniroma2.ispw.controller.GestisciRicerca;
 import it.uniroma2.ispw.controller.GestisciUtente;
+<<<<<<< HEAD
 import it.uniroma2.ispw.model.Amministratore;
 import it.uniroma2.ispw.model.AmministrazioneDiSistema;
+=======
+import it.uniroma2.ispw.laptop.LoginFrame;
+>>>>>>> 76b2ee3095ab7baaa6f1a2b0a0febf89ab5e6df2
 import it.uniroma2.ispw.model.Consumatore;
 import it.uniroma2.ispw.model.Ente;
 import it.uniroma2.ispw.model.Ordine;
@@ -36,6 +40,7 @@ public class Test {
 
 	public static void main(String[] args) {
 		
+<<<<<<< HEAD
 		Amministratore amm = new Amministratore("Giorgio","Iannone","giorgioiannone@hotmail.it","lamiapassword");
 		
 		AmministratoreDAO ammDAO = new AmministratoreDAO();
@@ -50,6 +55,32 @@ public class Test {
 		ammDAO.addAmministratore(amm);
 		
 		GestisciUtente gu = GestisciUtente.getInstance();
+=======
+		/*
+		GestisciProdotto gp = new GestisciProdotto();
+		
+		Prodotto p = gp.selezionaProdottoPerID(38);
+		System.out.println(p.getPrezzo());
+		gp.deleteProduct(38);*/
+		
+
+		//GestisciUtente gu = GestisciUtente.getInstance();
+		//UtenteRegistrato ur = gu.visualizzaInformazioni("paolo@hotmail.it");
+		
+		/*
+		UtenteRegistrato ur = new Venditore("paolino", "paolo", "paolocogn","paolo@hotmail.it", "paolopass","3458943","viapaolo");
+		
+		Prodotto p = new Prodotto("Samsung S5", "Elettronica","Cellulari",50,20, ur, 1, "buon telefono");
+		
+		
+		ur.setProdotti(new ArrayList<Prodotto>());
+		ur.getProdotti().add(p);
+		
+		UtenteDAO udao = new UtenteDAO();
+		udao.addUtente(ur);*/
+		
+		LoginFrame windows = new LoginFrame();
+>>>>>>> 76b2ee3095ab7baaa6f1a2b0a0febf89ab5e6df2
 		
 		if (gu.loginAmministratore("giorgioiannone@hotmail.it","lamiapassword")!=null){
 			System.out.println("login effettuato");

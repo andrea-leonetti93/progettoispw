@@ -57,7 +57,11 @@ private static SessionFactory sessionFactory = buildSessionFactory();
 	    try{
 	    	tx = session.beginTransaction();
 	    	Amministratore admin = (Amministratore) session.get(Amministratore.class, email);
+<<<<<<< HEAD
 	    	System.out.println("Utente trovato");
+=======
+	    	System.out.println("Amministratore trovato");
+>>>>>>> 76b2ee3095ab7baaa6f1a2b0a0febf89ab5e6df2
 	    	if(admin != null){
 	    		if(admin.getPassword().equals(password)){
 	    			return admin;
@@ -71,4 +75,8 @@ private static SessionFactory sessionFactory = buildSessionFactory();
     	}
 		return null;
 	}
+<<<<<<< HEAD
+=======
+	
+>>>>>>> 76b2ee3095ab7baaa6f1a2b0a0febf89ab5e6df2
 }
