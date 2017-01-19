@@ -113,7 +113,7 @@ public class GestisciUtente {
 	
 	public Amministratore effettuaLoginAdmin(String email, String password){
 		Amministratore admin = null;
-		if((admin = ad.checkamministratore(email, password))!=null){
+		if((admin = ad.checkAmministratore(email, password))!=null){
 			return admin;
 		}
 		return null;
