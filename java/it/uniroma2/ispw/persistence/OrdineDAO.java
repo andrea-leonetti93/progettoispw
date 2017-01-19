@@ -1,12 +1,16 @@
 package it.uniroma2.ispw.persistence;
 
+import java.util.List;
+
 import org.hibernate.HibernateException;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 
 import it.uniroma2.ispw.model.Ordine;
+import it.uniroma2.ispw.model.Prodotto;
 
 public class OrdineDAO {
 
@@ -46,6 +50,29 @@ private static SessionFactory sessionFactory = buildSessionFactory();
              session.close(); 
             }
 		return ordine;
+	}
+	
+	public List<Ordine> listaOrdini(){
+		Session session = sessionFactory.openSession();
+        Transaction tx = null;
+        List<Ordine> listaOrd = null;
+            try{
+                tx = session.beginTransaction();
+                String hql = "FROM Ordine O";
+                Query<Ordine> query = session.createQuery(hql);
+                listaOrd = query.getResultList();
+                tx.commit();
+                System.out.println("Lista prodotti aggiunta");
+            }catch (HibernateException e) {
+                if (tx!=null) tx.rollback();
+                e.printStackTrace();
+                System.out.println("Lista prodotti NON aggiunta");
+                listaOrd = null;
+            }finally {
+             session.close(); 
+            }
+            return listaOrd;
+    
 	}
 	
 }

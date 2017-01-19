@@ -7,6 +7,7 @@ import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 
 import it.uniroma2.ispw.model.Amministratore;
+import it.uniroma2.ispw.model.UtenteRegistrato;
 
 
 public class AmministratoreDAO {
@@ -49,4 +50,25 @@ private static SessionFactory sessionFactory = buildSessionFactory();
             return amministratore;
     }
 	
+	
+	public Amministratore checkAmministratore(String email, String password){
+		Session session = sessionFactory.openSession();
+	    Transaction tx = null;
+	    try{
+	    	tx = session.beginTransaction();
+	    	Amministratore admin = (Amministratore) session.get(Amministratore.class, email);
+	    	System.out.println("Utente trovato");
+	    	if(admin != null){
+	    		if(admin.getPassword().equals(password)){
+	    			return admin;
+	    		}
+	    	}
+	    }catch (HibernateException e) {
+    		if (tx!=null) tx.rollback();
+    		e.printStackTrace(); 
+    	}finally {
+         session.close(); 
+    	}
+		return null;
+	}
 }

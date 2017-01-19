@@ -1,6 +1,10 @@
 package it.uniroma2.ispw.bean;
 
 import it.uniroma2.ispw.controller.GestisciUtente;
+import it.uniroma2.ispw.model.Consumatore;
+import it.uniroma2.ispw.model.Ente;
+import it.uniroma2.ispw.model.UtenteRegistrato;
+import it.uniroma2.ispw.model.Venditore;
 import it.uniroma2.ispw.session.UtenteSessione;
 
 public class LoginBean {
@@ -25,7 +29,34 @@ public class LoginBean {
         
         GestisciUtente gu = GestisciUtente.getInstance();
         
-        return gu.effettuaLogin(this.email, this.password);
+        UtenteSessione us = null;
+        UtenteRegistrato ur = null;
+        ur = gu.effettuaLogin(this.email, this.password);
+        
+        if (ur!=null){
+        	
+        	us = new UtenteSessione();
+        	
+        	if(ur instanceof Venditore){
+    			us.setEmail(ur.getEmail());
+    			us.setType(1);
+    			us.setUserid(ur.getUserid());
+    			us.setPassword(ur.getPassword());
+    			us.setEnteB(false);
+    		}
+    		
+    		else if(ur instanceof Consumatore){
+    			us.setEmail(ur.getEmail());
+    			us.setType(2);
+    			us.setUserid(ur.getUserid());
+    			us.setPassword(ur.getPassword());
+    			
+    			if (ur instanceof Ente) us.setEnteB(true);
+    			else us.setEnteB(false);
+    		}
+        }
+        
+        return us;
         
     }
 	

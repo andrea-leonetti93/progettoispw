@@ -2,10 +2,12 @@ package it.uniroma2.ispw.controller;
 
 
 
+import it.uniroma2.ispw.model.Amministratore;
 import it.uniroma2.ispw.model.Consumatore;
 import it.uniroma2.ispw.model.Ente;
 import it.uniroma2.ispw.model.UtenteRegistrato;
 import it.uniroma2.ispw.model.Venditore;
+import it.uniroma2.ispw.persistence.AmministratoreDAO;
 import it.uniroma2.ispw.persistence.UtenteDAO;
 import it.uniroma2.ispw.session.UtenteSessione;
 
@@ -24,36 +26,20 @@ public class GestisciUtente {
     }
 	
 	
-	public UtenteSessione effettuaLogin(String email, String password){
+	public UtenteRegistrato effettuaLogin(String email, String password){
 		
-		UtenteSessione us = new UtenteSessione();
 		UtenteRegistrato ur = null;
+		ur = u.checkUtente(email, password);
+		return ur;
+	}
+	
+	public Amministratore loginAmministratore(String email, String password){
+		Amministratore admin = null;
 		
-		System.out.println("Entrato in effettualogin");
-		if((ur = u.checkUtente(email, password)) != null){
-			
-			if(ur instanceof Venditore){
-				us.setEmail(ur.getEmail());
-				us.setType(1);
-				us.setUserid(ur.getUserid());
-				us.setPassword(ur.getPassword());
-				us.setEnteB(false);
-				return us;
-			}
-			
-			else if(ur instanceof Consumatore){
-				us.setEmail(ur.getEmail());
-				us.setType(2);
-				us.setUserid(ur.getUserid());
-				us.setPassword(ur.getPassword());
-				
-				if (ur instanceof Ente) us.setEnteB(true);
-				else us.setEnteB(false);
-				return us;
-			}
-		}
+		AmministratoreDAO ammDAO = new AmministratoreDAO();
+		return ammDAO.checkAmministratore(email, password);
 		
-		return null;
+		
 	}
 	
 	/* 1 ok, 2 mail in uso, 3 userid in uso*/

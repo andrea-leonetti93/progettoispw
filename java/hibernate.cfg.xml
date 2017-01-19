@@ -17,6 +17,10 @@
 		<mapping class="it.uniroma2.ispw.model.Ente"></mapping>
 		<mapping class="it.uniroma2.ispw.model.UtenteRegistrato"></mapping>
 		<mapping class="it.uniroma2.ispw.model.Prodotto"></mapping> 
+		<mapping class="it.uniroma2.ispw.model.Amministratore"></mapping> 
+		<mapping class="it.uniroma2.ispw.model.RuoloAmministrazione"></mapping>
+		<mapping class="it.uniroma2.ispw.model.AmministrazioneDiSistema"></mapping> 
+		<mapping class="it.uniroma2.ispw.model.AmministrazioneFinanziaria"></mapping> 
 		<mapping class="it.uniroma2.ispw.model.TipoProdotto"></mapping>
 		<mapping class="it.uniroma2.ispw.model.Ordine"></mapping>
 		<mapping class="it.uniroma2.ispw.model.LineaOrdine"></mapping>

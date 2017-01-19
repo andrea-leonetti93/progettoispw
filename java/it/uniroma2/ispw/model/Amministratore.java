@@ -1,5 +1,8 @@
 package it.uniroma2.ispw.model;
 
+import java.io.Serializable;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,8 +15,8 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "amministratore")
 public class Amministratore {
-
-	@Id
+	
+	
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "idAmministratore")
 	private int idAmministratore;
@@ -24,6 +27,7 @@ public class Amministratore {
 	@Column(name = "cognome")
 	private String cognome;
 	
+	@Id
 	@Column(name = "email")
 	private String email;
 	
@@ -33,9 +37,11 @@ public class Amministratore {
 	@OneToOne
 	@JoinColumn(name = "idRuolo", referencedColumnName = "idRuolo")
 	private RuoloAmministrazione ruoloAmministrazione;
+	
+	public Amministratore(){}
 
 	public Amministratore(String nome, String cognome, String email, String password) {
-		super();
+		
 		this.nome = nome;
 		this.cognome = cognome;
 		this.email = email;
@@ -81,6 +87,16 @@ public class Amministratore {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
+	public RuoloAmministrazione getRuoloAmministrazione() {
+		return ruoloAmministrazione;
+	}
+
+	public void setRuoloAmministrazione(RuoloAmministrazione ruoloAmministrazione) {
+		this.ruoloAmministrazione = ruoloAmministrazione;
+	}
+	
+	
 	
 	
 }
