@@ -3,6 +3,8 @@ package it.uniroma2.ispw.model;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
+import it.uniroma2.ispw.persistence.PrezzoSpedizioneDAO;
+
 @Entity
 @DiscriminatorValue(value = "spedizioneRapida")
 public class SpedizioneRapida extends Spedizione{
@@ -16,7 +18,11 @@ public class SpedizioneRapida extends Spedizione{
 	}
 	
 	public int calcolaCostoSpedizione(int numeroDiElementi) {
-		return (numeroDiElementi*2);
+		PrezzoSpedizioneDAO psdao = new PrezzoSpedizioneDAO();
+		PrezzoSpedizione ps = psdao.getPrezzoSpedizione("Rapida");
+		
+		if (ps==null) return (numeroDiElementi*4);
+		else return (numeroDiElementi*ps.getCostoConsegna());
 	}
 	
 }

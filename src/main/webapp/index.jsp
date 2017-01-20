@@ -4,6 +4,7 @@
 <%@ page import="it.uniroma2.ispw.model.*" %>
 <%@ page import="it.uniroma2.ispw.session.*" %>
 <%@ page import="java.util.*" %>
+<%@ page import="it.uniroma2.ispw.persistence.*" %>
 
 <jsp:useBean id="loginb" scope="session" class="it.uniroma2.ispw.bean.LoginBean"/>
 <jsp:setProperty name="loginb" property="*"/>
@@ -277,6 +278,24 @@ if (request.getParameter("logout") != null){
             </div>
         </div>
     </header>
+    
+    	<%
+								
+			TipoProdottoDAO tpdao = new TipoProdottoDAO();
+								
+			List<TipoProdotto> ltp = tpdao.listaTipiProdotto();
+			List<String> listaCategorie = new ArrayList<String>();
+								
+			for (TipoProdotto tp : ltp){
+				listaCategorie.add(tp.getCategoria());
+			}
+								
+			//Elimina Doppioni Categorie
+			Set<String> se = new HashSet<String>(listaCategorie);
+			listaCategorie.clear();
+			listaCategorie = new ArrayList<String>(se);
+								
+		%>							
 
     <!-- Services Section -->
     <section id="ricerca">
@@ -296,27 +315,27 @@ if (request.getParameter("logout") != null){
               				<div class="form-group">
 							<select class="form-control" id="selectCategory" name="categoria" onchange="giveSelection(this.value)">
 								<option value="x" selected="selected">Select category</option>
-								<option value="Elettronica">Elettronica</option>
-								<option value="Giardinaggio">Giardinaggio</option>
-								<option value="Arredamento">Arredamento</option>
+								<%for (String categoria : listaCategorie) {%>
+
+									<option value="<%= categoria %>"><%= categoria %></option>
+								
+								<%} %>
 							</select>
 						</div>
 						<label class="col-lg-3 control-label">Tipologia:</label>
 						<div class="form-group">
 							<select class="form-control" id="selectTypology" name="tipologia">
 								<option data-option="x" selected="selected">Select typology</option>
-								<option data-option="Elettronica">Cellulari</option>
-								<option data-option="Elettronica">Televisori</option>
-								<option data-option="Giardinaggio">Taglia erba</option>
-								<option data-option="Giardinaggio">Piante</option>
-								<option data-option="Arredamento">Tavoli</option>
-								<option data-option="Arredamento">Sedie</option>
+								<%for (TipoProdotto tp : ltp){%>
+									<option data-option="<%= tp.getCategoria() %>"><%=tp.getTipologia() %></option>
+								<%} %>
 							</select>
             					</div>
             				</div>	
           					</div>
 							<div class="form-group">
-								<input type="text" class="form-control" placeholder="Nome prodotto" name="nomeRicerca"  id="nomeprodotto" >
+								<input type="text" class="form-control" placeholder="Nome prodotto" name="nomeR
+								icerca"  id="nomeprodotto" >
 								<p class="help-block text-danger" ></p>
 							</div>
 							<div class="col-md-6">

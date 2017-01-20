@@ -4,6 +4,7 @@
 <%@ page import="it.uniroma2.ispw.model.*" %>
 <%@ page import="it.uniroma2.ispw.session.*" %>
 <%@ page import="java.util.*" %>
+<%@ page import="it.uniroma2.ispw.persistence.*" %>
 
 <jsp:useBean id="loginb" scope="session" class="it.uniroma2.ispw.bean.LoginBean"/>
 <jsp:setProperty name="loginb" property="*"/>
@@ -200,6 +201,25 @@ if(request.getParameter("deleteProd") != null){
             </div>
         </div>
     </header>
+    
+    
+       	<%
+								
+			TipoProdottoDAO tpdao = new TipoProdottoDAO();
+								
+			List<TipoProdotto> ltp = tpdao.listaTipiProdotto();
+			List<String> listaCategorie = new ArrayList<String>();
+								
+			for (TipoProdotto tp : ltp){
+				listaCategorie.add(tp.getCategoria());
+			}
+								
+			//Elimina Doppioni Categorie
+			Set<String> se = new HashSet<String>(listaCategorie);
+			listaCategorie.clear();
+			listaCategorie = new ArrayList<String>(se);
+								
+		%>
 
 
 <!-- popup aggiungi prodotto -->
@@ -224,21 +244,20 @@ if(request.getParameter("deleteProd") != null){
 							<label for="categoriaAdd" class="form-control-label">Category</label>
 							<select class="form-control" id="selectCategory" name="category" onchange="giveSelection(this.value)" required data-validation-required-message="Scegliere una categoria">
 								<option value="x" selected="selected">Select category</option>
-								<option value="Elettronica">Elettronica</option>
-								<option value="Giardinaggio">Giardinaggio</option>
-								<option value="Arredamento">Arredamento</option>
+								<%for (String categoria : listaCategorie) {%>
+
+									<option value="<%= categoria %>"><%= categoria %></option>
+								
+								<%} %>
 							</select>
 						</div>
 						<div class="form-group">
 							<label for="typologyAdd" class="form-control-label">Typology</label>
 							<select class="form-control" id="selectTypology" name="typology">
 								<option data-option="x" selected="selected">Select typology</option>
-								<option data-option="Elettronica">Cellulari</option>
-								<option data-option="Elettronica">Televisori</option>
-								<option data-option="Giardinaggio">Taglia erba</option>
-								<option data-option="Giardinaggio">Piante</option>
-								<option data-option="Arredamento">Tavoli</option>
-								<option data-option="Arredamento">Sedie</option>
+								<%for (TipoProdotto tp : ltp){%>
+									<option data-option="<%= tp.getCategoria() %>"><%=tp.getTipologia() %></option>
+								<%} %>
 							</select>
 						</div>
 						<div class="form-group">
