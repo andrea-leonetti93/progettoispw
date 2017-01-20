@@ -17,7 +17,7 @@ public class AdminFrame extends JFrame{
 	private static final long serialVersionUID = 1L;
 
 	private static String titolo = "Pannello amministratore di sistema";
-	//VisualUtentiFrame visualUtentiFrame = null;
+	VisualUtentiFrame visualUtentiFrame = null;
 	//VisualOrdiniFrame visualOrdiniFrame = null;
 	//VisualProdottiFrame visualProdottiFrame = null;
 	//RegisterAdminFrame registerAdminFrame = null;
@@ -72,7 +72,10 @@ public class AdminFrame extends JFrame{
 		btnVisualUtenti.addActionListener(new ActionListener(){
 			
 			public void actionPerformed(ActionEvent e){
-				//visualUtentiFrame = new visualUtentiFrame();
+				visualUtentiFrame = new VisualUtentiFrame();
+				visualUtentiFrame.setVisible(true);
+			    visualUtentiFrame.toFront();
+			    visualUtentiFrame.repaint();
 			}
 		});
 		
@@ -104,6 +107,11 @@ public class AdminFrame extends JFrame{
 			}
 		});
 		
+	}
+	
+	private void closeAdminFrame(){
+		
+		this.setVisible(false);
 	}
 	
 	
