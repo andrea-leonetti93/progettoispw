@@ -21,12 +21,14 @@ public class AdminFrame extends JFrame{
 	//VisualOrdiniFrame visualOrdiniFrame = null;
 	//VisualProdottiFrame visualProdottiFrame = null;
 	//RegisterAdminFrame registerAdminFrame = null;
+	//LogFrame logFrame = null;
 	
 	private JPanel panel = new JPanel();
 	private JButton btnVisualUtenti;
 	private JButton btnVisualOrdini;
 	private JButton btnVisualProdotti;
 	private JButton btnRegistraAdmin;
+	private JButton btnLog;
 	
 	public AdminFrame(){
 		super(titolo);
@@ -48,16 +50,20 @@ public class AdminFrame extends JFrame{
 		panel.add(btnVisualUtenti);
 		
 		btnVisualOrdini = new JButton("Visualizza ordini");
-		btnVisualOrdini.setBounds(86, 12, 645, 25);
+		btnVisualOrdini.setBounds(86, 49, 645, 25);
 		panel.add(btnVisualOrdini);
 		
 		btnVisualProdotti = new JButton("Visualizza prodotti");
-		btnVisualProdotti.setBounds(86, 12, 645, 25);
+		btnVisualProdotti.setBounds(86, 86, 645, 25);
 		panel.add(btnVisualProdotti);
 		
 		btnRegistraAdmin = new JButton("Registra nuovo amministratore");
-		btnRegistraAdmin.setBounds(86, 12, 645, 25);
+		btnRegistraAdmin.setBounds(86, 123, 645, 25);
 		panel.add(btnRegistraAdmin);
+		
+		btnLog = new JButton("Visualizza log di sistema");
+		btnLog.setBounds(86, 158, 645, 25);
+		panel.add(btnLog);
 		
 	}
 	
@@ -88,6 +94,13 @@ public class AdminFrame extends JFrame{
 			
 			public void actionPerformed(ActionEvent e){
 				//registerAdminFrame = new RegisterAdminFrame();
+			}
+		});
+
+		btnLog.addActionListener(new ActionListener(){
+			
+			public void actionPerformed(ActionEvent e){
+				//logFrame = new LogFrame();
 			}
 		});
 		

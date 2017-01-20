@@ -45,7 +45,7 @@ public class AdminFinanceFrame extends JFrame{
 		panel.add(btnBoh1);
 		
 		btnBoh2 = new JButton("Boh2");
-		btnBoh2.setBounds(86, 12, 645, 25);
+		btnBoh2.setBounds(86, 49, 645, 25);
 		panel.add(btnBoh2);
 	}
 

@@ -16,6 +16,7 @@ import javax.swing.JTextField;
 
 import it.uniroma2.ispw.controller.GestisciUtente;
 import it.uniroma2.ispw.model.Amministratore;
+import it.uniroma2.ispw.model.AmministrazioneDiSistema;
 
 public class LoginFrame extends JFrame{
 
@@ -113,7 +114,7 @@ public class LoginFrame extends JFrame{
 	}
 	
 	public void createMainUserFrame(Amministratore admin){
-		if(admin.getRuoloAmministrazione().equals("amministrazioneDiSistema")){
+		if(admin.getRuoloAmministrazione() instanceof AmministrazioneDiSistema){
 			this.close();
 			AdminFrame mainFrame = new AdminFrame();
 			mainFrame.setVisible(true);

@@ -50,10 +50,10 @@ public class Test {
 		
 		amm.setRuoloAmministrazione(ruoloAmm);
 
-		ammDAO.addAmministratore(amm);
+		ammDAO.addAmministratore(amm);*/
 		
-		GestisciUtente gu = GestisciUtente.getInstance();
-*/
+		//GestisciUtente gu = GestisciUtente.getInstance();
+
 		/*
 		GestisciProdotto gp = new GestisciProdotto();
 		
@@ -77,7 +77,7 @@ public class Test {
 		UtenteDAO udao = new UtenteDAO();
 		udao.addUtente(ur);*/
 		
-		//LoginFrame windows = new LoginFrame();
+		LoginFrame windows = new LoginFrame();
 		
 		/*
 		if (gu.loginAmministratore("giorgioiannone@hotmail.it","lamiapassword")!=null){

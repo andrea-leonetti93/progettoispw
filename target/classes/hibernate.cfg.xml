@@ -16,10 +16,17 @@
 		<mapping class="it.uniroma2.ispw.model.Venditore"></mapping>
 		<mapping class="it.uniroma2.ispw.model.Ente"></mapping>
 		<mapping class="it.uniroma2.ispw.model.UtenteRegistrato"></mapping>
+<<<<<<< HEAD
 		<mapping class="it.uniroma2.ispw.model.Prodotto"></mapping> 
 		<mapping class="it.uniroma2.ispw.model.Amministratore"></mapping> 
 		<mapping class="it.uniroma2.ispw.model.RuoloAmministrazione"></mapping>
 		<mapping class="it.uniroma2.ispw.model.AmministrazioneDiSistema"></mapping> 
+=======
+		<mapping class="it.uniroma2.ispw.model.Prodotto"></mapping>
+		<mapping class="it.uniroma2.ispw.model.Amministratore"></mapping>
+		<mapping class="it.uniroma2.ispw.model.RuoloAmministrazione"></mapping>
+		<mapping class="it.uniroma2.ispw.model.AmministrazioneDiSistema"></mapping>
+>>>>>>> b82d87db28751e0baf585f48621cdcd513c18bff
 		<mapping class="it.uniroma2.ispw.model.AmministrazioneFinanziaria"></mapping> 
 		<mapping class="it.uniroma2.ispw.model.TipoProdotto"></mapping>
 		<mapping class="it.uniroma2.ispw.model.Ordine"></mapping>
