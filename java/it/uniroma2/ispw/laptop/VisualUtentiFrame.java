@@ -1,7 +1,6 @@
 package it.uniroma2.ispw.laptop;
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
@@ -11,7 +10,6 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -30,7 +28,7 @@ public class VisualUtentiFrame extends JFrame{
 	private static String titolo = "Visualizza utenti del sistema";
 	private GestioneSistema gs = new GestioneSistema();
 	
-	private static String[] header = {"UseriID", "Email", "Nome", "Cognome", "Tipo", "Indirizzo", "Numero"};
+	//private static String[] header = {"UseriID", "Email", "Nome", "Cognome", "Tipo", "Indirizzo", "Numero"};
 	
 	private JPanel panel = new JPanel();
 	private DefaultTableModel model;
@@ -101,61 +99,138 @@ public class VisualUtentiFrame extends JFrame{
 		btnTutti.addActionListener(new ActionListener(){
 			
 			public void actionPerformed(ActionEvent e){
-				riempiTabella();
+				int rowCount = model.getRowCount();
+				for(int i = rowCount - 1; i > 0; i--){
+					model.removeRow(i);
+				}
+				String tipo = "tutti";
+				riempiTabella(tipo);
 			}
 		});
 		
+		btnConsumatori.addActionListener(new ActionListener(){
+			
+			public void actionPerformed(ActionEvent e){
+				int rowCount = model.getRowCount();
+				for(int i = rowCount - 1; i > 0; i--){
+					model.removeRow(i);
+				}
+				String tipo = "consumatore";
+				riempiTabella(tipo);
+			}
+		});
+		
+		btnVenditori.addActionListener(new ActionListener(){
+			
+			public void actionPerformed(ActionEvent e){
+				int rowCount = model.getRowCount();
+				for(int i = rowCount - 1; i > 0; i--){
+					model.removeRow(i);
+				}
+				String tipo = "venditore";
+				riempiTabella(tipo);
+			}
+		});
 	}
+
 	
-	private void riempiTabella(){
+	private void riempiTabella(String tipo){
 		UtenteRegistrato ur;
 		String type = "";
 		String elem = "";
-		try
-		{
-		List<UtenteRegistrato> listaUtenti = gs.visualizzaUtenti();
-		for(int j=0; j<listaUtenti.size(); j++){
-			ur = listaUtenti.get(j);
-			model.insertRow(j, new Object[]{row});
-			if(ur instanceof Venditore){
-				type = "venditore";
-			}else{
-				type = "consumatore";
+		if(tipo.equals("tutti")){
+			try
+			{
+			List<UtenteRegistrato> listaUtenti = gs.visualizzaUtenti();
+			for(int j=0; j<listaUtenti.size(); j++){
+				ur = listaUtenti.get(j);
+				model.insertRow(j, new Object[]{row});
+				if(ur instanceof Venditore){
+					type = "venditore";
+				}else{
+					type = "consumatore";
+				}
+				for(int i=0; i<model.getColumnCount(); i++){
+					if(model.getColumnName(i).equals("UserID")){
+						elem = ur.getUserid();
+						model.setValueAt(elem, j, i);
+					}
+					if(model.getColumnName(i).equals("Nome")){
+						elem = ur.getNome();
+						model.setValueAt(elem, j, i);
+					}
+					if(model.getColumnName(i).equals("Cognome")){
+						elem = ur.getCognome();
+						model.setValueAt(elem, j, i);
+					}
+					if(model.getColumnName(i).equals("Email")){
+						elem = ur.getEmail();
+						model.setValueAt(elem, j, i);
+					}
+					if(model.getColumnName(i).equals("Tipo")){
+						model.setValueAt(type, j, i);
+					}
+					if(model.getColumnName(i).equals("Indirizzo")){
+						elem = ur.getResidenza();
+						model.setValueAt(elem, j, i);
+					}
+					if(model.getColumnName(i).equals("Telefono")){
+						elem = ur.getTelefono();
+						model.setValueAt(elem, j, i);
+					}
+				}
 			}
-			for(int i=0; i<model.getColumnCount(); i++){
-				if(model.getColumnName(i).equals("UserID")){
-					elem = ur.getUserid();
-					model.setValueAt(elem, j, i);
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+		}else{
+			try
+			{
+			List<UtenteRegistrato> listaUtenti = gs.visualizzaUtenti();
+			for(int j=0; j<listaUtenti.size(); j++){
+				ur = listaUtenti.get(j);
+				if(ur instanceof Venditore){
+					type = "venditore";
+				}else{
+					type = "consumatore";
 				}
-				if(model.getColumnName(i).equals("Nome")){
-					elem = ur.getNome();
-					model.setValueAt(elem, j, i);
+				if(tipo.equals(type)){
+					model.insertRow(j, new Object[]{row});
+					for(int i=0; i<model.getColumnCount(); i++){
+						if(model.getColumnName(i).equals("UserID")){
+							elem = ur.getUserid();
+							model.setValueAt(elem, j, i);
+						}
+						if(model.getColumnName(i).equals("Nome")){
+							elem = ur.getNome();
+							model.setValueAt(elem, j, i);
+						}
+						if(model.getColumnName(i).equals("Cognome")){
+							elem = ur.getCognome();
+							model.setValueAt(elem, j, i);
+						}
+						if(model.getColumnName(i).equals("Email")){
+							elem = ur.getEmail();
+							model.setValueAt(elem, j, i);
+						}
+						if(model.getColumnName(i).equals("Tipo")){
+							model.setValueAt(type, j, i);
+						}
+						if(model.getColumnName(i).equals("Indirizzo")){
+							elem = ur.getResidenza();
+							model.setValueAt(elem, j, i);
+						}
+						if(model.getColumnName(i).equals("Telefono")){
+							elem = ur.getTelefono();
+							model.setValueAt(elem, j, i);
+						}
+					}
 				}
-				if(model.getColumnName(i).equals("Cognome")){
-					elem = ur.getCognome();
-					model.setValueAt(elem, j, i);
-				}
-				if(model.getColumnName(i).equals("Email")){
-					elem = ur.getEmail();
-					model.setValueAt(elem, j, i);
-				}
-				if(model.getColumnName(i).equals("Tipo")){
-					model.setValueAt(type, j, i);
-				}
-				if(model.getColumnName(i).equals("Indirizzo")){
-					elem = ur.getResidenza();
-					model.setValueAt(elem, j, i);
-				}
-				if(model.getColumnName(i).equals("Telefono")){
-					elem = ur.getTelefono();
-					model.setValueAt(elem, j, i);
-				}
+			}
+			}catch(Exception e){
+				e.printStackTrace();
 			}
 		}
-		}catch(Exception e){
-			e.printStackTrace();
-		}
-		
 	}
 	
 	

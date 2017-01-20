@@ -15,7 +15,6 @@
 		<mapping class="it.uniroma2.ispw.model.Consumatore"></mapping>
 		<mapping class="it.uniroma2.ispw.model.Venditore"></mapping>
 		<mapping class="it.uniroma2.ispw.model.Ente"></mapping>
-		<mapping class="it.uniroma2.ispw.model.PrezzoSpedizione"></mapping>
 		<mapping class="it.uniroma2.ispw.model.UtenteRegistrato"></mapping>
 		<mapping class="it.uniroma2.ispw.model.Prodotto"></mapping>
 		<mapping class="it.uniroma2.ispw.model.Amministratore"></mapping>
