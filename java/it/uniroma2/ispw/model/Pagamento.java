@@ -1,6 +1,5 @@
 package it.uniroma2.ispw.model;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;

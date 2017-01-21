@@ -57,7 +57,7 @@ public class VisualUtentiFrame extends JFrame{
 	}
 	
 	
-	public void placeComponents(JPanel panel){
+	private void placeComponents(JPanel panel){
 		panel.setLayout(null);
 		
 		btnConsumatori = new JButton("Visualizza i consumatori");
@@ -94,13 +94,13 @@ public class VisualUtentiFrame extends JFrame{
 	}
 	
 	
-	public void addActionListener(){
+	private void addActionListener(){
 		
 		btnTutti.addActionListener(new ActionListener(){
 			
 			public void actionPerformed(ActionEvent e){
 				int rowCount = model.getRowCount();
-				for(int i = rowCount - 1; i > 0; i--){
+				for(int i = rowCount - 1; i >= 0; i--){
 					model.removeRow(i);
 				}
 				String tipo = "tutti";
@@ -112,7 +112,7 @@ public class VisualUtentiFrame extends JFrame{
 			
 			public void actionPerformed(ActionEvent e){
 				int rowCount = model.getRowCount();
-				for(int i = rowCount - 1; i > 0; i--){
+				for(int i = rowCount - 1; i >= 0; i--){
 					model.removeRow(i);
 				}
 				String tipo = "consumatore";
@@ -124,7 +124,7 @@ public class VisualUtentiFrame extends JFrame{
 			
 			public void actionPerformed(ActionEvent e){
 				int rowCount = model.getRowCount();
-				for(int i = rowCount - 1; i > 0; i--){
+				for(int i = rowCount - 1; i >= 0; i--){
 					model.removeRow(i);
 				}
 				String tipo = "venditore";

@@ -18,8 +18,8 @@ public class AdminFrame extends JFrame{
 
 	private static String titolo = "Pannello amministratore di sistema";
 	VisualUtentiFrame visualUtentiFrame = null;
-	//VisualOrdiniFrame visualOrdiniFrame = null;
-	//VisualProdottiFrame visualProdottiFrame = null;
+	VisualOrdiniFrame visualOrdiniFrame = null;
+	VisualProdottiFrame visualProdottiFrame = null;
 	//RegisterAdminFrame registerAdminFrame = null;
 	//LogFrame logFrame = null;
 	
@@ -82,14 +82,20 @@ public class AdminFrame extends JFrame{
 		btnVisualOrdini.addActionListener(new ActionListener(){
 			
 			public void actionPerformed(ActionEvent e){
-				//visualOrdiniFrame = new visualOrdiniFrame();
+				visualOrdiniFrame = new VisualOrdiniFrame();
+				visualOrdiniFrame.setVisible(true);
+			    visualOrdiniFrame.toFront();
+			    visualOrdiniFrame.repaint();
 			}
 		});
 		
 		btnVisualProdotti.addActionListener(new ActionListener(){
 			
 			public void actionPerformed(ActionEvent e){
-				//isualProdottiFrame = new visualProdottiFrame();
+				visualProdottiFrame = new VisualProdottiFrame();
+				visualProdottiFrame.setVisible(true);
+			    visualProdottiFrame.toFront();
+			    visualProdottiFrame.repaint();
 			}
 		});
 		
@@ -97,6 +103,9 @@ public class AdminFrame extends JFrame{
 			
 			public void actionPerformed(ActionEvent e){
 				//registerAdminFrame = new RegisterAdminFrame();
+				//registerAdminFrame.setVisible(true);
+			    //registerAdminFrame.toFront();
+			    //registerAdminFrame.repaint();
 			}
 		});
 
@@ -104,6 +113,9 @@ public class AdminFrame extends JFrame{
 			
 			public void actionPerformed(ActionEvent e){
 				//logFrame = new LogFrame();
+				//logFrame.setVisible(true);
+			    //logFrame.toFront();
+			    //logFrame.repaint();
 			}
 		});
 		
