@@ -6,10 +6,12 @@ import java.util.List;
 import it.uniroma2.ispw.model.Amministratore;
 import it.uniroma2.ispw.model.Ordine;
 import it.uniroma2.ispw.model.Prodotto;
+import it.uniroma2.ispw.model.TipoProdotto;
 import it.uniroma2.ispw.model.UtenteRegistrato;
 import it.uniroma2.ispw.persistence.AmministratoreDAO;
 import it.uniroma2.ispw.persistence.OrdineDAO;
 import it.uniroma2.ispw.persistence.ProdottoDAO;
+import it.uniroma2.ispw.persistence.TipoProdottoDAO;
 import it.uniroma2.ispw.persistence.UtenteDAO;
 
 public class GestioneSistema {
@@ -56,4 +58,12 @@ public class GestioneSistema {
 		
 	}
 	
+	public List<TipoProdotto> visualizzaTipoProdotti(){
+		List<TipoProdotto> listaTipiProdotti = null;
+		TipoProdottoDAO tpd = new TipoProdottoDAO();
+		if((listaTipiProdotti = tpd.listaTipiProdotto())!=null){
+			return listaTipiProdotti;
+		}
+		return null;
+	}
 }

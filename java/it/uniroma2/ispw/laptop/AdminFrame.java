@@ -20,7 +20,7 @@ public class AdminFrame extends JFrame{
 	VisualUtentiFrame visualUtentiFrame = null;
 	VisualOrdiniFrame visualOrdiniFrame = null;
 	VisualProdottiFrame visualProdottiFrame = null;
-	//RegisterAdminFrame registerAdminFrame = null;
+	RegisterAdminFrame registerAdminFrame = null;
 	//LogFrame logFrame = null;
 	
 	private JPanel panel = new JPanel();
@@ -102,10 +102,10 @@ public class AdminFrame extends JFrame{
 		btnRegistraAdmin.addActionListener(new ActionListener(){
 			
 			public void actionPerformed(ActionEvent e){
-				//registerAdminFrame = new RegisterAdminFrame();
-				//registerAdminFrame.setVisible(true);
-			    //registerAdminFrame.toFront();
-			    //registerAdminFrame.repaint();
+				registerAdminFrame = new RegisterAdminFrame();
+				registerAdminFrame.setVisible(true);
+			    registerAdminFrame.toFront();
+			    registerAdminFrame.repaint();
 			}
 		});
 
