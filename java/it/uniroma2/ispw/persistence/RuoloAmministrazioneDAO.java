@@ -30,7 +30,7 @@ private static SessionFactory sessionFactory = buildSessionFactory();
 		return sessionFactory;
 	}
 	
-	public RuoloAmministrazione addAmministratore(RuoloAmministrazione ruoloAmmin){
+	public RuoloAmministrazione addRuoloAmministratore(RuoloAmministrazione ruoloAmmin){
 		Session session = sessionFactory.openSession();
         Transaction tx = null;
             try{

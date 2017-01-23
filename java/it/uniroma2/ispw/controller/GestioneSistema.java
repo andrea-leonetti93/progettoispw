@@ -6,11 +6,13 @@ import java.util.List;
 import it.uniroma2.ispw.model.Amministratore;
 import it.uniroma2.ispw.model.Ordine;
 import it.uniroma2.ispw.model.Prodotto;
+import it.uniroma2.ispw.model.RuoloAmministrazione;
 import it.uniroma2.ispw.model.TipoProdotto;
 import it.uniroma2.ispw.model.UtenteRegistrato;
 import it.uniroma2.ispw.persistence.AmministratoreDAO;
 import it.uniroma2.ispw.persistence.OrdineDAO;
 import it.uniroma2.ispw.persistence.ProdottoDAO;
+import it.uniroma2.ispw.persistence.RuoloAmministrazioneDAO;
 import it.uniroma2.ispw.persistence.TipoProdottoDAO;
 import it.uniroma2.ispw.persistence.UtenteDAO;
 
@@ -51,8 +53,11 @@ public class GestioneSistema {
 		return lo;
 	}
 	
-	public boolean aggiungiAmministratore(Amministratore admin){
+	public boolean aggiungiAmministratore(Amministratore admin, RuoloAmministrazione ruoloAdmin){
 		AmministratoreDAO ammDAO = new AmministratoreDAO();
+		RuoloAmministrazioneDAO ruoloDAO = new RuoloAmministrazioneDAO();
+		ruoloDAO.addRuoloAmministratore(ruoloAdmin);
+		admin.setRuoloAmministrazione(ruoloAdmin);
 		ammDAO.addAmministratore(admin);
 		return true;
 		

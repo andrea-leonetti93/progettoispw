@@ -8,7 +8,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -115,7 +114,7 @@ public class VisualProdottiFrame extends JFrame{
 				nomiTipologie.removeAllElements();
 				tipologie.clear();
 				String item = (String) boxCategoria.getSelectedItem();
-				System.out.println(item);
+
 				for(int i=0; i<tipiProdotti.size(); i++){
 	        		if(item.equals(tipiProdotti.get(i).getCategoria())){
 	        			tipologie.add(tipiProdotti.get(i).getTipologia());	
@@ -139,6 +138,7 @@ public class VisualProdottiFrame extends JFrame{
 				}
 				String cat = (String) boxCategoria.getSelectedItem();
 				String tip = (String) boxTipologia.getSelectedItem();
+				System.out.println(cat + tip);
 				listaProdotti = gs.visualizzaProdotti(cat, tip);
 				riempiTabella(listaProdotti);
 			}
@@ -215,7 +215,7 @@ public class VisualProdottiFrame extends JFrame{
 		this.addWindowListener(new java.awt.event.WindowAdapter(){
 			
 			public void windowClosing(WindowEvent windowEvent){
-				Integer risposta = JOptionPane.showConfirmDialog(null, "Sei sicuro di voler tornare al menu amministratore?", "Stai per chiudere ricerca ordini", JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
+				Integer risposta = JOptionPane.showConfirmDialog(null, "Sei sicuro di voler tornare al menu amministratore?", "Stai per chiudere cerca prodotti", JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
 		        if ( risposta == JOptionPane.YES_OPTION) {
 		        	/* AdminFrame adminFrame = new AdminFrame();
 				     adminFrame.setVisible(true);*/
