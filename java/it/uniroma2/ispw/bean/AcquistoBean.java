@@ -5,7 +5,6 @@ import java.util.List;
 import it.uniroma2.ispw.controller.AcquistaProdotto;
 import it.uniroma2.ispw.factory.FactorySpedizione;
 import it.uniroma2.ispw.model.Ente;
-import it.uniroma2.ispw.model.Pagamento;
 import it.uniroma2.ispw.model.Prodotto;
 import it.uniroma2.ispw.model.Spedizione;
 import it.uniroma2.ispw.model.UtenteRegistrato;

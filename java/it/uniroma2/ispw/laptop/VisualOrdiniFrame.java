@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -38,6 +39,7 @@ public class VisualOrdiniFrame extends JFrame{
 	private JTable table;
 	private DefaultTableModel model;
 	private JScrollPane scrollPane;
+	private JLabel textLabel;
 	private int row;
 	
 	public VisualOrdiniFrame(){
@@ -59,6 +61,10 @@ public class VisualOrdiniFrame extends JFrame{
 		btnOrdini = new JButton("Visualizza ordini consumatori");
 		btnOrdini.setBounds(86, 12, 645, 25);
 		panel.add(btnOrdini);
+		
+		textLabel = new JLabel("Selezionare una riga per avere informazioni sull'ordine!");
+		textLabel.setBounds(86, 49, 685, 25);
+		panel.add(textLabel);
 		
 		table = new JTable(0, 0);
 		model = (DefaultTableModel) table.getModel();

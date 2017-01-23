@@ -3,7 +3,6 @@ package it.uniroma2.ispw.bean;
 import java.util.List;
 
 import it.uniroma2.ispw.controller.GestisciRicerca;
-import it.uniroma2.ispw.model.Prodotto;
 import it.uniroma2.ispw.model.PropostaVendita;
 
 public class RicercaBean {
