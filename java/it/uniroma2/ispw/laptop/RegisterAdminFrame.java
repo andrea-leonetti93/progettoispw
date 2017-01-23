@@ -112,7 +112,7 @@ public class RegisterAdminFrame extends JFrame{
 		
 		// Combo Box Utente/Amministratore
 		comboBoxRule = new JComboBox<String>();
-		comboBoxRule.setBounds(100, 105, 160, 24);
+		comboBoxRule.setBounds(100, 105, 200, 24);
 		panel.add(comboBoxRule);
 		comboBoxRule.addItem("Amministratore di sistema");
 		comboBoxRule.addItem("Amministratore finanziario");
