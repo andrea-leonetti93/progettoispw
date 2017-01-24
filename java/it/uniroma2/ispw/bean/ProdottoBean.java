@@ -1,11 +1,9 @@
 package it.uniroma2.ispw.bean;
 
-import java.util.List;
 
 import it.uniroma2.ispw.controller.GestisciProdotto;
 import it.uniroma2.ispw.model.Prodotto;
 import it.uniroma2.ispw.model.UtenteRegistrato;
-import it.uniroma2.ispw.session.UtenteSessione;
 
 public class ProdottoBean {
 	

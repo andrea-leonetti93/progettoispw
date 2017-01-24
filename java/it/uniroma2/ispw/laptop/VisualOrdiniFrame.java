@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -30,12 +31,15 @@ public class VisualOrdiniFrame extends JFrame{
 	private static String titolo = "Visualizza gli ordini";
 
 	private GestioneSistema gs = new GestioneSistema();
+	private VisualLineeOrdine visualLineeOrdine = null;
+	private List<Ordine> listaOrdini;
 	
 	private JPanel panel = new JPanel();
 	private JButton btnOrdini;
 	private JTable table;
 	private DefaultTableModel model;
 	private JScrollPane scrollPane;
+	private JLabel textLabel;
 	private int row;
 	
 	public VisualOrdiniFrame(){
@@ -57,6 +61,10 @@ public class VisualOrdiniFrame extends JFrame{
 		btnOrdini = new JButton("Visualizza ordini consumatori");
 		btnOrdini.setBounds(86, 12, 645, 25);
 		panel.add(btnOrdini);
+		
+		textLabel = new JLabel("Selezionare una riga per avere informazioni sull'ordine!");
+		textLabel.setBounds(86, 49, 685, 25);
+		panel.add(textLabel);
 		
 		table = new JTable(0, 0);
 		model = (DefaultTableModel) table.getModel();
@@ -89,7 +97,12 @@ public class VisualOrdiniFrame extends JFrame{
 			public void valueChanged(ListSelectionEvent e) {
 				// TODO Auto-generated method stub
 				//int i = (Integer) table.getValueAt(table.getSelectedRow(), 0);
-				//visualLineaOrdine = new VisualLIneaOrdine();
+				int i = (Integer) table.getSelectedRow();
+				Ordine or = listaOrdini.get(i);
+				visualLineeOrdine = new VisualLineeOrdine(or);
+				visualLineeOrdine.setVisible(true);
+			    visualLineeOrdine.toFront();
+			    visualLineeOrdine.repaint();
 			}
 		});
 		
@@ -101,7 +114,7 @@ public class VisualOrdiniFrame extends JFrame{
 		String pag = "";
 		String elem = "";
 		int id = 0, prezzo = 0;
-		List<Ordine> listaOrdini = gs.visualizzaOrdini();
+		listaOrdini = gs.visualizzaOrdini();
 		for(int j=0; j<listaOrdini.size(); j++){
 			or = listaOrdini.get(j);
 			model.insertRow(j, new Object[]{row});

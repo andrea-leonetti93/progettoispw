@@ -3,10 +3,8 @@ package it.uniroma2.ispw.bean;
 import java.util.ArrayList;
 import java.util.List;
 
-import it.uniroma2.ispw.controller.AcquistaProdotto;
 import it.uniroma2.ispw.model.Prodotto;
 import it.uniroma2.ispw.model.PropostaVendita;
-import it.uniroma2.ispw.model.UtenteRegistrato;
 
 public class CarrelloBean {
 

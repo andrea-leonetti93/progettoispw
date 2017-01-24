@@ -46,7 +46,7 @@ public class Test {
 		
 		AmministrazioneDiSistema ruoloAmm = new AmministrazioneDiSistema();
 	
-		rammDAO.addAmministratore(ruoloAmm);
+		rammDAO.addRuoloAmministratore(ruoloAmm);
 		
 		amm.setRuoloAmministrazione(ruoloAmm);
 
