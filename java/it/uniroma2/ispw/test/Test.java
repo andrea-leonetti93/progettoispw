@@ -38,7 +38,7 @@ public class Test {
 
 	public static void main(String[] args) {
 		
-/*
+
 		Amministratore amm = new Amministratore("Giorgio","Iannone","giorgioiannone@hotmail.it","lamiapassword");
 		
 		AmministratoreDAO ammDAO = new AmministratoreDAO();
@@ -50,7 +50,7 @@ public class Test {
 		
 		amm.setRuoloAmministrazione(ruoloAmm);
 
-		ammDAO.addAmministratore(amm);*/
+		ammDAO.addAmministratore(amm);
 		
 		//GestisciUtente gu = GestisciUtente.getInstance();
 
@@ -77,7 +77,7 @@ public class Test {
 		UtenteDAO udao = new UtenteDAO();
 		udao.addUtente(ur);*/
 		
-		LoginFrame windows = new LoginFrame();
+		//LoginFrame windows = new LoginFrame();
 		
 		/*
 		if (gu.loginAmministratore("giorgioiannone@hotmail.it","lamiapassword")!=null){

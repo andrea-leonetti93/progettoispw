@@ -23,6 +23,10 @@ UtenteSessione us = (UtenteSessione) session.getAttribute("utente");
 
 if(request.getParameter("cerca")!=null){
 	
+	System.out.println("---");
+	System.out.println(ricercab.getNomeRicerca());
+	System.out.println(ricercab.getPrezzomax());
+	System.out.println("---");
 	ricercab.ricercaProdotto();
 }
 
@@ -329,13 +333,12 @@ if (request.getParameter("logout") != null){
 								<%for (TipoProdotto tp : ltp){%>
 									<option data-option="<%= tp.getCategoria() %>"><%=tp.getTipologia() %></option>
 								<%} %>
-							</select>
+								</select>
             					</div>
             				</div>	
           					</div>
 							<div class="form-group">
-								<input type="text" class="form-control" placeholder="Nome prodotto" name="nomeR
-								icerca"  id="nomeprodotto" >
+								<input type="text" class="form-control" placeholder="Nome prodotto" name="nomeRicerca"  id="nomeprodotto" >
 								<p class="help-block text-danger" ></p>
 							</div>
 							<div class="col-md-6">

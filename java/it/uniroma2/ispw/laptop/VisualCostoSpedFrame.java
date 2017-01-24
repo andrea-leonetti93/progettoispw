@@ -6,15 +6,13 @@ import java.awt.event.WindowEvent;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 
-public class AdminFinanceFrame extends JFrame{
+public class VisualCostoSpedFrame extends JFrame {
 	
-	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	private static String titolo = "Pannello amministratore finanziario";
@@ -24,12 +22,10 @@ public class AdminFinanceFrame extends JFrame{
 	//RegisterAdminFrame registerAdminFrame = null;
 	VisualUtentiFrame visualUtentiFrame = null;
 	private JPanel panel = new JPanel();
-	private JButton btnBoh1;
-	private JButton btnBoh2;
-	private JButton btnBoh3;
-	private JButton btnBoh4;
+	private static JLabel textSpedNormale;
+	private static JTextField textSpedRapida;
 	
-	public AdminFinanceFrame(){
+	public VisualCostoSpedFrame(){
 		super(titolo);
 		
 		this.setSize(800, 600);
@@ -44,47 +40,23 @@ public class AdminFinanceFrame extends JFrame{
 	private void placeComponents(JPanel panel){
 		panel.setLayout(null);
 		
-		btnBoh1 = new JButton("Gestisci costo spedizione");
-		btnBoh1.setBounds(86, 12, 645, 25);
-		panel.add(btnBoh1);
+		textSpedNormale = new JLabel("Spedizione Normale");
+		textSpedNormale.setBounds(10, 10, 80, 25);
+		panel.add(textSpedNormale);
+
 		
-		btnBoh2 = new JButton("Gestisci tipi prodotto");
-		btnBoh2.setBounds(86, 49, 645, 25);
-		panel.add(btnBoh2);
-		
-		btnBoh3 = new JButton("Gestisci sconto Ente");
-		btnBoh3.setBounds(86, 86, 645, 25);
-		panel.add(btnBoh3);
-		
-		btnBoh4 = new JButton("Gestisci trattenute sito");
-		btnBoh4.setBounds(86, 123, 645, 25);
-		panel.add(btnBoh4);
 		
 		System.out.println("ciao");
 		System.out.println("ciao");
 	}
-	
-	
-	
 	
 	private void addActionListener(){
-		btnBoh1.addActionListener(new ActionListener(){
-			
-			public void actionPerformed(ActionEvent e){;
-				System.out.println("ciao");
-			}
-		});
+		
 		
 	}
-	
-	private void closeAdminFrame(){
-		
-		this.setVisible(false);
-	}
-
 	
 	private void close(){
-	
+		
 		this.addWindowListener(new java.awt.event.WindowAdapter(){
 			
 			public void windowClosing(WindowEvent windowEvent){
@@ -96,4 +68,6 @@ public class AdminFinanceFrame extends JFrame{
 			}
 		});
 	}
+	
+
 }
