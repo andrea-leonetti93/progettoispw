@@ -21,7 +21,6 @@ public class TestGiorgio {
 		
 		LoginFrame lf = new LoginFrame();
 		
-		
 	
 	}
 

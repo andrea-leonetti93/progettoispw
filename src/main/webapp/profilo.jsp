@@ -9,12 +9,10 @@
 <jsp:setProperty name="updatebean" property="*"/>
     
 <%
-
 UtenteSessione us = (UtenteSessione) session.getAttribute("utente");
 String errorMessage = "";
 
 if(request.getParameter("salvaInfo") != null){
-	
 	if (updatebean.controlloCampi()){
 		if (updatebean.updateUtente(us.getUserid(),us.getEmail())){
 			errorMessage = "informazioni aggiornate";
@@ -23,7 +21,6 @@ if(request.getParameter("salvaInfo") != null){
 			errorMessage = "impossibile aggiornare";
 		}
 	}
-	
 	else {
 		errorMessage = "Password diverse";
 	}
@@ -37,10 +34,7 @@ if (request.getParameter("indietro") != null){
 	response.sendRedirect("index.jsp");
 }
 
-
 %>
-
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -107,10 +101,10 @@ if (request.getParameter("indietro") != null){
                   
                     <%if (us.getType()==2){ %>
                      <li>
-                        <a class="page-scroll" href="prova.jsp">Tuoi acquisti</a>
+                        <a class="page-scroll" href="listaAcquisti.jsp">Tuoi acquisti</a>
                     </li>
                      <li>
-                        <a class="page-scroll" href="prova.jsp">Carrello</a>
+                        <a class="page-scroll" href="carrello.jsp">Carrello</a>
                     </li>
                    
                     <%}else if (us.getType()==1) { %>
@@ -118,10 +112,8 @@ if (request.getParameter("indietro") != null){
                         <a class="page-scroll" href="annunci.jsp">Tuoi annunci</a>
                     </li>
                      <li>
-                        <a class="page-scroll" href="prova.jsp">Tue Vendite</a>
+                        <a class="page-scroll" href="visualizzaVendite.jsp">Tue Vendite</a>
                     </li>
-                    
-                    
                     <%}%>
                     <li>
                         <a class="page-scroll" href="#team"></a>
@@ -146,20 +138,15 @@ if (request.getParameter("indietro") != null){
     </header>
     
     <%
-    
     String email = us.getEmail();
     String userid = us.getUserid();
-    
-    String type = "Sconosciuto";
+   	String type = "Sconosciuto";
    
     if (us.getType()==1) type = "Venditore";
     else if (us.getType()==2){
     	if (us.isEnteB()) type = "Ente";
     	else type = "Consumatore";
     }
-    
-    
-    
     %>
     
      <div class="container">
