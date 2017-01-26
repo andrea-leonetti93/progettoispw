@@ -11,6 +11,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import it.uniroma2.ispw.controller.GestisciFinanza;
+import it.uniroma2.ispw.model.PrezzoSpedizione;
+
 public class VisualCostoSpedFrame extends JFrame {
 	
 	private static final long serialVersionUID = 1L;
@@ -22,8 +25,19 @@ public class VisualCostoSpedFrame extends JFrame {
 	//RegisterAdminFrame registerAdminFrame = null;
 	VisualUtentiFrame visualUtentiFrame = null;
 	private JPanel panel = new JPanel();
+	
 	private static JLabel textSpedNormale;
-	private static JTextField textSpedRapida;
+	private static JTextField insSpedNormale;
+	
+	private static JLabel textSpedRapida;
+	private static JTextField insSpedRapida;
+	
+	private JButton btnSalva;
+	
+	int inputSpedNormale;
+	int inputSpedRapida;
+	
+	private int row;
 	
 	public VisualCostoSpedFrame(){
 		super(titolo);
@@ -40,17 +54,69 @@ public class VisualCostoSpedFrame extends JFrame {
 	private void placeComponents(JPanel panel){
 		panel.setLayout(null);
 		
-		textSpedNormale = new JLabel("Spedizione Normale");
-		textSpedNormale.setBounds(10, 10, 80, 25);
+		textSpedNormale = new JLabel("Costo Spedizione Normale");
+		textSpedNormale.setBounds(10, 10, 200, 25);
 		panel.add(textSpedNormale);
+		
+		insSpedNormale = new JTextField(20);
+		insSpedNormale.setBounds(15, 40, 200, 25);
+		panel.add(insSpedNormale);
+		
+		textSpedRapida = new JLabel("Costo Spedizione Rapida");
+		textSpedRapida.setBounds(10, 80, 200, 25);
+		panel.add(textSpedRapida);
+		
+		insSpedRapida = new JTextField(20);
+		insSpedRapida.setBounds(15, 110, 200, 25);
+		panel.add(insSpedRapida);
+		
+		btnSalva = new JButton("Salva");
+		btnSalva.setBounds(15, 165, 200, 25);
+		panel.add(btnSalva);
+		
+		//qui devo caricare dal database i due prezzi
+		
+		GestisciFinanza gf = new GestisciFinanza();
+		
+		PrezzoSpedizione psNormale = gf.prendiPrezzoSpedizione("Normale");
+		PrezzoSpedizione psRapida = gf.prendiPrezzoSpedizione("Rapida");
+		
+		
+		if (psNormale!=null) inputSpedNormale = psNormale.getCostoConsegna(); 
+		else inputSpedNormale = 2; //default
+		
+		if (psRapida != null) inputSpedRapida = psRapida.getCostoConsegna(); 
+		else inputSpedRapida = 4; //default
 
+		insSpedNormale.setText(String.valueOf(inputSpedNormale));
+		insSpedRapida.setText(String.valueOf(inputSpedRapida));
 		
 		
-		System.out.println("ciao");
-		System.out.println("ciao");
+
 	}
 	
 	private void addActionListener(){
+		
+		btnSalva.addActionListener(new ActionListener(){
+			
+			public void actionPerformed(ActionEvent e){
+				
+				inputSpedNormale = Integer.parseInt(insSpedNormale.getText());
+				inputSpedRapida = Integer.parseInt(insSpedRapida.getText());
+				GestisciFinanza gf = new GestisciFinanza();
+				
+				
+				PrezzoSpedizione psN = new PrezzoSpedizione("Normale",inputSpedNormale);
+				PrezzoSpedizione psR = new PrezzoSpedizione("Rapida", inputSpedRapida);
+				
+				gf.aggiungiOModificaPrezzoSpedizione(psN);
+				gf.aggiungiOModificaPrezzoSpedizione(psR);
+				
+				insSpedNormale.setText(String.valueOf(inputSpedNormale));
+				insSpedRapida.setText(String.valueOf(inputSpedRapida));
+				
+			}
+		});
 		
 		
 	}
@@ -60,11 +126,7 @@ public class VisualCostoSpedFrame extends JFrame {
 		this.addWindowListener(new java.awt.event.WindowAdapter(){
 			
 			public void windowClosing(WindowEvent windowEvent){
-				Integer risposta = JOptionPane.showConfirmDialog(null, "Sei sicuro di voler chiudere l'applicazione?", "Stai per chiudere l'applicazione", JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
-		        if ( risposta == JOptionPane.YES_OPTION) {
-		        	 LoginFrame loginFrame = new LoginFrame();
-				     loginFrame.setVisible(true);
-		        }
+				
 			}
 		});
 	}

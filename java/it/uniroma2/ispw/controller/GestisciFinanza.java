@@ -20,8 +20,16 @@ public class GestisciFinanza {
 	
 	public boolean eliminaTipoProdotto(TipoProdotto tp){
 		TipoProdottoDAO tpdao = new TipoProdottoDAO();
+		List<TipoProdotto> ltp = tpdao.listaTipiProdotto();
 		
-		return tpdao.deleteTipoProdotto(tp);
+		for (TipoProdotto tps : ltp){
+			if ((tp.getCategoria().equals(tps.getCategoria()))&&(tp.getTipologia().equals(tps.getTipologia()))){
+				return tpdao.deleteTipoProdotto(tps);
+			}
+		}
+		
+		return true;
+		
 	}
 	
 	public List<TipoProdotto> visualizzaListaTipiProdotto(){
@@ -35,6 +43,12 @@ public class GestisciFinanza {
 		
 		if (psdao.addOrUpdatePrezzoSpedizione(ps)!=null) return true;
 		return false;
+	}
+	
+	public PrezzoSpedizione prendiPrezzoSpedizione(String tipoSpedizione){
+		PrezzoSpedizioneDAO psdao = new PrezzoSpedizioneDAO();
+		
+		return psdao.getPrezzoSpedizione(tipoSpedizione);
 	}
 	
 

@@ -9,7 +9,9 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-public class AdminFinanceFrame extends JFrame{
+import it.uniroma2.ispw.style.BeautifulJButton;
+
+public class AdminFinanceFrame extends JFrame implements ActionListener{
 	
 	
 	/**
@@ -22,12 +24,16 @@ public class AdminFinanceFrame extends JFrame{
 	//VisualOrdiniFrame visualOrdiniFrame = null;
 	//VisualProdottiFrame visualProdottiFrame = null;
 	//RegisterAdminFrame registerAdminFrame = null;
+	VisualCostoSpedFrame visualCostoSpedFrame = null;
+	VisualTipiProdottoFrame visualTipiProdottoFrame = null;
 	VisualUtentiFrame visualUtentiFrame = null;
 	private JPanel panel = new JPanel();
-	private JButton btnBoh1;
-	private JButton btnBoh2;
-	private JButton btnBoh3;
-	private JButton btnBoh4;
+	private JButton btnCostoSped;
+	private JButton btnTipiProdotto;
+	private JButton btnScontoEnte;
+	private JButton btnTrattenutaSito;
+	
+	private WidgetFactory widgetFactory = new MagicWidgetFactory();
 	
 	public AdminFinanceFrame(){
 		super(titolo);
@@ -44,31 +50,59 @@ public class AdminFinanceFrame extends JFrame{
 	private void placeComponents(JPanel panel){
 		panel.setLayout(null);
 		
-		btnBoh1 = new JButton("Gestisci costo spedizione");
-		btnBoh1.setBounds(86, 12, 645, 25);
-		panel.add(btnBoh1);
+		btnCostoSped = new JButton("Gestisci costo spedizione");
+		btnCostoSped.setBounds(86, 12, 645, 25);
+		panel.add(btnCostoSped);
 		
-		btnBoh2 = new JButton("Gestisci tipi prodotto");
-		btnBoh2.setBounds(86, 49, 645, 25);
-		panel.add(btnBoh2);
+		btnTipiProdotto = new JButton("Gestisci tipi prodotto");
+		btnTipiProdotto.setBounds(86, 49, 645, 25);
+		panel.add(btnTipiProdotto);
 		
-		btnBoh3 = new JButton("Gestisci sconto Ente");
-		btnBoh3.setBounds(86, 86, 645, 25);
-		panel.add(btnBoh3);
+		btnScontoEnte = new JButton("Gestisci sconto Ente");
+		btnScontoEnte.setBounds(86, 86, 645, 25);
+		panel.add(btnScontoEnte);
 		
-		btnBoh4 = new JButton("Gestisci trattenute sito");
-		btnBoh4.setBounds(86, 123, 645, 25);
-		panel.add(btnBoh4);
+		btnTrattenutaSito = new BeautifulJButton();
+		btnTrattenutaSito.setText("Gestisci trattenute sito");
+		btnTrattenutaSito.setBounds(86, 123, 645, 25);
+		panel.add(btnTrattenutaSito);
 		
-		System.out.println("ciao");
-		System.out.println("ciao");
+		
 	}
 	
-	
-	
-	
 	private void addActionListener(){
-		btnBoh1.addActionListener(new ActionListener(){
+		
+		btnCostoSped.addActionListener(new ActionListener(){
+			
+			public void actionPerformed(ActionEvent e){;
+				visualCostoSpedFrame = new VisualCostoSpedFrame();
+				visualCostoSpedFrame.setVisible(true);
+				visualCostoSpedFrame.toFront();
+				visualCostoSpedFrame.repaint();
+				//closeAdminFrame();
+			
+			}
+		});
+		
+		btnTipiProdotto.addActionListener(new ActionListener(){
+			
+			public void actionPerformed(ActionEvent e){;
+				visualTipiProdottoFrame = new VisualTipiProdottoFrame();
+				visualTipiProdottoFrame.setVisible(true);
+				visualTipiProdottoFrame.toFront();
+				visualTipiProdottoFrame.repaint();
+			
+			}
+		});
+		
+		btnScontoEnte.addActionListener(new ActionListener(){
+			
+			public void actionPerformed(ActionEvent e){;
+				System.out.println("ciao");
+			}
+		});
+		
+		btnTrattenutaSito.addActionListener(new ActionListener(){
 			
 			public void actionPerformed(ActionEvent e){;
 				System.out.println("ciao");
@@ -79,7 +113,8 @@ public class AdminFinanceFrame extends JFrame{
 	
 	private void closeAdminFrame(){
 		
-		this.setVisible(false);
+		this.dispose();
+		//this.setVisible(false);
 	}
 
 	
@@ -95,5 +130,10 @@ public class AdminFinanceFrame extends JFrame{
 		        }
 			}
 		});
+	}
+
+	public void actionPerformed(ActionEvent arg0) {
+		// TODO Auto-generated method stub
+		
 	}
 }

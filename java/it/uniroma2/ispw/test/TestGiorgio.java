@@ -7,6 +7,9 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import it.uniroma2.ispw.laptop.AdminFinanceFrame;
+import it.uniroma2.ispw.laptop.LoginFrame;
+import it.uniroma2.ispw.laptop.VisualCostoSpedFrame;
+import it.uniroma2.ispw.laptop.VisualTipiProdottoFrame;
 import it.uniroma2.ispw.model.PrezzoSpedizione;
 import it.uniroma2.ispw.model.TipoProdotto;
 import it.uniroma2.ispw.persistence.PrezzoSpedizioneDAO;
@@ -16,7 +19,8 @@ public class TestGiorgio {
 
 	public static void main(String[] args) {
 		
-		AdminFinanceFrame aff = new AdminFinanceFrame();
+		LoginFrame lf = new LoginFrame();
+		
 		
 	
 	}
