@@ -20,6 +20,8 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import it.uniroma2.ispw.controller.GestioneSistema;
+import it.uniroma2.ispw.factory.BeautifulWidgetFactory;
+import it.uniroma2.ispw.factory.WidgetFactory;
 import it.uniroma2.ispw.model.Prodotto;
 import it.uniroma2.ispw.model.TipoProdotto;
 
@@ -30,9 +32,11 @@ public class VisualProdottiFrame extends JFrame{
 	 */
 	private static final long serialVersionUID = 1L;
 	
+	private WidgetFactory widgetFactory = new BeautifulWidgetFactory();
+	
 	private static String titolo = "Visualizza prodotti";
 	private GestioneSistema gs = new GestioneSistema();
-	private JPanel panel = new JPanel();
+	private JPanel panel = widgetFactory.createJPanel();
 	private JButton btnTuttiProdotti;
 	private JButton btnRiceProdotti;
 	private JLabel labelCategoria;
@@ -83,15 +87,17 @@ public class VisualProdottiFrame extends JFrame{
 		boxTipologia.setBounds(42, 123, 625, 25);
 		panel.add(boxTipologia);
 		
-		btnRiceProdotti = new JButton("Avvia ricerca prodotti");
+		btnRiceProdotti = widgetFactory.createJButton();
+		btnRiceProdotti.setText("Avvia ricerca prodotti");
 		btnRiceProdotti.setBounds(42, 158, 625, 25);
 		panel.add(btnRiceProdotti);
 		
-		btnTuttiProdotti = new JButton("Avvia ricerca tutti i prodotti");
+		btnTuttiProdotti = widgetFactory.createJButton();
+		btnTuttiProdotti.setText("Avvia ricerca tutti i prodotti");
 		btnTuttiProdotti.setBounds(42, 200, 625, 25);
 		panel.add(btnTuttiProdotti);
 		
-		table = new JTable(0, 0);
+		table =  widgetFactory.createJTable();
 		model = (DefaultTableModel) table.getModel();
 		scrollPane = new JScrollPane(table);
 		model.addColumn("idProdotto");

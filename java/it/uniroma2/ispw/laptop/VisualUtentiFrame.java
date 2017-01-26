@@ -15,6 +15,8 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import it.uniroma2.ispw.controller.GestioneSistema;
+import it.uniroma2.ispw.factory.BeautifulWidgetFactory;
+import it.uniroma2.ispw.factory.WidgetFactory;
 import it.uniroma2.ispw.model.UtenteRegistrato;
 import it.uniroma2.ispw.model.Venditore;
 
@@ -30,7 +32,10 @@ public class VisualUtentiFrame extends JFrame{
 	
 	//private static String[] header = {"UseriID", "Email", "Nome", "Cognome", "Tipo", "Indirizzo", "Numero"};
 	
-	private JPanel panel = new JPanel();
+	private WidgetFactory widgetFactory = new BeautifulWidgetFactory();
+	
+	private JPanel panel = widgetFactory.createJPanel();
+	
 	private DefaultTableModel model;
 	private JButton btnTutti;
 	private JButton btnVenditori;
@@ -60,15 +65,18 @@ public class VisualUtentiFrame extends JFrame{
 	private void placeComponents(JPanel panel){
 		panel.setLayout(null);
 		
-		btnConsumatori = new JButton("Visualizza i consumatori");
+		btnConsumatori = widgetFactory.createJButton();
+		btnConsumatori.setText("Visualizza i consumatori");
 		btnConsumatori.setBounds(86, 12, 320, 25);
 		panel.add(btnConsumatori);
 		
-		btnVenditori = new JButton("Visualizza i venditori");
+		btnVenditori = widgetFactory.createJButton();
+		btnVenditori.setText("Visualizza i venditori");
 		btnVenditori.setBounds(420, 12, 320, 25);
 		panel.add(btnVenditori);
 		
-		btnTutti = new JButton("Visualizza tutti gli utenti");
+		btnTutti = widgetFactory.createJButton();
+		btnTutti.setText("Visualizza tutti gli utenti");
 		btnTutti.setBounds(86, 49, 645, 25);
 		panel.add(btnTutti);
 		
@@ -78,7 +86,7 @@ public class VisualUtentiFrame extends JFrame{
 		table.setAutoscrolls(true);
 		table.setPreferredScrollableViewportSize(d);
 		panel.add(table);*/
-		table = new JTable(0, 0);
+		table = widgetFactory.createJTable();
 		model = (DefaultTableModel) table.getModel();
 		scrollPane = new JScrollPane(table);
 		model.addColumn("UserID");

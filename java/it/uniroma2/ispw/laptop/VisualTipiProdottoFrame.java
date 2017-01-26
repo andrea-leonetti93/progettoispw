@@ -19,6 +19,9 @@ import javax.swing.table.DefaultTableModel;
 import org.hibernate.mapping.Table;
 
 import it.uniroma2.ispw.controller.GestisciFinanza;
+import it.uniroma2.ispw.factory.BeautifulWidgetFactory;
+import it.uniroma2.ispw.factory.MagicWidgetFactory;
+import it.uniroma2.ispw.factory.WidgetFactory;
 import it.uniroma2.ispw.model.PrezzoSpedizione;
 import it.uniroma2.ispw.model.TipoProdotto;
 
@@ -32,6 +35,8 @@ public class VisualTipiProdottoFrame extends JFrame {
 	//VisualProdottiFrame visualProdottiFrame = null;
 	//RegisterAdminFrame registerAdminFrame = null;
 	VisualUtentiFrame visualUtentiFrame = null;
+	
+	private WidgetFactory widgetFactory = new MagicWidgetFactory();
 	
 	private static JLabel labelAggiungi;
 	private static JLabel labelElimina;
@@ -59,7 +64,7 @@ public class VisualTipiProdottoFrame extends JFrame {
 	private JTable table;
 	private DefaultTableModel model;
 	private JScrollPane scrollPane;
-	private JPanel panel = new JPanel();
+	private JPanel panel = widgetFactory.createJPanel();
 	
 	
 	public VisualTipiProdottoFrame(){
@@ -79,10 +84,7 @@ public class VisualTipiProdottoFrame extends JFrame {
 	private void placeComponents(JPanel panel){
 		panel.setLayout(null);
 		
-		table = new JTable();
-		Color textColor = Color.decode("#f007ff");
-		panel.setBackground(textColor);
-		table.setBackground(textColor);
+		table = widgetFactory.createJTable();
 		model = (DefaultTableModel) table.getModel();
 		scrollPane = new JScrollPane(table);
 		model.addColumn("idTipoProdotto");
@@ -110,7 +112,8 @@ public class VisualTipiProdottoFrame extends JFrame {
 		insTipologiaAdd.setBounds(100, 75, 200, 25);
 		panel.add(insTipologiaAdd);
 		
-		btnAdd = new JButton("Aggiungi");
+		btnAdd = widgetFactory.createJButton();
+		btnAdd.setText("Aggiungi");
 		btnAdd.setBounds(10, 110, 200, 25);
 		panel.add(btnAdd);
 		
@@ -123,7 +126,8 @@ public class VisualTipiProdottoFrame extends JFrame {
 		insTipologiaDel.setBounds(100, 365, 200, 25);
 		panel.add(insTipologiaDel);
 		
-		btnDel = new JButton("Elimina");
+		btnDel = widgetFactory.createJButton();
+		btnDel.setText("Elimina");
 		btnDel.setBounds(10, 400, 200, 25);
 		panel.add(btnDel);
 		

@@ -9,6 +9,9 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import it.uniroma2.ispw.factory.BeautifulWidgetFactory;
+import it.uniroma2.ispw.factory.WidgetFactory;
+
 public class AdminFrame extends JFrame{
 
 	/**
@@ -23,7 +26,9 @@ public class AdminFrame extends JFrame{
 	private RegisterAdminFrame registerAdminFrame = null;
 	//private LogFrame logFrame = null;
 	
-	private JPanel panel = new JPanel();
+	private WidgetFactory widgetFactory = new BeautifulWidgetFactory();
+	
+	private JPanel panel = widgetFactory.createJPanel();
 	private JButton btnVisualUtenti;
 	private JButton btnVisualOrdini;
 	private JButton btnVisualProdotti;
@@ -45,23 +50,28 @@ public class AdminFrame extends JFrame{
 	private void placeComponents(JPanel panel){
 		panel.setLayout(null);
 		
-		btnVisualUtenti = new JButton("Visualizza utenti");
+		btnVisualUtenti = widgetFactory.createJButton();
+		btnVisualUtenti.setText("Visualizza utenti");
 		btnVisualUtenti.setBounds(86, 12, 645, 25);
 		panel.add(btnVisualUtenti);
 		
-		btnVisualOrdini = new JButton("Visualizza ordini");
+		btnVisualOrdini = widgetFactory.createJButton();
+		btnVisualOrdini.setText("Visualizza ordini");
 		btnVisualOrdini.setBounds(86, 49, 645, 25);
 		panel.add(btnVisualOrdini);
 		
-		btnVisualProdotti = new JButton("Visualizza prodotti");
+		btnVisualProdotti = widgetFactory.createJButton();
+		btnVisualProdotti.setText("Visualizza prodotti");
 		btnVisualProdotti.setBounds(86, 86, 645, 25);
 		panel.add(btnVisualProdotti);
 		
-		btnRegistraAdmin = new JButton("Registra nuovo amministratore");
+		btnRegistraAdmin = widgetFactory.createJButton();
+		btnRegistraAdmin.setText("Registra nuovo amministratore");
 		btnRegistraAdmin.setBounds(86, 123, 645, 25);
 		panel.add(btnRegistraAdmin);
 		
-		btnLog = new JButton("Visualizza log di sistema");
+		btnLog = widgetFactory.createJButton();
+		btnLog.setText("Visualizza log di sistema");
 		btnLog.setBounds(86, 158, 645, 25);
 		panel.add(btnLog);
 		

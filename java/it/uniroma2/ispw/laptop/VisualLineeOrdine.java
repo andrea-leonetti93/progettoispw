@@ -10,6 +10,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import it.uniroma2.ispw.factory.BeautifulWidgetFactory;
+import it.uniroma2.ispw.factory.WidgetFactory;
 import it.uniroma2.ispw.model.LineaOrdine;
 import it.uniroma2.ispw.model.Ordine;
 
@@ -19,12 +21,14 @@ public class VisualLineeOrdine extends JFrame{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	private WidgetFactory widgetFactory = new BeautifulWidgetFactory();
 
 	
 	private static String titolo = "Visualizza linee per ordine";
 
 	
-	private JPanel panel = new JPanel();
+	private JPanel panel = widgetFactory.createJPanel();
 	private JTable table;
 	private DefaultTableModel model;
 	private JScrollPane scrollPane;
@@ -46,7 +50,7 @@ public class VisualLineeOrdine extends JFrame{
 	private void placeComponents(JPanel panel){
 		panel.setLayout(null);
 		
-		table = new JTable(0, 0);
+		table = widgetFactory.createJTable();
 		model = (DefaultTableModel) table.getModel();
 		scrollPane = new JScrollPane(table);
 		model.addColumn("idLineaOrdine");

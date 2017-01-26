@@ -9,6 +9,8 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import it.uniroma2.ispw.factory.MagicWidgetFactory;
+import it.uniroma2.ispw.factory.WidgetFactory;
 import it.uniroma2.ispw.style.BeautifulJButton;
 
 public class AdminFinanceFrame extends JFrame implements ActionListener{
@@ -27,13 +29,16 @@ public class AdminFinanceFrame extends JFrame implements ActionListener{
 	VisualCostoSpedFrame visualCostoSpedFrame = null;
 	VisualTipiProdottoFrame visualTipiProdottoFrame = null;
 	VisualUtentiFrame visualUtentiFrame = null;
-	private JPanel panel = new JPanel();
+	
+	private WidgetFactory widgetFactory = new MagicWidgetFactory();
+	
+	private JPanel panel = widgetFactory.createJPanel();
 	private JButton btnCostoSped;
 	private JButton btnTipiProdotto;
 	private JButton btnScontoEnte;
 	private JButton btnTrattenutaSito;
 	
-	private WidgetFactory widgetFactory = new MagicWidgetFactory();
+	
 	
 	public AdminFinanceFrame(){
 		super(titolo);
@@ -50,19 +55,22 @@ public class AdminFinanceFrame extends JFrame implements ActionListener{
 	private void placeComponents(JPanel panel){
 		panel.setLayout(null);
 		
-		btnCostoSped = new JButton("Gestisci costo spedizione");
+		btnCostoSped = widgetFactory.createJButton();
+		btnCostoSped.setText("Gestisci costo spedizione");
 		btnCostoSped.setBounds(86, 12, 645, 25);
 		panel.add(btnCostoSped);
 		
-		btnTipiProdotto = new JButton("Gestisci tipi prodotto");
+		btnTipiProdotto = widgetFactory.createJButton();
+		btnTipiProdotto.setText("Gestisci tipi prodotto");
 		btnTipiProdotto.setBounds(86, 49, 645, 25);
 		panel.add(btnTipiProdotto);
 		
-		btnScontoEnte = new JButton("Gestisci sconto Ente");
+		btnScontoEnte = widgetFactory.createJButton();
+		btnScontoEnte.setText("Gestisci sconto Ente");
 		btnScontoEnte.setBounds(86, 86, 645, 25);
 		panel.add(btnScontoEnte);
 		
-		btnTrattenutaSito = new BeautifulJButton();
+		btnTrattenutaSito = widgetFactory.createJButton();
 		btnTrattenutaSito.setText("Gestisci trattenute sito");
 		btnTrattenutaSito.setBounds(86, 123, 645, 25);
 		panel.add(btnTrattenutaSito);

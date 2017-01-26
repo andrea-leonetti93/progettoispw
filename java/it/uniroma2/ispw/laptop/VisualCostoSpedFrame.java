@@ -12,6 +12,9 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import it.uniroma2.ispw.controller.GestisciFinanza;
+import it.uniroma2.ispw.factory.BeautifulWidgetFactory;
+import it.uniroma2.ispw.factory.MagicWidgetFactory;
+import it.uniroma2.ispw.factory.WidgetFactory;
 import it.uniroma2.ispw.model.PrezzoSpedizione;
 
 public class VisualCostoSpedFrame extends JFrame {
@@ -24,7 +27,11 @@ public class VisualCostoSpedFrame extends JFrame {
 	//VisualProdottiFrame visualProdottiFrame = null;
 	//RegisterAdminFrame registerAdminFrame = null;
 	VisualUtentiFrame visualUtentiFrame = null;
-	private JPanel panel = new JPanel();
+	
+	
+	private WidgetFactory widgetFactory = new MagicWidgetFactory();
+	
+	private JPanel panel = widgetFactory.createJPanel();
 	
 	private static JLabel textSpedNormale;
 	private static JTextField insSpedNormale;
@@ -70,7 +77,8 @@ public class VisualCostoSpedFrame extends JFrame {
 		insSpedRapida.setBounds(15, 110, 200, 25);
 		panel.add(insSpedRapida);
 		
-		btnSalva = new JButton("Salva");
+		btnSalva = widgetFactory.createJButton();
+		btnSalva.setText("Salva");
 		btnSalva.setBounds(15, 165, 200, 25);
 		panel.add(btnSalva);
 		

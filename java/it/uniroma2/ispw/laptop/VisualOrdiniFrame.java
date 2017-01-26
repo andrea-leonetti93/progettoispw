@@ -17,6 +17,8 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
 import it.uniroma2.ispw.controller.GestioneSistema;
+import it.uniroma2.ispw.factory.BeautifulWidgetFactory;
+import it.uniroma2.ispw.factory.WidgetFactory;
 import it.uniroma2.ispw.model.Ordine;
 import it.uniroma2.ispw.model.PagamentoCarta;
 import it.uniroma2.ispw.model.SpedizioneNormale;
@@ -29,12 +31,14 @@ public class VisualOrdiniFrame extends JFrame{
 	private static final long serialVersionUID = 1L;
 	
 	private static String titolo = "Visualizza gli ordini";
+	
+	private WidgetFactory widgetFactory = new BeautifulWidgetFactory();
 
 	private GestioneSistema gs = new GestioneSistema();
 	private VisualLineeOrdine visualLineeOrdine = null;
 	private List<Ordine> listaOrdini;
 	
-	private JPanel panel = new JPanel();
+	private JPanel panel = widgetFactory.createJPanel();
 	private JButton btnOrdini;
 	private JTable table;
 	private DefaultTableModel model;
@@ -58,7 +62,8 @@ public class VisualOrdiniFrame extends JFrame{
 	private void placeComponents(JPanel panel){
 		panel.setLayout(null);
 		
-		btnOrdini = new JButton("Visualizza ordini consumatori");
+		btnOrdini = widgetFactory.createJButton();
+		btnOrdini.setText("Visualizza ordini consumatori");
 		btnOrdini.setBounds(86, 12, 645, 25);
 		panel.add(btnOrdini);
 		
@@ -66,7 +71,7 @@ public class VisualOrdiniFrame extends JFrame{
 		textLabel.setBounds(86, 49, 685, 25);
 		panel.add(textLabel);
 		
-		table = new JTable(0, 0);
+		table = widgetFactory.createJTable();
 		model = (DefaultTableModel) table.getModel();
 		scrollPane = new JScrollPane(table);
 		model.addColumn("idOrdine");
