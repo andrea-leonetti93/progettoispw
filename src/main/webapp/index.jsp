@@ -12,29 +12,15 @@
 <jsp:useBean id="ricercab" scope="session" class="it.uniroma2.ispw.bean.RicercaBean"/>
 <jsp:setProperty name="ricercab" property="*"/>
 
-
 <%
-
 
 UtenteSessione us = (UtenteSessione) session.getAttribute("utente");
 
-
-
-
 if(request.getParameter("cerca")!=null){
-	
 	ricercab.ricercaProdotto();
 }
-
 else {
 	ricercab.setLpv(null);
-}
-
-if(request.getParameter("inviaReg2")!=null){
-	
-	System.out.println("prova");
-	System.out.println(request.getParameter("inviaReg2"));
-	
 }
 
 if(request.getParameter("accedi") != null){
@@ -57,19 +43,12 @@ if(request.getParameter("accedi") != null){
 	}
 }
 
-if(request.getParameter("invia") != null){
-	
-	out.println("we");
-}
-
 if (request.getParameter("logout") != null){
-
 	us = null;
 	session.invalidate();
 }
 
 %>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -131,7 +110,6 @@ if (request.getParameter("logout") != null){
                   
                     
                     <%if (us==null){ %>
-                    
                     <li>
                         <a class="forget" data-toggle="modal" data-target=".forget-modal-login" href="#modalLogin">Login</a>
                     </li>
@@ -166,9 +144,8 @@ if (request.getParameter("logout") != null){
                      <li>
                         <a class="page-scroll" href="visualizzaVendite.jsp">Tue Vendite</a>
                     </li>
-                    
-                    
                     <%}%>
+                    
                     <li>
                         <a class="page-scroll" href="#team"></a>
                     </li>
@@ -251,7 +228,6 @@ if (request.getParameter("logout") != null){
 						<p>Sicuro di abbandonare la sessione?</p>					
 					</div>
 					<div class="modal-footer">	
-					
 					<form action="index.jsp" method="post">		
 						<input class="btn btn-custom" type="submit" id="btn-logout" name="logout" value="Abbandona">
 					</form>
@@ -280,21 +256,18 @@ if (request.getParameter("logout") != null){
     </header>
     
     	<%
-								
 			TipoProdottoDAO tpdao = new TipoProdottoDAO();
-								
 			List<TipoProdotto> ltp = tpdao.listaTipiProdotto();
 			List<String> listaCategorie = new ArrayList<String>();
 								
 			for (TipoProdotto tp : ltp){
 				listaCategorie.add(tp.getCategoria());
 			}
-								
+			
 			//Elimina Doppioni Categorie
 			Set<String> se = new HashSet<String>(listaCategorie);
 			listaCategorie.clear();
 			listaCategorie = new ArrayList<String>(se);
-								
 		%>							
 
     <!-- Services Section -->
@@ -329,13 +302,12 @@ if (request.getParameter("logout") != null){
 								<%for (TipoProdotto tp : ltp){%>
 									<option data-option="<%= tp.getCategoria() %>"><%=tp.getTipologia() %></option>
 								<%} %>
-							</select>
+								</select>
             					</div>
             				</div>	
           					</div>
 							<div class="form-group">
-								<input type="text" class="form-control" placeholder="Nome prodotto" name="nomeR
-								icerca"  id="nomeprodotto" >
+								<input type="text" class="form-control" placeholder="Nome prodotto" name="nomeRicerca"  id="nomeprodotto" >
 								<p class="help-block text-danger" ></p>
 							</div>
 							<div class="col-md-6">
@@ -366,8 +338,6 @@ if (request.getParameter("logout") != null){
    
     if (ricercab.getLpv()!=null){
     	for(int i=0;i<ricercab.getLpv().size();i++){
-    	
-    
     %>
     	
     	    <!-- Project One -->
@@ -388,15 +358,8 @@ if (request.getParameter("logout") != null){
         </div>
         <!-- /.row -->
     	
-    	
-    <%} }%>
+     <%} }%>
     
-       
-    
-	
-	
-   
-
     <footer>
         <div class="container">
             <div class="row">

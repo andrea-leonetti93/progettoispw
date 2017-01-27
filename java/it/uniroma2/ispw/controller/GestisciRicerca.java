@@ -64,6 +64,8 @@ public class GestisciRicerca {
 	}
 
 	public static int distance(String a, String b) {
+		System.out.println("---");
+		System.out.println(b);
         a = a.toLowerCase();
         b = b.toLowerCase();
         // i == 0

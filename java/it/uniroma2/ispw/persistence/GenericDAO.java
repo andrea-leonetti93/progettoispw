@@ -37,7 +37,7 @@ public abstract class GenericDAO<T> {
 		getSessionFactory().close();
 	}
 
-
+	/*
 	public Long create(T o){
 		Session session = getSessionFactory().openSession();
 		session.beginTransaction();
@@ -46,7 +46,7 @@ public abstract class GenericDAO<T> {
 		session.close();
 		System.out.println("Oggetto creato " + o.toString());
 		return ((IPersistente) o).getId();
-    }
+    }*/
 
 
     public void delete(Long id){

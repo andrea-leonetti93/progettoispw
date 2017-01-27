@@ -14,6 +14,8 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import it.uniroma2.ispw.controller.GestioneSistema;
+import it.uniroma2.ispw.factory.BeautifulWidgetFactory;
+import it.uniroma2.ispw.factory.WidgetFactory;
 import it.uniroma2.ispw.model.Amministratore;
 import it.uniroma2.ispw.model.AmministrazioneDiSistema;
 import it.uniroma2.ispw.model.AmministrazioneFinanziaria;
@@ -30,7 +32,10 @@ public class RegisterAdminFrame extends JFrame{
 
 	private GestioneSistema gs = new GestioneSistema();
 	
-	private JPanel panel = new JPanel();
+	
+	private WidgetFactory widgetFactory = new BeautifulWidgetFactory();
+	
+	private JPanel panel = widgetFactory.createJPanel();
 	private JLabel passwordLabel;
 	private JPasswordField passwordText;
 	private JLabel nameLabel;
@@ -118,7 +123,8 @@ public class RegisterAdminFrame extends JFrame{
 		comboBoxRule.addItem("Amministratore finanziario");
 		
 		// Bottone Per Registrarsi
-		btnRegister = new JButton("Registra");
+		btnRegister = widgetFactory.createJButton();
+		btnRegister.setText("Registra");
 		btnRegister.setBounds(360, 105, 160, 25);
 		panel.add(btnRegister);
 		
