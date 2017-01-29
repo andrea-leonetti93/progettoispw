@@ -17,7 +17,7 @@ public class InsProdottoBean {
 	private int disponibilita;
 	private String comment;
 	private UtenteSessione utente;
-	private List<Prodotto> arrayProdotti;
+	private List<ProdottoBean> arrayProdotti;
 	
 	public InsProdottoBean(){
 		this.idProd = 0;
@@ -89,11 +89,11 @@ public class InsProdottoBean {
 		this.utente = utente;
 	}
 
-	public List<Prodotto> getArrayProdotti() {
+	public List<ProdottoBean> getArrayProdotti() {
 		return arrayProdotti;
 	}
 
-	public void setArrayProdotti(List<Prodotto> arrayProdotti) {
+	public void setArrayProdotti(List<ProdottoBean> arrayProdotti) {
 		this.arrayProdotti = arrayProdotti;
 	}
 
@@ -120,14 +120,8 @@ public class InsProdottoBean {
 	public boolean acquisisciProdotto(){
 		
 		GestisciProdotto gp = new GestisciProdotto();
-		Prodotto p = null;
+		return gp.inserisciProdotto(this);
 		
-		p = gp.inserisciProdotto(this);
-		if(p == null){
-			return false;
-		}
-		//arrayProdotti.add(p);
-		return true;
 	}
 	
 	public void riempiLista(String email){
@@ -139,12 +133,11 @@ public class InsProdottoBean {
 	public boolean eliminaProdotto(){
 		
 		GestisciProdotto gp = new GestisciProdotto();
-		if(gp.deleteProduct(idProd)){
-			return true;
-		}
-		return false;
+		return gp.deleteProduct(idProd);
+		
 	}
 	
+	/*
 	public boolean trovaProdotto(){
 		
 		GestisciProdotto gp = new GestisciProdotto();
@@ -152,6 +145,7 @@ public class InsProdottoBean {
 		if((p = gp.selezionaProdottoPerID(idProd)) == null){
 			return false;
 		}
+		
 		//idProd è qià quello del prodotto scelto
 		nameProduct = p.getNome();
 		category = p.getCategoria();
@@ -160,19 +154,12 @@ public class InsProdottoBean {
 		sale = p.getSconto();
 		System.out.println("nome prodotto" + nameProduct);
 		return true;
-	}
-
-	public boolean modificheProdotto(){
+	}*/
+	
+	public boolean trovaProdotto(){
 		
 		GestisciProdotto gp = new GestisciProdotto();
-		Prodotto p = null;
-		System.out.println("nome prodotto" + nameProduct);
-		System.out.println("categoria" + category);
-		p = gp.aggiornaProdotto(this);
-		if(p == null){
-			return false;
-		}
-		return true;
+		return gp.selezionaProdottoPerId(this);
 	}
 	
 }

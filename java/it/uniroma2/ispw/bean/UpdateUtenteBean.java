@@ -51,12 +51,19 @@ public class UpdateUtenteBean {
 		this.street = street;
 	}
 	
+	
+	public int getType() {
+		return type;
+	}
+	public void setType(int type) {
+		this.type = type;
+	}
 	public boolean getUtente(String email){
 		
 		GestisciUtente gu = GestisciUtente.getInstance();
+		return gu.visualizzaInformazioni(email, this);
 		
-		UtenteRegistrato ur = gu.visualizzaInformazioni(email);
-		
+		/*
 		if (ur != null){
 			this.name = ur.getNome();
 			this.surname = ur.getCognome();
@@ -71,28 +78,24 @@ public class UpdateUtenteBean {
 			return true;
 		}
 		
-		return false;
+		return false;*/
 		
 	}
 	
+	//ok;
 	public boolean controlloCampi(){
 		
 		return (this.password.equals(this.rippassword));
 	}
 	
-
+	//ok;
 	public boolean updateUtente(String userid, String email){
     	
     	GestisciUtente gu = GestisciUtente.getInstance();
     	
     	UtenteRegistrato ur = null;
     	
-    	ur = gu.modificaInformazioni(userid, name, surname, email, password, telephone, street, type);
-    	
-    	if (ur==null) return false;
-    	return true;
-    	
-    	
+    	return gu.modificaInformazioni(userid, name, surname, email, password, telephone, street, type);
     }
 	
 

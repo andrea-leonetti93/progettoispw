@@ -28,27 +28,9 @@ if(request.getParameter("deleteProd") != null){
 	
 	int idProd = Integer.parseInt(request.getParameter("deleteProd"));
 	
-	System.out.println("ciao");
 	System.out.println(idProd);
-	System.out.println("");
-	
-	
-	GestisciProdotto gp = new GestisciProdotto();
-	Prodotto p = gp.selezionaProdottoPerID(idProd);
-	
-	prodottob.setCategory(p.getCategoria());
-	prodottob.setComment(p.getCommento());
-	prodottob.setDisponibilita(p.getDisponibilita());
-	prodottob.setIdProd(p.getId());
-	prodottob.setNameProduct(p.getNome());
-	prodottob.setPrice(p.getPrezzo());
-	prodottob.setSale(p.getSconto());
-	prodottob.setTypology(p.getTipologia());
-	
-	GestisciUtente gu = GestisciUtente.getInstance();
-	UtenteRegistrato ur = gu.visualizzaInformazioni(us.getEmail());
-	prodottob.setUr(ur);
-	
+	prodottob.setIdProd(idProd);
+	prodottob.selezionaProdottoPerId();
 	prodottob.eliminaProdotto();
 	response.sendRedirect("annunci.jsp");
 	
@@ -57,28 +39,11 @@ if(request.getParameter("deleteProd") != null){
 if(request.getParameter("change") != null){
 	
 	int idProd = Integer.parseInt(request.getParameter("change"));
-	
-	System.out.println("ciao");
-	System.out.println(idProd);
-	System.out.println("");
-	
-	
-	GestisciProdotto gp = new GestisciProdotto();
-	Prodotto p = gp.selezionaProdottoPerID(idProd);
-	
-	prodottob.setCategory(p.getCategoria());
-	prodottob.setComment(p.getCommento());
-	prodottob.setDisponibilita(p.getDisponibilita());
-	prodottob.setIdProd(p.getId());
-	prodottob.setNameProduct(p.getNome());
-	prodottob.setPrice(p.getPrezzo());
-	prodottob.setSale(p.getSconto());
-	prodottob.setTypology(p.getTipologia());
-	
-	GestisciUtente gu = GestisciUtente.getInstance();
-	UtenteRegistrato ur = gu.visualizzaInformazioni(us.getEmail());
-	prodottob.setUr(ur);
-	
+
+	out.println(idProd);
+	prodottob.setIdProd(idProd);
+	prodottob.selezionaProdottoPerId();
+
 	out.println(prodottob.getPrice());
 	
 }
@@ -88,14 +53,12 @@ if(request.getParameter("addChanges")!= null){
 	out.println(prodottob.getIdProd());
 	out.println(prodottob.getNameProduct());
 	
-	GestisciUtente gu = GestisciUtente.getInstance();
-	UtenteRegistrato ur = gu.visualizzaInformazioni(us.getEmail());
-	prodottob.setUr(ur);
+	prodottob.setEmailUser(us.getEmail());
 	
-	
+	/*
 	if(prodottob.getUr()==null){
 		out.println("nullo!!");
-	}
+	}*/
 	//out.println(prodottob.getUr().getNome());
 	prodottob.aggiornaProdotto();
 	response.sendRedirect("annunci.jsp");

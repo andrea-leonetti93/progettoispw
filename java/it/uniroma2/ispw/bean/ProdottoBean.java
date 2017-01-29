@@ -15,7 +15,8 @@ public class ProdottoBean {
 	private int sale;
 	private int disponibilita;
 	private String comment;
-	private UtenteRegistrato ur;
+	private String emailUser;
+	private String idUser;
 	
 	public int getIdProd() {
 		return idProd;
@@ -66,35 +67,35 @@ public class ProdottoBean {
 		this.comment = comment;
 	}
 	
-	public UtenteRegistrato getUr() {
-		return ur;
+	public String getEmailUser() {
+		return emailUser;
 	}
-	public void setUr(UtenteRegistrato ur) {
-		this.ur = ur;
+	public void setEmailUser(String emailUser) {
+		this.emailUser = emailUser;
+	}
+	
+	public String getIdUser() {
+		return idUser;
+	}
+	public void setIdUser(String idUser) {
+		this.idUser = idUser;
 	}
 	public boolean aggiornaProdotto(){
 		
-		Prodotto p = new Prodotto(this.nameProduct,this.category,this.typology, this.price,
-				this.sale, this.ur,this.disponibilita,this.comment);
-		p.setId(this.idProd);
-		
 		GestisciProdotto gp = new GestisciProdotto();
-		if (gp.aggiornaProdotto(p)!=null) return true;
-		return false;
+		return (gp.aggiornaProdotto(this));
+
 	}
 	
 	public boolean eliminaProdotto(){
 		
-		Prodotto p = new Prodotto(this.nameProduct,this.category,this.typology, this.price,
-				this.sale, this.ur,this.disponibilita,this.comment);
-		p.setId(this.idProd);
-		
 		GestisciProdotto gp = new GestisciProdotto();
 		return gp.deleteProduct(this.idProd);
-		
-		
 	}
-
 	
-
+	public boolean selezionaProdottoPerId(){
+		GestisciProdotto gp = new GestisciProdotto();
+		return gp.selezionaProdottoPerId(this);
+	}
+	
 }

@@ -4,21 +4,26 @@ import java.util.ArrayList;
 import java.util.List;
 
 import it.uniroma2.ispw.model.Prodotto;
-import it.uniroma2.ispw.model.PropostaVendita;
+
 
 public class CarrelloBean {
 
 	
-	private List<PropostaVendita> listaPropVend;
+	private List<ProdottoBean> listaProdottiBean;
 	
 	public CarrelloBean(){
-		this.listaPropVend = new ArrayList<PropostaVendita>();
+		this.listaProdottiBean= new ArrayList<ProdottoBean>();
 	}
 
-	public List<PropostaVendita> getListaPropVend() {
-		return listaPropVend;
+	public List<ProdottoBean> getListaProdottiBean() {
+		return listaProdottiBean;
+	}
+
+	public void setListaProdottiBean(List<ProdottoBean> listaProdottiBean) {
+		this.listaProdottiBean = listaProdottiBean;
 	}
 	
+	/*
 	public List<Prodotto> getListaProdotti(){
 		List<Prodotto> lp = new ArrayList<Prodotto>();
 		for (PropostaVendita pv: listaPropVend){
@@ -26,10 +31,8 @@ public class CarrelloBean {
 		}
 		return lp;
 	}
+	*/
 
-	public void setListaPropVend(List<PropostaVendita> listaPropVend) {
-		this.listaPropVend = listaPropVend;
-	}
-
+	
 	
 }

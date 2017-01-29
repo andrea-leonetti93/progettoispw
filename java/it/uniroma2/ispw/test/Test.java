@@ -21,7 +21,6 @@ import it.uniroma2.ispw.model.Consumatore;
 import it.uniroma2.ispw.model.Ente;
 import it.uniroma2.ispw.model.Ordine;
 import it.uniroma2.ispw.model.Prodotto;
-import it.uniroma2.ispw.model.PropostaVendita;
 import it.uniroma2.ispw.model.RuoloAmministrazione;
 import it.uniroma2.ispw.model.UtenteRegistrato;
 import it.uniroma2.ispw.model.Venditore;

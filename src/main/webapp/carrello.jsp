@@ -20,7 +20,7 @@ CarrelloBean carb = (CarrelloBean) session.getAttribute("carrello");
 
 if(request.getParameter("elimina")!=null){
 	int i = Integer.parseInt(request.getParameter("elimina"));
-	carb.getListaPropVend().remove(i);
+	carb.getListaProdottiBean().remove(i);
 }
 
 %>
@@ -189,21 +189,21 @@ if(request.getParameter("elimina")!=null){
 				
 			<%
 				int prezzoTot = 0;
-				List<PropostaVendita> lpv = carb.getListaPropVend();
-				PropostaVendita pv = null;
-				if(lpv.size() != 0){
-					for(int i=0; i<lpv.size(); i++){
-						pv = lpv.get(i);
-						prezzoTot += lpv.get(i).getPrezzoFinale();
+				List<ProdottoBean> lpB = carb.getListaProdottiBean();
+				ProdottoBean pB = null;
+				if(lpB.size() != 0){
+					for(int i=0; i<lpB.size(); i++){
+						pB = lpB.get(i);
+						prezzoTot += pB.getPrice();
 			%>	
 				
 				<div class="card">
-					<h4 class="card-header"><%=pv.getP().getNome() %></h4>
+					<h4 class="card-header"><%=pB.getNameProduct() %></h4>
 					<div class="card-block">
-						<p class="card-text"><%=pv.getV().getUserid() %> </p>
+						<p class="card-text"><%=pB.getIdUser()%> </p>
 					</div>				
 					<div class="card-block">
-						<h4 class="card-text">$<%=pv.getPrezzoFinale() %></h4>
+						<h4 class="card-text">$<%=pB.getPrice()%></h4>
 					</div>
 					<div class="card-footer">
 						<form action="carrello.jsp" method="post">

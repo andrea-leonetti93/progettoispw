@@ -359,27 +359,28 @@ if(request.getParameter("deleteProd") != null){
    					<input class="btn btn-primary btn-lg btn-block" type="submit" name="addProduct" value="Add Product" data-toggle="modal" data-target="#modalAddProduct">
    				</div>
    				<%
-   					List<Prodotto> lp = insProdotto.getArrayProdotti();
-   					Prodotto p = null;
+   					List<ProdottoBean> lp = insProdotto.getArrayProdotti();
+   					ProdottoBean p = null;
    					if(lp.size() != 0){
    						for(int i=0; i<lp.size(); i++){
    							p = lp.get(i);
    							if (p.getDisponibilita()==1){
    				%>		
+   					
    					<div class="container">
    					 	<form action="modificaProdotto.jsp" method="post" id="inserzione_prodotto">		 <!-- action="{{ url_for('modalChangeProduct') }}" -->
    						<div class="header">
    							<div class="row">
-   								<h3>Prodotto: <%= p.getNome() %></h3>
-   								<h5>IdProdotto:<input class="btn btn-custom" type="text" id="idProd-init" name="idProd" value="<%= p.getId() %>" readonly></h5>
+   								<h3>Prodotto: <%= p.getNameProduct() %></h3>
+   								<h5>IdProdotto:<input class="btn btn-custom" type="text" id="idProd-init" name="idProd" value="<%= p.getIdProd()%>" readonly></h5>
 							</div>
 						</div>
 						<div class="body">
 								<ul class="list-group">
-									<li class="list-group-item" id=""><span class="tag tag-default tag-pill float-xs-right">Categoria: </span><%= p.getCategoria() %></li>
-   									<li class="list-group-item"><span class="tag tag-default tag-pill float-xs-right">Tipologia: </span><%= p.getTipologia() %></li>
-   									<li class="list-group-item"><span class="tag tag-default tag-pill float-xs-right">Prezzo: </span><%= p.getPrezzo() %></li>
-   									<li class="list-group-item"><span class="tag tag-default tag-pill float-xs-right">Sconto: </span><%= p.getSconto() %></li>
+									<li class="list-group-item" id=""><span class="tag tag-default tag-pill float-xs-right">Categoria: </span><%= p.getCategory() %></li>
+   									<li class="list-group-item"><span class="tag tag-default tag-pill float-xs-right">Tipologia: </span><%= p.getTypology() %></li>
+   									<li class="list-group-item"><span class="tag tag-default tag-pill float-xs-right">Prezzo: </span><%= p.getPrice() %></li>
+   									<li class="list-group-item"><span class="tag tag-default tag-pill float-xs-right">Sconto: </span><%= p.getSale()%></li>
    								</ul>
    							
    											<p class="help-block text-danger" ></p>
@@ -387,10 +388,10 @@ if(request.getParameter("deleteProd") != null){
    						<div class="footer">
    							<div class="row">
    								<div class="col-md-3 offset-md-3">
-   									<button  type="submit" name="change" value=<%=p.getId()%>  class="forget btn btn-primary pull-right">Change</button>
+   									<button  type="submit" name="change" value=<%=p.getIdProd()%>  class="forget btn btn-primary pull-right">Change</button>
    								</div>
    								<div class="col-md-3 offset-md-3">						
-   									<button  type="submit" name="deleteProd" value=<%=p.getId() %>  class="btn btn-danger">Delete</button>
+   									<button  type="submit" name="deleteProd" value=<%=p.getIdProd()%>  class="btn btn-danger">Delete</button>
 	   								
    								</div>
    							</div>

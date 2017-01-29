@@ -33,7 +33,6 @@ if(request.getParameter("accedi") != null){
 if(request.getParameter("inviaReg") != null){
 	
 
-	
 	errorMessage = regb.controlloCampi();
 	if (errorMessage==null){
 		int result = regb.effettuaRegistrazione();

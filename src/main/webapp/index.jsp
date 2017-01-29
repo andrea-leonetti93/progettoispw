@@ -20,7 +20,7 @@ if(request.getParameter("cerca")!=null){
 	ricercab.ricercaProdotto();
 }
 else {
-	ricercab.setLpv(null);
+	ricercab.setLpB(null);
 }
 
 if(request.getParameter("accedi") != null){
@@ -336,8 +336,8 @@ if (request.getParameter("logout") != null){
     
     <%
    
-    if (ricercab.getLpv()!=null){
-    	for(int i=0;i<ricercab.getLpv().size();i++){
+    if (ricercab.getLpB()!=null){
+    	for(int i=0;i<ricercab.getLpB().size();i++){
     %>
     	
     	    <!-- Project One -->
@@ -345,10 +345,10 @@ if (request.getParameter("logout") != null){
            
             </div>
             <div class="col-md-9">
-                <h3><%= ricercab.getLpv().get(i).getP().getNome() %></h3>
-                <h4 class="pull-right">$<%=ricercab.getLpv().get(i).getPrezzoFinale()%></h4>
-                <h4><%= ricercab.getLpv().get(i).getV().getUserid()%></h4>
-                <p><%= ricercab.getLpv().get(i).getP().getCommento() %></p>
+                <h3><%= ricercab.getLpB().get(i).getNameProduct() %></h3>
+                <h4 class="pull-right">$<%=ricercab.getLpB().get(i).getPrice()%></h4>
+                <h4><%= ricercab.getLpB().get(i).getIdUser()%></h4>
+                <p><%= ricercab.getLpB().get(i).getComment() %></p>
              
               <form action="visualizzaAnnuncio.jsp" method="post">
  			<input type="hidden" class="form-control" name="i" value=<%= i%>  id="nomeprodotto" >
