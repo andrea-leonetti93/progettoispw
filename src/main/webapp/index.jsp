@@ -5,6 +5,7 @@
 <%@ page import="it.uniroma2.ispw.session.*" %>
 <%@ page import="java.util.*" %>
 <%@ page import="it.uniroma2.ispw.persistence.*" %>
+<%@ page import="it.uniroma2.ispw.test.*" %>
 
 <jsp:useBean id="loginb" scope="session" class="it.uniroma2.ispw.bean.LoginBean"/>
 <jsp:setProperty name="loginb" property="*"/>
@@ -15,6 +16,9 @@
 <%
 
 UtenteSessione us = (UtenteSessione) session.getAttribute("utente");
+
+SingletonAccess s = SingletonAccess.getInstance();
+System.out.println(s.getCount());
 
 if(request.getParameter("cerca")!=null){
 	ricercab.ricercaProdotto();
@@ -29,6 +33,9 @@ if(request.getParameter("accedi") != null){
 	if (errorMessage==null){
 		us = loginb.validate();
 		if(us != null){
+				s = SingletonAccess.getInstance();
+				s.addCount();
+				System.out.println(s.getCount());
 				session.setAttribute("utente",us);
 				if(us.getType() == 2){
 					CarrelloBean carB = new CarrelloBean();

@@ -9,7 +9,19 @@ import it.uniroma2.ispw.persistence.TipoProdottoDAO;
 
 public class GestisciFinanza {
 	
-	public boolean aggiungiTipoProdotto(TipoProdotto tp){
+	protected GestisciFinanza(){}
+	
+	private static GestisciFinanza instance;
+	 
+    public synchronized static GestisciFinanza getInstance() {
+        if (instance == null)
+            instance = new GestisciFinanza();
+        return instance;
+    }
+	
+	
+	
+	public synchronized boolean aggiungiTipoProdotto(TipoProdotto tp){
 		TipoProdottoDAO tpdao = new TipoProdottoDAO();
 		
 		if (tpdao.addTipoProdotto(tp)!=null){
@@ -18,7 +30,7 @@ public class GestisciFinanza {
 		return false;
 	}
 	
-	public boolean eliminaTipoProdotto(TipoProdotto tp){
+	public synchronized boolean eliminaTipoProdotto(TipoProdotto tp){
 		TipoProdottoDAO tpdao = new TipoProdottoDAO();
 		List<TipoProdotto> ltp = tpdao.listaTipiProdotto();
 		
@@ -32,20 +44,20 @@ public class GestisciFinanza {
 		
 	}
 	
-	public List<TipoProdotto> visualizzaListaTipiProdotto(){
+	public synchronized List<TipoProdotto> visualizzaListaTipiProdotto(){
 		TipoProdottoDAO tpdao = new TipoProdottoDAO();
 		
 		return tpdao.listaTipiProdotto();
 	}
 	
-	public boolean aggiungiOModificaPrezzoSpedizione(PrezzoSpedizione ps){
+	public synchronized boolean aggiungiOModificaPrezzoSpedizione(PrezzoSpedizione ps){
 		PrezzoSpedizioneDAO psdao = new PrezzoSpedizioneDAO();
 		
 		if (psdao.addOrUpdatePrezzoSpedizione(ps)!=null) return true;
 		return false;
 	}
 	
-	public PrezzoSpedizione prendiPrezzoSpedizione(String tipoSpedizione){
+	public synchronized PrezzoSpedizione prendiPrezzoSpedizione(String tipoSpedizione){
 		PrezzoSpedizioneDAO psdao = new PrezzoSpedizioneDAO();
 		
 		return psdao.getPrezzoSpedizione(tipoSpedizione);

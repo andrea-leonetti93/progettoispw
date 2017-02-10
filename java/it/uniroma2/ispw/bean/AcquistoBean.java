@@ -135,13 +135,13 @@ public class AcquistoBean {
 
 	public boolean iniziaAcquisto(){
 		
-		AcquistaProdotto ap = new AcquistaProdotto();
+		AcquistaProdotto ap = AcquistaProdotto.getInstance();
 		return ap.effettuaAcquisto(prodotti, tipoSpedizione, emailUser, pagBean, recapito);
 	}
 	
 	public void compilaPrezzi(){
 		
-		AcquistaProdotto ap = new AcquistaProdotto();
+		AcquistaProdotto ap = AcquistaProdotto.getInstance();
 		ap.riepilogoPrezzi(this);
 		
 		

@@ -22,14 +22,14 @@ public class GestisciUtente {
 	
 	private static GestisciUtente instance;
 	 
-    public static GestisciUtente getInstance() {
+    public synchronized static GestisciUtente getInstance() {
         if (instance == null)
             instance = new GestisciUtente();
         return instance;
     }
 	
 	
-	public boolean effettuaLogin(LoginBean loginBean){
+	public synchronized boolean effettuaLogin(LoginBean loginBean){
 		
 		UtenteRegistrato ur = null;
 		ur = u.checkUtente(loginBean.getEmail(), loginBean.getPassword());
@@ -50,7 +50,7 @@ public class GestisciUtente {
 		return true;
 	}
 	
-	public Amministratore loginAmministratore(String email, String password){
+	public synchronized Amministratore loginAmministratore(String email, String password){
 		Amministratore admin = null;
 		
 		AmministratoreDAO ammDAO = new AmministratoreDAO();
@@ -60,7 +60,7 @@ public class GestisciUtente {
 	}
 	
 	/* 1 ok, 2 mail in uso, 3 userid in uso*/
-	public int effettuaRegistrazione(String userid, String name, String surname, String email, String password, String telephone, String street, int type){
+	public synchronized int effettuaRegistrazione(String userid, String name, String surname, String email, String password, String telephone, String street, int type){
 		
 		UtenteRegistrato newUtente = null;
 		
@@ -83,7 +83,7 @@ public class GestisciUtente {
 		return 1;
 	}
 	
-	public boolean modificaInformazioni(String userid, String name, String surname, String email, String password, String telephone, String street, int type){
+	public synchronized boolean modificaInformazioni(String userid, String name, String surname, String email, String password, String telephone, String street, int type){
 		
 		UtenteRegistrato newUtente = null;
 		
@@ -100,7 +100,7 @@ public class GestisciUtente {
 		
 	}
 	
-	public boolean visualizzaInformazioni(String email, UpdateUtenteBean updateUtenteBean){
+	public synchronized boolean visualizzaInformazioni(String email, UpdateUtenteBean updateUtenteBean){
 		
 		UtenteRegistrato ur = null;
 		ur = u.getUtente(email);
@@ -128,7 +128,7 @@ public class GestisciUtente {
 	}
 	
 	
-	public Amministratore effettuaLoginAdmin(String email, String password){
+	public synchronized Amministratore effettuaLoginAdmin(String email, String password){
 		Amministratore admin = null;
 		if((admin = ad.checkAmministratore(email, password))!=null){
 			return admin;

@@ -84,7 +84,7 @@ public class VisualCostoSpedFrame extends JFrame {
 		
 		//qui devo caricare dal database i due prezzi
 		
-		GestisciFinanza gf = new GestisciFinanza();
+		GestisciFinanza gf = GestisciFinanza.getInstance();
 		
 		PrezzoSpedizione psNormale = gf.prendiPrezzoSpedizione("Normale");
 		PrezzoSpedizione psRapida = gf.prendiPrezzoSpedizione("Rapida");
@@ -111,7 +111,7 @@ public class VisualCostoSpedFrame extends JFrame {
 				
 				inputSpedNormale = Integer.parseInt(insSpedNormale.getText());
 				inputSpedRapida = Integer.parseInt(insSpedRapida.getText());
-				GestisciFinanza gf = new GestisciFinanza();
+				GestisciFinanza gf = GestisciFinanza.getInstance();
 				
 				
 				PrezzoSpedizione psN = new PrezzoSpedizione("Normale",inputSpedNormale);

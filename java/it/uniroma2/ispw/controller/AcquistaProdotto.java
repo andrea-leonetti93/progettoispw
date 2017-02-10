@@ -35,7 +35,19 @@ public class AcquistaProdotto {
 	LineaOrdineDAO lo = new LineaOrdineDAO();
 	UtenteDAO u = new UtenteDAO();
 	
-	public boolean effettuaAcquisto(List<ProdottoBean> lpB, String tipoSpedizione, 
+	protected AcquistaProdotto(){}
+	
+	private static AcquistaProdotto instance;
+	 
+    public synchronized static AcquistaProdotto getInstance() {
+        if (instance == null)
+            instance = new AcquistaProdotto();
+        return instance;
+    }
+	
+	
+	
+	public synchronized boolean effettuaAcquisto(List<ProdottoBean> lpB, String tipoSpedizione, 
 			String emailUser, PagamentoBean pbean, String recapito){
 		
 		//trova utente registrato
@@ -127,7 +139,7 @@ public class AcquistaProdotto {
 		
 	}
 
-	public List<Pagamento> acquistiUtente(String email) {
+	public synchronized List<Pagamento> acquistiUtente(String email) {
 		// TODO Auto-generated method stub
 		List<Pagamento> listaPag = null;
 		PagamentoDAO pd = new PagamentoDAO();
@@ -135,14 +147,14 @@ public class AcquistaProdotto {
 		return listaPag;
 	}
 
-	public List<Prodotto> prodottiUtente(String email){
+	public synchronized List<Prodotto> prodottiUtente(String email){
 		
 		List<Prodotto> prodotti = null;
 		prodotti = p.listaProdottiUtente(email);
 		return prodotti;
 	}
 	
-	public List<LineaOrdine> venditeUtente(String email){
+	public synchronized List<LineaOrdine> venditeUtente(String email){
 		
 		List<Prodotto> listaP = prodottiUtente(email);
 		List<LineaOrdine> listaLO = null;
@@ -158,7 +170,7 @@ public class AcquistaProdotto {
 		return listaLO2;
 	}
 	
-	public void riepilogoPrezzi(AcquistoBean acquistoBean){
+	public synchronized void riepilogoPrezzi(AcquistoBean acquistoBean){
 		
 		for (ProdottoBean pB : acquistoBean.getProdotti()){
 			acquistoBean.setPrezzoNonScontato(acquistoBean.getPrezzoNonScontato() + pB.getPrice());

@@ -16,13 +16,13 @@ public class GestisciRicerca {
 	
 	private static GestisciRicerca instance;
 	 
-    public static GestisciRicerca getInstance() {
+    public synchronized static GestisciRicerca getInstance() {
         if (instance == null)
             instance = new GestisciRicerca();
         return instance;
     }
 	
-	public List<ProdottoBean> ricercaProdotto(String nomeRicerca,String categoria, 
+	public synchronized List<ProdottoBean> ricercaProdotto(String nomeRicerca,String categoria, 
 			String tipologia, int prezzomin, int prezzomax){
 		
 		ProdottoDAO pdao = new ProdottoDAO();
@@ -35,31 +35,6 @@ public class GestisciRicerca {
 					&&(p.getTipologia().equals(tipologia))&&(p.getPrezzo()>prezzomin)&&(p.getPrezzo()<prezzomax))
 							plistf.add(p);
 		}
-		
-		/*
-		UtenteDAO udao = new UtenteDAO();
-		List<UtenteRegistrato> lutente = udao.listaUtenti();
-		List<Venditore> lvenditori = new ArrayList<Venditore>();
-		
-		for (UtenteRegistrato u : lutente){
-			if (u instanceof Venditore) lvenditori.add((Venditore) u);
-		}
-		
-		List<PropostaVendita> lpv = new ArrayList<PropostaVendita>();
-		
-		for(Venditore v : lvenditori){
-			for(Prodotto p : plistf){
-				if (p.getUtenteRegistrato().getEmail().equals(v.getEmail())){
-					PropostaVendita pv = new PropostaVendita();
-					pv.setP(p);
-					pv.setV(v);
-					pv.setPrezzoFinale(p.getPrezzo());
-					lpv.add(pv);
-				}
-			}
-		}
-		
-		return lpv;*/
 		
 		List<ProdottoBean> lpB = new ArrayList<ProdottoBean>();
 		for (Prodotto pr : plistf){
@@ -81,7 +56,7 @@ public class GestisciRicerca {
 		
 	}
 
-	public static int distance(String a, String b) {
+	public synchronized static int distance(String a, String b) {
 		System.out.println("---");
 		System.out.println(b);
         a = a.toLowerCase();

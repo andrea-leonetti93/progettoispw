@@ -119,20 +119,20 @@ public class InsProdottoBean {
 
 	public boolean acquisisciProdotto(){
 		
-		GestisciProdotto gp = new GestisciProdotto();
+		GestisciProdotto gp = GestisciProdotto.getInstance();
 		return gp.inserisciProdotto(this);
 		
 	}
 	
 	public void riempiLista(String email){
 		
-		GestisciProdotto gp = new GestisciProdotto();
+		GestisciProdotto gp = GestisciProdotto.getInstance();
 		arrayProdotti = gp.prodottiUtente(email);
 	}
 	
 	public boolean eliminaProdotto(){
 		
-		GestisciProdotto gp = new GestisciProdotto();
+		GestisciProdotto gp = GestisciProdotto.getInstance();
 		return gp.deleteProduct(idProd);
 		
 	}
@@ -158,7 +158,7 @@ public class InsProdottoBean {
 	
 	public boolean trovaProdotto(){
 		
-		GestisciProdotto gp = new GestisciProdotto();
+		GestisciProdotto gp = GestisciProdotto.getInstance();
 		return gp.selezionaProdottoPerId(this);
 	}
 	

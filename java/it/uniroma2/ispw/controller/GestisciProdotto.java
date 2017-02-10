@@ -15,11 +15,17 @@ public class GestisciProdotto {
 	ProdottoDAO p = new ProdottoDAO();
 	UtenteDAO u = new UtenteDAO();
 	
-	public GestisciProdotto(){	
-		
-	}
+	protected GestisciProdotto(){}
 	
-	public boolean inserisciProdotto(InsProdottoBean iPBean){
+	private static GestisciProdotto instance;
+	 
+    public synchronized static GestisciProdotto getInstance() {
+        if (instance == null)
+            instance = new GestisciProdotto();
+        return instance;
+    }
+	
+	public synchronized boolean inserisciProdotto(InsProdottoBean iPBean){
 		
 		UtenteRegistrato ur = u.checkUtente(iPBean.getUtente().getEmail(), iPBean.getUtente().getPassword());
 		
@@ -32,7 +38,7 @@ public class GestisciProdotto {
 	}
 	
 	/*carica tipo prodotti in liste*/
-	public List<ProdottoBean> prodottiUtente(String email){
+	public synchronized List<ProdottoBean> prodottiUtente(String email){
 		
 		List<Prodotto> listaP = null;
 		listaP = p.listaProdottiUtente(email);
@@ -55,23 +61,13 @@ public class GestisciProdotto {
 		return listaPBean;
 	}
 	
-	public boolean deleteProduct(int id){
+	public synchronized boolean deleteProduct(int id){
 		
 		return p.deleteProduct(id);
 		
 	}
-/*
-	public Prodotto selezionaProdottoPerID(int idProd) {
-		// TODO Auto-generated method stub
-		Prodotto pr = null;
-		if((pr = p.prendiProdottoPerID(idProd)) != null){
-			return pr;
-		}
-		return null;
-	}
-*/
 	
-	public boolean selezionaProdottoPerId(InsProdottoBean insProdottoBean){
+	public synchronized boolean selezionaProdottoPerId(InsProdottoBean insProdottoBean){
 		
 		Prodotto pr = null;
 		if((pr = p.prendiProdottoPerID(insProdottoBean.getIdProd())) != null){
@@ -87,7 +83,7 @@ public class GestisciProdotto {
 		
 	}
 	
-	public boolean selezionaProdottoPerId(ProdottoBean prodottoBean){
+	public synchronized boolean selezionaProdottoPerId(ProdottoBean prodottoBean){
 		Prodotto pr = p.prendiProdottoPerID(prodottoBean.getIdProd());
 		
 		if (pr==null) return false;
@@ -107,7 +103,7 @@ public class GestisciProdotto {
 		
 	}
 	
-	public boolean aggiornaProdotto(ProdottoBean updateProductBean){
+	public synchronized boolean aggiornaProdotto(ProdottoBean updateProductBean){
 		
 		UtenteRegistrato ur = u.getUtente(updateProductBean.getEmailUser());
 		

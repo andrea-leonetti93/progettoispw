@@ -62,33 +62,13 @@ public class UpdateUtenteBean {
 		
 		GestisciUtente gu = GestisciUtente.getInstance();
 		return gu.visualizzaInformazioni(email, this);
-		
-		/*
-		if (ur != null){
-			this.name = ur.getNome();
-			this.surname = ur.getCognome();
-			this.password = ur.getPassword();
-			this.rippassword = ur.getPassword();
-			this.street = ur.getResidenza();
-			this.telephone = ur.getTelefono();
-			if(ur instanceof Venditore){
-				this.type=1;
-			}
-			else this.type=2;
-			return true;
-		}
-		
-		return false;*/
-		
 	}
 	
-	//ok;
 	public boolean controlloCampi(){
 		
 		return (this.password.equals(this.rippassword));
 	}
 	
-	//ok;
 	public boolean updateUtente(String userid, String email){
     	
     	GestisciUtente gu = GestisciUtente.getInstance();

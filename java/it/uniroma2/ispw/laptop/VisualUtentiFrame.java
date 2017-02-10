@@ -28,7 +28,7 @@ public class VisualUtentiFrame extends JFrame{
 	private static final long serialVersionUID = 1L;
 
 	private static String titolo = "Visualizza utenti del sistema";
-	private GestioneSistema gs = new GestioneSistema();
+	private GestioneSistema gs = GestioneSistema.getInstance();
 	
 	//private static String[] header = {"UseriID", "Email", "Nome", "Cognome", "Tipo", "Indirizzo", "Numero"};
 	

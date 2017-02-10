@@ -82,19 +82,19 @@ public class ProdottoBean {
 	}
 	public boolean aggiornaProdotto(){
 		
-		GestisciProdotto gp = new GestisciProdotto();
+		GestisciProdotto gp = GestisciProdotto.getInstance();
 		return (gp.aggiornaProdotto(this));
 
 	}
 	
 	public boolean eliminaProdotto(){
 		
-		GestisciProdotto gp = new GestisciProdotto();
+		GestisciProdotto gp = GestisciProdotto.getInstance();
 		return gp.deleteProduct(this.idProd);
 	}
 	
 	public boolean selezionaProdottoPerId(){
-		GestisciProdotto gp = new GestisciProdotto();
+		GestisciProdotto gp = GestisciProdotto.getInstance();
 		return gp.selezionaProdottoPerId(this);
 	}
 	

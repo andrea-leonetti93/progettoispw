@@ -97,7 +97,7 @@ public class PagamentoBean {
 	
 	public void popolaLista(String email){
 		
-		AcquistaProdotto ap = new AcquistaProdotto();
+		AcquistaProdotto ap = AcquistaProdotto.getInstance();
 		listaPag = ap.acquistiUtente(email);
 	}
 	

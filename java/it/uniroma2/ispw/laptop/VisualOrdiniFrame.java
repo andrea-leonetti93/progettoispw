@@ -34,7 +34,7 @@ public class VisualOrdiniFrame extends JFrame{
 	
 	private WidgetFactory widgetFactory = new BeautifulWidgetFactory();
 
-	private GestioneSistema gs = new GestioneSistema();
+	private GestioneSistema gs = GestioneSistema.getInstance();
 	private VisualLineeOrdine visualLineeOrdine = null;
 	private List<Ordine> listaOrdini;
 	
