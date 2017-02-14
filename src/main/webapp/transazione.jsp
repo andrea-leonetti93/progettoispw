@@ -21,7 +21,7 @@
  UtenteSessione us = (UtenteSessione) session.getAttribute("utente"); 
  CarrelloBean carb = (CarrelloBean) session.getAttribute("carrello");
 
- acquistob.setProdotti(carb.getListaProdotti());
+ acquistob.setProdotti(carb.getListaProdottiBean());
  
 
 %>
@@ -205,19 +205,19 @@
 		<tbody>
 	<%
 		int prezzoTot = 0;
-		List<PropostaVendita> lpv = carb.getListaPropVend();
-		PropostaVendita pv = null;
-		if(lpv.size() != 0){
-			for(int i=0; i<lpv.size(); i++){
-				pv = lpv.get(i);
-				prezzoTot += lpv.get(i).getPrezzoFinale();
+		List<ProdottoBean> lpB = carb.getListaProdottiBean();
+		ProdottoBean pB = null;
+		if(lpB.size() != 0){
+			for(int i=0; i<lpB.size(); i++){
+				pB = lpB.get(i);
+				prezzoTot += lpB.get(i).getPrice();
 	%>
 	
 	
 		<tr>
 			<th scope="row"><%= i %></th>
-			<td>$<%= pv.getP().getNome() %></td>
-			<td>$<%= pv.getPrezzoFinale() %></td>
+			<td>$<%= pB.getNameProduct()%></td>
+			<td>$<%= pB.getPrice()%></td>
 		</tr>
 	
 

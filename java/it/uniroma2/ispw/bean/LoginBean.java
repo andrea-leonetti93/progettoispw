@@ -11,6 +11,10 @@ public class LoginBean {
 	
 	private String email;
     private String password;
+    
+    private String userid;
+    private int typeUser; /*1 venditore, 2 consumatore*/
+    private boolean enteB;
 	
     public String getEmail() {
 		return email;
@@ -25,40 +29,44 @@ public class LoginBean {
 		this.password = password;
 	}
     
+	public String getUserid() {
+		return userid;
+	}
+	public void setUserid(String userid) {
+		this.userid = userid;
+	}
+	public int getTypeUser() {
+		return typeUser;
+	}
+	public void setTypeUser(int type) {
+		this.typeUser = type;
+	}
+	public boolean isEnteB() {
+		return enteB;
+	}
+	public void setEnteB(boolean enteB) {
+		this.enteB = enteB;
+	}
+	
 	public UtenteSessione validate(){
         
         GestisciUtente gu = GestisciUtente.getInstance();
-        
         UtenteSessione us = null;
-        UtenteRegistrato ur = null;
-        ur = gu.effettuaLogin(this.email, this.password);
         
-        if (ur!=null){
-        	
+        if ( gu.effettuaLogin(this)){
+        	//login effettuato
         	us = new UtenteSessione();
+        	us.setEmail(email);
+        	us.setPassword(password);
+        	us.setType(typeUser);
+        	us.setUserid(userid);
+        	us.setEnteB(enteB);
         	
-        	if(ur instanceof Venditore){
-    			us.setEmail(ur.getEmail());
-    			us.setType(1);
-    			us.setUserid(ur.getUserid());
-    			us.setPassword(ur.getPassword());
-    			us.setEnteB(false);
-    		}
-    		
-    		else if(ur instanceof Consumatore){
-    			us.setEmail(ur.getEmail());
-    			us.setType(2);
-    			us.setUserid(ur.getUserid());
-    			us.setPassword(ur.getPassword());
-    			
-    			if (ur instanceof Ente) us.setEnteB(true);
-    			else us.setEnteB(false);
-    		}
         }
         
         return us;
         
-    }
+	}
 	
 	public String controlloCampi(){
 		

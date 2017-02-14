@@ -3,7 +3,9 @@ package it.uniroma2.ispw.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import it.uniroma2.ispw.bean.AcquistoBean;
 import it.uniroma2.ispw.bean.PagamentoBean;
+import it.uniroma2.ispw.bean.ProdottoBean;
 import it.uniroma2.ispw.factory.FactoryPagamento;
 import it.uniroma2.ispw.factory.FactorySpedizione;
 import it.uniroma2.ispw.model.Ente;
@@ -19,7 +21,7 @@ import it.uniroma2.ispw.persistence.LineaOrdineDAO;
 import it.uniroma2.ispw.persistence.OrdineDAO;
 import it.uniroma2.ispw.persistence.PagamentoDAO;
 import it.uniroma2.ispw.persistence.ProdottoDAO;
-
+import it.uniroma2.ispw.persistence.UtenteDAO;
 import it.uniroma2.ispw.prezzo.PrezzoFinale;
 import it.uniroma2.ispw.prezzo.PrezzoFinaleConsumatore;
 import it.uniroma2.ispw.prezzo.PrezzoFinaleEnte;
@@ -31,9 +33,32 @@ public class AcquistaProdotto {
 	
 	ProdottoDAO p = new ProdottoDAO();
 	LineaOrdineDAO lo = new LineaOrdineDAO();
+	UtenteDAO u = new UtenteDAO();
 	
-	public boolean effettuaAcquisto(List<Prodotto> lp, String tipoSpedizione, 
-			UtenteRegistrato ur, PagamentoBean pbean, String recapito){
+	protected AcquistaProdotto(){}
+	
+	private static AcquistaProdotto instance;
+	 
+    public synchronized static AcquistaProdotto getInstance() {
+        if (instance == null)
+            instance = new AcquistaProdotto();
+        return instance;
+    }
+	
+	
+	
+	public synchronized boolean effettuaAcquisto(List<ProdottoBean> lpB, String tipoSpedizione, 
+			String emailUser, PagamentoBean pbean, String recapito){
+		
+		//trova utente registrato
+		UtenteRegistrato ur = u.getUtente(emailUser);
+		if (ur==null) return false;
+		
+		List<Prodotto> lp = new ArrayList<Prodotto>();
+		for (ProdottoBean pB : lpB){
+			Prodotto prodotto = p.prendiProdottoPerID(pB.getIdProd());
+			lp.add(prodotto);
+		}
 		
 		/* creazione ordine */
 		Ordine ord = new Ordine();
@@ -114,7 +139,7 @@ public class AcquistaProdotto {
 		
 	}
 
-	public List<Pagamento> acquistiUtente(String email) {
+	public synchronized List<Pagamento> acquistiUtente(String email) {
 		// TODO Auto-generated method stub
 		List<Pagamento> listaPag = null;
 		PagamentoDAO pd = new PagamentoDAO();
@@ -122,14 +147,14 @@ public class AcquistaProdotto {
 		return listaPag;
 	}
 
-	public List<Prodotto> prodottiUtente(String email){
+	public synchronized List<Prodotto> prodottiUtente(String email){
 		
 		List<Prodotto> prodotti = null;
 		prodotti = p.listaProdottiUtente(email);
 		return prodotti;
 	}
 	
-	public List<LineaOrdine> venditeUtente(String email){
+	public synchronized List<LineaOrdine> venditeUtente(String email){
 		
 		List<Prodotto> listaP = prodottiUtente(email);
 		List<LineaOrdine> listaLO = null;
@@ -144,4 +169,38 @@ public class AcquistaProdotto {
 		}
 		return listaLO2;
 	}
+	
+	public synchronized void riepilogoPrezzi(AcquistoBean acquistoBean){
+		
+		for (ProdottoBean pB : acquistoBean.getProdotti()){
+			acquistoBean.setPrezzoNonScontato(acquistoBean.getPrezzoNonScontato() + pB.getPrice());
+		}
+		
+		UtenteRegistrato utenteReg = u.getUtente(acquistoBean.getEmailUser());
+		PrezzoFinale pf;
+		if (utenteReg instanceof Ente){
+			pf = new PrezzoFinaleEnte();
+		}
+		else{
+			pf = new PrezzoFinaleConsumatore();
+		}
+		
+		for (ProdottoBean pB : acquistoBean.getProdotti()){
+			acquistoBean.setPrezzoScontato(acquistoBean.getPrezzoScontato()+ pf.calcolaPrezzoFinale(pB));
+		}
+		
+		acquistoBean.setScontoEnte(acquistoBean.getPrezzoNonScontato()-acquistoBean.getPrezzoScontato());
+	
+		FactorySpedizione fs = new FactorySpedizione();
+		Spedizione sped = fs.creaSpedizione(acquistoBean.getTipoSpedizione());
+		acquistoBean.setPrezzoSpedizione(sped.calcolaCostoSpedizione(acquistoBean.getProdotti().size()));
+		
+		acquistoBean.setPrezzoFinale(acquistoBean.getPrezzoScontato()+acquistoBean.getPrezzoSpedizione());
+		
+		
+		
+		
+	}
+	
+	
 }

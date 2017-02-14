@@ -13,7 +13,7 @@
  <%
  
  UtenteSessione us = (UtenteSessione) session.getAttribute("utente");
- PropostaVendita pv;
+ ProdottoBean pB;
  CarrelloBean carb = (CarrelloBean) session.getAttribute("carrello"); 
  
  
@@ -23,22 +23,26 @@
  if(request.getParameter("visualizzaProdotto")!=null){
 		
 		int i = Integer.parseInt(request.getParameter("i"));
-		pv = (PropostaVendita) ricercab.getLpv().get(i);
-		session.setAttribute("pv",pv);
+		pB = (ProdottoBean) ricercab.getLpB().get(i);
+		session.setAttribute("pB",pB);
 	
  }else{
-	 pv = (PropostaVendita) session.getAttribute("pv");
+	 pB = (ProdottoBean) session.getAttribute("pB");
  }
  
+ 
  if(request.getParameter("addCarrello")!=null){
-	request.setAttribute("propVend", pv);
-	carb.getListaPropVend().add(pv);	 
+	//request.setAttribute("propVend", pv);
+	//carb.getListaPropVend().add(pv);	 
+	carb.getListaProdottiBean().add(pB);
  		if(us.getType()==2){
- 			request.getRequestDispatcher("index.jsp").forward(request, response);
+ 			//request.getRequestDispatcher("index.jsp").forward(request, response);
+ 			response.sendRedirect("index.jsp");
  		}else{
- 			response.sendRedirect("");
+ 			response.sendRedirect("index.jsp");
  		}
  }
+ 
  
 %>
 
@@ -261,10 +265,10 @@
 
          <div class="thumbnail">
            <div class="caption-full">
-               <h4 class="pull-right">$<%=pv.getPrezzoFinale() %></h4>
-              <h4><%=pv.getP().getNome()%></h4>
-                    <p><%=pv.getV().getUserid()%>, <%= pv.getV().getEmail() %></p>
-                   <p><%= pv.getP().getCommento() %></p>
+               <h4 class="pull-right">$<%=pB.getPrice()%></h4>
+              <h4><%=pB.getNameProduct()%></h4>
+                    <p><%=pB.getIdUser()%>, <%= pB.getEmailUser()%></p>
+                   <p><%= pB.getComment()%></p>
                 </div>
                 
             <%if(us.getType() != 1){ %>

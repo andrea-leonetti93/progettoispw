@@ -7,7 +7,6 @@ import it.uniroma2.ispw.model.LineaOrdine;
 
 public class VenditeBean {
 
-	
 	private List<LineaOrdine> listaLineeOrdine;
 	
 	public VenditeBean(){
@@ -24,7 +23,7 @@ public class VenditeBean {
 	
 	public void riempiLista(String email){
 		
-		AcquistaProdotto ap = new AcquistaProdotto();
+		AcquistaProdotto ap = AcquistaProdotto.getInstance();
 		listaLineeOrdine = ap.venditeUtente(email);
 	}
 	

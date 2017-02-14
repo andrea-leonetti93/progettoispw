@@ -30,7 +30,7 @@ public class RegisterAdminFrame extends JFrame{
 
 	private static String titolo = "Aggiungi nuovo amministratore";
 
-	private GestioneSistema gs = new GestioneSistema();
+	private GestioneSistema gs = GestioneSistema.getInstance();
 	
 	
 	private WidgetFactory widgetFactory = new BeautifulWidgetFactory();

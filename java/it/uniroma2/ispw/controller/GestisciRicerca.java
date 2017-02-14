@@ -3,8 +3,8 @@ package it.uniroma2.ispw.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import it.uniroma2.ispw.bean.ProdottoBean;
 import it.uniroma2.ispw.model.Prodotto;
-import it.uniroma2.ispw.model.PropostaVendita;
 import it.uniroma2.ispw.model.UtenteRegistrato;
 import it.uniroma2.ispw.model.Venditore;
 import it.uniroma2.ispw.persistence.ProdottoDAO;
@@ -16,13 +16,13 @@ public class GestisciRicerca {
 	
 	private static GestisciRicerca instance;
 	 
-    public static GestisciRicerca getInstance() {
+    public synchronized static GestisciRicerca getInstance() {
         if (instance == null)
             instance = new GestisciRicerca();
         return instance;
     }
 	
-	public List<PropostaVendita> ricercaProdotto(String nomeRicerca,String categoria, 
+	public synchronized List<ProdottoBean> ricercaProdotto(String nomeRicerca,String categoria, 
 			String tipologia, int prezzomin, int prezzomax){
 		
 		ProdottoDAO pdao = new ProdottoDAO();
@@ -36,34 +36,27 @@ public class GestisciRicerca {
 							plistf.add(p);
 		}
 		
-		
-		UtenteDAO udao = new UtenteDAO();
-		List<UtenteRegistrato> lutente = udao.listaUtenti();
-		List<Venditore> lvenditori = new ArrayList<Venditore>();
-		
-		for (UtenteRegistrato u : lutente){
-			if (u instanceof Venditore) lvenditori.add((Venditore) u);
+		List<ProdottoBean> lpB = new ArrayList<ProdottoBean>();
+		for (Prodotto pr : plistf){
+			ProdottoBean prB = new ProdottoBean();
+			prB.setIdProd(pr.getId());
+			prB.setCategory(pr.getCategoria());
+			prB.setDisponibilita(pr.getDisponibilita());
+			prB.setEmailUser(pr.getUtenteRegistrato().getEmail());
+			prB.setNameProduct(pr.getNome());
+			prB.setPrice(pr.getPrezzo());
+			prB.setSale(pr.getSconto());
+			prB.setTypology(pr.getTipologia());
+			prB.setComment(pr.getCommento());
+			prB.setIdUser(pr.getUtenteRegistrato().getUserid());
+			lpB.add(prB);
 		}
 		
-		List<PropostaVendita> lpv = new ArrayList<PropostaVendita>();
-		
-		for(Venditore v : lvenditori){
-			for(Prodotto p : plistf){
-				if (p.getUtenteRegistrato().getEmail().equals(v.getEmail())){
-					PropostaVendita pv = new PropostaVendita();
-					pv.setP(p);
-					pv.setV(v);
-					pv.setPrezzoFinale(p.getPrezzo());
-					lpv.add(pv);
-				}
-			}
-		}
-		
-		return lpv;
+		return lpB;
 		
 	}
 
-	public static int distance(String a, String b) {
+	public synchronized static int distance(String a, String b) {
 		System.out.println("---");
 		System.out.println(b);
         a = a.toLowerCase();

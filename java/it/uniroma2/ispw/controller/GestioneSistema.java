@@ -17,16 +17,25 @@ import it.uniroma2.ispw.persistence.TipoProdottoDAO;
 import it.uniroma2.ispw.persistence.UtenteDAO;
 
 public class GestioneSistema {
-
 	
-	public List<UtenteRegistrato> visualizzaUtenti(){
+	protected GestioneSistema(){}
+	
+	private static GestioneSistema instance;
+	 
+    public synchronized static GestioneSistema getInstance() {
+        if (instance == null)
+            instance = new GestioneSistema();
+        return instance;
+    }
+	
+	public synchronized List<UtenteRegistrato> visualizzaUtenti(){
 		List<UtenteRegistrato> lur = null;
 		UtenteDAO uDAO = new UtenteDAO();
 		lur = uDAO.listaUtenti();
 		return lur;
 	}
 	
-	public List<Prodotto> visualizzaProdotti(String categoria, String tipologia){
+	public synchronized List<Prodotto> visualizzaProdotti(String categoria, String tipologia){
 		List<Prodotto> lp = null;
 		List<Prodotto> lpfinal = new ArrayList<Prodotto>();
 		ProdottoDAO pdao = new ProdottoDAO();
@@ -39,21 +48,21 @@ public class GestioneSistema {
 		return lpfinal;
 	}
 	
-	public List<Prodotto> visualizzaProdotti(){
+	public synchronized List<Prodotto> visualizzaProdotti(){
 		List<Prodotto> lp = null;
 		ProdottoDAO pdao = new ProdottoDAO();
 		lp = pdao.listaProdotti();
 		return lp;
 	}
 	
-	public List<Ordine> visualizzaOrdini(){
+	public synchronized List<Ordine> visualizzaOrdini(){
 		List<Ordine> lo = null;
 		OrdineDAO odao = new OrdineDAO();
 		lo = odao.listaOrdini();
 		return lo;
 	}
 	
-	public boolean aggiungiAmministratore(Amministratore admin, RuoloAmministrazione ruoloAdmin){
+	public synchronized boolean aggiungiAmministratore(Amministratore admin, RuoloAmministrazione ruoloAdmin){
 		AmministratoreDAO ammDAO = new AmministratoreDAO();
 		RuoloAmministrazioneDAO ruoloDAO = new RuoloAmministrazioneDAO();
 		ruoloDAO.addRuoloAmministratore(ruoloAdmin);
@@ -63,7 +72,7 @@ public class GestioneSistema {
 		
 	}
 	
-	public List<TipoProdotto> visualizzaTipoProdotti(){
+	public synchronized List<TipoProdotto> visualizzaTipoProdotti(){
 		List<TipoProdotto> listaTipiProdotti = null;
 		TipoProdottoDAO tpd = new TipoProdottoDAO();
 		if((listaTipiProdotti = tpd.listaTipiProdotto())!=null){

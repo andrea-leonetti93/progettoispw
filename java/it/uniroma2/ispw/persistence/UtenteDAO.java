@@ -79,7 +79,7 @@ private static SessionFactory sessionFactory = buildSessionFactory();
 	}
 	
 	public UtenteRegistrato getUtente(String email){
-
+		
 		Session session = sessionFactory.openSession();
 	    Transaction tx = null;
 	    try{
@@ -95,6 +95,28 @@ private static SessionFactory sessionFactory = buildSessionFactory();
     	}
 		
 	    return null;
+		
+	}
+	
+	public void deleteUtente(UtenteRegistrato ur){
+		
+		Session session = sessionFactory.openSession();
+        Transaction tx = null;
+            try{
+                tx = session.beginTransaction();
+                session.delete(ur);
+                tx.commit();
+                System.out.println("Utente aggiunto");
+            }catch (HibernateException e) {
+                if (tx!=null) tx.rollback();
+                e.printStackTrace();
+                System.out.println("Utente NON aggiunto");
+               
+            }finally {
+             session.close(); 
+            }
+		
+		
 		
 	}
 	

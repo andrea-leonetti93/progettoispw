@@ -148,7 +148,7 @@ public class VisualTipiProdottoFrame extends JFrame {
 		panel.add(labelTipologia2);
 		
 		
-		GestisciFinanza gf = new GestisciFinanza();
+		GestisciFinanza gf = GestisciFinanza.getInstance();
 		List<TipoProdotto> ltp = gf.visualizzaListaTipiProdotto();
 		
 		for(int i = 0;i<ltp.size();i++){
@@ -179,7 +179,7 @@ public class VisualTipiProdottoFrame extends JFrame {
 				String categoria = insCategoriaAdd.getText();
 				String tipologia = insTipologiaAdd.getText();
 				
-				GestisciFinanza gf = new GestisciFinanza();
+				GestisciFinanza gf = GestisciFinanza.getInstance();
 				
 				TipoProdotto tpAdd = new TipoProdotto(categoria,tipologia);
 				gf.aggiungiTipoProdotto(tpAdd);
@@ -212,7 +212,7 @@ public class VisualTipiProdottoFrame extends JFrame {
 				String categoria = insCategoriaDel.getText();
 				String tipologia = insTipologiaDel.getText();
 				
-				GestisciFinanza gf = new GestisciFinanza();
+				GestisciFinanza gf = GestisciFinanza.getInstance();
 				
 				TipoProdotto tpDel = new TipoProdotto(categoria,tipologia);
 				gf.eliminaTipoProdotto(tpDel);

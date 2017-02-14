@@ -2,6 +2,8 @@ package it.uniroma2.ispw.controller;
 
 
 
+import it.uniroma2.ispw.bean.LoginBean;
+import it.uniroma2.ispw.bean.UpdateUtenteBean;
 import it.uniroma2.ispw.model.Amministratore;
 import it.uniroma2.ispw.model.Consumatore;
 import it.uniroma2.ispw.model.Ente;
@@ -20,21 +22,35 @@ public class GestisciUtente {
 	
 	private static GestisciUtente instance;
 	 
-    public static GestisciUtente getInstance() {
+    public synchronized static GestisciUtente getInstance() {
         if (instance == null)
             instance = new GestisciUtente();
         return instance;
     }
 	
 	
-	public UtenteRegistrato effettuaLogin(String email, String password){
+	public synchronized boolean effettuaLogin(LoginBean loginBean){
 		
 		UtenteRegistrato ur = null;
-		ur = u.checkUtente(email, password);
-		return ur;
+		ur = u.checkUtente(loginBean.getEmail(), loginBean.getPassword());
+		
+		if (ur ==null) return false;
+		
+		loginBean.setUserid(ur.getUserid());
+		
+		if (ur instanceof Venditore) loginBean.setTypeUser(1);
+		else{
+			
+			loginBean.setTypeUser(2);
+			
+			if (ur instanceof Ente) loginBean.setEnteB(true);
+			else loginBean.setEnteB(false);
+		}
+		
+		return true;
 	}
 	
-	public Amministratore loginAmministratore(String email, String password){
+	public synchronized Amministratore loginAmministratore(String email, String password){
 		Amministratore admin = null;
 		
 		AmministratoreDAO ammDAO = new AmministratoreDAO();
@@ -44,7 +60,7 @@ public class GestisciUtente {
 	}
 	
 	/* 1 ok, 2 mail in uso, 3 userid in uso*/
-	public int effettuaRegistrazione(String userid, String name, String surname, String email, String password, String telephone, String street, int type){
+	public synchronized int effettuaRegistrazione(String userid, String name, String surname, String email, String password, String telephone, String street, int type){
 		
 		UtenteRegistrato newUtente = null;
 		
@@ -67,7 +83,7 @@ public class GestisciUtente {
 		return 1;
 	}
 	
-	public UtenteRegistrato modificaInformazioni(String userid, String name, String surname, String email, String password, String telephone, String street, int type){
+	public synchronized boolean modificaInformazioni(String userid, String name, String surname, String email, String password, String telephone, String street, int type){
 		
 		UtenteRegistrato newUtente = null;
 		
@@ -79,23 +95,40 @@ public class GestisciUtente {
 			u.modificaUtente(newUtente);
 		}
 		
-		return newUtente;
+		if (newUtente==null) return false;
+		return true;
 		
 	}
 	
-	public UtenteRegistrato visualizzaInformazioni(String email){
+	public synchronized boolean visualizzaInformazioni(String email, UpdateUtenteBean updateUtenteBean){
 		
-		UtenteRegistrato newUtente = null;
+		UtenteRegistrato ur = null;
+		ur = u.getUtente(email);
 		
-		newUtente = u.getUtente(email);
+		if (ur==null) return false;
 		
-		return newUtente;
+		updateUtenteBean.setName(ur.getNome());
+		updateUtenteBean.setSurname(ur.getCognome());
+		updateUtenteBean.setPassword(ur.getPassword());
+		updateUtenteBean.setRippassword(ur.getPassword());
+		updateUtenteBean.setStreet(ur.getResidenza());
+		updateUtenteBean.setTelephone(ur.getTelefono());
+		if(ur instanceof Venditore){
+			updateUtenteBean.setType(1);
+		}
+		else updateUtenteBean.setType(2);
+		
+		return true;
+		
+		
+		
+	
 		
 		
 	}
 	
 	
-	public Amministratore effettuaLoginAdmin(String email, String password){
+	public synchronized Amministratore effettuaLoginAdmin(String email, String password){
 		Amministratore admin = null;
 		if((admin = ad.checkAmministratore(email, password))!=null){
 			return admin;

@@ -3,11 +3,11 @@ package it.uniroma2.ispw.bean;
 import java.util.List;
 
 import it.uniroma2.ispw.controller.GestisciRicerca;
-import it.uniroma2.ispw.model.PropostaVendita;
+
 
 public class RicercaBean {
 	
-	private List<PropostaVendita> lpv;
+	private List<ProdottoBean> lpB;
 	private String categoria;
 	private String tipologia;
 	private String nomeRicerca;
@@ -63,23 +63,20 @@ public class RicercaBean {
 	public void setPrezzomax(int prezzomax) {
 		this.prezzomax = prezzomax;
 	}
-
-	public List<PropostaVendita> getLpv() {
-		return lpv;
-	}
-
-	public void setLpv(List<PropostaVendita> lpv) {
-		this.lpv = lpv;
-	}
 	
+	public List<ProdottoBean> getLpB() {
+		return lpB;
+	}
+
+	public void setLpB(List<ProdottoBean> lpB) {
+		this.lpB = lpB;
+	}
+
 	public void ricercaProdotto(){
 		
 		GestisciRicerca gr = GestisciRicerca.getInstance();
 		
-		lpv = gr.ricercaProdotto(nomeRicerca, categoria, tipologia, prezzomin, prezzomax);
-		
-		
-		
+		lpB = gr.ricercaProdotto(nomeRicerca, categoria, tipologia, prezzomin, prezzomax);
 	}
 	
 	

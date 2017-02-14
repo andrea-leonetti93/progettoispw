@@ -31,10 +31,12 @@
  if(request.getParameter("inviaDati")!=null){
 	
 	 GestisciUtente gu = GestisciUtente.getInstance();
-	 UtenteRegistrato ur = gu.visualizzaInformazioni(us.getEmail());
-	 acquistob.setUtenteReg(ur);
+	 //UtenteRegistrato ur = gu.visualizzaInformazioni(us.getEmail());
+	 //acquistob.setUtenteReg(ur);
+	 
+	 acquistob.setEmailUser(us.getEmail());
 	 acquistob.setPagBean(pagamentob);
-	 pagamentob.setUr(ur);
+	 //pagamentob.setUr(ur);
 	
 	 if (request.getParameter("pagamentoBonifico")!=null){
 		 pagamentob.setMetodoPag("Bonifico");
@@ -231,19 +233,19 @@
 		<tbody>
 	<%
 		int prezzoTot = 0;
-		List<PropostaVendita> lpv = carb.getListaPropVend();
-		PropostaVendita pv = null;
-		if(lpv.size() != 0){
-			for(int i=0; i<lpv.size(); i++){
-				pv = lpv.get(i);
-				prezzoTot += lpv.get(i).getPrezzoFinale();
+		List<ProdottoBean> lpB = carb.getListaProdottiBean();
+		ProdottoBean pB = null;
+		if(lpB.size() != 0){
+			for(int i=0; i<lpB.size(); i++){
+				pB = lpB.get(i);
+				prezzoTot += pB.getPrice();
 	%>
 	
 	
 		<tr>
 			<th scope="row"><%= i %></th>
-			<td><%= pv.getP().getNome() %></td>
-			<td><%= pv.getPrezzoFinale() %></td>
+			<td><%=pB.getNameProduct()%></td>
+			<td><%= pB.getPrice()%></td>
 		</tr>
 	
 
