@@ -1,6 +1,4 @@
-package it.uniroma2.ispw.factory;
-
-import it.uniroma2.ispw.laptop.LoginFrame;
+package it.uniroma2.ispw.laptop;
 
 public class AvvioLaptop {
 	

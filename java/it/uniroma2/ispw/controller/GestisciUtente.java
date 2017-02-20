@@ -15,8 +15,8 @@ import it.uniroma2.ispw.session.UtenteSessione;
 
 public class GestisciUtente {
 
-	UtenteDAO u = new UtenteDAO();
-	AmministratoreDAO ad = new AmministratoreDAO();
+	private UtenteDAO u = new UtenteDAO();
+	private AmministratoreDAO ad = new AmministratoreDAO();
 	
 	protected GestisciUtente(){}
 	
