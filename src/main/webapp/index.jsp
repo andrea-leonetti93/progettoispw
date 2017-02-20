@@ -6,6 +6,7 @@
 <%@ page import="java.util.*" %>
 <%@ page import="it.uniroma2.ispw.persistence.*" %>
 <%@ page import="it.uniroma2.ispw.test.*" %>
+<%@ page import="it.uniroma2.ispw.experimental.*" %>
 
 <jsp:useBean id="loginb" scope="session" class="it.uniroma2.ispw.bean.LoginBean"/>
 <jsp:setProperty name="loginb" property="*"/>

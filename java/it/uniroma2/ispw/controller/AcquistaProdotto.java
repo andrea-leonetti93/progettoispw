@@ -14,6 +14,7 @@ import it.uniroma2.ispw.model.Ordine;
 import it.uniroma2.ispw.model.Pagamento;
 import it.uniroma2.ispw.model.Prodotto;
 import it.uniroma2.ispw.model.Spedizione;
+import it.uniroma2.ispw.model.PrezzoSpedizione;
 import it.uniroma2.ispw.model.SpedizioneNormale;
 import it.uniroma2.ispw.model.SpedizioneRapida;
 import it.uniroma2.ispw.model.UtenteRegistrato;
