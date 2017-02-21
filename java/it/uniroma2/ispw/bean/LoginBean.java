@@ -1,10 +1,6 @@
 package it.uniroma2.ispw.bean;
 
 import it.uniroma2.ispw.controller.GestisciUtente;
-import it.uniroma2.ispw.model.Consumatore;
-import it.uniroma2.ispw.model.Ente;
-import it.uniroma2.ispw.model.UtenteRegistrato;
-import it.uniroma2.ispw.model.Venditore;
 import it.uniroma2.ispw.session.UtenteSessione;
 
 public class LoginBean {

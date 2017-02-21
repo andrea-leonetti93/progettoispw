@@ -19,6 +19,7 @@ import javax.swing.table.DefaultTableModel;
 import it.uniroma2.ispw.controller.GestioneSistema;
 import it.uniroma2.ispw.factory.BeautifulWidgetFactory;
 import it.uniroma2.ispw.factory.WidgetFactory;
+import it.uniroma2.ispw.laptopBean.OrdineLaptopBean;
 import it.uniroma2.ispw.model.Ordine;
 import it.uniroma2.ispw.model.PagamentoCarta;
 import it.uniroma2.ispw.model.SpedizioneNormale;
@@ -34,9 +35,8 @@ public class VisualOrdiniFrame extends JFrame{
 	
 	private WidgetFactory widgetFactory = new BeautifulWidgetFactory();
 
-	private GestioneSistema gs = GestioneSistema.getInstance();
-	private VisualLineeOrdine visualLineeOrdine = null;
-	private List<Ordine> listaOrdini;
+	private OrdineLaptopBean olb = new OrdineLaptopBean();
+	private List<OrdineLaptopBean> listaOrdiniB;
 	
 	private JPanel panel = widgetFactory.createJPanel();
 	private JButton btnOrdini;
@@ -103,7 +103,7 @@ public class VisualOrdiniFrame extends JFrame{
 				// TODO Auto-generated method stub
 				//int i = (Integer) table.getValueAt(table.getSelectedRow(), 0);
 				int i = (Integer) table.getSelectedRow();
-				Ordine or = listaOrdini.get(i);
+				OrdineLaptopBean orb = listaOrdiniB.get(i);
 				visualLineeOrdine = new VisualLineeOrdine(or);
 				visualLineeOrdine.setVisible(true);
 			    visualLineeOrdine.toFront();
@@ -114,42 +114,36 @@ public class VisualOrdiniFrame extends JFrame{
 	}
 	
 	private void riempiTabella(){
-		Ordine or;
+		OrdineLaptopBean orb;
 		String sped = "";
 		String pag = "";
 		String elem = "";
 		int id = 0, prezzo = 0;
-		listaOrdini = gs.visualizzaOrdini();
-		for(int j=0; j<listaOrdini.size(); j++){
-			or = listaOrdini.get(j);
+		listaOrdiniB = olb.ottieniListaOrdini();
+		//listaOrdini = gs.visualizzaOrdini();
+		for(int j=0; j<listaOrdiniB.size(); j++){
+			orb = listaOrdiniB.get(j);
 			model.insertRow(j, new Object[]{row});
-			if(or.getSped() instanceof SpedizioneNormale){
-				sped = "spedizione normale";
-			}else{
-				sped = "spedizione rapida";
-			}
-			if(or.getPagamento() instanceof PagamentoCarta){
-				pag = "pagamento con carta";
-			}else{
-				pag = "pagamento con bonifico";
-			}
+			
 			for(int i=0; i<model.getColumnCount(); i++){
 				if(model.getColumnName(i).equals("idOrdine")){
-					id = or.getIdOrdine();
+					id = orb.getIdOrdine();
 					model.setValueAt(id, j, i);
 				}
 				if(model.getColumnName(i).equals("prezzo")){
-					prezzo = or.getPrezzo();
+					prezzo = orb.getPrezzo();
 					model.setValueAt(prezzo, j, i);
 				}
 				if(model.getColumnName(i).equals("Email consumatore")){
-					elem = or.getUtenteReg().getEmail();
+					elem = orb.getEmailUtente();
 					model.setValueAt(elem, j, i);
 				}
 				if(model.getColumnName(i).equals("Tipo spedizione")){
+					sped = orb.getTipoSped();
 					model.setValueAt(sped, j, i);
 				}
 				if(model.getColumnName(i).equals("Metodo pagamento")){
+					pag = orb.getMetodoPag();
 					model.setValueAt(pag, j, i);
 				}
 			}

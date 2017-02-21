@@ -14,9 +14,7 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
-import it.uniroma2.ispw.controller.GestisciUtente;
-import it.uniroma2.ispw.model.Amministratore;
-import it.uniroma2.ispw.model.AmministrazioneDiSistema;
+import it.uniroma2.ispw.laptopBean.LoginLaptopBean;
 
 public class LoginFrame extends JFrame{
 
@@ -26,7 +24,7 @@ public class LoginFrame extends JFrame{
 	private static final long serialVersionUID = 1L;
 	
 	//private LoginController controller = new LoginController(); 
-	private GestisciUtente gu = GestisciUtente.getInstance();
+	private LoginLaptopBean llb = new LoginLaptopBean();
 	
 	private final static String titolo = "Login";
 	
@@ -90,9 +88,10 @@ public class LoginFrame extends JFrame{
 			
 			public void actionPerformed(ActionEvent e){
 				updateFields();
-				Amministratore admin = gu.effettuaLoginAdmin(userIDString, passwordString);
-				if(admin!=null){
-					createMainUserFrame(admin);
+				llb.setEmail(userIDString);
+				llb.setPassword(passwordString);
+				if(llb.validaAmministratore()){
+					close();
 				}else{
 					String title = "Login fallito";
 					String message = "Credenziali di accesso non valide!";
@@ -111,23 +110,6 @@ public class LoginFrame extends JFrame{
 	private void close(){
 		
 		this.setVisible(false);
-	}
-	
-	public void createMainUserFrame(Amministratore admin){
-		if(admin.getRuoloAmministrazione() instanceof AmministrazioneDiSistema){
-			this.close();
-			AdminFrame mainFrame = new AdminFrame();
-			mainFrame.setVisible(true);
-		    mainFrame.toFront();
-		    mainFrame.repaint();
-		} else {
-			this.close();
-			AdminFinanceFrame mainFrame = new AdminFinanceFrame();
-			mainFrame.setVisible(true);
-		    mainFrame.toFront();
-		    mainFrame.repaint();
-		}
-		
 	}
 	
 }

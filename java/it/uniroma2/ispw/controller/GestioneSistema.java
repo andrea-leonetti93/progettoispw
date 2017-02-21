@@ -3,10 +3,22 @@ package it.uniroma2.ispw.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import it.uniroma2.ispw.laptop.AdminFinanceFrame;
+import it.uniroma2.ispw.laptop.AdminFrame;
+import it.uniroma2.ispw.laptop.VisualLineeOrdine;
+import it.uniroma2.ispw.laptopBean.LineaOrdineLaptopBean;
+import it.uniroma2.ispw.laptopBean.LoginLaptopBean;
+import it.uniroma2.ispw.laptopBean.OrdineLaptopBean;
+import it.uniroma2.ispw.laptopBean.RegistrazioneLaptopBean;
 import it.uniroma2.ispw.model.Amministratore;
+import it.uniroma2.ispw.model.AmministrazioneDiSistema;
+import it.uniroma2.ispw.model.AmministrazioneFinanziaria;
+import it.uniroma2.ispw.model.LineaOrdine;
 import it.uniroma2.ispw.model.Ordine;
+import it.uniroma2.ispw.model.PagamentoBonifico;
 import it.uniroma2.ispw.model.Prodotto;
 import it.uniroma2.ispw.model.RuoloAmministrazione;
+import it.uniroma2.ispw.model.SpedizioneNormale;
 import it.uniroma2.ispw.model.TipoProdotto;
 import it.uniroma2.ispw.model.UtenteRegistrato;
 import it.uniroma2.ispw.persistence.AmministratoreDAO;
@@ -55,21 +67,85 @@ public class GestioneSistema {
 		return lp;
 	}
 	
-	public synchronized List<Ordine> visualizzaOrdini(){
+	public synchronized List<OrdineLaptopBean> visualizzaOrdini(){
+		int i;
+		List<OrdineLaptopBean> lob = new ArrayList<OrdineLaptopBean>();
+		List<Ordine> lo = null;
+		List<LineaOrdineLaptopBean> llob = null;
+		Ordine o = null;
+		OrdineDAO odao = new OrdineDAO();
+		lo = odao.listaOrdini();
+		for(i=0; i<lo.size(); i++){
+			o = lo.get(i);
+			OrdineLaptopBean ob = new OrdineLaptopBean();
+			ob.setIdOrdine(o.getIdOrdine());
+			ob.setPrezzo(o.getPrezzo());
+			if(o.getPagamento() instanceof PagamentoBonifico){
+				ob.setMetodoPag("pagamento con bonifico");
+			}else{
+				ob.setMetodoPag("pagamento con carta");
+			}
+			if(o.getSped() instanceof SpedizioneNormale){
+				ob.setTipoSped("spedizione normale");
+			}else{
+				ob.setTipoSped("spedizione rapida");
+			}
+			ob.setEmailUtente(o.getUtenteReg().getEmail());
+			llob = creaListaLineeBean(o);
+			ob.setLineeOrdineB(llob);
+			lob.add(ob);
+		}
+		return lob;
+	}
+	
+	/*public synchronized List<Ordine> visualizzaOrdini(){
 		List<Ordine> lo = null;
 		OrdineDAO odao = new OrdineDAO();
 		lo = odao.listaOrdini();
 		return lo;
+	}*/
+	
+	private List<LineaOrdineLaptopBean> creaListaLineeBean(Ordine o) {
+		// TODO Auto-generated method stub
+		int i;
+		LineaOrdine lo = null;
+		List<LineaOrdineLaptopBean> llob = new ArrayList<LineaOrdineLaptopBean>();
+		for(i=0; i<o.getLineeOrdine().size(); i++){
+			LineaOrdineLaptopBean lob = new LineaOrdineLaptopBean();
+			lo = o.getLineeOrdine().get(i);
+			lob.setIdLineaOrdine(lo.getIdLineaOrdine());
+			lob.setPrezzoLinea(lo.getPrezzoLinea());
+			lob.setNomeProdotto(lo.getProdotto().getNome());
+			lob.setEmailVenditore(lo.getProdotto().getUtenteRegistrato().getEmail());
+			llob.add(lob);
+		}
+		return llob;
 	}
 	
-	public synchronized boolean aggiungiAmministratore(Amministratore admin, RuoloAmministrazione ruoloAdmin){
+	public void visualizzaLineaOrdineFrame(OrdineLaptopBean olb){
+		
+		VisualLineeOrdine visualLineeOrdine = new VisualLineeOrdine(olb);
+		visualLineeOrdine.setVisible(true);
+	    visualLineeOrdine.toFront();
+	    visualLineeOrdine.repaint();
+	}
+
+	public synchronized boolean aggiungiAmministratore(RegistrazioneLaptopBean rlb){
+		Amministratore admin = new Amministratore(rlb.getNome(), rlb.getCognome(), rlb.getEmail(), rlb.getPassword());
+		RuoloAmministrazione rolAdmin;
+		if(rlb.getRuolo().equals("Amministratore di sistema")){
+			rolAdmin = new AmministrazioneDiSistema();
+		}else{
+			rolAdmin = new AmministrazioneFinanziaria();
+		}
 		AmministratoreDAO ammDAO = new AmministratoreDAO();
 		RuoloAmministrazioneDAO ruoloDAO = new RuoloAmministrazioneDAO();
-		ruoloDAO.addRuoloAmministratore(ruoloAdmin);
-		admin.setRuoloAmministrazione(ruoloAdmin);
-		ammDAO.addAmministratore(admin);
-		return true;
-		
+		ruoloDAO.addRuoloAmministratore(rolAdmin);
+		admin.setRuoloAmministrazione(rolAdmin);
+		if(ammDAO.addAmministratore(admin)!= null){
+			return true;
+		}
+		return false;
 	}
 	
 	public synchronized List<TipoProdotto> visualizzaTipoProdotti(){
@@ -79,5 +155,30 @@ public class GestioneSistema {
 			return listaTipiProdotti;
 		}
 		return null;
+	}
+	
+	
+	public synchronized boolean effettuaLoginAdmin(LoginLaptopBean llb){
+		Amministratore admin = null;
+		AmministratoreDAO ad = new AmministratoreDAO();
+		if((admin = ad.checkAmministratore(llb.getEmail(), llb.getPassword()))!=null){
+			createMainUserFrame(admin);
+			return true;
+		}
+		return false;
+	}
+	
+	public void createMainUserFrame(Amministratore admin){
+		if(admin.getRuoloAmministrazione() instanceof AmministrazioneDiSistema){
+			AdminFrame mainFrame = new AdminFrame();
+			mainFrame.setVisible(true);
+		    mainFrame.toFront();
+		    mainFrame.repaint();
+		} else {
+			AdminFinanceFrame mainFrame = new AdminFinanceFrame();
+			mainFrame.setVisible(true);
+		    mainFrame.toFront();
+		    mainFrame.repaint();
+		}	
 	}
 }

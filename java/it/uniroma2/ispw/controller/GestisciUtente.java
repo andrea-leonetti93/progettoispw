@@ -4,19 +4,15 @@ package it.uniroma2.ispw.controller;
 
 import it.uniroma2.ispw.bean.LoginBean;
 import it.uniroma2.ispw.bean.UpdateUtenteBean;
-import it.uniroma2.ispw.model.Amministratore;
 import it.uniroma2.ispw.model.Consumatore;
 import it.uniroma2.ispw.model.Ente;
 import it.uniroma2.ispw.model.UtenteRegistrato;
 import it.uniroma2.ispw.model.Venditore;
-import it.uniroma2.ispw.persistence.AmministratoreDAO;
 import it.uniroma2.ispw.persistence.UtenteDAO;
-import it.uniroma2.ispw.session.UtenteSessione;
 
 public class GestisciUtente {
 
 	private UtenteDAO u = new UtenteDAO();
-	private AmministratoreDAO ad = new AmministratoreDAO();
 	
 	protected GestisciUtente(){}
 	
@@ -50,14 +46,14 @@ public class GestisciUtente {
 		return true;
 	}
 	
-	public synchronized Amministratore loginAmministratore(String email, String password){
+	/*public synchronized Amministratore loginAmministratore(String email, String password){
 		Amministratore admin = null;
 		
 		AmministratoreDAO ammDAO = new AmministratoreDAO();
 		return ammDAO.checkAmministratore(email, password);
 		
 		
-	}
+	}*/
 	
 	/* 1 ok, 2 mail in uso, 3 userid in uso*/
 	public synchronized int effettuaRegistrazione(String userid, String name, String surname, String email, String password, String telephone, String street, int type){
@@ -118,22 +114,8 @@ public class GestisciUtente {
 		}
 		else updateUtenteBean.setType(2);
 		
-		return true;
+		return true;		
 		
-		
-		
-	
-		
-		
-	}
-	
-	
-	public synchronized Amministratore effettuaLoginAdmin(String email, String password){
-		Amministratore admin = null;
-		if((admin = ad.checkAmministratore(email, password))!=null){
-			return admin;
-		}
-		return null;
 	}
 	
 }
