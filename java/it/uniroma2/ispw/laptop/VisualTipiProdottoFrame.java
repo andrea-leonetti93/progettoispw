@@ -1,6 +1,5 @@
 package it.uniroma2.ispw.laptop;
 
-import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
@@ -9,20 +8,16 @@ import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
-import org.hibernate.mapping.Table;
 
 import it.uniroma2.ispw.controller.GestisciFinanza;
-import it.uniroma2.ispw.factory.BeautifulWidgetFactory;
 import it.uniroma2.ispw.factory.MagicWidgetFactory;
 import it.uniroma2.ispw.factory.WidgetFactory;
-import it.uniroma2.ispw.model.PrezzoSpedizione;
 import it.uniroma2.ispw.model.TipoProdotto;
 
 public class VisualTipiProdottoFrame extends JFrame {
@@ -30,11 +25,8 @@ public class VisualTipiProdottoFrame extends JFrame {
 	private static final long serialVersionUID = 1L;
 
 	private static String titolo = "Pannello amministratore finanziario";
-	//VisualUtentiFrame visualUtentiFrame = null;
-	//VisualOrdiniFrame visualOrdiniFrame = null;
-	//VisualProdottiFrame visualProdottiFrame = null;
-	//RegisterAdminFrame registerAdminFrame = null;
-	VisualUtentiFrame visualUtentiFrame = null;
+
+	private GestisciFinanza gf = GestisciFinanza.getInstance();
 	
 	private WidgetFactory widgetFactory = new MagicWidgetFactory();
 	
@@ -148,7 +140,6 @@ public class VisualTipiProdottoFrame extends JFrame {
 		panel.add(labelTipologia2);
 		
 		
-		GestisciFinanza gf = GestisciFinanza.getInstance();
 		List<TipoProdotto> ltp = gf.visualizzaListaTipiProdotto();
 		
 		for(int i = 0;i<ltp.size();i++){
@@ -179,10 +170,7 @@ public class VisualTipiProdottoFrame extends JFrame {
 				String categoria = insCategoriaAdd.getText();
 				String tipologia = insTipologiaAdd.getText();
 				
-				GestisciFinanza gf = GestisciFinanza.getInstance();
-				
-				TipoProdotto tpAdd = new TipoProdotto(categoria,tipologia);
-				gf.aggiungiTipoProdotto(tpAdd);
+				gf.aggiungiTipoProdotto(categoria, tipologia);
 				
 				int rowCount = model.getRowCount();
 				for(int i = rowCount - 1; i >= 0; i--){
@@ -212,10 +200,7 @@ public class VisualTipiProdottoFrame extends JFrame {
 				String categoria = insCategoriaDel.getText();
 				String tipologia = insTipologiaDel.getText();
 				
-				GestisciFinanza gf = GestisciFinanza.getInstance();
-				
-				TipoProdotto tpDel = new TipoProdotto(categoria,tipologia);
-				gf.eliminaTipoProdotto(tpDel);
+				gf.eliminaTipoProdotto(categoria, tipologia);
 				
 				int rowCount = model.getRowCount();
 				for(int i = rowCount - 1; i >= 0; i--){

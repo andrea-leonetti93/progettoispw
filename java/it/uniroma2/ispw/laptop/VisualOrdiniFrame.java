@@ -19,9 +19,8 @@ import javax.swing.table.DefaultTableModel;
 import it.uniroma2.ispw.controller.GestioneSistema;
 import it.uniroma2.ispw.factory.BeautifulWidgetFactory;
 import it.uniroma2.ispw.factory.WidgetFactory;
-import it.uniroma2.ispw.laptopBean.OrdineLaptopBean;
 import it.uniroma2.ispw.model.Ordine;
-import it.uniroma2.ispw.model.PagamentoCarta;
+import it.uniroma2.ispw.model.PagamentoBonifico;
 import it.uniroma2.ispw.model.SpedizioneNormale;
 
 public class VisualOrdiniFrame extends JFrame{
@@ -35,8 +34,8 @@ public class VisualOrdiniFrame extends JFrame{
 	
 	private WidgetFactory widgetFactory = new BeautifulWidgetFactory();
 
-	private OrdineLaptopBean olb = new OrdineLaptopBean();
-	private List<OrdineLaptopBean> listaOrdiniB;
+	private List<Ordine> listaOrdini;
+	private GestioneSistema gs = GestioneSistema.getInstance();
 	
 	private JPanel panel = widgetFactory.createJPanel();
 	private JButton btnOrdini;
@@ -103,47 +102,51 @@ public class VisualOrdiniFrame extends JFrame{
 				// TODO Auto-generated method stub
 				//int i = (Integer) table.getValueAt(table.getSelectedRow(), 0);
 				int i = (Integer) table.getSelectedRow();
-				OrdineLaptopBean orb = listaOrdiniB.get(i);
-				visualLineeOrdine = new VisualLineeOrdine(or);
-				visualLineeOrdine.setVisible(true);
-			    visualLineeOrdine.toFront();
-			    visualLineeOrdine.repaint();
+				Ordine or = listaOrdini.get(i);
+				gs.visualizzaLineaOrdineFrame(or);
 			}
 		});
 		
 	}
 	
 	private void riempiTabella(){
-		OrdineLaptopBean orb;
+		Ordine or;
 		String sped = "";
 		String pag = "";
 		String elem = "";
 		int id = 0, prezzo = 0;
-		listaOrdiniB = olb.ottieniListaOrdini();
-		//listaOrdini = gs.visualizzaOrdini();
-		for(int j=0; j<listaOrdiniB.size(); j++){
-			orb = listaOrdiniB.get(j);
+		listaOrdini = gs.visualizzaOrdini();
+		for(int j=0; j<listaOrdini.size(); j++){
+			or = listaOrdini.get(j);
 			model.insertRow(j, new Object[]{row});
+			if(or.getSped() instanceof SpedizioneNormale){
+				sped = "spedizione normale";
+			}else{
+				sped = "spedizione rapida";
+			}
+			if(or.getPagamento() instanceof PagamentoBonifico){
+				pag = "pagamento con bonifico";
+			}else{
+				pag = "pagamento con carta";
+			}
 			
 			for(int i=0; i<model.getColumnCount(); i++){
 				if(model.getColumnName(i).equals("idOrdine")){
-					id = orb.getIdOrdine();
+					id = or.getIdOrdine();
 					model.setValueAt(id, j, i);
 				}
 				if(model.getColumnName(i).equals("prezzo")){
-					prezzo = orb.getPrezzo();
+					prezzo = or.getPrezzo();
 					model.setValueAt(prezzo, j, i);
 				}
 				if(model.getColumnName(i).equals("Email consumatore")){
-					elem = orb.getEmailUtente();
+					elem = or.getUtenteReg().getEmail();
 					model.setValueAt(elem, j, i);
 				}
 				if(model.getColumnName(i).equals("Tipo spedizione")){
-					sped = orb.getTipoSped();
 					model.setValueAt(sped, j, i);
 				}
 				if(model.getColumnName(i).equals("Metodo pagamento")){
-					pag = orb.getMetodoPag();
 					model.setValueAt(pag, j, i);
 				}
 			}

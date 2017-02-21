@@ -14,7 +14,7 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
-import it.uniroma2.ispw.laptopBean.LoginLaptopBean;
+import it.uniroma2.ispw.controller.GestioneSistema;
 
 public class LoginFrame extends JFrame{
 
@@ -24,7 +24,7 @@ public class LoginFrame extends JFrame{
 	private static final long serialVersionUID = 1L;
 	
 	//private LoginController controller = new LoginController(); 
-	private LoginLaptopBean llb = new LoginLaptopBean();
+	private GestioneSistema gs = GestioneSistema.getInstance();
 	
 	private final static String titolo = "Login";
 	
@@ -88,9 +88,7 @@ public class LoginFrame extends JFrame{
 			
 			public void actionPerformed(ActionEvent e){
 				updateFields();
-				llb.setEmail(userIDString);
-				llb.setPassword(passwordString);
-				if(llb.validaAmministratore()){
+				if(gs.effettuaLoginAdmin(userIDString, passwordString)){
 					close();
 				}else{
 					String title = "Login fallito";

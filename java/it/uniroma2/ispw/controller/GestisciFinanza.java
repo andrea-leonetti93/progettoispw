@@ -21,7 +21,9 @@ public class GestisciFinanza {
 	
 	
 	
-	public synchronized boolean aggiungiTipoProdotto(TipoProdotto tp){
+	public synchronized boolean aggiungiTipoProdotto(String categoria, String tipologia){
+		
+		TipoProdotto tp = new TipoProdotto(categoria, tipologia);
 		TipoProdottoDAO tpdao = new TipoProdottoDAO();
 		
 		if (tpdao.addTipoProdotto(tp)!=null){
@@ -30,7 +32,9 @@ public class GestisciFinanza {
 		return false;
 	}
 	
-	public synchronized boolean eliminaTipoProdotto(TipoProdotto tp){
+	public synchronized boolean eliminaTipoProdotto(String categoria, String tipologia){
+		
+		TipoProdotto tp = new TipoProdotto(categoria, tipologia);
 		TipoProdottoDAO tpdao = new TipoProdottoDAO();
 		List<TipoProdotto> ltp = tpdao.listaTipiProdotto();
 		
@@ -50,7 +54,9 @@ public class GestisciFinanza {
 		return tpdao.listaTipiProdotto();
 	}
 	
-	public synchronized boolean aggiungiOModificaPrezzoSpedizione(PrezzoSpedizione ps){
+	public synchronized boolean aggiungiOModificaPrezzoSpedizione(String tipoSped, int nuovoPrezzo){
+		
+		PrezzoSpedizione ps = new PrezzoSpedizione(tipoSped, nuovoPrezzo);
 		PrezzoSpedizioneDAO psdao = new PrezzoSpedizioneDAO();
 		
 		if (psdao.addOrUpdatePrezzoSpedizione(ps)!=null) return true;

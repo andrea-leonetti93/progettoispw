@@ -34,8 +34,9 @@ public class VisualProdottiFrame extends JFrame{
 	
 	private WidgetFactory widgetFactory = new BeautifulWidgetFactory();
 	
-	private static String titolo = "Visualizza prodotti";
 	private GestioneSistema gs = GestioneSistema.getInstance();
+	
+	private static String titolo = "Visualizza prodotti";
 	private JPanel panel = widgetFactory.createJPanel();
 	private JButton btnTuttiProdotti;
 	private JButton btnRiceProdotti;

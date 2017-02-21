@@ -1,7 +1,5 @@
 package it.uniroma2.ispw.persistence;
 
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 
@@ -13,7 +11,6 @@ import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 
 import it.uniroma2.ispw.model.Prodotto;
-import it.uniroma2.ispw.model.UtenteRegistrato;
 
 public class ProdottoDAO {
 
@@ -57,6 +54,7 @@ private static SessionFactory sessionFactory = buildSessionFactory();
             return prodotto;
     }
 	
+	@SuppressWarnings("deprecation")
 	public List<Prodotto> listaProdottiUtente(String email){
 		Session session = sessionFactory.openSession();
         Transaction tx = null;
@@ -64,7 +62,8 @@ private static SessionFactory sessionFactory = buildSessionFactory();
             try{
                 tx = session.beginTransaction();
                 String hql = "FROM Prodotto P WHERE P.utenteRegistrato.email = :email_prodotto";
-                Query<Prodotto> query = session.createQuery(hql);
+                @SuppressWarnings({ "unchecked" })
+				Query<Prodotto> query = session.createQuery(hql);
                 query.setParameter("email_prodotto", email);
                 /*for(Object o : query.list()){
                 	listaP.add((Prodotto) o);
@@ -145,6 +144,7 @@ private static SessionFactory sessionFactory = buildSessionFactory();
 		return true;
 	}
 	
+	@SuppressWarnings("deprecation")
 	public List<Prodotto> listaProdotti(){
 		Session session = sessionFactory.openSession();
         Transaction tx = null;
@@ -152,7 +152,8 @@ private static SessionFactory sessionFactory = buildSessionFactory();
             try{
                 tx = session.beginTransaction();
                 String hql = "FROM Prodotto P";
-                Query<Prodotto> query = session.createQuery(hql);
+                @SuppressWarnings("unchecked")
+				Query<Prodotto> query = session.createQuery(hql);
                 listaP = query.getResultList();
                 tx.commit();
                 System.out.println("Lista prodotti aggiunta");

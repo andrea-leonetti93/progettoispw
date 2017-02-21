@@ -11,9 +11,8 @@ import javax.swing.JPanel;
 
 import it.uniroma2.ispw.factory.MagicWidgetFactory;
 import it.uniroma2.ispw.factory.WidgetFactory;
-import it.uniroma2.ispw.style.BeautifulJButton;
 
-public class AdminFinanceFrame extends JFrame implements ActionListener{
+public class AdminFinanceFrame extends JFrame {
 	
 	
 	/**
@@ -22,13 +21,9 @@ public class AdminFinanceFrame extends JFrame implements ActionListener{
 	private static final long serialVersionUID = 1L;
 
 	private static String titolo = "Pannello amministratore finanziario";
-	//VisualUtentiFrame visualUtentiFrame = null;
-	//VisualOrdiniFrame visualOrdiniFrame = null;
-	//VisualProdottiFrame visualProdottiFrame = null;
-	//RegisterAdminFrame registerAdminFrame = null;
+
 	VisualCostoSpedFrame visualCostoSpedFrame = null;
 	VisualTipiProdottoFrame visualTipiProdottoFrame = null;
-	VisualUtentiFrame visualUtentiFrame = null;
 	
 	private WidgetFactory widgetFactory = new MagicWidgetFactory();
 	
@@ -119,11 +114,11 @@ public class AdminFinanceFrame extends JFrame implements ActionListener{
 		
 	}
 	
-	private void closeAdminFrame(){
+	/*private void closeAdminFrame(){
 		
 		this.dispose();
 		//this.setVisible(false);
-	}
+	}*/
 
 	
 	private void close(){
@@ -140,8 +135,4 @@ public class AdminFinanceFrame extends JFrame implements ActionListener{
 		});
 	}
 
-	public void actionPerformed(ActionEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
 }

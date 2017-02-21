@@ -28,14 +28,12 @@ public class VisualUtentiFrame extends JFrame{
 	private static final long serialVersionUID = 1L;
 
 	private static String titolo = "Visualizza utenti del sistema";
-	private GestioneSistema gs = GestioneSistema.getInstance();
 	
-	//private static String[] header = {"UseriID", "Email", "Nome", "Cognome", "Tipo", "Indirizzo", "Numero"};
+	private GestioneSistema gs = GestioneSistema.getInstance();
 	
 	private WidgetFactory widgetFactory = new BeautifulWidgetFactory();
 	
 	private JPanel panel = widgetFactory.createJPanel();
-	
 	private DefaultTableModel model;
 	private JButton btnTutti;
 	private JButton btnVenditori;

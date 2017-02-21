@@ -6,19 +6,12 @@ import java.util.List;
 import it.uniroma2.ispw.laptop.AdminFinanceFrame;
 import it.uniroma2.ispw.laptop.AdminFrame;
 import it.uniroma2.ispw.laptop.VisualLineeOrdine;
-import it.uniroma2.ispw.laptopBean.LineaOrdineLaptopBean;
-import it.uniroma2.ispw.laptopBean.LoginLaptopBean;
-import it.uniroma2.ispw.laptopBean.OrdineLaptopBean;
-import it.uniroma2.ispw.laptopBean.RegistrazioneLaptopBean;
 import it.uniroma2.ispw.model.Amministratore;
 import it.uniroma2.ispw.model.AmministrazioneDiSistema;
 import it.uniroma2.ispw.model.AmministrazioneFinanziaria;
-import it.uniroma2.ispw.model.LineaOrdine;
 import it.uniroma2.ispw.model.Ordine;
-import it.uniroma2.ispw.model.PagamentoBonifico;
 import it.uniroma2.ispw.model.Prodotto;
 import it.uniroma2.ispw.model.RuoloAmministrazione;
-import it.uniroma2.ispw.model.SpedizioneNormale;
 import it.uniroma2.ispw.model.TipoProdotto;
 import it.uniroma2.ispw.model.UtenteRegistrato;
 import it.uniroma2.ispw.persistence.AmministratoreDAO;
@@ -67,7 +60,7 @@ public class GestioneSistema {
 		return lp;
 	}
 	
-	public synchronized List<OrdineLaptopBean> visualizzaOrdini(){
+	/*public synchronized List<OrdineLaptopBean> visualizzaOrdini(){
 		int i;
 		List<OrdineLaptopBean> lob = new ArrayList<OrdineLaptopBean>();
 		List<Ordine> lo = null;
@@ -96,16 +89,16 @@ public class GestioneSistema {
 			lob.add(ob);
 		}
 		return lob;
-	}
+	}*/
 	
-	/*public synchronized List<Ordine> visualizzaOrdini(){
+	public synchronized List<Ordine> visualizzaOrdini(){
 		List<Ordine> lo = null;
 		OrdineDAO odao = new OrdineDAO();
 		lo = odao.listaOrdini();
 		return lo;
-	}*/
+	}
 	
-	private List<LineaOrdineLaptopBean> creaListaLineeBean(Ordine o) {
+	/*private List<LineaOrdineLaptopBean> creaListaLineeBean(Ordine o) {
 		// TODO Auto-generated method stub
 		int i;
 		LineaOrdine lo = null;
@@ -120,20 +113,21 @@ public class GestioneSistema {
 			llob.add(lob);
 		}
 		return llob;
-	}
+	}*/
 	
-	public void visualizzaLineaOrdineFrame(OrdineLaptopBean olb){
+	public void visualizzaLineaOrdineFrame(Ordine o){
 		
-		VisualLineeOrdine visualLineeOrdine = new VisualLineeOrdine(olb);
+		VisualLineeOrdine visualLineeOrdine = new VisualLineeOrdine(o);
 		visualLineeOrdine.setVisible(true);
 	    visualLineeOrdine.toFront();
 	    visualLineeOrdine.repaint();
 	}
 
-	public synchronized boolean aggiungiAmministratore(RegistrazioneLaptopBean rlb){
-		Amministratore admin = new Amministratore(rlb.getNome(), rlb.getCognome(), rlb.getEmail(), rlb.getPassword());
+	public synchronized boolean aggiungiAmministratore(String nome, String cognome, String email, String password, 
+			String ruolo){
+		Amministratore admin = new Amministratore(nome, cognome, email, password);
 		RuoloAmministrazione rolAdmin;
-		if(rlb.getRuolo().equals("Amministratore di sistema")){
+		if(ruolo.equals("Amministratore di sistema")){
 			rolAdmin = new AmministrazioneDiSistema();
 		}else{
 			rolAdmin = new AmministrazioneFinanziaria();
@@ -158,10 +152,10 @@ public class GestioneSistema {
 	}
 	
 	
-	public synchronized boolean effettuaLoginAdmin(LoginLaptopBean llb){
+	public synchronized boolean effettuaLoginAdmin(String email, String password){
 		Amministratore admin = null;
 		AmministratoreDAO ad = new AmministratoreDAO();
-		if((admin = ad.checkAmministratore(llb.getEmail(), llb.getPassword()))!=null){
+		if((admin = ad.checkAmministratore(email, password))!=null){
 			createMainUserFrame(admin);
 			return true;
 		}

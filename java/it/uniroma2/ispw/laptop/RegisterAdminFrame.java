@@ -13,9 +13,9 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import it.uniroma2.ispw.controller.GestioneSistema;
 import it.uniroma2.ispw.factory.BeautifulWidgetFactory;
 import it.uniroma2.ispw.factory.WidgetFactory;
-import it.uniroma2.ispw.laptopBean.RegistrazioneLaptopBean;
 
 
 
@@ -28,8 +28,7 @@ public class RegisterAdminFrame extends JFrame{
 
 	private static String titolo = "Aggiungi nuovo amministratore";
 
-	private RegistrazioneLaptopBean rlb = new RegistrazioneLaptopBean();
-	
+	private GestioneSistema gs = GestioneSistema.getInstance();
 	
 	private WidgetFactory widgetFactory = new BeautifulWidgetFactory();
 	
@@ -135,12 +134,7 @@ public class RegisterAdminFrame extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				updateFields();
-				rlb.setNome(nameString);
-				rlb.setCognome(surnameString);
-				rlb.setEmail(mailString);
-				rlb.setPassword(passwordString);
-				rlb.setRuolo(role);
-				if(rlb.eseguiRegistrazione()){
+				if(gs.aggiungiAmministratore(nameString, surnameString, mailString, passwordString, role)){
 					JOptionPane.showMessageDialog(null, "L'amministratore è stato registrato con successo", "Opreazione completata", JOptionPane.INFORMATION_MESSAGE);
 				}else{
 					JOptionPane.showMessageDialog(null, "L'amministratore non è stato registrato a causa di un errore. Riprovare", "Error", JOptionPane.ERROR_MESSAGE);

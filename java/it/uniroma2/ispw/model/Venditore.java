@@ -10,6 +10,10 @@ import javax.persistence.Entity;
 public class Venditore extends UtenteRegistrato{
 	
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	public Venditore(){
 		super();
 	}

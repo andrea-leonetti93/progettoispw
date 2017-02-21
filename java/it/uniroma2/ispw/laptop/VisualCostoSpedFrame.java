@@ -7,12 +7,10 @@ import java.awt.event.WindowEvent;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import it.uniroma2.ispw.controller.GestisciFinanza;
-import it.uniroma2.ispw.factory.BeautifulWidgetFactory;
 import it.uniroma2.ispw.factory.MagicWidgetFactory;
 import it.uniroma2.ispw.factory.WidgetFactory;
 import it.uniroma2.ispw.model.PrezzoSpedizione;
@@ -22,12 +20,8 @@ public class VisualCostoSpedFrame extends JFrame {
 	private static final long serialVersionUID = 1L;
 
 	private static String titolo = "Pannello amministratore finanziario";
-	//VisualUtentiFrame visualUtentiFrame = null;
-	//VisualOrdiniFrame visualOrdiniFrame = null;
-	//VisualProdottiFrame visualProdottiFrame = null;
-	//RegisterAdminFrame registerAdminFrame = null;
-	VisualUtentiFrame visualUtentiFrame = null;
 	
+	GestisciFinanza gf = GestisciFinanza.getInstance();
 	
 	private WidgetFactory widgetFactory = new MagicWidgetFactory();
 	
@@ -44,7 +38,6 @@ public class VisualCostoSpedFrame extends JFrame {
 	int inputSpedNormale;
 	int inputSpedRapida;
 	
-	private int row;
 	
 	public VisualCostoSpedFrame(){
 		super(titolo);
@@ -84,7 +77,7 @@ public class VisualCostoSpedFrame extends JFrame {
 		
 		//qui devo caricare dal database i due prezzi
 		
-		GestisciFinanza gf = GestisciFinanza.getInstance();
+
 		
 		PrezzoSpedizione psNormale = gf.prendiPrezzoSpedizione("Normale");
 		PrezzoSpedizione psRapida = gf.prendiPrezzoSpedizione("Rapida");
@@ -110,15 +103,10 @@ public class VisualCostoSpedFrame extends JFrame {
 			public void actionPerformed(ActionEvent e){
 				
 				inputSpedNormale = Integer.parseInt(insSpedNormale.getText());
-				inputSpedRapida = Integer.parseInt(insSpedRapida.getText());
-				GestisciFinanza gf = GestisciFinanza.getInstance();
+				inputSpedRapida = Integer.parseInt(insSpedRapida.getText());				
 				
-				
-				PrezzoSpedizione psN = new PrezzoSpedizione("Normale",inputSpedNormale);
-				PrezzoSpedizione psR = new PrezzoSpedizione("Rapida", inputSpedRapida);
-				
-				gf.aggiungiOModificaPrezzoSpedizione(psN);
-				gf.aggiungiOModificaPrezzoSpedizione(psR);
+				gf.aggiungiOModificaPrezzoSpedizione("Normale", inputSpedNormale);
+				gf.aggiungiOModificaPrezzoSpedizione("Rapida", inputSpedRapida);
 				
 				insSpedNormale.setText(String.valueOf(inputSpedNormale));
 				insSpedRapida.setText(String.valueOf(inputSpedRapida));

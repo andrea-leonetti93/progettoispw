@@ -9,6 +9,11 @@ import javax.persistence.Entity;
 @DiscriminatorValue(value = "consumatore")
 public class Consumatore extends UtenteRegistrato{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public Consumatore(){
 		super();
 	}
