@@ -11,6 +11,16 @@ public class FactoryPagamento {
 	 * "Bonifico", "Carta"
 	 */
 	
+	private FactoryPagamento(){}
+	
+	private static class LazyHolderFP {
+		private static final FactoryPagamento INSTANCE = new FactoryPagamento();
+	}
+	
+	public static FactoryPagamento getInstance(){
+		return LazyHolderFP.INSTANCE;
+	}
+	
 	public Pagamento creaPagamento(PagamentoBean pbean){
 		if (pbean.getMetodoPag().equals("Bonifico"))  return creaPagamentoBonifico(pbean);
 		else if (pbean.getMetodoPag().equals("Carta")) return creaPagamentoCarta(pbean);

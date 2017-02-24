@@ -32,7 +32,7 @@ public class VisualOrdiniFrame extends JFrame{
 	
 	private static String titolo = "Visualizza gli ordini";
 	
-	private WidgetFactory widgetFactory = new BeautifulWidgetFactory();
+	private WidgetFactory widgetFactory = BeautifulWidgetFactory.getInstance();
 
 	private List<Ordine> listaOrdini;
 	private GestioneSistema gs = GestioneSistema.getInstance();

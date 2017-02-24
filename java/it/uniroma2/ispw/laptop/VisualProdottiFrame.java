@@ -32,7 +32,7 @@ public class VisualProdottiFrame extends JFrame{
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	private WidgetFactory widgetFactory = new BeautifulWidgetFactory();
+	private WidgetFactory widgetFactory = BeautifulWidgetFactory.getInstance();
 	
 	private GestioneSistema gs = GestioneSistema.getInstance();
 	

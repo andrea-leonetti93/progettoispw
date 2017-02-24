@@ -9,6 +9,16 @@ import it.uniroma2.ispw.style.BeautifulJPanel;
 import it.uniroma2.ispw.style.BeautifulJTable;
 
 public class BeautifulWidgetFactory extends WidgetFactory {
+	
+	private BeautifulWidgetFactory() {}
+	
+	private static class LazyHolderBWF{
+		private static final BeautifulWidgetFactory INSTANCE = new BeautifulWidgetFactory();
+	}
+	
+	public static BeautifulWidgetFactory getInstance(){
+		return LazyHolderBWF.INSTANCE;
+	}
 
 	@Override
 	public JButton createJButton() {

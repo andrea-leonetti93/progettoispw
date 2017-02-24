@@ -6,6 +6,16 @@ import it.uniroma2.ispw.model.SpedizioneRapida;
 
 public class FactorySpedizione {
 	
+	private FactorySpedizione(){}
+	
+	private static class LazyHolderFS{
+		private static final FactorySpedizione INSTANCE = new FactorySpedizione();
+	}
+	
+	public static FactorySpedizione getInstance(){
+		return LazyHolderFS.INSTANCE;
+	}
+	
 	public Spedizione creaSpedizione(String type){
 		if (type.equals("Rapida")) return creaSpedizioneRapida();
 		else if (type.equals("Normale")) return creaSpedizioneNormale();

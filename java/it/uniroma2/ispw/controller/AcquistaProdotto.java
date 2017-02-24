@@ -97,7 +97,7 @@ public class AcquistaProdotto {
 		
 		/* creazione Spedizione*/
 		Spedizione sped;
-		FactorySpedizione fs = new FactorySpedizione();
+		FactorySpedizione fs = FactorySpedizione.getInstance();
 		sped = fs.creaSpedizione(tipoSpedizione);
 		sped.setStatoSpedizione("In corso");
 		sped.setRecapito(recapito);
@@ -109,7 +109,7 @@ public class AcquistaProdotto {
 		ord.setPrezzoSped(costoSped);	
 		
 		/* creazione pagamento */
-		FactoryPagamento fp = new FactoryPagamento();
+		FactoryPagamento fp = FactoryPagamento.getInstance();
 		Pagamento pag = fp.creaPagamento(pbean);
 		pag.setImporto(importoScontato + costoSped);
 		pag.setOrdine(ord);
@@ -189,7 +189,7 @@ public class AcquistaProdotto {
 		
 		acquistoBean.setScontoEnte(acquistoBean.getPrezzoNonScontato()-acquistoBean.getPrezzoScontato());
 	
-		FactorySpedizione fs = new FactorySpedizione();
+		FactorySpedizione fs = FactorySpedizione.getInstance();
 		Spedizione sped = fs.creaSpedizione(acquistoBean.getTipoSpedizione());
 		acquistoBean.setPrezzoSpedizione(sped.calcolaCostoSpedizione(acquistoBean.getProdotti().size()));
 		

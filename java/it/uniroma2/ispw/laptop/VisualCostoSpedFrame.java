@@ -23,7 +23,7 @@ public class VisualCostoSpedFrame extends JFrame {
 	
 	GestisciFinanza gf = GestisciFinanza.getInstance();
 	
-	private WidgetFactory widgetFactory = new MagicWidgetFactory();
+	private WidgetFactory widgetFactory = MagicWidgetFactory.getInstance();
 	
 	private JPanel panel = widgetFactory.createJPanel();
 	

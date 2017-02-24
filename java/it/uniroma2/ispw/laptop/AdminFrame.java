@@ -25,7 +25,7 @@ public class AdminFrame extends JFrame{
 	private static String titolo = "Pannello amministratore di sistema";
 	//private LogFrame logFrame = null;
 	
-	private WidgetFactory widgetFactory = new BeautifulWidgetFactory();
+	private WidgetFactory widgetFactory = BeautifulWidgetFactory.getInstance();
 	
 	private JPanel panel = widgetFactory.createJPanel();
 	private JButton btnVisualUtenti;

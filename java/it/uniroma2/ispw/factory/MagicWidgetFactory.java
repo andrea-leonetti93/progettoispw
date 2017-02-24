@@ -9,6 +9,16 @@ import it.uniroma2.ispw.style.MagicJPanel;
 import it.uniroma2.ispw.style.MagicJTable;
 
 public class MagicWidgetFactory extends WidgetFactory {
+	
+	private MagicWidgetFactory(){}
+	
+	private static class LazyHolderMWF{
+		private static final MagicWidgetFactory INSTANCE = new MagicWidgetFactory();
+	}
+	
+	public static MagicWidgetFactory getInstance(){
+		return LazyHolderMWF.INSTANCE;
+	}
 
 	@Override
 	public JButton createJButton() {
