@@ -2,6 +2,8 @@ package it.uniroma2.ispw.controller;
 
 import java.util.List;
 
+import it.uniroma2.ispw.laptop.VisualCostoSpedFrame;
+import it.uniroma2.ispw.laptop.VisualTipiProdottoFrame;
 import it.uniroma2.ispw.model.PrezzoSpedizione;
 import it.uniroma2.ispw.model.TipoProdotto;
 import it.uniroma2.ispw.persistence.PrezzoSpedizioneDAO;
@@ -70,4 +72,18 @@ public class GestisciFinanza {
 	}
 	
 
+	public void apriFrame(String nomeFrame){
+		
+		if(nomeFrame.equals("CostoSpedizioni")){
+			VisualCostoSpedFrame visualCostoSpedFrame = new VisualCostoSpedFrame();
+			visualCostoSpedFrame.setVisible(true);
+			visualCostoSpedFrame.toFront();
+			visualCostoSpedFrame.repaint();
+		}else if(nomeFrame.equals("TipiProdotto")){
+			VisualTipiProdottoFrame visualTipiProdottoFrame = new VisualTipiProdottoFrame();
+			visualTipiProdottoFrame.setVisible(true);
+			visualTipiProdottoFrame.toFront();
+			visualTipiProdottoFrame.repaint();
+		}
+	}
 }

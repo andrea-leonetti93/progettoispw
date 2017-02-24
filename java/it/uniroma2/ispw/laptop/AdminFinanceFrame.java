@@ -9,6 +9,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import it.uniroma2.ispw.controller.GestisciFinanza;
 import it.uniroma2.ispw.factory.MagicWidgetFactory;
 import it.uniroma2.ispw.factory.WidgetFactory;
 
@@ -22,8 +23,7 @@ public class AdminFinanceFrame extends JFrame {
 
 	private static String titolo = "Pannello amministratore finanziario";
 
-	VisualCostoSpedFrame visualCostoSpedFrame = null;
-	VisualTipiProdottoFrame visualTipiProdottoFrame = null;
+	private GestisciFinanza gf = GestisciFinanza.getInstance();
 	
 	private WidgetFactory widgetFactory = new MagicWidgetFactory();
 	
@@ -77,24 +77,15 @@ public class AdminFinanceFrame extends JFrame {
 		
 		btnCostoSped.addActionListener(new ActionListener(){
 			
-			public void actionPerformed(ActionEvent e){;
-				visualCostoSpedFrame = new VisualCostoSpedFrame();
-				visualCostoSpedFrame.setVisible(true);
-				visualCostoSpedFrame.toFront();
-				visualCostoSpedFrame.repaint();
-				//closeAdminFrame();
-			
+			public void actionPerformed(ActionEvent e){
+				gf.apriFrame("CostoSpedizioni");	
 			}
 		});
 		
 		btnTipiProdotto.addActionListener(new ActionListener(){
 			
-			public void actionPerformed(ActionEvent e){;
-				visualTipiProdottoFrame = new VisualTipiProdottoFrame();
-				visualTipiProdottoFrame.setVisible(true);
-				visualTipiProdottoFrame.toFront();
-				visualTipiProdottoFrame.repaint();
-			
+			public void actionPerformed(ActionEvent e){
+				gf.apriFrame("TipiProdotto");		
 			}
 		});
 		

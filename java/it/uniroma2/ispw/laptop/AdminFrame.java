@@ -9,6 +9,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import it.uniroma2.ispw.controller.GestioneSistema;
 import it.uniroma2.ispw.factory.BeautifulWidgetFactory;
 import it.uniroma2.ispw.factory.WidgetFactory;
 
@@ -19,11 +20,9 @@ public class AdminFrame extends JFrame{
 	 */
 	private static final long serialVersionUID = 1L;
 
+	private GestioneSistema gs = GestioneSistema.getInstance();
+	
 	private static String titolo = "Pannello amministratore di sistema";
-	private VisualUtentiFrame visualUtentiFrame = null;
-	private VisualOrdiniFrame visualOrdiniFrame = null;
-	private VisualProdottiFrame visualProdottiFrame = null;
-	private RegisterAdminFrame registerAdminFrame = null;
 	//private LogFrame logFrame = null;
 	
 	private WidgetFactory widgetFactory = new BeautifulWidgetFactory();
@@ -82,40 +81,28 @@ public class AdminFrame extends JFrame{
 		btnVisualUtenti.addActionListener(new ActionListener(){
 			
 			public void actionPerformed(ActionEvent e){
-				visualUtentiFrame = new VisualUtentiFrame();
-				visualUtentiFrame.setVisible(true);
-			    visualUtentiFrame.toFront();
-			    visualUtentiFrame.repaint();
+				gs.apriFrame("UtentiFrame");
 			}
 		});
 		
 		btnVisualOrdini.addActionListener(new ActionListener(){
 			
 			public void actionPerformed(ActionEvent e){
-				visualOrdiniFrame = new VisualOrdiniFrame();
-				visualOrdiniFrame.setVisible(true);
-			    visualOrdiniFrame.toFront();
-			    visualOrdiniFrame.repaint();
+				gs.apriFrame("OrdiniFrame");
 			}
 		});
 		
 		btnVisualProdotti.addActionListener(new ActionListener(){
 			
 			public void actionPerformed(ActionEvent e){
-				visualProdottiFrame = new VisualProdottiFrame();
-				visualProdottiFrame.setVisible(true);
-			    visualProdottiFrame.toFront();
-			    visualProdottiFrame.repaint();
+				gs.apriFrame("ProdottiFrame");
 			}
 		});
 		
 		btnRegistraAdmin.addActionListener(new ActionListener(){
 			
 			public void actionPerformed(ActionEvent e){
-				registerAdminFrame = new RegisterAdminFrame();
-				registerAdminFrame.setVisible(true);
-			    registerAdminFrame.toFront();
-			    registerAdminFrame.repaint();
+				gs.apriFrame("RegistraAdmin");
 			}
 		});
 

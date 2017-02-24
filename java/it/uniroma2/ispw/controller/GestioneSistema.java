@@ -5,7 +5,11 @@ import java.util.List;
 
 import it.uniroma2.ispw.laptop.AdminFinanceFrame;
 import it.uniroma2.ispw.laptop.AdminFrame;
+import it.uniroma2.ispw.laptop.RegisterAdminFrame;
 import it.uniroma2.ispw.laptop.VisualLineeOrdine;
+import it.uniroma2.ispw.laptop.VisualOrdiniFrame;
+import it.uniroma2.ispw.laptop.VisualProdottiFrame;
+import it.uniroma2.ispw.laptop.VisualUtentiFrame;
 import it.uniroma2.ispw.model.Amministratore;
 import it.uniroma2.ispw.model.AmministrazioneDiSistema;
 import it.uniroma2.ispw.model.AmministrazioneFinanziaria;
@@ -174,5 +178,30 @@ public class GestioneSistema {
 		    mainFrame.toFront();
 		    mainFrame.repaint();
 		}	
+	}
+	
+	public void apriFrame(String nomeFrame){
+		
+		if(nomeFrame.equals("UtentiFrame")){
+			VisualUtentiFrame visualUtentiFrame = new VisualUtentiFrame();
+			visualUtentiFrame.setVisible(true);
+		    visualUtentiFrame.toFront();
+		    visualUtentiFrame.repaint();
+		}else if(nomeFrame.equals("OrdiniFrame")){
+			VisualOrdiniFrame visualOrdiniFrame = new VisualOrdiniFrame();
+			visualOrdiniFrame.setVisible(true);
+		    visualOrdiniFrame.toFront();
+		    visualOrdiniFrame.repaint();
+		}else if(nomeFrame.equals("ProdottiFrame")){
+			VisualProdottiFrame visualProdottiFrame = new VisualProdottiFrame();
+			visualProdottiFrame.setVisible(true);
+		    visualProdottiFrame.toFront();
+		    visualProdottiFrame.repaint();
+		}else if(nomeFrame.equals("RegistraAdmin")){
+			RegisterAdminFrame registerAdminFrame = new RegisterAdminFrame();
+			registerAdminFrame.setVisible(true);
+		    registerAdminFrame.toFront();
+		    registerAdminFrame.repaint();
+		}
 	}
 }
