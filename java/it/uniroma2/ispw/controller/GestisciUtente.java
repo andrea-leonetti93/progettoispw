@@ -27,18 +27,13 @@ public class GestisciUtente {
     }
 	
 	
-	public synchronized boolean effettuaLogin(LoginBean loginBean){
+	public synchronized boolean effettuaLogin(LoginBean loginBean) throws ErroreEffettuaLogin {
 		
 		UtenteRegistrato ur = null;
-		
-		try {
-			
-			ur = u.checkUtente(loginBean.getEmail(), loginBean.getPassword());
-			
-		} catch (ErroreEffettuaLogin e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	
+		//potrebbe creare un eccezione	
+		ur = u.checkUtente(loginBean.getEmail(), loginBean.getPassword());
+
 		
 		if (ur ==null) return false;
 		
@@ -66,18 +61,12 @@ public class GestisciUtente {
 	}*/
 	
 	/* 1 ok, 2 mail in uso, 3 userid in uso*/
-	public synchronized int effettuaRegistrazione(String userid, String name, String surname, String email, String password, String telephone, String street, int type){
+	public synchronized int effettuaRegistrazione(String userid, String name, String surname, String email, String password, String telephone, String street, int type) throws ErroreInserimentoCredenziali{
 		
 		UtenteRegistrato newUtente = null;
 		
-		try {
-			
-			u.checkUtentePerUsername(userid);
-		
-		} catch (ErroreInserimentoCredenziali e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		//potrebbe causare un eccezione	
+		u.checkUtentePerUsername(userid);
 		
 		if (u.getUtente(email)!=null) return 2;
 		if (u.getUtenteByUserid(userid)!=null) return 3;

@@ -3,7 +3,7 @@ package it.uniroma2.ispw.bean;
 import java.util.List;
 
 import it.uniroma2.ispw.controller.GestisciProdotto;
-import it.uniroma2.ispw.model.Prodotto;
+import it.uniroma2.ispw.eccezioni.ErroreInserimentoProdotto;
 import it.uniroma2.ispw.session.UtenteSessione;
 
 public class InsProdottoBean {
@@ -117,7 +117,7 @@ public class InsProdottoBean {
 	}
 
 
-	public boolean acquisisciProdotto(){
+	public boolean acquisisciProdotto() throws ErroreInserimentoProdotto{
 		
 		GestisciProdotto gp = GestisciProdotto.getInstance();
 		return gp.inserisciProdotto(this);

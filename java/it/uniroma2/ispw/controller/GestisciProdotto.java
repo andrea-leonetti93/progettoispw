@@ -26,20 +26,16 @@ public class GestisciProdotto {
         return instance;
     }
 	
-	public synchronized boolean inserisciProdotto(InsProdottoBean iPBean){
+	public synchronized boolean inserisciProdotto(InsProdottoBean iPBean) throws ErroreInserimentoProdotto{
 		
 		UtenteRegistrato ur = u.getUtente(iPBean.getUtente().getEmail());
 		
 		Prodotto newProdotto = new Prodotto(iPBean.getNameProduct(), iPBean.getCategory(), iPBean.getTypology(), iPBean.getPrice(), 
 				 iPBean.getSale(), ur, 1, iPBean.getComment());
-		try {
 		
-			p.checkProdottoPerUtente(iPBean.getNameProduct(), iPBean.getUtente().getEmail());
+		//potrebbe causare un eccezione
+		p.checkProdottoPerUtente(iPBean.getNameProduct(), iPBean.getUtente().getEmail());
 		
-		} catch (ErroreInserimentoProdotto e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		p.addProdotto(newProdotto);
 		
 		if (newProdotto == null) return false;

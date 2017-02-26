@@ -6,7 +6,7 @@ import org.junit.After;
 import org.junit.Test;
 
 import it.uniroma2.ispw.bean.RegistrazioneBean;
-import it.uniroma2.ispw.controller.GestisciUtente;
+import it.uniroma2.ispw.eccezioni.ErroreInserimentoCredenziali;
 import it.uniroma2.ispw.model.Consumatore;
 import it.uniroma2.ispw.persistence.UtenteDAO;
 
@@ -25,7 +25,13 @@ public class RegistrazioneTest {
 		registrazioneBean.setStreet("Firenze");
 		registrazioneBean.setType("2");
 		
-		int reg = registrazioneBean.effettuaRegistrazione();
+		int reg = 0;
+		try {
+			reg = registrazioneBean.effettuaRegistrazione();
+		} catch (ErroreInserimentoCredenziali e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		boolean esitoRegistrazione;
 		
 		if (reg==1) esitoRegistrazione = true;

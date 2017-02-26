@@ -1,6 +1,7 @@
 package it.uniroma2.ispw.bean;
 
 import it.uniroma2.ispw.controller.GestisciUtente;
+import it.uniroma2.ispw.eccezioni.ErroreEffettuaLogin;
 import it.uniroma2.ispw.session.UtenteSessione;
 
 public class LoginBean {
@@ -44,7 +45,7 @@ public class LoginBean {
 		this.enteB = enteB;
 	}
 	
-	public UtenteSessione validate(){
+	public UtenteSessione validate() throws ErroreEffettuaLogin{
         
         GestisciUtente gu = GestisciUtente.getInstance();
         UtenteSessione us = null;

@@ -1,6 +1,7 @@
 package it.uniroma2.ispw.bean;
 
 import it.uniroma2.ispw.controller.GestisciUtente;
+import it.uniroma2.ispw.eccezioni.ErroreInserimentoCredenziali;
 
 public class RegistrazioneBean {
 	
@@ -79,7 +80,7 @@ public class RegistrazioneBean {
 		this.regcheck = regcheck;
 	}
 	/* 1 ok, 2 mail in uso, 3 userid in uso */
-	public int effettuaRegistrazione(){
+	public int effettuaRegistrazione() throws ErroreInserimentoCredenziali{
 	    	
 		int numerictype = 0;
 		

@@ -9,8 +9,10 @@ import org.junit.Test;
 import it.uniroma2.ispw.bean.InsProdottoBean;
 import it.uniroma2.ispw.bean.LoginBean;
 import it.uniroma2.ispw.bean.RegistrazioneBean;
-import it.uniroma2.ispw.controller.GestisciProdotto;
-import it.uniroma2.ispw.controller.GestisciUtente;
+//import it.uniroma2.ispw.controller.GestisciProdotto;
+import it.uniroma2.ispw.eccezioni.ErroreEffettuaLogin;
+import it.uniroma2.ispw.eccezioni.ErroreInserimentoCredenziali;
+import it.uniroma2.ispw.eccezioni.ErroreInserimentoProdotto;
 import it.uniroma2.ispw.session.UtenteSessione;
 
 public class ProdottoTest {
@@ -28,7 +30,12 @@ public class ProdottoTest {
 		registrazioneBean.setStreet("Bari");
 		registrazioneBean.setType("1");
 		
-		registrazioneBean.effettuaRegistrazione();
+		try {
+			registrazioneBean.effettuaRegistrazione();
+		} catch (ErroreInserimentoCredenziali e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 	
@@ -39,7 +46,13 @@ public class ProdottoTest {
 		loginBean.setEmail("giulombardi@gmail.com");
 		loginBean.setPassword("passworddigiuseppe");
 		
-		UtenteSessione us = loginBean.validate();
+		UtenteSessione us = null;
+		try {
+			us = loginBean.validate();
+		} catch (ErroreEffettuaLogin e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		if (us==null) {
 			assertTrue("impossibile reperire l'utente", false);
@@ -56,7 +69,13 @@ public class ProdottoTest {
 		insProdottoBean.setTypology("Cellulari");
 		insProdottoBean.setUtente(us);
 		
-		boolean inserimentoProdotto =  insProdottoBean.acquisisciProdotto();
+		boolean inserimentoProdotto = false;
+		try {
+			inserimentoProdotto = insProdottoBean.acquisisciProdotto();
+		} catch (ErroreInserimentoProdotto e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		assertTrue("errore inserimento prodotto", inserimentoProdotto);
 		
@@ -66,13 +85,19 @@ public class ProdottoTest {
 	@After
 	public void eliminazioneProdotto(){
 		
-		GestisciProdotto gp = GestisciProdotto.getInstance();
+		//GestisciProdotto gp = GestisciProdotto.getInstance();
 		
 		LoginBean loginBean = new LoginBean();
 		loginBean.setEmail("giulombardi@gmail.com");
 		loginBean.setPassword("passworddigiuseppe");
 		
-		UtenteSessione us = loginBean.validate();
+		UtenteSessione us = null;
+		try {
+			us = loginBean.validate();
+		} catch (ErroreEffettuaLogin e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		if (us==null) {
 			assertTrue("impossibile reperire l'utente", false);
