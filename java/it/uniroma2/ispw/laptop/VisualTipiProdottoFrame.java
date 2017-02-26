@@ -28,7 +28,7 @@ public class VisualTipiProdottoFrame extends JFrame {
 
 	private GestisciFinanza gf = GestisciFinanza.getInstance();
 	
-	private WidgetFactory widgetFactory = new MagicWidgetFactory();
+	private WidgetFactory widgetFactory =  MagicWidgetFactory.getInstance();
 	
 	private static JLabel labelAggiungi;
 	private static JLabel labelElimina;

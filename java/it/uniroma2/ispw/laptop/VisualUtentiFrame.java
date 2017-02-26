@@ -31,7 +31,7 @@ public class VisualUtentiFrame extends JFrame{
 	
 	private GestioneSistema gs = GestioneSistema.getInstance();
 	
-	private WidgetFactory widgetFactory = new BeautifulWidgetFactory();
+	private WidgetFactory widgetFactory = BeautifulWidgetFactory.getInstance();
 	
 	private JPanel panel = widgetFactory.createJPanel();
 	private DefaultTableModel model;

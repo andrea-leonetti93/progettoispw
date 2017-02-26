@@ -25,7 +25,7 @@ public class AdminFinanceFrame extends JFrame {
 
 	private GestisciFinanza gf = GestisciFinanza.getInstance();
 	
-	private WidgetFactory widgetFactory = new MagicWidgetFactory();
+	private WidgetFactory widgetFactory = MagicWidgetFactory.getInstance();
 	
 	private JPanel panel = widgetFactory.createJPanel();
 	private JButton btnCostoSped;

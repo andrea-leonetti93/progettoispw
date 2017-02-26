@@ -22,7 +22,7 @@ public class VisualLineeOrdine extends JFrame{
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	private WidgetFactory widgetFactory = new BeautifulWidgetFactory();
+	private WidgetFactory widgetFactory = BeautifulWidgetFactory.getInstance();
 
 	
 	private static String titolo = "Visualizza linee per ordine";
