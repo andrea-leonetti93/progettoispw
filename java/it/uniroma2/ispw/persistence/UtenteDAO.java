@@ -12,6 +12,7 @@ import org.hibernate.cfg.Configuration;
 import java.util.Iterator;
 import java.util.List;
 
+import it.uniroma2.ispw.eccezioni.ErroreEffettuaLogin;
 import it.uniroma2.ispw.eccezioni.ErroreInserimentoCredenziali;
 import it.uniroma2.ispw.model.UtenteRegistrato;
 
@@ -82,7 +83,7 @@ private static SessionFactory sessionFactory = buildSessionFactory();
             return utente;
     }
 	
-	public UtenteRegistrato checkUtente(String email, String password){
+	public UtenteRegistrato checkUtente(String email, String password) throws ErroreEffettuaLogin{
 		Session session = sessionFactory.openSession();
 	    Transaction tx = null;
 	    try{
@@ -92,8 +93,14 @@ private static SessionFactory sessionFactory = buildSessionFactory();
 	    	if(u != null){
 	    		if(u.getPassword().equals(password)){
 	    			return u;
+	    		}else{
+	    			throw new ErroreEffettuaLogin();
 	    		}
+	    		
+	    	}else{
+	    		throw new ErroreEffettuaLogin();
 	    	}
+	    	
 	    }catch (HibernateException e) {
     		if (tx!=null) tx.rollback();
     		e.printStackTrace(); 

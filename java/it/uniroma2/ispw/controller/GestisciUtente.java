@@ -4,6 +4,7 @@ package it.uniroma2.ispw.controller;
 
 import it.uniroma2.ispw.bean.LoginBean;
 import it.uniroma2.ispw.bean.UpdateUtenteBean;
+import it.uniroma2.ispw.eccezioni.ErroreEffettuaLogin;
 import it.uniroma2.ispw.eccezioni.ErroreInserimentoCredenziali;
 import it.uniroma2.ispw.model.Consumatore;
 import it.uniroma2.ispw.model.Ente;
@@ -29,7 +30,15 @@ public class GestisciUtente {
 	public synchronized boolean effettuaLogin(LoginBean loginBean){
 		
 		UtenteRegistrato ur = null;
-		ur = u.checkUtente(loginBean.getEmail(), loginBean.getPassword());
+		
+		try {
+			
+			ur = u.checkUtente(loginBean.getEmail(), loginBean.getPassword());
+			
+		} catch (ErroreEffettuaLogin e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		if (ur ==null) return false;
 		

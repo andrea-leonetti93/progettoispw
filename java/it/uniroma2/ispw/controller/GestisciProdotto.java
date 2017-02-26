@@ -28,7 +28,7 @@ public class GestisciProdotto {
 	
 	public synchronized boolean inserisciProdotto(InsProdottoBean iPBean){
 		
-		UtenteRegistrato ur = u.checkUtente(iPBean.getUtente().getEmail(), iPBean.getUtente().getPassword());
+		UtenteRegistrato ur = u.getUtente(iPBean.getUtente().getEmail());
 		
 		Prodotto newProdotto = new Prodotto(iPBean.getNameProduct(), iPBean.getCategory(), iPBean.getTypology(), iPBean.getPrice(), 
 				 iPBean.getSale(), ur, 1, iPBean.getComment());
