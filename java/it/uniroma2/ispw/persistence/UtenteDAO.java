@@ -12,6 +12,7 @@ import org.hibernate.cfg.Configuration;
 import java.util.Iterator;
 import java.util.List;
 
+import it.uniroma2.ispw.eccezioni.ErroreInserimentoCredenziali;
 import it.uniroma2.ispw.model.UtenteRegistrato;
 
 
@@ -37,6 +38,30 @@ private static SessionFactory sessionFactory = buildSessionFactory();
 	public static SessionFactory getSessionFactory() {
 		return sessionFactory;
 	}
+	
+	public void checkUtentePerUsername(String usernameU) throws ErroreInserimentoCredenziali{
+		Session session = sessionFactory.openSession();
+	    Transaction tx = null;
+	    UtenteRegistrato u = null;
+	    try{
+	    	tx = session.beginTransaction();
+	    	String hql = "FROM UtenteRegistrato U WHERE U.username =:usernameU";
+	    	Query query = session.createQuery(hql);
+	    	query.setParameter("usernameU", usernameU);
+	    	u = (UtenteRegistrato) query.getSingleResult();
+	    	tx.commit();
+	    	if(u != null){
+	    		throw new ErroreInserimentoCredenziali();
+	    	}
+	    }catch (HibernateException e) {
+    		if (tx!=null) tx.rollback();
+    		e.printStackTrace(); 
+    	}finally {
+         session.close(); 
+    	}
+	}
+		
+	
 	
 	public UtenteRegistrato addUtente(UtenteRegistrato utente){
         Session session = sessionFactory.openSession();

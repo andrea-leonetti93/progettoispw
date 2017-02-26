@@ -5,6 +5,7 @@ import java.util.List;
 
 import it.uniroma2.ispw.bean.InsProdottoBean;
 import it.uniroma2.ispw.bean.ProdottoBean;
+import it.uniroma2.ispw.eccezioni.ErroreInserimentoProdotto;
 import it.uniroma2.ispw.model.Prodotto;
 import it.uniroma2.ispw.model.UtenteRegistrato;
 import it.uniroma2.ispw.persistence.ProdottoDAO;
@@ -31,6 +32,14 @@ public class GestisciProdotto {
 		
 		Prodotto newProdotto = new Prodotto(iPBean.getNameProduct(), iPBean.getCategory(), iPBean.getTypology(), iPBean.getPrice(), 
 				 iPBean.getSale(), ur, 1, iPBean.getComment());
+		try {
+		
+			p.checkProdottoPerUtente(iPBean.getNameProduct(), iPBean.getUtente().getEmail());
+		
+		} catch (ErroreInserimentoProdotto e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		p.addProdotto(newProdotto);
 		
 		if (newProdotto == null) return false;

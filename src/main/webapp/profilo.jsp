@@ -3,6 +3,7 @@
 <%@ page import="it.uniroma2.ispw.model.*" %>
 <%@ page import="it.uniroma2.ispw.bean.*" %> 
 <%@ page import="it.uniroma2.ispw.session.*" %>
+<%@ page errorPage = "errorpage.jsp" %>
 
 
 <jsp:useBean id="updatebean" scope="session" class="it.uniroma2.ispw.bean.UpdateUtenteBean"/>

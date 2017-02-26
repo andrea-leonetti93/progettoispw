@@ -4,6 +4,7 @@ package it.uniroma2.ispw.controller;
 
 import it.uniroma2.ispw.bean.LoginBean;
 import it.uniroma2.ispw.bean.UpdateUtenteBean;
+import it.uniroma2.ispw.eccezioni.ErroreInserimentoCredenziali;
 import it.uniroma2.ispw.model.Consumatore;
 import it.uniroma2.ispw.model.Ente;
 import it.uniroma2.ispw.model.UtenteRegistrato;
@@ -59,6 +60,15 @@ public class GestisciUtente {
 	public synchronized int effettuaRegistrazione(String userid, String name, String surname, String email, String password, String telephone, String street, int type){
 		
 		UtenteRegistrato newUtente = null;
+		
+		try {
+			
+			u.checkUtentePerUsername(userid);
+		
+		} catch (ErroreInserimentoCredenziali e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		if (u.getUtente(email)!=null) return 2;
 		if (u.getUtenteByUserid(userid)!=null) return 3;

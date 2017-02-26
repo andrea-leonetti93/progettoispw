@@ -10,6 +10,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 
+import it.uniroma2.ispw.eccezioni.ErroreInserimentoProdotto;
 import it.uniroma2.ispw.model.Prodotto;
 
 public class ProdottoDAO {
@@ -35,6 +36,30 @@ private static SessionFactory sessionFactory = buildSessionFactory();
 	}
 	
 	
+	@SuppressWarnings({ "rawtypes", "deprecation" })
+	public void checkProdottoPerUtente(String nomeP, String emailU) throws ErroreInserimentoProdotto{
+		Session session = sessionFactory.openSession();
+        Transaction tx = null;
+        Prodotto p = null;
+            try{
+                tx = session.beginTransaction();
+                String hql = "FROM Prodotto P WHERE (P.nome =: nomeP) AND (:emailU exist(FROM UtenteRegistrato U WHERE U.email =:emailU))";
+				Query query = session.createQuery(hql);
+				query.setParameter("nomeP", nomeP);
+				query.setParameter("emailU", emailU);
+				p = (Prodotto) query.getSingleResult();
+                tx.commit();
+                if(p == null){
+                	throw new ErroreInserimentoProdotto();
+                }
+            }catch (HibernateException e) {
+                if (tx!=null) tx.rollback();
+                e.printStackTrace();
+            }finally {
+            	session.close(); 
+            }
+	}
+	
 	public Prodotto addProdotto(Prodotto prodotto){
 		Session session = sessionFactory.openSession();
         Transaction tx = null;
@@ -45,11 +70,11 @@ private static SessionFactory sessionFactory = buildSessionFactory();
                 System.out.println("Prodotto aggiunto");
             }catch (HibernateException e) {
                 if (tx!=null) tx.rollback();
-                e.printStackTrace();
+                e.printStackTrace();   
                 System.out.println("Prodotto NON aggiunto");
                 prodotto = null;
             }finally {
-             session.close(); 
+            	session.close(); 
             }
             return prodotto;
     }
@@ -77,7 +102,7 @@ private static SessionFactory sessionFactory = buildSessionFactory();
                 System.out.println("Lista prodotti NON aggiunta");
                 listaP = null;
             }finally {
-             session.close(); 
+            	session.close(); 
             }
             return listaP;
     
@@ -98,7 +123,7 @@ private static SessionFactory sessionFactory = buildSessionFactory();
             System.out.println("Prodotto NON eliminato");
             return false;
 		}finally {    
-		session.close();
+			session.close();
 		}
 		return true;
 	}

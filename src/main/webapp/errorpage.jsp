@@ -1,35 +1,21 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="it.uniroma2.ispw.bean.*" %>
-<%@ page import="it.uniroma2.ispw.controller.*" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ page import="it.uniroma2.ispw.eccezioni.*" %>
 <%@ page import="it.uniroma2.ispw.model.*" %>
+<%@ page import="it.uniroma2.ispw.bean.*" %> 
 <%@ page import="it.uniroma2.ispw.session.*" %>
-<%@ page import="java.util.*" %>
-<%@ page errorPage = "errorpage.jsp" %>
+<%@ page import="org.hibernate.HibernateException" %>
+<%@ page isErrorPage = "true" %>
 
-<jsp:useBean id="loginb" scope="session" class="it.uniroma2.ispw.bean.LoginBean"/>
-<jsp:setProperty name="loginb" property="*"/>
-
-<jsp:useBean id="ricercab" scope="session" class="it.uniroma2.ispw.bean.RicercaBean"/>
-<jsp:setProperty name="ricercab" property="*"/>
-
-
+<jsp:useBean id="updatebean" scope="session" class="it.uniroma2.ispw.bean.UpdateUtenteBean"/>
+<jsp:setProperty name="updatebean" property="*"/>
+    
 <%
-
-
 UtenteSessione us = (UtenteSessione) session.getAttribute("utente");
-CarrelloBean carb = (CarrelloBean) session.getAttribute("carrello");
-
-if(request.getParameter("elimina")!=null){
-	int i = Integer.parseInt(request.getParameter("elimina"));
-	carb.getListaProdottiBean().remove(i);
-}
-
 %>
-
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 
     <meta charset="utf-8">
@@ -64,7 +50,7 @@ if(request.getParameter("elimina")!=null){
 
 <body id="page-top" class="index">
 
-    <!-- Navigation -->
+  <!-- Navigation -->
     <nav id="mainNav" class="navbar navbar-default navbar-custom navbar-fixed-top">
         <div class="container">
             <!-- Brand and toggle get grouped for better mobile display -->
@@ -84,25 +70,15 @@ if(request.getParameter("elimina")!=null){
                     <li>
                         <a class="page-scroll" href="index.jsp">Cerca prodotto</a>
                     </li>
-                  
-                    
-                    <%if (us==null){ %>
-                    
                     <li>
-                        <a class="forget" data-toggle="modal" data-target=".forget-modal-login" href="#modalLogin">Login</a>
-                    </li>
-                    <li>
-                        <a class="page-scroll" href="registrazione.jsp">Registrazione</a>
-                    </li>
-                    
-                    <%}else if (us.getType()==2){ %>
-                     <li>
                         <a class="forget" data-toggle="modal" data-target=".forget-modal-logout" href="#modalLogout" >Logout</a>
                     </li>
                      <li>
                         <a class="page-scroll" href="profilo.jsp">Profilo</a>
                     </li>
-                      <li>
+                  
+                    <%if (us.getType()==2){ %>
+                     <li>
                         <a class="page-scroll" href="listaAcquisti.jsp">Tuoi acquisti</a>
                     </li>
                      <li>
@@ -110,20 +86,12 @@ if(request.getParameter("elimina")!=null){
                     </li>
                    
                     <%}else if (us.getType()==1) { %>
-                    <li>
-                        <a class="forget" data-toggle="modal" data-target=".forget-modal-logout" href="#modalLogout" >Logout</a>
-                    </li>
-                    <li>
-                        <a class="page-scroll" href="profilo.jsp">Profilo</a>
-                    </li>
                      <li>
                         <a class="page-scroll" href="annunci.jsp">Tuoi annunci</a>
                     </li>
                      <li>
-                        <a class="page-scroll" href="prova.jsp">Tue Vendite</a>
+                        <a class="page-scroll" href="visualizzaVendite.jsp">Tue Vendite</a>
                     </li>
-                    
-                    
                     <%}%>
                     <li>
                         <a class="page-scroll" href="#team"></a>
@@ -137,7 +105,28 @@ if(request.getParameter("elimina")!=null){
     </nav>
 
 
-	<div id="modalLogout" class="modal fade forget-modal-logout" tabindex="-1" role="dialog" aria-labelledby="myLoginModalLabel" aria-hidden="true">
+
+ <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="intro-text">
+            	<%
+            		if(exception instanceof HibernateException){
+            	%>
+	                <div class="intro-lead-in">Siamo spiacenti, si è verificato un errore nel sistema. Riprovare!</div>            
+ 				<%
+ 					}else{
+ 				%>
+	                <div class="intro-lead-in">Si è verificato un errore: <%exception.getMessage(); %></div>
+            	<%
+ 					}
+            	%>
+            </div>
+        </div>
+    </header>
+    
+    		
+		<div id="modalLogout" class="modal fade forget-modal-logout" tabindex="-1" role="dialog" aria-labelledby="myLoginModalLabel" aria-hidden="true">
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-header">
@@ -158,81 +147,12 @@ if(request.getParameter("elimina")!=null){
 					</div>
 				</div>
 			</div>
-	</div>	
+		</div>	
+		
 
-    <!-- Header -->
-    <header>
-        <div class="container">
-            <div class="intro-text">
-                
-                <%if (us==null){ %>
-                	<div class="intro-lead-in">Benvenuto nel nostro sito di e-commerce!</div>
-                	<div class="intro-heading">It's Nice To Meet You</div>
-                <%}else if ((us.getType()==1)||(us.getType()==2)){ %>
-                
-                	<div class="intro-lead-in">Bentornato nel nostro sito di e-commerce, <%= us.getUserid() %>!</div>
-                	<div class="intro-heading">It's Nice To Meet You</div>
-                
-                
-                <%} %>
-            </div>
-        </div>
-    </header>
-    
-    <section>
-    	<div class="container">
-    		<div class="row text-center">
-				<div class="header">
-					<h2 class="title">Prodotti nel carrello</h2>
-				</div>	    		
-    		</div>
-    		<div class="body">
-				
-			<%
-				int prezzoTot = 0;
-				List<ProdottoBean> lpB = carb.getListaProdottiBean();
-				ProdottoBean pB = null;
-				if(lpB.size() != 0){
-					for(int i=0; i<lpB.size(); i++){
-						pB = lpB.get(i);
-						prezzoTot += pB.getPrice();
-			%>	
-				
-				<div class="card">
-					<h4 class="card-header"><%=pB.getNameProduct() %></h4>
-					<div class="card-block">
-						<p class="card-text"><%=pB.getIdUser()%> </p>
-					</div>				
-					<div class="card-block">
-						<h4 class="card-text">$<%=pB.getPrice()%></h4>
-					</div>
-					<div class="card-footer">
-						<form action="carrello.jsp" method="post">
-							<button class="btn-primary" type="submit" name="elimina" value="<%= i %>">Elimina</button>
-						</form>
-					</div>
-				</div>
-				
-				
-			<% }}%>	
-    		</div>	
-    	</div>
-    	<div class="row">
-    		<div class="pull-right">
-    			<h4>$<%= prezzoTot %></h4>
-    		</div>
-    		<div class="footer">
-    			<form action="transazione.jsp" method="post">
-    				<input type="submit" class="btn btn-default btn-lg btn-block" value="Effettua acquisto">
-    			</form>
-    		</div>
-    	</div>	
-    	
-    </section>
+   
 
-
-
-    <footer>
+	<footer>
         <div class="container">
             <div class="row">
                 <div class="col-md-4">
@@ -240,9 +160,9 @@ if(request.getParameter("elimina")!=null){
                 </div>
                 <div class="col-md-4">
                     <ul class="list-inline quicklinks">
-                        <li><a href="#">Regolamento</a>
+                         <li><a href="#" style="float:right">Regolamento</a>
                         </li>
-                        <li><a href="#">Contattaci</a>
+                        <li><a href="#" style="float:right">Contattaci</a>
                         </li>
                     </ul>
                 </div>
@@ -250,8 +170,7 @@ if(request.getParameter("elimina")!=null){
         </div>
     </footer>
     
-    
-
+   
 
     <!-- jQuery -->
     <script src="vendor/jquery/jquery.min.js"></script>
@@ -272,5 +191,4 @@ if(request.getParameter("elimina")!=null){
 </body>
 
 </html>
-
-
+    

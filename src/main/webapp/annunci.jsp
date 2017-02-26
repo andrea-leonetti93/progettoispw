@@ -5,6 +5,7 @@
 <%@ page import="it.uniroma2.ispw.session.*" %>
 <%@ page import="java.util.*" %>
 <%@ page import="it.uniroma2.ispw.persistence.*" %>
+<%@ page errorPage = "errorpage.jsp" %>
 
 <jsp:useBean id="loginb" scope="session" class="it.uniroma2.ispw.bean.LoginBean"/>
 <jsp:setProperty name="loginb" property="*"/>
