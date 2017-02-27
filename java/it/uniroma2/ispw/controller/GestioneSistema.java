@@ -64,36 +64,6 @@ public class GestioneSistema {
 		return lp;
 	}
 	
-	/*public synchronized List<OrdineLaptopBean> visualizzaOrdini(){
-		int i;
-		List<OrdineLaptopBean> lob = new ArrayList<OrdineLaptopBean>();
-		List<Ordine> lo = null;
-		List<LineaOrdineLaptopBean> llob = null;
-		Ordine o = null;
-		OrdineDAO odao = new OrdineDAO();
-		lo = odao.listaOrdini();
-		for(i=0; i<lo.size(); i++){
-			o = lo.get(i);
-			OrdineLaptopBean ob = new OrdineLaptopBean();
-			ob.setIdOrdine(o.getIdOrdine());
-			ob.setPrezzo(o.getPrezzo());
-			if(o.getPagamento() instanceof PagamentoBonifico){
-				ob.setMetodoPag("pagamento con bonifico");
-			}else{
-				ob.setMetodoPag("pagamento con carta");
-			}
-			if(o.getSped() instanceof SpedizioneNormale){
-				ob.setTipoSped("spedizione normale");
-			}else{
-				ob.setTipoSped("spedizione rapida");
-			}
-			ob.setEmailUtente(o.getUtenteReg().getEmail());
-			llob = creaListaLineeBean(o);
-			ob.setLineeOrdineB(llob);
-			lob.add(ob);
-		}
-		return lob;
-	}*/
 	
 	public synchronized List<Ordine> visualizzaOrdini(){
 		List<Ordine> lo = null;
@@ -101,23 +71,7 @@ public class GestioneSistema {
 		lo = odao.listaOrdini();
 		return lo;
 	}
-	
-	/*private List<LineaOrdineLaptopBean> creaListaLineeBean(Ordine o) {
-		// TODO Auto-generated method stub
-		int i;
-		LineaOrdine lo = null;
-		List<LineaOrdineLaptopBean> llob = new ArrayList<LineaOrdineLaptopBean>();
-		for(i=0; i<o.getLineeOrdine().size(); i++){
-			LineaOrdineLaptopBean lob = new LineaOrdineLaptopBean();
-			lo = o.getLineeOrdine().get(i);
-			lob.setIdLineaOrdine(lo.getIdLineaOrdine());
-			lob.setPrezzoLinea(lo.getPrezzoLinea());
-			lob.setNomeProdotto(lo.getProdotto().getNome());
-			lob.setEmailVenditore(lo.getProdotto().getUtenteRegistrato().getEmail());
-			llob.add(lob);
-		}
-		return llob;
-	}*/
+
 	
 	public void visualizzaLineaOrdineFrame(Ordine o){
 		
